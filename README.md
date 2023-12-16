@@ -8,7 +8,7 @@
 ## Project Contribution
 | Student Name and Snumber         | Contribution  | Role and Task                   |
 | ---------------- |-------------------------|--------------------------------------|
-|Vu Loc - S3891483 | 35%                     |          |
+|Vu Loc - S3891483 | 25%                     |          |
 |Van Hong Lam - S3927082| 25%                     |  |
 |Luong Anh Huy - S3979199| 25%                      |                  |
 |Tran Tuan Minh - S3978609| 25%                      |                 |
