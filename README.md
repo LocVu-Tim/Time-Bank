@@ -8,10 +8,10 @@
 ## Project Contribution
 | Student Name and Snumber         | Contribution  | Role and Task                   |
 | ---------------- |-------------------------|--------------------------------------|
-|Vu Loc - S3891483 | 25%                     |          |
-|Van Hong Lam - S3927082| 25%                     |  |
-|Luong Anh Huy - S3979199| 25%                      |                  |
-|Tran Tuan Minh - S3978609| 25%                      |                 |
+|Vu Loc - s3891483 | 25%                     |          |
+|Van Hong Lam - s3927082 | 25%                     |  |
+|Luong Anh Huy - s3979199| 25%                      |                  |
+|Tran Tuan Minh - s3978609| 25%                      |                 |
 
 ## Project Detail
 Time Bank project was for EEET2482 Software Engineering Design at RMIT University Vietnam semester 2023C
