@@ -38,13 +38,13 @@ main(){
     switch(choice){
         case 1:
             Guest();
-            break;
+            
         case 2:
             Member();
-            break;
+            
         case 3:
             Admin();
-            break;
+            
     }
 
 }
@@ -67,7 +67,7 @@ void Guest(){
     }
     input.close();
     if(count==1){
-        cout<<"Login Successful";
+        cout<<"Login Successful\n";
         cin.get();
         main();
     }
@@ -95,7 +95,7 @@ void Member(){
     }
     input.close();
     if(count==1){
-        cout<<"Login Successful";
+        cout<<"Login Successful\n";
         cin.get();
         main();
     }
@@ -123,7 +123,7 @@ void Admin(){
     }
     input.close();
     if(count==1){
-        cout<<"Login Successful";
+        cout<<"Login Successful\n"; 
         cin.get();
         main();
     }
