@@ -18,7 +18,16 @@ private:
     string timePeriod;
     string city;
     // Not implemented yet
-    // Request* allRequests = new Request[100];
+    // vector<Request*> allRequests;
     bool isAccepted;
     vector<string> comments;
+
+public:
+    // Constructors
+    Request(int id = 0, bool availability = false, int pointsPerHour = 0, vector<string> skill = {}, int skillRatingScore = 0, int supporterRatingScore = 0, int hostRatingScore = 0, string timePeriod = "", string city = "", bool isAccepted = false, vector<string> comments = {}){};
+
+    // Friend classes
+    friend class RequestModel;
+    friend class RequestController;
+    friend class RequestView;
 };
