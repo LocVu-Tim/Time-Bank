@@ -5,9 +5,10 @@ class RequestView
 {
 public:
     RequestView();
-    ~RequestView();
+    // ~RequestView();
 
     // Add your member functions here
+    void viewAvailableFunctions();
 
 private:
     // Add your member variables here
