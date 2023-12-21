@@ -1,5 +1,7 @@
 #include <iostream>
 #include "request.h"
+#include "RequestView.h"
+
 using namespace std;
 
 class RequestView
@@ -9,21 +11,30 @@ public:
   // View the available functions
   void viewAvailableFunctions()
   {
-    cout << "1. Create a new request" << endl;
-    cout << "2. View all requests" << endl;
-    cout << "3. View a request" << endl;
-    cout << "4. Update a request" << endl;
-    cout << "5. Delete a request" << endl;
+    cout << "1. List/Unlist" << endl;
+
     cout << "6. Back" << endl;
   }
 
-  // View all requests
-  void viewAllRequests()
+  // List or unlist a request
+  void listOrUnlist()
   {
+    cout << "Choose an option: ";
+    cout << "1. List" << endl;
+    cout << "2. Unlist" << endl;
   }
 
-  // view information of a request
-  void showInfo(Request *request)
+  // LIST
+  void list()
   {
+    string periodFrom;
+    string periodTo;
+    cout << "Enter the following information: " << endl;
+    // In some cases, the view can return a vector containing the information
+    // that the controller needs to create a new request
+    cout << "Period: From: ";
+    cin >> periodFrom;
+    cout << "Period: To: ";
+    cin >> periodTo;
   }
 };

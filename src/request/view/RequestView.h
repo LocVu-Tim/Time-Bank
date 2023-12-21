@@ -9,6 +9,8 @@ public:
 
     // Add your member functions here
     void viewAvailableFunctions();
+    void listOrUnlist();
+    void list();
 
 private:
     // Add your member variables here
