@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <ctime>
-
+using namespace std;
 // Declare your classes, functions, and variables here
 class Request
 {
@@ -13,24 +13,28 @@ private:
     int id;
     bool availability;
     int pointsPerHour;
-    std::vector<std::string> skill;
+    string skill;
     int skillRatingScore;
     int supporterRatingScore;
     int hostRatingScore;
-    std::string timePeriod;
-    std::string city;
+    string timeFrom;
+    string timeTo;
+    string city;
+    double minimumRatingForHost;
     // Not implemented yet
-    // std::vector<Request*> allRequests;
+    // vector<Request*> allRequests;
     bool isAccepted;
-    std::vector<std::string> comments;
+    vector<string> comments;
 
 public:
-    Request(int id, bool availability, int pointsPerHour, vector<string> skill, int skillRatingScore, int supporterRatingScore, int hostRatingScore, string timePeriod, string city, bool isAccepted, vector<string> comments){};
+    Request(int id = 0, bool availability = false, int pointsPerHour = 0, vector<string> skill = {}, int skillRatingScore = 0, int supporterRatingScore = 0, int hostRatingScore = 0, string timeFrom = "", string timeTo = "", string city = "", bool isAccepted = false, vector<string> comments = {}){};
 
     // Friend classes
     friend class RequestModel;
     friend class RequestController;
     friend class RequestView;
+
+    void printInfo();
 };
 
 #endif // REQUEST_H
