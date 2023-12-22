@@ -1,6 +1,8 @@
 #include <iostream>
+#include <vector>
+
+#include "RequestModel.h"
 using namespace std;
 
-class RequestModel
-{
-};
+RequestModel::RequestModel(){};
+RequestModel::~RequestModel(){};
