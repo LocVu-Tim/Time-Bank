@@ -22,9 +22,11 @@ public:
     void viewAvailableFunctions();
     void listOrUnlist();
     // 1. list and unlist your own requests
-
     void list();
     void unlist();
+
+    // 2. create a new request
+    void create();
 
 private:
     // Add your member variables here

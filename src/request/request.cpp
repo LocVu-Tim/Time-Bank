@@ -12,19 +12,6 @@
 
 using namespace std;
 
-int main()
-{
-    // Request r;
-    RequestController rc;
-    RequestView rv;
-    RequestModel rm;
-    int selectedChoice;
-
-    int operationNum = rc.OperationsList();
-    rc.selectAvailableFunction(operationNum, rv, rm);
-    return 0;
-}
-
 void Request::printInfo()
 {
     cout << "ID: " << id << endl;
@@ -44,4 +31,17 @@ void Request::printInfo()
     {
         cout << comments[i] << endl;
     }
+}
+
+int main()
+{
+    // Request r;
+    RequestView rv;
+    RequestModel rm;
+    RequestController rc(rm,rv);
+    int selectedChoice;
+
+    int operationNum = rc.OperationsList();
+    rc.selectAvailableFunction(operationNum, rv, rm);
+    return 0;
 }

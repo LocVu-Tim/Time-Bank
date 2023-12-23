@@ -2,7 +2,12 @@
 #include "RequestController.h"
 using namespace std;
 
-RequestController::RequestController(){};
+RequestController::RequestController(RequestModel requestModel, RequestView requestView)
+{
+    // initialize the model
+    this->requestModel = requestModel;
+    this->requestView = requestView;
+}
 RequestController::~RequestController(){};
 
 int RequestController::OperationsList()
@@ -20,7 +25,10 @@ void RequestController::selectAvailableFunction(int choice, RequestView requestV
     switch (choice)
     {
     case 1:
-        RequestController::listOrUnlist();
+        listOrUnlist();
+        break;
+    case 2:
+        // create();
         break;
     case 6:
         break;
@@ -35,22 +43,9 @@ void RequestController::createRequestObject(vector<string> userData)
     // TODO: add type data validation
     try
     {
-        Request request;
-        // ID is generated automatically
-        int randomID = rand() % 1000 + 1; // random number between 1 and 1000
-
-        // since the data is string, some of them need to be converted to int
-
-        int pointConsumedPerHour = stoi(userData[3]);
-        double minimumRatingForHost = stod(userData[4]);
-
-        // store the data
-        request.id = randomID;
-        request.timeFrom = userData[0];
-        request.timeTo = userData[1];
-        request.skill = userData[2];
-        request.pointsPerHour = pointConsumedPerHour;
-        request.minimumRatingForHost = minimumRatingForHost;
+        requestModel.createRequest(userData);
+        vector<Request *> Test = requestModel.getRequests();
+        Test[0]->printInfo();
     }
     catch (const std::invalid_argument &ia)
     {
@@ -98,4 +93,22 @@ void RequestController::unlist()
 {
     RequestView requestView;
     requestView.unlist();
+    // Without the model, we cannot implement this function
+    // FIXME: implement this function
+}
+
+void RequestController::create()
+{
+    RequestView requestView;
+    requestView.create();
+    vector<string> userData = requestView.getUserInputs();
+    if (userData.size() == 5)
+    {
+        // create Request object to store data
+        createRequestObject(userData);
+    }
+    else
+    {
+        cout << "Invalid input" << endl;
+    }
 };

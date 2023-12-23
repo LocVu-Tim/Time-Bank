@@ -8,8 +8,12 @@
 
 class RequestController
 {
+private:
+    RequestModel requestModel;
+    RequestView requestView;
+
 public:
-    RequestController();
+    RequestController(RequestModel requestModel, RequestView requestView);
     ~RequestController();
 
     // Add your member functions here
@@ -20,6 +24,7 @@ public:
     // 1. List and unlist your own requests
     void list();
     void unlist();
+    void create();
 
 private:
     // Add your member variables here

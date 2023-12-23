@@ -46,7 +46,7 @@ void RequestView::list()
   vector<string> data;
   // sometimes views can also return values just like
   // user input in HTML forms
-  cout << "Enter the time period you want to list your requests for: " << endl;
+  cout << "Enter the time period you want to list yourself for request: " << endl;
   cout << "From: " << endl;
   string input;
   setInput();
@@ -63,4 +63,9 @@ void RequestView::list()
 void RequestView::unlist()
 {
   cout << "Unlist" << endl;
+};
+
+void RequestView ::create()
+{
+  
 };
