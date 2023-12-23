@@ -15,7 +15,8 @@ using namespace std;
 void Request::printInfo()
 {
     cout << "ID: " << id << endl;
-    cout << "Availability: " << availability << endl;
+    // convert bool to string
+    cout << "Availability: " << (availability ? "true" : "false") << endl;
     cout << "Points per hour: " << pointsPerHour << endl;
     cout << "Skill: " << skill << endl;
     cout << "Skill rating score: " << skillRatingScore << endl;
@@ -25,7 +26,7 @@ void Request::printInfo()
     cout << "Time to: " << timeTo << endl;
     cout << "City: " << city << endl;
     cout << "Minimum rating for host: " << minimumRatingForHost << endl;
-    cout << "Is accepted: " << isAccepted << endl;
+    cout << "Is accepted: " << (isAccepted ? "true" : "false") << endl;
     cout << "Comments: " << endl;
     for (int i = 0; i < comments.size(); i++)
     {
@@ -38,7 +39,7 @@ int main()
     // Request r;
     RequestView rv;
     RequestModel rm;
-    RequestController rc(rm,rv);
+    RequestController rc(rm, rv);
     int selectedChoice;
 
     int operationNum = rc.OperationsList();

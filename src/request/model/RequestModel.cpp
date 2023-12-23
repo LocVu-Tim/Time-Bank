@@ -24,7 +24,7 @@ void RequestModel::createRequest(vector<string> userData)
     // This is just emulating the database (temporary solution)
     Request *request = new Request();
     // ID is generated automatically
-    int randomID = rand() % 1000 + 1; // random number between 1 and 1000
+    int randomID = 93; // random number between 1 and 1000
 
     // since the data is string, some of them need to be converted to int
     int pointConsumedPerHour = stoi(userData[3]);
