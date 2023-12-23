@@ -28,7 +28,7 @@ void RequestController::selectAvailableFunction(int choice, RequestView requestV
         listOrUnlist();
         break;
     case 2:
-        // create();
+        lookForSupport();
         break;
     case 6:
         break;
@@ -75,12 +75,11 @@ void RequestController::listOrUnlist()
 
 void RequestController::list()
 {
-    RequestView requestView;
     requestView.list();
     vector<string> userData = requestView.getUserInputs();
-    if (userData.size() == 5)
+    if (userData.size() == 6)
     {
-        // create Request object to store data
+        // lookForSupport Request object to store data
         createRequestObject(userData);
     }
     else
@@ -97,12 +96,12 @@ void RequestController::unlist()
     // FIXME: implement this function
 }
 
-void RequestController::create()
+void RequestController::lookForSupport()
 {
     RequestView requestView;
-    requestView.create();
+    requestView.lookForSupport();
     vector<string> userData = requestView.getUserInputs();
-    if (userData.size() == 5)
+    if (userData.size() == 6)
     {
         // create Request object to store data
         createRequestObject(userData);

@@ -24,7 +24,7 @@ public:
     // 1. List and unlist your own requests
     void list();
     void unlist();
-    void create();
+    void lookForSupport();
 
 private:
     // Add your member variables here

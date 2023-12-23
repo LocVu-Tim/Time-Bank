@@ -26,6 +26,7 @@ void Request::printInfo()
     cout << "Time to: " << timeTo << endl;
     cout << "City: " << city << endl;
     cout << "Minimum rating for host: " << minimumRatingForHost << endl;
+    cout << "Minimum rating for supporter: " << minimumRatingForSupporter << endl;
     cout << "Is accepted: " << (isAccepted ? "true" : "false") << endl;
     cout << "Comments: " << endl;
     for (int i = 0; i < comments.size(); i++)

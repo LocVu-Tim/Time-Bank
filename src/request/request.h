@@ -21,13 +21,14 @@ private:
     string timeTo;
     string city;
     double minimumRatingForHost;
+    double minimumRatingForSupporter;
     // Not implemented yet
     // vector<Request*> allRequests;
     bool isAccepted;
     vector<string> comments;
 
 public:
-    Request(int id = 0, bool availability = false, int pointsPerHour = 0, vector<string> skill = {}, int skillRatingScore = 0, int supporterRatingScore = 0, int hostRatingScore = 0, string timeFrom = "", string timeTo = "", string city = "", bool isAccepted = false, vector<string> comments = {}){};
+    Request(int id = 0, bool availability = false, int pointsPerHour = 0, vector<string> skill = {}, int skillRatingScore = 0, int supporterRatingScore = 0, int hostRatingScore = 0, string timeFrom = "", string timeTo = "", string city = "", bool isAccepted = false, vector<string> comments = {}, double minimumRatingForSupporter = 0){};
 
     // Friend classes
     friend class RequestModel;
