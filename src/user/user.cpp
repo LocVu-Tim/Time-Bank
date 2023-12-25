@@ -289,7 +289,7 @@ void User::changePwdAdmin(vector<User *> users, string username)
 // method to showinfo without rating score
 void User::showInfoWithoutRating(vector<User *> users)
 {
-    cout << username << " - " << fullName << " - " << phoneNo << " - " << email << " - " << homeAddr << " - " << city << " - " << creds << " - ";
+    cout << username << " - " << fullName << " - " << phoneNo << " - " << email << " - " << homeAddr << " - " << creds << " - ";
     if (role == 3 || role == 2)
     {
         cout << role << " - "; // add rating later
