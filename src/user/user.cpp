@@ -1,4 +1,28 @@
 #include "user.h"
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+#include <cmath>
+#include <cstring>
+#include <sstream>
+#include <ostream>
+#include <istream>
+#include <vector>
+
+using std::cerr;
+using std::cin;
+using std::cout;
+using std::endl;
+using std::fstream;
+using std::getline;
+using std::ifstream;
+using std::istream;
+using std::ofstream;
+using std::ostream;
+using std::string;
+using std::stringstream;
+using std::vector;
 
 User::User() {}
 // constructor
@@ -16,9 +40,11 @@ User::User(string username, string pwd, string fullName, string email,
 }
 
 // constructor used for block function
-User::User(const string &username) : username(username), block(false) {}
+User::User(const string &username) {
+    this->username = username;
+}
 // method to get username
-string getUsername()
+string User::getUsername()
 {
     return username;
 }

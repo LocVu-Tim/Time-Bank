@@ -12,7 +12,7 @@ public:
     User();
     // constructor
     User(string username, string pwd, string fullName, string email,
-         string homeAddr, string phoneNo, int creds);
+         string homeAddr, string phoneNo, int creds, int ratingScore);
 
     // constructor used for block function
     User(const string &username);
@@ -27,12 +27,6 @@ public:
 
     // method to set password
     void setPwd(string pwd);
-
-    // method to get city
-    string getCity();
-
-    // method to set city
-    void setCity(string city);
 
     // method to get full name
     string getFullName();
