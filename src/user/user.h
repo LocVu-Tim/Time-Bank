@@ -102,7 +102,7 @@ public:
     void showInfoWithoutRating(vector<User *> users);
 
     // method to block user from viewing content
-    string blockUser(vector<User *> users, string blocked, string blocker);
+    // string blockUser(vector<User *> users, string blocked, string blocker);
 
     // method to compare strings (case insensitive)
     friend bool caseInsensitiveStringCompare(const string &str1, const string &str2);

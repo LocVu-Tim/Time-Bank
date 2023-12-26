@@ -1,6 +1,5 @@
 #include "user.h"
 
-
 User::User() {}
 // constructor
 User::User(string username, string pwd, string fullName, string email,
@@ -17,7 +16,8 @@ User::User(string username, string pwd, string fullName, string email,
 }
 
 // constructor used for block function
-User::User(const string &username) {
+User::User(const string &username)
+{
     this->username = username;
 }
 // method to get username
@@ -304,21 +304,21 @@ void User::showInfoWithoutRating(vector<User *> users)
 }
 
 // method to block user from viewing content
-string User::blockUser(vector<User *> users, string blocked, string blocker)
-{
-    cout << "Enter username to block: ";
-    cin >> blocked;
-    User *blockedUser = findByUsername(users, blocked);
-    if (blockedUser == nullptr)
-    {
-        cout << "Could not find user\n";
-    }
-    else
-    {
-        cout << "User " << blockedUser->getUsername() << " is blocked\n";
-        return blocked;
-    }
-}
+// string User::blockUser(vector<User *> users, string blocked, string blocker)
+// {
+//     cout << "Enter username to block: ";
+//     cin >> blocked;
+//     User *blockedUser = findByUsername(users, blocked);
+//     if (blockedUser == nullptr)
+//     {
+//         cout << "Could not find user\n";
+//     }
+//     else
+//     {
+//         cout << "User " << blockedUser->getUsername() << " is blocked\n";
+//         return blocked;
+//     }
+// }
 
 // method to compare strings (case insensitive)
 bool caseInsensitiveStringCompare(const string &str1, const string &str2)
@@ -386,23 +386,25 @@ bool checkValidUsername(vector<User *> users, string userName)
 // method to check valid email
 bool checkValidEmail(vector<User *> users, string email)
 {
+    bool check = true;
     for (int i = 0; i < email.length(); i++)
     {
         if (!((email[i] == '@') && (email[i] != email[0] && email[i] != email[email.length() - 1])))
         {
-            return false;
+            check = false;
+            return check;
         }
         for (int i = 0; i < email.length(); i++)
         {
             if (isspace(email[i]))
             {
                 cout << "Email must not contain spaces\n";
-                return false;
+                check = false;
+                return check;
             }
         }
-        
     }
-    return true;
+    return check;
 }
 
 // method to check valid phone number
