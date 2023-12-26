@@ -1,4 +1,16 @@
 #pragma once
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <iomanip>
+#include <cmath>
+#include <cstring>
+#include <sstream>
+#include <ostream>
+#include <istream>
+#include <vector>
+
+using namespace std;
 class User
 {
 private:
