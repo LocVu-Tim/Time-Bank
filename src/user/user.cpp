@@ -292,12 +292,15 @@ void User::changePwdAdmin(vector<User *> users, string username)
 // method to showinfo without rating score
 void User::showInfoWithoutRating(vector<User *> users)
 {
-    cout << username << " - " << fullName << " - " << phoneNo << " - " << email << " - " << homeAddr << " - " << creds << " - ";
-    if (role == 3 || role == 2)
+    for (int i = 0; i < users.size(); i++)
     {
-        cout << role << " - "; // add rating later
+        cout << users[i]->getUsername() << " - " << users[i]->getFullName() << " - " << users[i]->getPhoneNo() << " - " << users[i]->getEmail() << " - " << users[i]->getHomeAddr() << " - " << users[i]->getCreds() << " - ";
+        if (users[i]->getRole() == 3 || users[i]->getRole() == 2)
+        {
+            cout << users[i]->getRole() << " - "; // add rating later
+        }
+        cout << endl;
     }
-    cout << endl;
 }
 
 // method to block user from viewing content
