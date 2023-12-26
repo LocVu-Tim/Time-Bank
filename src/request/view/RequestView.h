@@ -20,9 +20,12 @@ public:
     string getInput(int index);
     vector<string> getUserInputs();
 
+    // Error handling for error controller
+    void errorHandling(string error);
+
     // Validate user input
     // 1. Validate the date
-    bool validateDate(string date);
+    // bool validateDate(string date);
 
     // Add your member functions here
     void viewAvailableFunctions();

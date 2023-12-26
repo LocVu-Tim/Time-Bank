@@ -46,6 +46,20 @@ vector<string> RequestView::getUserInputs()
   return userInputs;
 }
 
+void RequestView::errorHandling(string error)
+{
+  cout << "=============================" << endl;
+  cout << "Invalid choice" << endl;
+  cout << "Reason: " << error << endl;
+  cout << "Please try again" << endl;
+  cout << "Press Enter to continue..." << endl;
+  getline(cin, error);
+  // Clear the input buffer
+  cin.ignore(10000, '\n');
+  cin.clear();
+  cout << "=============================" << endl;
+}
+
 void RequestView::viewAvailableFunctions()
 {
   cout << "1. List or unlist a request" << endl;

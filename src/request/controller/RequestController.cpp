@@ -33,7 +33,11 @@ void RequestController::selectAvailableFunction(int choice, RequestView requestV
     case 6:
         break;
     default:
-        cout << "Invalid choice" << endl;
+        requestView.errorHandling("Invalid choice");
+        cin.clear();
+        // Rerun again
+        int choice = OperationsList();
+        selectAvailableFunction(choice, requestView, requestModel);
         break;
     }
 }
@@ -50,13 +54,16 @@ void RequestController::createRequestObject(vector<string> userData)
     catch (const std::invalid_argument &ia)
     {
         std::cerr << "Invalid argument: " << ia.what() << '\n';
+        requestView.errorHandling("Invalid argument");
+        // Rerun again
+        listOrUnlist();
     }
 }
 
 void RequestController::listOrUnlist()
 {
     int choice;
-    RequestView requestView;
+    // RequestView requestView;
     requestView.listOrUnlist();
     cin >> choice;
     switch (choice)
@@ -68,7 +75,9 @@ void RequestController::listOrUnlist()
         // unlist();
         break;
     default:
-        cout << "Invalid choice" << endl;
+        requestView.errorHandling("Invalid choice");
+        // Rerun again
+        listOrUnlist();
         break;
     }
 };
