@@ -400,8 +400,9 @@ bool checkValidEmail(vector<User *> users, string email)
                 return false;
             }
         }
-        return true;
+        
     }
+    return true;
 }
 
 // method to check valid phone number
