@@ -87,7 +87,7 @@ public:
     //  int topUpCreds (User user, int topUp);
 
     // method to register to become user (for guest)
-    //  void registerMember(vector<User *> users);
+    void registerMember(vector<User *> users);
 
     // method to reset password for member
     void changePwdMember(User user, string temp);
@@ -102,7 +102,7 @@ public:
     void showInfoWithoutRating(vector<User *> users);
 
     // method to block user from viewing content
-    // string blockUser(vector<User *> users, string blocked, string blocker);
+    string blockUser(vector<User *> users, string blocked, string blocker);
 
     // method to compare strings (case insensitive)
     friend bool caseInsensitiveStringCompare(const string &str1, const string &str2);

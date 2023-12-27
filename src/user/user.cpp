@@ -142,78 +142,86 @@ bool User::isBlocked()
 // }
 
 // method to register to become user (for guest)
-//  void User::registerMember(vector<User *> users) {
-//      int fee = 20;
-//      string temp;
-//      User *user;
-//      bool check = true;
-//      cout << "--------------Register--------------" << endl;
-//      cout << "Please enter your full name: ";
-//      getline(cin, fullName);
-//      user->setFullName(fullName);
-//      while(true) {
-//          cout << "Please enter your username: ";
-//          cin >> temp;
-//          if(checkValidUsername(users, temp) == false) {
-//              continue;
-//          } else {
-//              user->setUsername(temp);
-//              temp = "";
-//              break;
-//          }
-//      }
-//      while(true) {
-//          cout << "Please enter your password: ";
-//          cin >> temp;
-//          if(checkValidPwd(temp) == false) {
-//              continue;
-//          } else {
-//              user->setPwd(temp);
-//              temp = "";
-//              break;
-//          }
-//      }
-//      while(true) {
-//          cout << "Please enter your email: ";
-//          cin >> temp;
-//          if(checkValidEmail(users, temp) == false) {
-//              continue;
-//          } else {
-//              user->setEmail(temp);
-//              temp = "";
-//              break;
-//          }
-//      }
-//      while(true) {
-//          cout << "Please enter your phone number: ";
-//          cin >> temp;
-//          if(checkValidPhoneNo(users, temp) == false) {
-//              continue;
-//          } else {
-//              user->setPhoneNo(temp);
-//              temp = "";
-//              break;
-//          }
-//      }
-//      cout << "Please enter your home address: ";
-//      getline(cin, temp);
-//      user->setHomeAddr(temp);
-//      temp = "";
-//      while(true) {
-//          cout << "Please enter your city: ";
-//          cin >> temp;
-//          if(temp != "Ha Noi" || temp != "Sai Gon") {
-//              continue;
-//          } else {
-//              user->setCity(temp);
-//              temp = "";
-//              break;
-//          }
-//      }
-//      cout << "Initial credit points set to 20\n";
-//      user->setCreds(fee);
+void registerMember(vector<User *> users)
+{
+    int fee = 20;
+    string temp;
+    User user;
+    bool check = true;
+    cout << "--------------Register--------------" << endl;
+    cout << "Please enter your full name: ";
+    getline(cin, temp);
+    user.setFullName(temp);
+    while (check == true)
+    {
+        cout << "Please enter your username: ";
+        cin >> temp;
+        if (checkValidUsername(users, temp) == false)
+        {
+            continue;
+        }
+        else
+        {
+            user.setUsername(temp);
+            temp = "";
+            break;
+        }
+    }
+    while (check)
+    {
+        bool check;
+        cout << "Please enter your password: ";
+        cin >> temp;
+        if (checkValidPwd(temp) == false)
+        {
+            continue;
+        }
+        else
+        {
+            user.setPwd(temp);
+            temp = "";
+            break;
+        }
+    }
+    while (check)
+    {
+        cout << "Please enter your email: ";
+        cin >> temp;
+        if (checkValidEmail(users, temp) == false)
+        {
+            continue;
+        }
+        else
+        {
+            user.setEmail(temp);
+            temp = "";
+            break;
+        }
+    }
+    while (check)
+    {
+        cout << "Please enter your phone number: ";
+        cin >> temp;
+        if (checkValidPhoneNo(users, temp) == false)
+        {
+            continue;
+        }
+        else
+        {
+            user.setPhoneNo(temp);
+            temp = "";
+            break;
+        }
+    }
+    cout << "Please enter your home address: ";
+    cin >> temp;
+    user.setHomeAddr(temp);
+    temp = "";
+    cout << "Initial credit points set to 20\n";
+    user.setCreds(fee);
+    users.push_back(&user);
+}
 
-// }
 
 // method to reset password for member
 void User::changePwdMember(User user, string temp)
@@ -304,21 +312,21 @@ void User::showInfoWithoutRating(vector<User *> users)
 }
 
 // method to block user from viewing content
-// string User::blockUser(vector<User *> users, string blocked, string blocker)
-// {
-//     cout << "Enter username to block: ";
-//     cin >> blocked;
-//     User *blockedUser = findByUsername(users, blocked);
-//     if (blockedUser == nullptr)
-//     {
-//         cout << "Could not find user\n";
-//     }
-//     else
-//     {
-//         cout << "User " << blockedUser->getUsername() << " is blocked\n";
-//         return blocked;
-//     }
-// }
+string User::blockUser(vector<User *> users, string blocked, string blocker)
+{
+    cout << "Enter username to block: ";
+    cin >> blocked;
+    User *blockedUser = findByUsername(users, blocked);
+    if (blockedUser == nullptr)
+    {
+        cout << "Could not find user\n";
+    }
+    else
+    {
+        cout << "User " << blockedUser->getUsername() << " is blocked\n";
+        return blocked;
+    }
+}
 
 // method to compare strings (case insensitive)
 bool caseInsensitiveStringCompare(const string &str1, const string &str2)
