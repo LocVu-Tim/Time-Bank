@@ -9,7 +9,7 @@
 #include <ostream>
 #include <istream>
 #include <vector>
-
+#include <regex>
 using namespace std;
 
 class User
