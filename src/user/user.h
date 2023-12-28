@@ -17,6 +17,7 @@ class User
 private:
     string username, pwd, fullName, email, homeAddr, phoneNo;
     bool block;
+    vector<string> blocked;
     int creds, role, ratingScore;
 
     /*Rating *skillRating, *supporterRating, *hostRating;*/
@@ -101,9 +102,20 @@ public:
     // method to showinfo without rating score
     void showInfoWithoutRating(vector<User *> users);
 
+    // method to get blocked person/people
+    vector<string> getBlocked();
+
+    // method to set block
+    void setBlocked(string blocks);
+
     // method to block user from viewing content
     string blockUser(vector<User *> users, string blocked, string blocker);
 
+    //method to show info with block
+    void showInfoWithBlock(vector<User *> users);
+
+    // method to show info
+    void showInfo();
     // method to compare strings (case insensitive)
     friend bool caseInsensitiveStringCompare(const string &str1, const string &str2);
 

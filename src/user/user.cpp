@@ -125,6 +125,79 @@ bool User::isBlocked()
     return block;
 }
 
+// method to get blocked person/people
+vector<string> User::getBlocked()
+{
+    return blocked;
+}
+
+// method to set block
+void User::setBlocked(string blocks)
+{
+    for (int i = 0; i < blocked.size(); i++)
+    {
+        this->blocked.push_back(blocks);
+    }
+}
+
+// method to block member
+void User::blockUser(vector<User *> users, string block)
+{
+    cout << "Enter username to block: ";
+    cin >> block;
+    if (findByUsername(users, block) == nullptr)
+    {
+        cout << "Username not found\n";
+    }
+    else
+    {
+        setBlocked(block);
+        cout << "User " << block << " is blocked";
+    }
+}
+
+// method to show info
+void User::showInfo()
+{
+    cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-";
+    if (role == 3)
+    {
+        cout << "Admin"
+             << "-";
+    }
+    else if (role == 2)
+    {
+        cout << "Member"
+             << "-";
+    }
+    cout << endl;
+}
+// method to show info with blocked
+void User::showInfoWithBlock(vector<User *> users)
+{
+
+    cout << "----------Show users information----------\n";
+    for (int i = 0; i < users.size(); i++)
+    {
+        vector<string> blocks = users[i]->getBlocked();
+        bool block = false;
+        for (int j = 0; j < blocks.size(); j++)
+        {
+            if (username == blocks[j])
+            {
+                block = true;
+            }
+        }
+        if (block == true)
+        {
+            continue;
+        }
+        else
+        {
+            users[i]->showInfo();
+        }
+    }
+}
 // method to top up credit points with pwd authorization
 //  int User::topUpCreds (User user, int topUp) {
 //      string temp;
@@ -221,7 +294,6 @@ void registerMember(vector<User *> users)
     user.setCreds(fee);
     users.push_back(&user);
 }
-
 
 // method to reset password for member
 void User::changePwdMember(User user, string temp)
