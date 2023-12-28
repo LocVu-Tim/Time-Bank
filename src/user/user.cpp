@@ -215,7 +215,7 @@ void User::showInfoWithBlock(vector<User *> users)
 // }
 
 // method to register to become user (for guest)
-void registerMember(vector<User *> users)
+void User::registerMember(vector<User *> users)
 {
     int fee = 20;
     string temp;
@@ -383,22 +383,7 @@ void User::showInfoWithoutRating(vector<User *> users)
     }
 }
 
-// method to block user from viewing content
-string User::blockUser(vector<User *> users, string blocked, string blocker)
-{
-    cout << "Enter username to block: ";
-    cin >> blocked;
-    User *blockedUser = findByUsername(users, blocked);
-    if (blockedUser == nullptr)
-    {
-        cout << "Could not find user\n";
-    }
-    else
-    {
-        cout << "User " << blockedUser->getUsername() << " is blocked\n";
-        return blocked;
-    }
-}
+
 
 // method to compare strings (case insensitive)
 bool caseInsensitiveStringCompare(const string &str1, const string &str2)

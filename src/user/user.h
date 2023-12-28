@@ -84,6 +84,21 @@ public:
     // method to get blocked
     bool isBlocked();
 
+    // method to get blocked person/people
+    vector<string> getBlocked();
+
+    // method to set block
+    void setBlocked(string blocks);
+
+    // method to block user from viewing content
+    void blockUser(vector<User *> users, string block);
+
+    //method to show info with block
+    void showInfoWithBlock(vector<User *> users);
+
+    // method to show info
+    void showInfo();
+
     // method to top up credit points with pwd authorization
     //  int topUpCreds (User user, int topUp);
 
@@ -102,20 +117,6 @@ public:
     // method to showinfo without rating score
     void showInfoWithoutRating(vector<User *> users);
 
-    // method to get blocked person/people
-    vector<string> getBlocked();
-
-    // method to set block
-    void setBlocked(string blocks);
-
-    // method to block user from viewing content
-    string blockUser(vector<User *> users, string blocked, string blocker);
-
-    //method to show info with block
-    void showInfoWithBlock(vector<User *> users);
-
-    // method to show info
-    void showInfo();
     // method to compare strings (case insensitive)
     friend bool caseInsensitiveStringCompare(const string &str1, const string &str2);
 
