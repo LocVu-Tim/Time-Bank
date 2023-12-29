@@ -458,7 +458,7 @@ bool checkValidEmail(vector<User *> users, string email)
 bool checkValidPhoneNo(vector<User *> users, string phoneNo)
 {
     // phone no must have 10 digits
-    if (phoneNo.length() < 10)
+    if (phoneNo.length() != 10)
     {
         cout << "Phone number must have 10 digits.\n";
         return false;
@@ -468,7 +468,7 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo)
     {
         if (!(isdigit(phoneNo[i])))
         {
-            cout << "Phone number must only contain digits";
+            cout << "Phone number must only contain digits\n";
             return false;
             break;
         }
@@ -476,7 +476,7 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo)
     // phone no must start with 0
     if (!(phoneNo[0] == '0'))
     {
-        cout << "Phone number must start with 0";
+        cout << "Phone number must start with 0\n";
         return false;
     }
 
