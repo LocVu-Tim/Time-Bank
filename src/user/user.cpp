@@ -215,7 +215,7 @@ void User::showInfoWithBlock(vector<User *> users)
 // }
 
 // method to register to become user (for guest)
-void User::registerMember(vector<User *> users)
+User registerMember(vector<User *> users)
 {
     int fee = 20;
     string temp;
@@ -293,6 +293,7 @@ void User::registerMember(vector<User *> users)
     cout << "Initial credit points set to 20\n";
     user.setCreds(fee);
     users.push_back(&user);
+    return user;
 }
 
 // method to reset password for member

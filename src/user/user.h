@@ -93,7 +93,7 @@ public:
     // method to block user from viewing content
     void blockUser(vector<User *> users, string block);
 
-    //method to show info with block
+    // method to show info with block
     void showInfoWithBlock(vector<User *> users);
 
     // method to show info
@@ -141,7 +141,8 @@ public:
     // method to find user thru username
     friend User *findByUsername(const vector<User *> &users, const string &username);
 };
-
+// method to register user
+User registerMember(vector<User *> users);
 // method to compare strings (case insensitive)
 bool caseInsensitiveStringCompare(const string &str1, const string &str2);
 
