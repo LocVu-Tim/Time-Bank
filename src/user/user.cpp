@@ -383,8 +383,6 @@ void User::showInfoWithoutRating(vector<User *> users)
     }
 }
 
-
-
 // method to compare strings (case insensitive)
 bool caseInsensitiveStringCompare(const string &str1, const string &str2)
 {
@@ -451,25 +449,9 @@ bool checkValidUsername(vector<User *> users, string userName)
 // method to check valid email
 bool checkValidEmail(vector<User *> users, string email)
 {
-    bool check = true;
-    for (int i = 0; i < email.length(); i++)
-    {
-        if (!((email[i] == '@') && (email[i] != email[0] && email[i] != email[email.length() - 1])))
-        {
-            check = false;
-            return check;
-        }
-        for (int i = 0; i < email.length(); i++)
-        {
-            if (isspace(email[i]))
-            {
-                cout << "Email must not contain spaces\n";
-                check = false;
-                return check;
-            }
-        }
-    }
-    return check;
+    const regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+
+    return regex_match(email, pattern);
 }
 
 // method to check valid phone number
