@@ -102,9 +102,6 @@ public:
     // method to top up credit points with pwd authorization
     //  int topUpCreds (User user, int topUp);
 
-    // method to register to become user (for guest)
-    void registerMember(vector<User *> users);
-
     // method to reset password for member
     void changePwdMember(User user, string temp);
 
