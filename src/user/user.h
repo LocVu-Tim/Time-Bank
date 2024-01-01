@@ -143,6 +143,7 @@ public:
 };
 // method to register user
 User registerMember(vector<User *> users);
+
 // method to compare strings (case insensitive)
 bool caseInsensitiveStringCompare(const string &str1, const string &str2);
 
