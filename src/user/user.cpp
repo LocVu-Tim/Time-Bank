@@ -157,7 +157,7 @@ void User::blockUser(vector<User *> users, string block)
     }
 }
 
-// method to show info
+// method to show info add rating later
 void User::showInfo()
 {
     cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-";
@@ -344,32 +344,42 @@ void User::changePwdAdmin(vector<User *> users, string username)
 }
 
 // method to login
-//  bool User::login(vector<User *> users, string checkUsername) {
-//      string checkPwd;
-//      cout << "--------------Login--------------" << endl;
-//      if(role == 2) {
-//          cout << "Please enter registered username: ";
-//      } else if (role == 3) {
-//          cout << "Please enter predefined username: ";
-//      }
+bool User::login(vector<User *> users, string checkUsername)
+{
+    string checkPwd;
+    cout << "--------------Login--------------" << endl;
+    if (role == 2)
+    {
+        cout << "Please enter registered username: ";
+    }
+    else if (role == 3)
+    {
+        cout << "Please enter predefined username: ";
+    }
 
-//     cin >> checkUsername;
-//     User *user = findByUsername(users, checkUsername);
-//     if(user == nullptr) {
-//         cout << "Username not found\n";
-//         return false;
-//     } else {
-//         cout << "Please enter password: ";
-//         cin >> checkPwd;
-//         if(verifyPwd(*user, checkPwd) == true) {
-//             cout << "Login successful\n";
-//         } else {
-//             cout << "Incorrect username/password\n";
-//             return false;
-//         }
-//     return true;
-//     }
-// }
+    cin >> checkUsername;
+    User *user = findByUsername(users, checkUsername);
+    if (user == nullptr)
+    {
+        cout << "Username not found\n";
+        return false;
+    }
+    else
+    {
+        cout << "Please enter password: ";
+        cin >> checkPwd;
+        if (verifyPwd(*user, checkPwd) == true)
+        {
+            cout << "Login successful\n";
+        }
+        else
+        {
+            cout << "Incorrect username/password\n";
+            return false;
+        }
+        return true;
+    }
+}
 
 // method to showinfo without rating score
 void User::showInfoWithoutRating(vector<User *> users)

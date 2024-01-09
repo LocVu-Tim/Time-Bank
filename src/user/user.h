@@ -109,7 +109,7 @@ public:
     void changePwdAdmin(vector<User *> users, string username);
 
     // method to login
-    //  bool login(vector<User *> users, string checkUsername);
+    bool login(vector<User *> users, string checkUsername);
 
     // method to showinfo without rating score
     void showInfoWithoutRating(vector<User *> users);

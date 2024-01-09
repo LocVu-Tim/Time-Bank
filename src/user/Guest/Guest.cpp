@@ -83,7 +83,6 @@ User registerMember(vector<User *> users)
     return user;
 }
 
-
 // method to showinfo without rating score
 void User::showInfoWithoutRating(vector<User *> users)
 {
