@@ -1,6 +1,11 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
 
+
+/*THIS FILE CONTAINS FUNCTIONS RELATING TO GUEST:
+    - REGISTER TO BECOME MEMBER
+    - SHOW INFO OF USERS WITHOUT RATING*/
+
 // method to register to become user (for guest)
 User registerMember(vector<User *> users)
 {

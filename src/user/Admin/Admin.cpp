@@ -1,6 +1,14 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
 
+
+/*THIS FILE CONTAINS FUNCTIONS RELATING TO ADMIN:
+    - LOGIN WITH PREDEFINED USERNAME AND PASSWORD
+    - SHOW INFO
+    - RESET PASSWORD */
+
+
+
 // method to login
 bool User::loginAdmin(vector<User *> users, string checkUsername)
 {

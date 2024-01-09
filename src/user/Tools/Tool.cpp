@@ -1,5 +1,11 @@
 #include "Tool.h"
 #include "../User.h"
+
+/*THIS FILE CONTAINS THE SET OF FUNCTIONS TO COMPARE STRINGS 
+- CASE INSENSITIVE: NO NEED PERFECT MATCH, CONVERT TO LOWER THEN COMPARE
+- CASE SENSITIVE: EXACT MATCH */
+
+
 // method to compare strings (case insensitive)
 bool caseInsensitiveStringCompare(const string &str1, const string &str2)
 {

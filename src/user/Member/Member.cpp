@@ -1,6 +1,15 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
 
+
+/*THIS FILE CONTAINS FUNCTIONS RELATING TO MEMBER:
+    - LOGIN WITH REGISTERED USERNAME AND PASSWORD
+    - BLOCK OTHER MEMBER
+    - SHOW INFO WITH AND WITHOUT BLOCK
+    - CHANGE PASSWORD */
+
+
+    
 // method to login
 bool User::loginMember(vector<User *> users, string checkUsername)
 {

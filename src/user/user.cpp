@@ -1,6 +1,13 @@
 #include "User.h"
 #include <iostream>
 
+/*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING 
+    - GET SET METHODS
+    - CHECK VALID METHODS
+    - FIND BY USERNAME
+*/
+
+
 User::User() {}
 // constructor
 User::User(string username, string pwd, string fullName, string email,
