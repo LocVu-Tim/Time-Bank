@@ -10,6 +10,7 @@
 #include <istream>
 #include <vector>
 #include <regex>
+#include "Tools/Tool.h"
 using namespace std;
 
 class User
@@ -112,7 +113,7 @@ public:
     bool loginMember(vector<User *> users, string checkUsername);
 
     //method to login for admin
-    bool User::loginAdmin(vector<User *> users, string checkUsername);
+    bool loginAdmin(vector<User *> users, string checkUsername);
 
     // method to showinfo without rating score
     void showInfoWithoutRating(vector<User *> users);
@@ -143,12 +144,6 @@ public:
 };
 // method to register user
 User registerMember(vector<User *> users);
-
-// method to compare strings (case insensitive)
-bool caseInsensitiveStringCompare(const string &str1, const string &str2);
-
-// method to compare strings (case sensitive)
-bool caseSensitiveStringCompare(const string &str1, const string &str2);
 
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName);
