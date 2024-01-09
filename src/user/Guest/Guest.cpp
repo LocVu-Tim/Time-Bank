@@ -1,4 +1,6 @@
 #include "../User.h"
+#include "../Tools/Tool.h"
+#include "Guest.h"
 User::User() {}
 // constructor
 User::User(string username, string pwd, string fullName, string email,

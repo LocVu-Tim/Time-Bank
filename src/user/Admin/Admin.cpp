@@ -140,22 +140,22 @@ void User::setBlocked(string blocks)
     }
 }
 
-// method to block member
-void User::blockUser(vector<User *> users, string block)
+// method to show info
+void User::showInfo()
 {
-    cout << "Enter username to block: ";
-    cin >> block;
-    if (findByUsername(users, block) == nullptr)
+    cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-";
+    if (role == 3)
     {
-        cout << "Username not found\n";
+        cout << "Admin"
+             << "-";
     }
-    else
+    else if (role == 2)
     {
-        setBlocked(block);
-        cout << "User " << block << " is blocked";
+        cout << "Member"
+             << "-";
     }
+    cout << endl;
 }
-
 
 // method to change password for admin
 void User::changePwdAdmin(vector<User *> users, string username)
