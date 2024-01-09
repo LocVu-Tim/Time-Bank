@@ -70,20 +70,9 @@ void User::changePwdMember(User user, string temp)
 }
 
 // method to show info
-void User::showInfo()
+void User::showInfoMember()
 {
-    cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-";
-    if (role == 3)
-    {
-        cout << "Admin"
-             << "-";
-    }
-    else if (role == 2)
-    {
-        cout << "Member"
-             << "-";
-    }
-    cout << endl;
+    cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-" << "Member\n";
 }
 // method to show info with blocked
 void User::showInfoWithBlock(vector<User *> users)
@@ -107,7 +96,7 @@ void User::showInfoWithBlock(vector<User *> users)
         }
         else
         {
-            users[i]->showInfo();
+            users[i]->showInfoMember();
         }
     }
 }

@@ -97,8 +97,11 @@ public:
     // method to show info with block
     void showInfoWithBlock(vector<User *> users);
 
-    // method to show info
-    void showInfo();
+    // method to show info member
+    void showInfoMember();
+
+    // method to show info admin 
+    void showInfoAdmin();
 
     // method to top up credit points with pwd authorization
     //  int topUpCreds (User user, int topUp);

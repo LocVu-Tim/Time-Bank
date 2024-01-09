@@ -33,21 +33,10 @@ bool User::loginAdmin(vector<User *> users, string checkUsername)
     }
 }
 
-// method to show info add rating later
-void User::showInfo()
+// method to show info admin
+void User::showInfoAdmin()
 {
-    cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-";
-    if (role == 3)
-    {
-        cout << "Admin"
-             << "-";
-    }
-    else if (role == 2)
-    {
-        cout << "Member"
-             << "-";
-    }
-    cout << endl;
+    cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-" << "Admin\n" ;
 }
 
 // method to change password for admin
