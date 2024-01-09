@@ -108,8 +108,11 @@ public:
     // method to change password for admin
     void changePwdAdmin(vector<User *> users, string username);
 
-    // method to login
-    bool login(vector<User *> users, string checkUsername);
+    // method to login for member
+    bool loginMember(vector<User *> users, string checkUsername);
+
+    //method to login for admin
+    bool User::loginAdmin(vector<User *> users, string checkUsername);
 
     // method to showinfo without rating score
     void showInfoWithoutRating(vector<User *> users);

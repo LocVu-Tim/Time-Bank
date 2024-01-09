@@ -2,18 +2,12 @@
 #include "../Tools/Tool.h"
 
 // method to login
-bool User::login(vector<User *> users, string checkUsername)
+bool User::loginAdmin(vector<User *> users, string checkUsername)
 {
     string checkPwd;
     cout << "--------------Login--------------" << endl;
-    if (role == 2)
-    {
-        cout << "Please enter registered username: ";
-    }
-    else if (role == 3)
-    {
-        cout << "Please enter predefined username: ";
-    }
+    
+    cout << "Please enter predefined username: ";
 
     cin >> checkUsername;
     User *user = findByUsername(users, checkUsername);
