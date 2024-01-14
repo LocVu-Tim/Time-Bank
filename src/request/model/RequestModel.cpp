@@ -1,6 +1,3 @@
-#include <iostream>
-#include <vector>
-
 #include "RequestModel.h"
 #include "../request.h"
 using namespace std;
@@ -49,8 +46,82 @@ void RequestModel::createRequest(vector<string> userData)
         request->minimumRatingForSupporter = minimumRatingForSupporter;
     }
 
-    // add the request to the vector
+    // add the request to the vector and write to file
     requests.push_back(request);
+    writeToFile(request);
+}
+
+void RequestModel::writeToFile(Request *request)
+{
+    // Write to file
+    ofstream fout;
+    fout.open(FILENAME, ios::app);
+    fout << "==============================" << endl;
+    fout << "Request ID: " << request->id << endl;
+    fout << "Time from: " << request->timeFrom << endl;
+    fout << "Time to: " << request->timeTo << endl;
+    fout << "Skill: " << request->skill << endl;
+    fout << "Points per hour: " << request->pointsPerHour << endl;
+    if (request->availability)
+    {
+        fout << "Availability: true" << endl;
+        fout << "Minimum rating for host: " << request->minimumRatingForHost << endl;
+    }
+    else
+    {
+        fout << "Availability: false" << endl;
+        fout << "Minimum rating for supporter: " << request->minimumRatingForSupporter << endl;
+    }
+    fout << "==============================" << endl;
+    fout.close();
+}
+
+void RequestModel::load()
+{
+    // Load data from file
+    ifstream fin;
+    fin.open(FILENAME, ios::in);
+    string line;
+    while (getline(fin, line))
+    {
+        // cout << line << endl;
+        if (line != "==============================")
+        {
+            continue;
+        }
+        else
+        {
+            // read the data
+            Request *request = new Request();
+            getline(fin, line);
+            request->id = stoi(line.substr(12));
+            getline(fin, line);
+            request->timeFrom = line.substr(11);
+            getline(fin, line);
+            request->timeTo = line.substr(9);
+            getline(fin, line);
+            request->skill = line.substr(7);
+            getline(fin, line);
+            request->pointsPerHour = stoi(line.substr(17));
+            getline(fin, line);
+            if (line.substr(14) == "true")
+            {
+                request->availability = true;
+                getline(fin, line);
+                request->minimumRatingForHost = stod(line.substr(25));
+            }
+            else
+            {
+                request->availability = false;
+                getline(fin, line);
+                request->minimumRatingForSupporter = stod(line.substr(31));
+            }
+            getline(fin, line);
+            requests.push_back(request);
+        
+        }
+    }
+    fin.close();
 }
 
 vector<Request *> RequestModel::getRequests()
@@ -58,6 +129,6 @@ vector<Request *> RequestModel::getRequests()
     // test if the request is added to the vector
     cout << "[DEBUG] Request info: " << endl;
     requests[0]->printInfo();
-    cout << "=============================" << endl;
+    cout << "==============================" << endl;
     return requests;
 }

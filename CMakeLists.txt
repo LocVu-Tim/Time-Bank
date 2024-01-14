@@ -1,7 +1,12 @@
 cmake_minimum_required(VERSION 3.27)
 project(Time_Bank)
 
+
+
 set(CMAKE_CXX_STANDARD 14)
+
+# include where the std library
+
 
 include_directories(src/rating)
 include_directories(src/request/controller)

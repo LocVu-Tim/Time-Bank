@@ -4,6 +4,10 @@
 #include "../request.h"
 
 #include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
+#define FILENAME "request.dat"
 using namespace std;
 
 class RequestModel
@@ -17,6 +21,8 @@ public:
     ~RequestModel();
 
     void createRequest(vector<string> userData);
+    void writeToFile(Request *request);
+    void load();
     vector<Request *> getRequests();
 
     // Load data from file
