@@ -46,6 +46,7 @@ void User::blockUser(vector<User *> users )
     string block;
     cout << "Enter username to block: ";
     cin >> block;
+    checkValidUsername(users, block);
     if (findByUsername(users, block) == nullptr)
     {
         cout << "Username not found\n";
