@@ -13,15 +13,10 @@ void menu();
 void Guest();
 void Member();
 void Admin();
-void adminLogin();
-
-
-
-
-
-
 
 void welcomeInterface(){
+    int choice;
+
     // Welcome Interface//
     cout <<"EEET2482/COSC2082 ASSIGNMENT"<<endl;
     cout <<"''Time BANK'' APPLICATION"<<endl;
@@ -126,7 +121,7 @@ void adminLogin() {
     }
     else{
         cout<<"Login Error \n Please check your details"<<endl;
-        welcomeInterface();
+        adminLogin();
     }
    
 }
@@ -177,11 +172,11 @@ void loginMember() {
     if(count==1){
         cout<<"Login Successful\n"; 
         cin.get();
-        welcomeInterface();
+        Member();
     }
     else{
         cout<<"Login Error \n Please check your details"<<endl;
-        welcomeInterface();
+        loginMember();
     }
 }
 

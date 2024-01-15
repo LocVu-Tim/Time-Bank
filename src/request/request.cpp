@@ -35,15 +35,15 @@ void Request::printInfo()
     }
 }
 
-int main()
-{
-    // Request r;
-    RequestView rv;
-    RequestModel rm;
-    RequestController rc(rm, rv);
-    int selectedChoice;
-
-    int operationNum = rc.OperationsList();
-    rc.selectAvailableFunction(operationNum, rv, rm);
-    return 0;
-}
+//int main()
+//{
+//    // Request r;
+//    RequestView rv;
+//    RequestModel rm;
+//    RequestController rc(rm, rv);
+//    int selectedChoice;
+//
+//    int operationNum = rc.OperationsList();
+//    rc.selectAvailableFunction(operationNum, rv, rm);
+//    return 0;
+//}
