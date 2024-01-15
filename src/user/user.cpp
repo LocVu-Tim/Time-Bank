@@ -149,12 +149,12 @@ void User::setBlocked(string blocks)
 }
 
 // method to get userId
-int getUserId()
+int User::getUserId()
 {
     return userId;
 }
 
-void setUserId(int userId)
+void User::setUserId(int userId)
 {
     this->userId = userId;
 }
