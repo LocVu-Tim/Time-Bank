@@ -6,9 +6,9 @@
 
 // Main components
 #include "request.h"
-#include "view/RequestView.h"
-#include "controller/RequestController.h"
-#include "model/RequestModel.h"
+#include "./view/RequestView.h"
+#include "./controller/RequestController.h"
+#include "./model/RequestModel.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ void Request::printInfo()
     // convert bool to string
     cout << "Availability: " << (availability ? "true" : "false") << endl;
     cout << "Points per hour: " << pointsPerHour << endl;
-    cout << "Skill: " << skill << endl;
+    // cout << "Skill: " << skill << endl;
     cout << "Skill rating score: " << skillRatingScore << endl;
     cout << "Supporter rating score: " << supporterRatingScore << endl;
     cout << "Host rating score: " << hostRatingScore << endl;
@@ -42,6 +42,11 @@ int main()
     RequestModel rm;
     RequestController rc(rm, rv);
     int selectedChoice;
+
+    // Create a test user
+    // User testUser;
+    // load data from file
+    rm.load();
 
     int operationNum = rc.OperationsList();
     rc.selectAvailableFunction(operationNum, rv, rm);

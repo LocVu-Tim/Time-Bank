@@ -2,26 +2,25 @@
 #include "../request.h"
 #include "RequestView.h"
 
-using namespace std;
-
 RequestView::RequestView() {}
 
 // RequestView::~RequestView(){};
 // Get input from user
-void RequestView::setInput()
+void RequestView::setInput(string inputField)
 {
-  string input;
-  cin >> input;
-  userInputs.push_back(input);
+  string userInput;
+  // cin >> userInput;
+  getline(cin >> ws, userInput);
+  userInputs[inputField] = userInput;
 };
 
-void RequestView::setOptionalInput()
+void RequestView::setOptionalInput(string inputField)
 {
-  string input;
+  string userinput;
   // can be empty -> optional
-  getline(cin, input);
+  getline(cin, userinput);
   cin.ignore(1000, '\n');
-  userInputs.push_back(input);
+  userInputs[inputField] = userinput;
 };
 
 // Might be improved with inserting the type of request as a parameter
@@ -29,35 +28,54 @@ void RequestView::checkOptionalInput()
 {
   // since the 4th element is optional, check if it is empty
   // do check if there is any whitespace
-  if (userInputs[4].empty())
+  if (userInputs["minimumRatingForHost"].empty())
   {
     // replace the empty string with 0
-    userInputs[4] = "0";
+    userInputs["minimumRatingForHost"] = "0";
   }
 }
 
-string RequestView::getInput(int index)
+string RequestView::getInput(string inputField)
 {
-  return userInputs[index];
+  return userInputs[inputField];
 };
 
-vector<string> RequestView::getUserInputs()
+map<string, string> RequestView::getUserInputs()
 {
   return userInputs;
 }
 
-void RequestView::errorHandling(string error)
+// Get multiple inputs from user
+void RequestView::setMultipleInputs(int numberOfInputs, string fieldName)
 {
-  cout << "=============================" << endl;
+  for (int i = 0; i < numberOfInputs; i++)
+  {
+    string input;
+    cin >> input;
+    // userInputs[fieldName].append(input);
+    // make it a vector containing all the skills with delimiter
+    userInputs[fieldName].append(input);
+    if (i != numberOfInputs - 1)
+    {
+      userInputs[fieldName].append(",");
+    }
+  }
+};
+
+bool RequestView::errorHandling(string error)
+{
+  cout << "==============================" << endl;
   cout << "Invalid choice" << endl;
   cout << "Reason: " << error << endl;
   cout << "Please try again" << endl;
-  cout << "Press Enter to continue..." << endl;
+  cout << "Press any key to continue..." << endl;
   getline(cin, error);
+  // cin >> error;
   // Clear the input buffer
   cin.ignore(10000, '\n');
-  cin.clear();
-  cout << "=============================" << endl;
+  // cin.clear();
+  cout << "==============================" << endl;
+  return true;
 }
 
 void RequestView::viewAvailableFunctions()
@@ -78,28 +96,31 @@ void RequestView::listOrUnlist()
 
 void RequestView::list()
 {
-  // sometimes views can also return values just like
-  // user input in HTML forms
-  cout << "Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): " << endl;
+  int numberOfSkills;
+
+  cout << "===Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): ===" << endl;
   cout << "From: " << endl;
-  string input;
-  setInput();
+  setInput("timeFrom");
   cout << "To: " << endl;
-  setInput();
-  cout << "Skill to perform: " << endl;
-  setInput();
+  setInput("timeTo");
+  cout << "City: " << endl;
+  setInput("city");
+  cout << "How many skill you want to list yourself for: " << endl;
+  cin >> numberOfSkills;
+  cout << "Skill to perform " << endl;
+  setMultipleInputs(numberOfSkills, "skill");
   cout << "Point consumed / hour: " << endl;
-  setInput();
+  setInput("pointsPerHour");
   cout << "Minimum rating for host (Optional, press Enter if you want to skip): " << endl;
-  setOptionalInput();
+  setOptionalInput("minimumRatingForHost");
   checkOptionalInput();
-  // append at the end of the vector the type of request
-  userInputs.push_back("list");
+  userInputs["requestOperation"] = "list";
 };
 
 void RequestView::unlist()
 {
   cout << "Unlist" << endl;
+  // get all of the user's own the list of requests
 };
 
 void RequestView ::lookForSupport()
@@ -109,15 +130,20 @@ void RequestView ::lookForSupport()
   cout << "Enter the time period you want to look for support (In date and with format dd/mm/yyyy): " << endl;
   cout << "From: " << endl;
   string input;
-  setInput();
+  setInput("timeFrom");
   cout << "To: " << endl;
-  setInput();
-  cout << "Skill to perform: " << endl;
-  setInput();
+  setInput("timeTo");
+  cout << "City: " << endl;
+  setInput("city");
+  cout << "Enter the nynver of skill you want to look for support: " << endl;
+  int numberOfSkills;
+  cin >> numberOfSkills;
+  cout << "Skill you want to help with: " << endl;
+  setMultipleInputs(numberOfSkills, "skill");
   cout << "Point that you are willing to pay per hour: " << endl;
-  setInput();
+  setInput("pointsPerHour");
   cout << "Minimum rating for supporter: (Optional, press Enter if you want to skip) " << endl;
-  setOptionalInput();
+  setOptionalInput("minimumRatingForSupporter");
   checkOptionalInput();
-  userInputs.push_back("lookForSupport");
+  userInputs["requestOperation"] = "lookForSupport";
 };

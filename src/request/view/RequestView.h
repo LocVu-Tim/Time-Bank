@@ -2,26 +2,30 @@
 #define REQUEST_VIEW_H
 
 #include <vector>
+#include <map>
 #include <string>
 using namespace std;
 
 class RequestView
 {
 private:
-    vector<string> userInputs;
+    // vector<string> userInputs;
+    map<string, string> userInputs;
 
 public:
     RequestView();
     // ~RequestView();
     // method supporting gettting input from user
-    void setInput();
-    void setOptionalInput();
+    void setInput(string inputField);
+    void setOptionalInput(string inputField);
     void checkOptionalInput();
-    string getInput(int index);
-    vector<string> getUserInputs();
+    string getInput(string field);
+    map<string, string> getUserInputs();
+
+    void setMultipleInputs(int numberOfInputs, string fieldName);
 
     // Error handling for error controller
-    void errorHandling(string error);
+    bool errorHandling(string error);
 
     // Validate user input
     // 1. Validate the date

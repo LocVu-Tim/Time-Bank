@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <map>
 #define FILENAME "request.dat"
 using namespace std;
 
@@ -20,7 +21,7 @@ public:
     RequestModel(vector<Request *> requests = {});
     ~RequestModel();
 
-    void createRequest(vector<string> userData);
+    void createRequest(map<string, string> userData);
     void writeToFile(Request *request);
     void load();
     vector<Request *> getRequests();

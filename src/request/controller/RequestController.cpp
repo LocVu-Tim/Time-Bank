@@ -42,21 +42,40 @@ void RequestController::selectAvailableFunction(int choice, RequestView requestV
     }
 }
 
-void RequestController::createRequestObject(vector<string> userData)
+void RequestController::createRequestObject(map<string, string> userData)
 {
     // TODO: add type data validation
     try
     {
-        requestModel.createRequest(userData);
-        vector<Request *> Test = requestModel.getRequests();
-        Test[0]->printInfo();
+        bool continueCreate = true;
+        while (continueCreate)
+        {
+            requestModel.createRequest(userData);
+            vector<Request *> Test = requestModel.getRequests();
+            
+            cout << "Do you want to continue create request? (Y/N)" << endl;
+            string choice;
+            cin >> choice;
+            if (choice == "Y" || choice == "y")
+            {
+                continueCreate = true;
+            }
+            else
+            {
+                continueCreate = false;
+            }
+        }
+        // redirect user back to the main menu
+        OperationsList();
     }
     catch (const std::invalid_argument &ia)
     {
         std::cerr << "Invalid argument: " << ia.what() << '\n';
-        requestView.errorHandling("Invalid argument");
-        // Rerun again
-        listOrUnlist();
+        bool continueFlag = requestView.errorHandling("Invalid argument");
+        if (continueFlag)
+        {
+            listOrUnlist();
+        }
     }
 }
 
@@ -85,8 +104,8 @@ void RequestController::listOrUnlist()
 void RequestController::list()
 {
     requestView.list();
-    vector<string> userData = requestView.getUserInputs();
-    if (userData.size() == 6)
+    map<string, string> userData = requestView.getUserInputs();
+    if (userData.size() == 7)
     {
         // lookForSupport Request object to store data
         createRequestObject(userData);
@@ -101,15 +120,15 @@ void RequestController::unlist()
 {
     RequestView requestView;
     requestView.unlist();
-    // Without the model, we cannot implement this function
     // FIXME: implement this function
+
 }
 
 void RequestController::lookForSupport()
 {
     RequestView requestView;
     requestView.lookForSupport();
-    vector<string> userData = requestView.getUserInputs();
+    map<string, string> userData = requestView.getUserInputs();
     if (userData.size() == 6)
     {
         // create Request object to store data
@@ -120,3 +139,9 @@ void RequestController::lookForSupport()
         cout << "Invalid input" << endl;
     }
 };
+
+void RequestController::onLoad()
+{
+    // load data from file
+    requestModel.load();
+}

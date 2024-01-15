@@ -18,8 +18,9 @@ public:
 
     // Add your member functions here
     int OperationsList();
+    void onLoad();
     void selectAvailableFunction(int choice, RequestView requestView, RequestModel requestModel);
-    void createRequestObject(vector<string> userData);
+    void createRequestObject(map<string, string> userData);
     void listOrUnlist();
     // 1. List and unlist your own requests
     void list();
