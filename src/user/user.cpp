@@ -1,4 +1,4 @@
-#include "user.h"
+#include "User.h"
 #include <iostream>
 
 /*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING
