@@ -194,7 +194,7 @@ bool checkValidUsername(vector<User *> users, string userName)
     // check for matching username
     for (int i = 0; i < users.size(); i++)
     {
-        if (caseInsensitiveStringCompare(users[i]->getUsername(), userName) == true)
+        if (caseInsensitiveStringCompare(users[i]->getUsername(), userName))
         {
             cout << "Username is already taken.\n";
             return false;
@@ -208,7 +208,7 @@ bool checkValidUsername(vector<User *> users, string userName)
 // method to check valid email
 bool checkValidEmail(vector<User *> users, string email)
 {
-    const regex pattern("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+");
+    const regex pattern(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
 
     return regex_match(email, pattern);
 }
@@ -233,7 +233,7 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo)
         }
     }
     // phone no must start with 0
-    if (!(phoneNo[0] == '0'))
+    if (phoneNo[0] != '0')
     {
         cout << "Phone number must start with 0\n";
         return false;
@@ -242,7 +242,7 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo)
     // check if phone no alr existed
     for (int i = 0; i < users.size(); i++)
     {
-        if (caseSensitiveStringCompare(users[i]->getPhoneNo(), phoneNo) == true)
+        if (caseSensitiveStringCompare(users[i]->getPhoneNo(), phoneNo))
         {
             cout << "Phone number already existed.\n";
             return false;
@@ -276,7 +276,7 @@ bool checkValidPwd(string pwd)
 // method to verify password
 bool verifyPwd(User user, string pwd)
 {
-    if (caseSensitiveStringCompare(user.getPwd(), pwd) == false)
+    if (!caseSensitiveStringCompare(user.getPwd(), pwd))
     {
         cout << "Inccorrect password";
         return false;

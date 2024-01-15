@@ -27,7 +27,7 @@ bool User::loginMember(vector<User *> users, string checkUsername)
     {
         cout << "Please enter password: ";
         cin >> checkPwd;
-        if (verifyPwd(*user, checkPwd) == true)
+        if (verifyPwd(*user, checkPwd))
         {
             cout << "Login successful\n";
         }
@@ -62,11 +62,11 @@ void User::changePwdMember(User user, string temp)
     string newPwd;
     cout << "Emter old password: ";
     cin >> temp;
-    if (verifyPwd(user, temp) == true)
+    if (verifyPwd(user, temp))
     {
         cout << "Password verified. Please enter new password: ";
         cin >> newPwd;
-        if (checkValidPwd(newPwd) == true)
+        if (checkValidPwd(newPwd))
         {
             user.setPwd(newPwd);
             cout << "Password successfully reset\n";
@@ -99,7 +99,7 @@ void User::showInfoWithBlock(vector<User *> users)
                 block = true;
             }
         }
-        if (block == true)
+        if (block)
         {
             continue;
         }

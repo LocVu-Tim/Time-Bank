@@ -28,7 +28,7 @@ bool User::loginAdmin(vector<User *> users, string checkUsername)
     {
         cout << "Please enter password: ";
         cin >> checkPwd;
-        if (verifyPwd(*user, checkPwd) == true)
+        if (verifyPwd(*user, checkPwd))
         {
             cout << "Login successful\n";
         }
@@ -63,7 +63,7 @@ void User::changePwdAdmin(vector<User *> users, string username)
     {
         cout << "Successfully found user. Please enter new password: ";
         cin >> reset;
-        if (checkValidPwd(reset) == true)
+        if (checkValidPwd(reset))
         {
             user->setPwd(reset);
             cout << "Password successfully reset\n";
