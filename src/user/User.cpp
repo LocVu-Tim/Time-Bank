@@ -280,7 +280,7 @@ bool verifyPwd(User user, string pwd)
 {
     if (caseSensitiveStringCompare(user.getPwd(), pwd) == false)
     {
-        cout << "Inccorrect password";
+        cout << "Inccorrect password\n";
         return false;
     }
     return true;
@@ -296,6 +296,7 @@ User *findByUsername(const vector<User *> &users, const string &username)
             return userPtr;
         }
     }
+    cout << "User not found\n"
     return nullptr; // Return nullptr if user is not found
 }
 
@@ -308,5 +309,6 @@ User *findById(const vector<User *> &users, const int targetId)
             return userPtr;
         }
     }
+    cout << "User not found\n"
     return nullptr;
 }
