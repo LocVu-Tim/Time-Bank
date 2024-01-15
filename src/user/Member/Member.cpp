@@ -41,10 +41,12 @@ bool User::loginMember(vector<User *> users, string checkUsername)
 }
 
 // method to block member
-void User::blockUser(vector<User *> users, string block)
+void User::blockUser(vector<User *> users )
 {
+    string block;
     cout << "Enter username to block: ";
     cin >> block;
+    checkValidUsername(users, block);
     if (findByUsername(users, block) == nullptr)
     {
         cout << "Username not found\n";
@@ -94,9 +96,10 @@ void User::showInfoWithBlock(vector<User *> users)
         bool block = false;
         for (int j = 0; j < blocks.size(); j++)
         {
-            if (username == blocks[j])
+            if (getUsername() == blocks[j])
             {
                 block = true;
+                break;
             }
         }
         if (block == true)

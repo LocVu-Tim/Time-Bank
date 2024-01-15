@@ -29,7 +29,7 @@ private:
 
 public:
     Request(int id = 0, bool availability = false, int pointsPerHour = 0, vector<string> skill = {}, int skillRatingScore = 0, int supporterRatingScore = 0, int hostRatingScore = 0, string timeFrom = "", string timeTo = "", string city = "", bool isAccepted = false, vector<string> comments = {}, double minimumRatingForSupporter = 0){};
-
+    Request();
     // Friend classes
     friend class RequestModel;
     friend class RequestController;

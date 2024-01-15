@@ -19,14 +19,14 @@ private:
     string username, pwd, fullName, email, homeAddr, phoneNo;
     bool block;
     vector<string> blocked;
-    int creds, role, ratingScore;
+    int creds, role, ratingScore, userId;
 
     /*Rating *skillRating, *supporterRating, *hostRating;*/
 public:
     // default constructor
     User();
     // constructor
-    User(string username, string pwd, string fullName, string email,
+    User(int userIdVal, string username, string pwd, string fullName, string email,
          string homeAddr, string phoneNo, int creds, int ratingScore);
 
     // constructor used for block function
@@ -91,8 +91,14 @@ public:
     // method to set block
     void setBlocked(string blocks);
 
+    //method to get userId
+    int getUserId();
+
+    //method to set user id
+    void setUserId(int id);
+
     // method to block user from viewing content
-    void blockUser(vector<User *> users, string block);
+    void blockUser(vector<User *> users);
 
     // method to show info with block
     void showInfoWithBlock(vector<User *> users);
@@ -144,6 +150,9 @@ public:
 
     // method to find user thru username
     friend User *findByUsername(const vector<User *> &users, const string &username);
+
+    //method to find user thru id
+    friend User *findById(const vector<User *> &users, const int targetId);
 };
 // method to register user
 User registerMember(vector<User *> users);
@@ -165,3 +174,7 @@ bool verifyPwd(User user, string pwd);
 
 // method to find user thru username
 User *findByUsername(const vector<User *> &users, const string &username);
+
+//method to find user by if
+User *findById(const vector<User *> &users, const int targetId);
+

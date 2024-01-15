@@ -5,11 +5,14 @@
 
 using namespace std;
 
+void menu();
 void Guest();
 void Member();
 void Admin();
+void adminLogin();
+void memberLogin();
 
-int main(){
+void welcomeInterface(){
     int choice;
 
     // Welcome Interface//
@@ -23,89 +26,76 @@ int main(){
     cout <<"s3979199, Luong Anh Huy"<<endl;
     cout <<"s3978609, Tran Tuan Minh"<<endl;
     cout <<""<<endl;
-
-    cout <<"**************************************************"<<endl;
-    cout <<"************WELCOME TO TIME BANK******************"<<endl;
-    cout <<"Use the app as: "<<endl;
-    cout<<"1. Guest"<<endl;
-    cout<<"2. Member"<<endl;
-    cout<<"3. Admin"<<endl;
-    cout<<"Enter Your Choice: ";
-
-    cin >>choice;
-    cout <<endl;
-
-    switch(choice){
-        case 1:
-            Guest();
-            
-        case 2:
-            Member();
-            
-        case 3:
-            Admin();
-            
-    }
-
+    menu();
 }
 
-void Guest(){
-    int count;
-    string gName,gPass,gN,gP;
-    system("cls");
-    cout <<"Enter username: ";
-    cin >> gName;
-    cout<<"Enter password: ";
-    cin >> gPass;
+void menu (){
+    int choice;
+    bool running = true;
 
-    ifstream input("loginDetails.txt");
-    while(input>>gN>>gP){
-        if(gN==gName && gP==gPass){
-            count =1;
-            system("cls");
+    while (running) {
+        cout <<"**************************************************"<<endl;
+        cout <<"************ WELCOME TO TIME BANK ****************"<<endl;
+        cout <<"Use the app as: "<<endl;
+        cout<<"1. Admin"<<endl;
+        cout<<"2. Member"<<endl;
+        cout<<"3. Guest"<<endl;
+        cout<<"Enter Your Choice: ";
+
+        cin >> choice;
+
+        if (cin.fail())
+        {
+            cin.clear();               
+            cin.ignore(INT_MAX, '\n'); 
+            cout << "Invalid input! Please enter a number."
+                 << "\n";
+            continue; 
         }
-    }
-    input.close();
-    if(count==1){
-        cout<<"Login Successful\n";
-        cin.get();
-        main();
-    }
-    else{
-        cout<<"Login Error \nPlease check your details"<<endl;
-        main();
-    }
-}
 
-void Member(){
-    int count;
-    string mName,mPass,mN,mP;
-    system("cls");
-    cout <<"Enter username: ";
-    cin >> mName;
-    cout<<"Enter password: ";
-    cin >> mPass;
-
-    ifstream input("loginDetails.txt");
-    while(input>>mN>>mP){
-        if(mN==mName && mP==mPass){
-            count =1;
-            system("cls");
+        switch(choice){
+            case 1:
+                adminLogin();
+                
+            case 2:
+                Member();
+                
+            case 3:
+                Guest();
+                
         }
-    }
-    input.close();
-    if(count==1){
-        cout<<"Login Successful\n";
-        cin.get();
-        main();
-    }
-    else{
-        cout<<"Login Error \n Please check your details"<<endl;
-        main();
+
     }
 }
 
 void Admin(){
+
+    int choice;
+    cout << "\nAdmin menu\n";
+    cout << "1.View admin information\n";
+    cout << "2.Reset member password\n";
+    cout << "3.Back to main menu\n";
+    cout << "Enter your choice: ";
+    cin >> choice;
+    switch (choice)
+    {
+    case 1:
+        menu();
+        break;
+    case 2:
+        menu();
+        break;
+    case 3:
+        menu();
+        break;
+    default:
+        cout << "Invalid choice!"
+             << "\n";
+        break;
+    }
+}
+
+void adminLogin() {
     int count;
     string aName,aPass,aN,aP;
     system("cls");
@@ -114,7 +104,7 @@ void Admin(){
     cout<<"Enter password: ";
     cin >> aPass;
 
-    ifstream input("loginDetails.txt");
+    ifstream input("adminDetail.dat");
     while(input>>aN>>aP){
         if(aN==aName && aP==aPass){
             count =1;
@@ -124,11 +114,95 @@ void Admin(){
     input.close();
     if(count==1){
         cout<<"Login Successful\n"; 
-        cin.get();
-        main();
+        Admin();
     }
     else{
         cout<<"Login Error \n Please check your details"<<endl;
-        main();
+        adminLogin();
+    }
+   
+}
+
+void Member(){
+    int choice;
+    cout << "\nMember menu:\n";
+    cout << "1.View information\n";
+    cout << "2.Add skills\n";
+    cout << "3.Listed as supporter\n";
+    cout << "Enter your choice: ";
+    cin >> choice;
+    switch (choice)
+    {
+        case 1:
+            menu();
+            break;
+        case 2:
+            menu();
+            break;
+        case 3:
+            menu();
+            break;
+        default:
+            cout << "Invalid choice!"
+                << "\n";
+            break;
     }
 }
+
+void loginMember() {
+    int count;
+    string mName,mPass,mN,mP;
+    system("cls");
+    cout <<"Enter username: ";
+    cin >> mName;
+    cout<<"Enter password: ";
+    cin >> mPass;
+
+    ifstream input("memberDetail.txt");
+    while(input>>mN>>mP){
+        if(mN==mName && mP==mPass){
+            count =1;
+            system("cls");
+        }
+    }
+    input.close();
+    if(count==1){
+        cout<<"Login Successful\n"; 
+        cin.get();
+        Member();
+    }
+    else{
+        cout<<"Login Error \n Please check your details"<<endl;
+        loginMember();
+    }
+}
+
+void Guest() {
+    
+    int choice;
+    cout << "1. View supporters\n";
+    cout << "2. Register member\n";
+    cout << "3. Back to main menu\n";
+    cout << "Enter your choice: ";
+    cin >> choice;
+
+    switch (choice)
+    {
+    case 1:
+        menu();
+        break;
+    case 2:
+        menu();
+        break;
+    case 3:
+        menu();
+        break;
+    default:
+        cout << "Invalid choice!"
+             << "\n";
+        break;
+    }
+}
+
+
+
