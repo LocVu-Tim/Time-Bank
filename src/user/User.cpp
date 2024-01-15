@@ -1,18 +1,18 @@
 #include "User.h"
 #include <iostream>
 
-/*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING 
+/*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING
     - GET SET METHODS
     - CHECK VALID METHODS
     - FIND BY USERNAME
 */
 
-
 User::User() {}
 // constructor
-User::User(string username, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, int creds, int ratingScore)
+User::User(int userIdVal, string username, string pwd, string fullName, string email,
+           string homeAddr, string phoneNo, int creds, int ratingScore) : role(0)
 {
+    this->userId = userIdVal;
     this->username = username;
     this->pwd = pwd;
     this->fullName = fullName;
@@ -142,13 +142,19 @@ vector<string> User::getBlocked()
 // method to set block
 void User::setBlocked(string blocks)
 {
-    for (int i = 0; i < blocked.size(); i++)
-    {
-        this->blocked.push_back(blocks);
-    }
+   blocked.push_back(blocks);
 }
 
+// method to get userId
+int User::getUserId()
+{
+    return userId;
+}
 
+void User::setUserId(int userId)
+{
+    this->userId = userId;
+}
 // method to top up credit points with pwd authorization
 //  int User::topUpCreds (User user, int topUp) {
 //      string temp;
@@ -165,11 +171,7 @@ void User::setBlocked(string blocks)
 //     return creds;
 // }
 
-
 // method to reset password for member
-
-
-
 
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName)
@@ -278,7 +280,7 @@ bool verifyPwd(User user, string pwd)
 {
     if (caseSensitiveStringCompare(user.getPwd(), pwd) == false)
     {
-        cout << "Inccorrect password";
+        cout << "Inccorrect password\n";
         return false;
     }
     return true;
@@ -294,5 +296,19 @@ User *findByUsername(const vector<User *> &users, const string &username)
             return userPtr;
         }
     }
+    cout << "User not found\n"
     return nullptr; // Return nullptr if user is not found
+}
+
+User *findById(const vector<User *> &users, const int targetId)
+{
+    for (const auto &userPtr : users)
+    {
+        if (userPtr->userId == targetId)
+        {
+            return userPtr;
+        }
+    }
+    cout << "User not found\n"
+    return nullptr;
 }
