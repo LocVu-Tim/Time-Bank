@@ -96,8 +96,9 @@ public:
 
     //method to set user id
     void setUserId(int id);
+
     // method to block user from viewing content
-    void blockUser(vector<User *> users, string block);
+    void blockUser(vector<User *> users);
 
     // method to show info with block
     void showInfoWithBlock(vector<User *> users);
@@ -149,6 +150,9 @@ public:
 
     // method to find user thru username
     friend User *findByUsername(const vector<User *> &users, const string &username);
+
+    //method to find user thru id
+    friend User *findById(const vector<User *> &users, const int targetId);
 };
 // method to register user
 User registerMember(vector<User *> users);
@@ -170,3 +174,7 @@ bool verifyPwd(User user, string pwd);
 
 // method to find user thru username
 User *findByUsername(const vector<User *> &users, const string &username);
+
+//method to find user by if
+User *findById(const vector<User *> &users, const int targetId);
+

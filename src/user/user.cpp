@@ -10,7 +10,7 @@
 User::User() {}
 // constructor
 User::User(int userIdVal, string username, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, int creds, int ratingScore)
+           string homeAddr, string phoneNo, int creds, int ratingScore) : role(0)
 {
     this->userId = userIdVal;
     this->username = username;
@@ -142,10 +142,7 @@ vector<string> User::getBlocked()
 // method to set block
 void User::setBlocked(string blocks)
 {
-    for (int i = 0; i < blocked.size(); i++)
-    {
-        this->blocked.push_back(blocks);
-    }
+   blocked.push_back(blocks);
 }
 
 // method to get userId
@@ -300,4 +297,16 @@ User *findByUsername(const vector<User *> &users, const string &username)
         }
     }
     return nullptr; // Return nullptr if user is not found
+}
+
+User *findById(const vector<User *> &users, const int targetId)
+{
+    for (const auto &userPtr : users)
+    {
+        if (userPtr->userId == targetId)
+        {
+            return userPtr;
+        }
+    }
+    return nullptr;
 }
