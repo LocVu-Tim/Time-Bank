@@ -1,4 +1,4 @@
-#include "User.h"
+#include "user.h"
 #include <iostream>
 
 /*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING
@@ -154,9 +154,9 @@ int getUserId()
     return userId;
 }
 
-void setUserId(int id)
+void setUserId(int userId)
 {
-    this->id = userId;
+    this->userId = userId;
 }
 // method to top up credit points with pwd authorization
 //  int User::topUpCreds (User user, int topUp) {
