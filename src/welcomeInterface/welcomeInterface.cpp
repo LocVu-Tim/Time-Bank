@@ -3,16 +3,14 @@
 #include<stdlib.h>
 #include<string.h>
 
-// #include"../request/controller/RequestController.h"
-// #include <vector>
-// #include"../request/request.h"
-
 using namespace std;
 
 void menu();
 void Guest();
 void Member();
 void Admin();
+void adminLogin();
+void memberLogin();
 
 void welcomeInterface(){
     int choice;
@@ -116,7 +114,6 @@ void adminLogin() {
     input.close();
     if(count==1){
         cout<<"Login Successful\n"; 
-        cin.get();
         Admin();
     }
     else{
@@ -136,34 +133,34 @@ void Member(){
     cin >> choice;
     switch (choice)
     {
-    case 1:
-        menu();
-        break;
-    case 2:
-        menu();
-        break;
-    case 3:
-        menu();
-        break;
-    default:
-        cout << "Invalid choice!"
-             << "\n";
-        break;
+        case 1:
+            menu();
+            break;
+        case 2:
+            menu();
+            break;
+        case 3:
+            menu();
+            break;
+        default:
+            cout << "Invalid choice!"
+                << "\n";
+            break;
     }
 }
 
 void loginMember() {
     int count;
-    string aName,aPass,aN,aP;
+    string mName,mPass,mN,mP;
     system("cls");
     cout <<"Enter username: ";
-    cin >> aName;
+    cin >> mName;
     cout<<"Enter password: ";
-    cin >> aPass;
+    cin >> mPass;
 
     ifstream input("memberDetail.txt");
-    while(input>>aN>>aP){
-        if(aN==aName && aP==aPass){
+    while(input>>mN>>mP){
+        if(mN==mName && mP==mPass){
             count =1;
             system("cls");
         }
