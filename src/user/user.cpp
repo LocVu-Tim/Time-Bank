@@ -1,18 +1,18 @@
 #include "User.h"
 #include <iostream>
 
-/*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING 
+/*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING
     - GET SET METHODS
     - CHECK VALID METHODS
     - FIND BY USERNAME
 */
 
-
 User::User() {}
 // constructor
-User::User(string username, string pwd, string fullName, string email,
+User::User(int userIdVal, string username, string pwd, string fullName, string email,
            string homeAddr, string phoneNo, int creds, int ratingScore)
 {
+    this->userId = userIdVal;
     this->username = username;
     this->pwd = pwd;
     this->fullName = fullName;
@@ -148,7 +148,16 @@ void User::setBlocked(string blocks)
     }
 }
 
+// method to get userId
+int getUserId()
+{
+    return userId;
+}
 
+void setUserId(int id)
+{
+    this->id = userId;
+}
 // method to top up credit points with pwd authorization
 //  int User::topUpCreds (User user, int topUp) {
 //      string temp;
@@ -165,11 +174,7 @@ void User::setBlocked(string blocks)
 //     return creds;
 // }
 
-
 // method to reset password for member
-
-
-
 
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName)

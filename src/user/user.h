@@ -19,14 +19,14 @@ private:
     string username, pwd, fullName, email, homeAddr, phoneNo;
     bool block;
     vector<string> blocked;
-    int creds, role, ratingScore;
+    int creds, role, ratingScore, userId;
 
     /*Rating *skillRating, *supporterRating, *hostRating;*/
 public:
     // default constructor
     User();
     // constructor
-    User(string username, string pwd, string fullName, string email,
+    User(int userIdVal, string username, string pwd, string fullName, string email,
          string homeAddr, string phoneNo, int creds, int ratingScore);
 
     // constructor used for block function
@@ -91,6 +91,11 @@ public:
     // method to set block
     void setBlocked(string blocks);
 
+    //method to get userId
+    int getUserId();
+
+    //method to set user id
+    void setUserId(int id);
     // method to block user from viewing content
     void blockUser(vector<User *> users, string block);
 
