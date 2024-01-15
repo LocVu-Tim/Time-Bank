@@ -9,7 +9,7 @@ void Guest();
 void Member();
 void Admin();
 
-main(){
+int main(){
     int choice;
 
     // Welcome Interface//

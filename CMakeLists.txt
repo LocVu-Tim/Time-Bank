@@ -21,4 +21,8 @@ add_executable(Time_Bank
         src/request/request.cpp
         src/user/user.cpp
         src/user/user.h
-        src/welcomeInterface/welcomeInterface.cpp)
+        src/welcomeInterface/welcomeInterface.cpp
+        src/user/Member/Member.cpp
+        src/user/Guest/Guest.cpp
+        src/user/Admin/Admin.cpp
+        src/user/Tools/Tool.cpp)
