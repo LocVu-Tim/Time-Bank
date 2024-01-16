@@ -1,73 +1,151 @@
-#include <iostream>
 #include "../request.h"
 #include "RequestView.h"
-
-using namespace std;
 
 RequestView::RequestView() {}
 
 // RequestView::~RequestView(){};
 // Get input from user
-void RequestView::setInput()
+void RequestView::setInput(string inputField)
 {
-  string input;
-  cin >> input;
-  userInputs.push_back(input);
+  string userInput;
+  // cin >> userInput;
+  getline(cin >> ws, userInput);
+  userInputs[inputField] = userInput;
 };
 
-void RequestView::setOptionalInput()
+void RequestView::setOptionalInput(string inputField)
 {
-  string input;
+  string userinput;
   // can be empty -> optional
-  getline(cin, input);
-  cin.ignore(1000, '\n');
-  userInputs.push_back(input);
+  getline(cin >> ws, userinput);
+  // cin.ignore(1000, '\n');
+  userInputs[inputField] = userinput;
+};
+
+bool RequestView::isValidDate(string date)
+{
+  tm tm;
+  istringstream ss(date);
+  ss >> get_time(&tm, "%d/%m/%Y");
+  return ss.fail() ? false : true;
 };
 
 // Might be improved with inserting the type of request as a parameter
-void RequestView::checkOptionalInput()
+void RequestView::checkBeforeSubmitting(string form)
 {
-  // since the 4th element is optional, check if it is empty
-  // do check if there is any whitespace
-  if (userInputs[4].empty())
+  // validate date
+  if (!isValidDate(userInputs["timeFrom"]) || !isValidDate(userInputs["timeTo"]))
   {
-    // replace the empty string with 0
-    userInputs[4] = "0";
+    errorHandling("Invalid date");
+    if (form == "list")
+    {
+      list();
+    }
+  }
+
+  // validate if the pointsPerHour is a number
+  try
+  {
+    stod(userInputs["pointsPerHour"]);
+  }
+  catch (const std::invalid_argument &ia)
+  {
+    std::cerr << "Invalid argument: " << ia.what() << '\n';
+    errorHandling("Invalid argument");
+    if (form == "list")
+    {
+      list();
+    }
+  }
+
+  // validate if the minimumRatingForHost is a number
+  try
+  {
+    stod(userInputs["minimumRatingForHost"]);
+    // if the minimumRatingForHost is not empty, then it must be less than 5
+    if (userInputs["minimumRatingForHost"] != "" && stod(userInputs["minimumRatingForHost"]) >= 5)
+    {
+      errorHandling("Invalid rating");
+      if (form == "list")
+      {
+        list();
+      }
+    }
+  }
+  catch (const std::invalid_argument &ia)
+  {
+    std::cerr << "Invalid argument: " << ia.what() << '\n';
+    errorHandling("Invalid argument");
+    if (form == "list")
+    {
+      list();
+    }
+  }
+
+  // validate if skills not empty
+  if (userInputs["skill"] == "")
+  {
+    errorHandling("Invalid skill");
+    if (form == "list")
+    {
+      list();
+    }
   }
 }
 
-string RequestView::getInput(int index)
+string RequestView::getInput(string inputField)
 {
-  return userInputs[index];
+  return userInputs[inputField];
 };
 
-vector<string> RequestView::getUserInputs()
+map<string, string> RequestView::getUserInputs()
 {
   return userInputs;
 }
 
-void RequestView::errorHandling(string error)
+// Get multiple inputs from user
+void RequestView::setMultipleInputs(int numberOfInputs, string fieldName)
 {
-  cout << "=============================" << endl;
+  for (int i = 0; i < numberOfInputs; i++)
+  {
+    string input;
+    cin >> input;
+    // userInputs[fieldName].append(input);
+    // make it a vector containing all the skills with delimiter
+    userInputs[fieldName].append(input);
+    if (i != numberOfInputs - 1)
+    {
+      userInputs[fieldName].append(",");
+    }
+  }
+};
+
+bool RequestView::errorHandling(string error)
+{
+  cout << "==============================" << endl;
   cout << "Invalid choice" << endl;
   cout << "Reason: " << error << endl;
   cout << "Please try again" << endl;
-  cout << "Press Enter to continue..." << endl;
+  cout << "Press Enter key to continue..." << endl;
   getline(cin, error);
+  // cin >> error;
   // Clear the input buffer
   cin.ignore(10000, '\n');
-  cin.clear();
-  cout << "=============================" << endl;
+  // cin.clear();
+  cout << "==============================" << endl;
+  return true;
 }
 
 void RequestView::viewAvailableFunctions()
 {
+  cout << "==============================" << endl;
   cout << "1. List or unlist a request" << endl;
   cout << "2. Request for supporter" << endl;
   cout << "3. Delete a request" << endl;
-  cout << "4. View all requests" << endl;
+  cout << "4. View all active requests" << endl;
   cout << "5. View a request" << endl;
   cout << "6. Exit" << endl;
+  cout << "==============================" << endl;
 };
 
 void RequestView::listOrUnlist()
@@ -78,46 +156,76 @@ void RequestView::listOrUnlist()
 
 void RequestView::list()
 {
-  // sometimes views can also return values just like
-  // user input in HTML forms
+  int numberOfSkills;
+
   cout << "Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): " << endl;
   cout << "From: " << endl;
-  string input;
-  setInput();
+  setInput("timeFrom");
   cout << "To: " << endl;
-  setInput();
-  cout << "Skill to perform: " << endl;
-  setInput();
+  setInput("timeTo");
+  cout << "City: " << endl;
+  setInput("city");
+  cout << "How many skill you want to list yourself for: " << endl;
+  cin >> numberOfSkills;
+  cout << "Skill to perform " << endl;
+  setMultipleInputs(numberOfSkills, "skill");
   cout << "Point consumed / hour: " << endl;
-  setInput();
+  setInput("pointsPerHour");
   cout << "Minimum rating for host (Optional, press Enter if you want to skip): " << endl;
-  setOptionalInput();
-  checkOptionalInput();
-  // append at the end of the vector the type of request
-  userInputs.push_back("list");
+  setOptionalInput("minimumRatingForHost");
+  userInputs["requestOperation"] = "list";
+  checkBeforeSubmitting(userInputs["requestOperation"]);
 };
 
 void RequestView::unlist()
 {
-  cout << "Unlist" << endl;
+  cout << "Your current requests: " << endl;
+  cout << string(50, '=') << endl;
+  // get all of the user's own the list of requests
+  cout << "Which request do you want to remove?" << endl;
 };
 
-void RequestView ::lookForSupport()
+void RequestView::lookForSupport(vector<userRequest *> &availableRequests)
 {
-  // 1. Look for external support
-  // 2. Create a request
-  cout << "Enter the time period you want to look for support (In date and with format dd/mm/yyyy): " << endl;
-  cout << "From: " << endl;
-  string input;
-  setInput();
-  cout << "To: " << endl;
-  setInput();
-  cout << "Skill to perform: " << endl;
-  setInput();
-  cout << "Point that you are willing to pay per hour: " << endl;
-  setInput();
-  cout << "Minimum rating for supporter: (Optional, press Enter if you want to skip) " << endl;
-  setOptionalInput();
-  checkOptionalInput();
-  userInputs.push_back("lookForSupport");
+  // qq change in the implementation - display all available reqyests
+  vector<userRequest *> filteredData = dateFilter(availableRequests);
+  cout << "Available requests: " << endl;
+  for (int i = 0; i < filteredData.size(); i++)
+  {
+    cout << "Request no. " << i + 1 << endl;
+    cout << string(50, '=') << endl;
+    filteredData[i]->printInfo();
+    cout << string(50, '=') << endl;
+  }
+  cout << "Would you like to look for support for any of the above requests? (y/n)" << endl;
+}
+vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilter)
+{
+  time_t now = time(0);
+  // get the current date
+  tm *ltm = localtime(&now);
+  vector<userRequest *> filteredData;
+  // if the time is between timeTo and timeFrom, then return the request
+  // else return empty vector
+  for (int i = 0; i < dataToFilter.size(); i++)
+  {
+    // convert string to date first
+    string dateFrom = dataToFilter[i]->timeFrom;
+    tm dateFrom_tm;
+    istringstream ss(dateFrom);
+    ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
+    // same with dateTo
+    string dateTo = dataToFilter[i]->timeTo;
+    tm dateTo_tm;
+    istringstream ss2(dateTo);
+    ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
+    // Filter based on date and availability
+    if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0 && difftime(mktime(&dateTo_tm), mktime(ltm)) >= 0 && dataToFilter[i]->availability == true)
+    {
+      // return dataToFilter;
+      filteredData.push_back(dataToFilter[i]);
+    }
+  }
+  // return vector<userRequest *>();
+  return filteredData;
 };
