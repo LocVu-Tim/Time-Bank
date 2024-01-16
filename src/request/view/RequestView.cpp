@@ -193,6 +193,7 @@ void RequestView::lookForSupport(vector<userRequest *> &availableRequests)
     cout << "Request no. " << i + 1 << endl;
     cout << string(50, '=') << endl;
     filteredData[i]->printInfo();
+    cout << string(50, '=') << endl;
   }
   cout << "Would you like to look for support for any of the above requests? (y/n)" << endl;
 }
@@ -219,7 +220,6 @@ vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilte
     // Filter based on date and availability
     if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0 && difftime(mktime(&dateTo_tm), mktime(ltm)) >= 0 && dataToFilter[i]->availability == true)
     {
-
       // return dataToFilter;
       filteredData.push_back(dataToFilter[i]);
     }
