@@ -68,6 +68,8 @@ void RequestController::list()
 {
     requestView.list();
     map<string, string> userData = requestView.getUserInputs();
+    cout << "UserData:" << userData.size() << endl;
+
     if (userData.size() == 7)
     {
         // lookForSupport Request object to store data

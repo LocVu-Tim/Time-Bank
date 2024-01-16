@@ -18,21 +18,22 @@ void RequestView::setOptionalInput(string inputField)
 {
   string userinput;
   // can be empty -> optional
-  getline(cin, userinput);
-  cin.ignore(1000, '\n');
+  getline(cin >> ws, userinput);
+  // cin.ignore(1000, '\n');
   userInputs[inputField] = userinput;
 };
 
 // Might be improved with inserting the type of request as a parameter
 void RequestView::checkOptionalInput()
 {
-  // since the 4th element is optional, check if it is empty
-  // do check if there is any whitespace
   if (userInputs["minimumRatingForHost"].empty())
   {
-    // replace the empty string with 0
     userInputs["minimumRatingForHost"] = "0";
   }
+  //   else if (userInputs["minimumRatingForSupporter"].empty())
+  //   {
+  //     userInputs["minimumRatingForSupporter"] = "0";
+  //   }
 }
 
 string RequestView::getInput(string inputField)
@@ -68,8 +69,8 @@ bool RequestView::errorHandling(string error)
   cout << "Invalid choice" << endl;
   cout << "Reason: " << error << endl;
   cout << "Please try again" << endl;
-  cout << "Press any key to continue..." << endl;
-  getline(cin, error);
+  cout << "Press Enter key to continue..." << endl;
+  getline(cin >> ws, error);
   // cin >> error;
   // Clear the input buffer
   cin.ignore(10000, '\n');
@@ -80,12 +81,14 @@ bool RequestView::errorHandling(string error)
 
 void RequestView::viewAvailableFunctions()
 {
+  cout << "==============================" << endl;
   cout << "1. List or unlist a request" << endl;
   cout << "2. Request for supporter" << endl;
   cout << "3. Delete a request" << endl;
   cout << "4. View all requests" << endl;
   cout << "5. View a request" << endl;
   cout << "6. Exit" << endl;
+  cout << "==============================" << endl;
 };
 
 void RequestView::listOrUnlist()
@@ -113,7 +116,7 @@ void RequestView::list()
   setInput("pointsPerHour");
   cout << "Minimum rating for host (Optional, press Enter if you want to skip): " << endl;
   setOptionalInput("minimumRatingForHost");
-  checkOptionalInput();
+  // checkOptionalInput();
   userInputs["requestOperation"] = "list";
 };
 
