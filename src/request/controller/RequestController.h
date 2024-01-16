@@ -17,15 +17,19 @@ public:
     ~RequestController();
 
     int OperationsList();
-    void onLoad();
     void selectAvailableFunction();
     void createRequestObject(map<string, string> userData);
     void listOrUnlist();
     // 1. List and unlist your own requests
     void list();
     void unlist();
-    void lookForSupport(RequestModel &rm);
+    void viewAllRequests(RequestModel &rm);
     userRequest *findARequest(int position, vector<userRequest *> requestList);
+    void requestForSupporter();
+    // for view active request
+    vector<userRequest *> filterRequestByUser(vector<userRequest *> requestList, string username);
+    // for view available request
+    vector<userRequest *> filterRequestAvailable(vector<userRequest *> requestList, string username, vector<string> blocked);
 
     friend class RequestView;
     friend class RequestModel;

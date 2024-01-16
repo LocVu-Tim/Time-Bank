@@ -48,8 +48,9 @@ public:
     void unlist();
 
     // 2. lookForSupport a new request
-    void lookForSupport(vector<userRequest *> &requestList);
+    void viewAllRequests(vector<userRequest *> &requestList);
     vector<userRequest *> dateFilter(vector<userRequest *> &dataToFilter);
+    void requestForSupporter();
 };
 
 #endif // REQUEST_VIEW_H

@@ -141,7 +141,7 @@ vector<string> User::getBlocked()
 // method to set block
 void User::setBlocked(string blocks)
 {
-   blocked.push_back(blocks);
+    blocked.push_back(blocks);
 }
 
 // method to get userId
@@ -295,7 +295,7 @@ User *findByUsername(const vector<User *> &users, const string &username)
             return userPtr;
         }
     }
-    cout << "User not found\n"
+    cout << "User not found\n";
     return nullptr; // Return nullptr if user is not found
 }
 
@@ -308,6 +308,6 @@ User *findById(const vector<User *> &users, const int targetId)
             return userPtr;
         }
     }
-    cout << "User not found\n"
+    cout << "User not found\n";
     return nullptr;
 }

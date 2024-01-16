@@ -32,12 +32,13 @@ void fileUtility::writeToFile(userRequest *request)
     if (request->availability)
     {
         fout << "availability:true" << endl;
-        fout << "minimumRatingForHost:" << request->minimumRatingForHost << endl;
     }
     else
     {
         fout << "availability:false" << endl;
     }
+    fout << "minimumRatingForHost:" << request->minimumRatingForHost << endl;
+    fout << "minimumRatingForSupporter:" << request->minimumRatingForSupporter << endl;
     // Check if supporterName is empty
     fout << "hostName:" << (request->hostName.empty() ? "none" : request->hostName) << endl;
     fout << endl;
@@ -127,6 +128,10 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
             {
                 request->minimumRatingForHost = stod(value);
             }
+            else if (key == "minimumRatingForSupporter")
+            {
+                request->minimumRatingForSupporter = stod(value);
+            }
             else if (key == "hostName")
             {
                 request->hostName = value;
@@ -141,7 +146,6 @@ void fileUtility::modifyFile(vector<userRequest *> &requestList)
 {
     cout << "===============" << endl;
     cout << "modifying the file..." << endl;
-    cout << "===============" << endl;
     ofstream fout;
     // clear the file first
     fout.open(FILENAME, ios::trunc);

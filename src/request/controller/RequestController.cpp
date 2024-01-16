@@ -30,7 +30,10 @@ void RequestController::selectAvailableFunction()
         listOrUnlist();
         break;
     case 2:
-        lookForSupport(*requestModel);
+        requestForSupporter();
+        break;
+    case 3:
+        viewAllRequests(*requestModel);
         break;
     case 6:
         fileUtility.modifyFile(requestModel->requestList);
@@ -82,13 +85,39 @@ void RequestController::list()
     }
 };
 
+void RequestController::requestForSupporter()
+{
+    requestView->list();
+    map<string, string> userData = requestView->getUserInputs();
+
+    if (userData.size() == 7)
+    {
+        // lookForSupport Request object to store data
+        createRequestObject(userData);
+    }
+    else
+    {
+        cout << "Invalid input" << endl;
+    }
+}
+
+// This is for finding the request by user
+vector<userRequest *> RequestController::filterRequestByUser(vector<userRequest *> requestList, string username){
+    // return vector<userRequest *>();
+};
+
+// This is for finding all of the available request
+vector<userRequest *> RequestController::filterRequestAvailable(vector<userRequest *> requestList, string username, vector<string> blocked){
+    // return vector<userRequest *>();
+};
+
 void RequestController::unlist()
 {
     RequestView requestView;
     requestView.unlist();
 }
 
-void RequestController::lookForSupport(RequestModel &rm)
+void RequestController::viewAllRequests(RequestModel &rm)
 {
     RequestView requestView;
     bool choice = true;
@@ -105,7 +134,7 @@ void RequestController::lookForSupport(RequestModel &rm)
     {
         vector<userRequest *> requestList = rm.getRequests();
         cout << "Request list size: " << requestList.size() << endl;
-        requestView.lookForSupport(requestList);
+        requestView.viewAllRequests(requestList);
         cin >> input;
         if (input == "Y" || input == "y")
         {
@@ -191,10 +220,4 @@ void RequestController::createRequestObject(map<string, string> userData)
             listOrUnlist();
         }
     }
-}
-
-void RequestController::onLoad()
-{
-    // load data from file
-    requestModel->load();
 }

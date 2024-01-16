@@ -36,14 +36,21 @@ void RequestModel::createRequest(map<string, string> userData)
         userData["skill"].erase(0, userData["skill"].find(",") + 1);
     }
     request->pointsPerHour = stod(userData["pointsPerHour"]);
-
+    request->availability = true;
+    // exception if the number is -1
     if (userData["requestOperation"] == "list")
     {
-        request->availability = true;
         request->minimumRatingForHost = stod(userData["minimumRatingForHost"]);
+        request->minimumRatingForSupporter = 0;
+        request->hostName = "";
     }
-
-    request->hostName = "";
+    else if (userData["requestOperation"] == "requestForSupporter")
+    {
+        request->minimumRatingForHost = 0;
+        request->minimumRatingForSupporter = stod(userData["minimumRatingForSupporter"]);
+        // TODO: hostName is the current user qq
+        // request->hostName = userData["hostName"];
+    }
     // push the request object to the requestList
     requestList.push_back(request);
     // write to file

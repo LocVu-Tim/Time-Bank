@@ -16,6 +16,7 @@ private:
     string city;
     vector<string> skill;
     double minimumRatingForHost;
+    double minimumRatingForSupporter;
     string hostName;
 
 public:
@@ -28,6 +29,7 @@ public:
         this->timeTo = timeTo;
         this->city = city;
         this->minimumRatingForHost = minimumRatingForHost;
+        this->minimumRatingForSupporter = 0;
     };
     friend class fileUtility;
     friend class RequestModel;

@@ -39,7 +39,11 @@ void RequestView::checkBeforeSubmitting(string form)
     errorHandling("Invalid date");
     if (form == "list")
     {
-      list();
+      return list();
+    }
+    else if (form == "requestForSupporter")
+    {
+      return requestForSupporter();
     }
   }
 
@@ -54,7 +58,11 @@ void RequestView::checkBeforeSubmitting(string form)
     errorHandling("Invalid argument");
     if (form == "list")
     {
-      list();
+      return list();
+    }
+    else if (form == "requestForSupporter")
+    {
+      return requestForSupporter();
     }
   }
 
@@ -68,7 +76,11 @@ void RequestView::checkBeforeSubmitting(string form)
       errorHandling("Invalid rating");
       if (form == "list")
       {
-        list();
+        return list();
+      }
+      else if (form == "requestForSupporter")
+      {
+        return requestForSupporter();
       }
     }
   }
@@ -78,7 +90,11 @@ void RequestView::checkBeforeSubmitting(string form)
     errorHandling("Invalid argument");
     if (form == "list")
     {
-      list();
+      return list();
+    }
+    else if (form == "requestForSupporter")
+    {
+      return requestForSupporter();
     }
   }
 
@@ -88,7 +104,11 @@ void RequestView::checkBeforeSubmitting(string form)
     errorHandling("Invalid skill");
     if (form == "list")
     {
-      list();
+      return list();
+    }
+    else if (form == "requestForSupporter")
+    {
+      return requestForSupporter();
     }
   }
 }
@@ -140,10 +160,10 @@ void RequestView::viewAvailableFunctions()
 {
   cout << "==============================" << endl;
   cout << "1. List or unlist a request" << endl;
-  cout << "2. Request for supporter" << endl;
-  cout << "3. Delete a request" << endl;
+  cout << "2. Request for a supporter" << endl;
+  cout << "3. View all request" << endl;
   cout << "4. View all active requests" << endl;
-  cout << "5. View a request" << endl;
+  cout << "5. Search for a request" << endl;
   cout << "6. Exit" << endl;
   cout << "==============================" << endl;
 };
@@ -157,7 +177,6 @@ void RequestView::listOrUnlist()
 void RequestView::list()
 {
   int numberOfSkills;
-
   cout << "Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): " << endl;
   cout << "From: " << endl;
   setInput("timeFrom");
@@ -165,7 +184,7 @@ void RequestView::list()
   setInput("timeTo");
   cout << "City: " << endl;
   setInput("city");
-  cout << "How many skill you want to list yourself for: " << endl;
+  cout << "How many skill you want to request for: " << endl;
   cin >> numberOfSkills;
   cout << "Skill to perform " << endl;
   setMultipleInputs(numberOfSkills, "skill");
@@ -185,7 +204,7 @@ void RequestView::unlist()
   cout << "Which request do you want to remove?" << endl;
 };
 
-void RequestView::lookForSupport(vector<userRequest *> &availableRequests)
+void RequestView::viewAllRequests(vector<userRequest *> &availableRequests)
 {
   // qq change in the implementation - display all available reqyests
   vector<userRequest *> filteredData = dateFilter(availableRequests);
@@ -199,6 +218,7 @@ void RequestView::lookForSupport(vector<userRequest *> &availableRequests)
   }
   cout << "Would you like to look for support for any of the above requests? (y/n)" << endl;
 }
+
 vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilter)
 {
   time_t now = time(0);
@@ -228,4 +248,26 @@ vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilte
   }
   // return vector<userRequest *>();
   return filteredData;
+};
+
+void RequestView::requestForSupporter()
+{
+  int numberOfSkills;
+  cout << "Enter the time period you want to request another people (In date and with format dd/mm/yyyy): " << endl;
+  cout << "From: " << endl;
+  setInput("timeFrom");
+  cout << "To: " << endl;
+  setInput("timeTo");
+  cout << "City: " << endl;
+  setInput("city");
+  cout << "How many skill you want to list yourself for: " << endl;
+  cin >> numberOfSkills;
+  cout << "Skill to perform " << endl;
+  setMultipleInputs(numberOfSkills, "skill");
+  cout << "Point consumed / hour: " << endl;
+  setInput("pointsPerHour");
+  cout << "Minimum rating for supporter (Optional, press Enter if you want to skip): " << endl;
+  setOptionalInput("minimumRatingForSupporter");
+  userInputs["requestOperation"] = "requestForSupporter";
+  checkBeforeSubmitting(userInputs["requestOperation"]);
 };
