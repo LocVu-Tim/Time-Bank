@@ -1,5 +1,6 @@
 #include "User.h"
 #include <iostream>
+#include <utility>
 
 /*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING
     - GET SET METHODS
@@ -7,35 +8,36 @@
     - FIND BY USERNAME
 */
 
+//Default constructor
 User::User() {}
 
-// constructor
-User::User(int userIdVal, string username, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, int creds, int ratingScore) : role(0) {
-    this->userId = userIdVal;
-    this->username = username;
-    this->pwd = pwd;
-    this->fullName = fullName;
-    this->email = email;
-    this->homeAddr = homeAddr;
-    this->phoneNo = phoneNo;
-    this->creds = creds;
-    this->ratingScore = ratingScore;
-}
+// Constructor
+User::User(string userName, string pwd, string fullName, string email,
+           string homeAddr, string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
+           int role = 2,
+           int userId = 0, int skillRatingScore = 0, int supporterRatingScore = 0, int hostRatingScore = 0,
+           vector<Rating> ratings = {})
+        : userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)), email(std::move(email)),
+          homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), isBlock(block), blocked(std::move(blocked)),
+          creds(creds), role(role), userId(userId),
+          skillRatingScore(skillRatingScore),
+          supporterRatingScore(supporterRatingScore),
+          hostRatingScore(hostRatingScore),
+          ratings(std::move(ratings)) {};
 
 // constructor used for block function
 User::User(const string &username) {
-    this->username = username;
+    this->userName = username;
 }
 
 // method to get username
 string User::getUsername() {
-    return username;
+    return userName;
 }
 
 // method to set username
-void User::setUsername(string username) {
-    this->username = username;
+void User::setUsername(string userName) {
+    this->userName = std::move(userName);
 }
 
 // method to get password
@@ -44,8 +46,8 @@ string User::getPwd() {
 }
 
 // method to set password
-void User::setPwd(string pwd) {
-    this->pwd = pwd;
+void User::setPwd(string pass) {
+    this->pwd = std::move(pass);
 }
 
 // method to get full name
@@ -54,8 +56,8 @@ string User::getFullName() {
 }
 
 // method to set full name
-void User::setFullName(string fullName) {
-    this->fullName = fullName;
+void User::setFullName(string fName) {
+    this->fullName = std::move(fName);
 }
 
 // method to get email address
@@ -64,8 +66,8 @@ string User::getEmail() {
 }
 
 // method to set email
-void User::setEmail(string email) {
-    this->email = email;
+void User::setEmail(string mail) {
+    this->email = std::move(mail);
 }
 
 // method to get home address
@@ -74,8 +76,8 @@ string User::getHomeAddr() {
 }
 
 // method to set home address
-void User::setHomeAddr(string homeAddr) {
-    this->homeAddr = homeAddr;
+void User::setHomeAddr(string Addr) {
+    this->homeAddr = std::move(Addr);
 }
 
 // method to get phone number
@@ -113,16 +115,16 @@ void User::setRole(int role) {
 
 // method to get blocked
 bool User::isBlocked() {
-    return block;
+    return isBlock;
 }
 
 // method to get blocked person/people
-vector<string> User::getBlocked() {
+vector<int> User::getBlocked() {
     return blocked;
 }
 
 // method to set block
-void User::setBlocked(string blocks) {
+void User::setBlocked(int blocks) {
     blocked.push_back(blocks);
 }
 

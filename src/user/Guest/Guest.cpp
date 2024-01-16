@@ -21,7 +21,7 @@ User registerMember(vector<User *> users)
     {
         cout << "Please enter your username: ";
         cin >> temp;
-        if (checkValidUsername(users, temp) == false)
+        if (!checkValidUsername(users, temp))
         {
             continue;
         }
@@ -37,7 +37,7 @@ User registerMember(vector<User *> users)
         bool check;
         cout << "Please enter your password: ";
         cin >> temp;
-        if (checkValidPwd(temp) == false)
+        if (!checkValidPwd(temp))
         {
             continue;
         }
@@ -52,7 +52,7 @@ User registerMember(vector<User *> users)
     {
         cout << "Please enter your email: ";
         cin >> temp;
-        if (checkValidEmail(users, temp) == false)
+        if (!checkValidEmail(users, temp))
         {
             continue;
         }
@@ -67,7 +67,7 @@ User registerMember(vector<User *> users)
     {
         cout << "Please enter your phone number: ";
         cin >> temp;
-        if (checkValidPhoneNo(users, temp) == false)
+        if (!checkValidPhoneNo(users, temp))
         {
             continue;
         }

@@ -36,6 +36,9 @@ public:
     //4. Method to get rating type
     std::string getRatingType();
 
+    //5. Method to get rating type as a number
+    int getRatingTypeNumb();
+
     //5. Method to get rating value
     double getRatingValue();
 

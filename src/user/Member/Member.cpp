@@ -9,30 +9,23 @@
     - CHANGE PASSWORD */
 
 
-    
+
 // method to login
-bool User::loginMember(vector<User *> users, string checkUsername)
-{
+bool User::loginMember(vector<User *> users, string checkUsername) {
     string checkPwd;
-    
+
     cout << "Please enter registered username: ";
     cin >> checkUsername;
     User *user = findByUsername(users, checkUsername);
-    if (user == nullptr)
-    {
+    if (user == nullptr) {
         cout << "Username not found\n";
         return false;
-    }
-    else
-    {
+    } else {
         cout << "Please enter password: ";
         cin >> checkPwd;
-        if (verifyPwd(*user, checkPwd) == true)
-        {
+        if (verifyPwd(*user, checkPwd)) {
             cout << "Login successful\n";
-        }
-        else
-        {
+        } else {
             cout << "Incorrect username/password\n";
             return false;
         }
@@ -40,75 +33,62 @@ bool User::loginMember(vector<User *> users, string checkUsername)
     }
 }
 
-// method to block member
-void User::blockUser(vector<User *> users )
-{
-    string block;
-    cout << "Enter username to block: ";
-    cin >> block;
-    checkValidUsername(users, block);
-    if (findByUsername(users, block) == nullptr)
-    {
-        cout << "Username not found\n";
-    }
-    else
-    {
-        setBlocked(block);
-        cout << "User " << block << " is blocked";
-    }
-}
+// TODO: Rewrite block function
+//// method to block member
+//void User::blockUser(const vector<User *>& users) {
+//    string blockName;
+//    int blockID;
+//    cout << "Enter username to block: ";
+//    cin >> blockName;
+//    checkValidUsername(users, blockName);
+//    if (findByUsername(users, blockName) == nullptr) {
+//        cout << "Username not found\n";
+//    } else {
+//        setBlocked(blockName);
+//        cout << "User " << blockName << " is blocked";
+//    }
+//}
 
 // method to reset password for member
-void User::changePwdMember(User user, string temp)
-{
+void User::changePwdMember(User user, string temp) {
     string newPwd;
-    cout << "Emter old password: ";
+    cout << "Enter old password: ";
     cin >> temp;
-    if (verifyPwd(user, temp) == true)
-    {
+    if (verifyPwd(user, temp)) {
         cout << "Password verified. Please enter new password: ";
         cin >> newPwd;
-        if (checkValidPwd(newPwd) == true)
-        {
+        if (checkValidPwd(newPwd)) {
             user.setPwd(newPwd);
             cout << "Password successfully reset\n";
         }
-    }
-    else
-    {
+    } else {
         cout << "Incorrect password verification\n";
     }
 }
 
 // method to show info
-void User::showInfoMember()
-{
-    cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-" << "Member\n";
+void User::showInfoMember() {
+    cout << userName << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-"
+         << "Member\n";
 }
+
 // method to show info with blocked
-void User::showInfoWithBlock(vector<User *> users)
-{
+void User::showInfoWithBlock(vector<User *> users) {
 
     cout << "----------Show users information----------\n";
-    for (int i = 0; i < users.size(); i++)
-    {
-        vector<string> blocks = users[i]->getBlocked();
+    for (auto &user: users) {
+        vector<int> blocks = user->getBlocked();
         bool block = false;
-        for (int j = 0; j < blocks.size(); j++)
-        {
-            if (getUsername() == blocks[j])
-            {
+        for (int j: blocks) {
+            if (getUserId() == j) {
                 block = true;
                 break;
             }
         }
-        if (block == true)
-        {
+        if (block) {
             continue;
-        }
-        else
-        {
-            users[i]->showInfoMember();
+        } else {
+            user->showInfoMember();
         }
     }
 }
