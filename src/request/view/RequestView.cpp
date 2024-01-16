@@ -179,8 +179,10 @@ void RequestView::list()
 
 void RequestView::unlist()
 {
-  cout << "Unlist" << endl;
+  cout << "Your current requests: " << endl;
+  cout << string(50, '=') << endl;
   // get all of the user's own the list of requests
+  cout << "Which request do you want to remove?" << endl;
 };
 
 void RequestView::lookForSupport(vector<userRequest *> &availableRequests)
@@ -199,8 +201,8 @@ void RequestView::lookForSupport(vector<userRequest *> &availableRequests)
 }
 vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilter)
 {
-  // get the current date
   time_t now = time(0);
+  // get the current date
   tm *ltm = localtime(&now);
   vector<userRequest *> filteredData;
   // if the time is between timeTo and timeFrom, then return the request
