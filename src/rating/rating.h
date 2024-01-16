@@ -15,7 +15,7 @@ private:
     std::string comment;
 
 public:
-    //Default construct or
+    //Default constructor
     Rating() {};
 
     //Constructor
