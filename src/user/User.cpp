@@ -15,7 +15,7 @@ User::User() {}
 User::User(string userName, string pwd, string fullName, string email,
            string homeAddr, string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
            int role = 2,
-           int userId = 0, int skillRatingScore = 0, int supporterRatingScore = 0, int hostRatingScore = 0,
+           int userId = 0, double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
         : userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)), email(std::move(email)),
           homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), isBlock(block), blocked(std::move(blocked)),
@@ -133,9 +133,27 @@ int User::getUserId() {
     return userId;
 }
 
+// Method to set user ID
 void User::setUserId(int id) {
     this->userId = id;
 }
+
+//Method to get user ratings
+const vector<Rating> &User::getRatings() const {
+    return ratings;
+}
+
+//Method to set user rating
+void setRatingScore(User user, int type, double score) {
+    if (type == 1) {
+        user.skillRatingScore = calRatingScore(user, type);
+    } else if (type == 2) {
+        user.supporterRatingScore = calRatingScore(user, type);
+    } else if (type == 3) {
+        user.hostRatingScore = calRatingScore(user, type);
+    }
+}
+
 // method to top up credit points with pwd authorization
 //  int User::topUpCreds (User user, int topUp) {
 //      string temp;
@@ -255,6 +273,7 @@ User *findByUsername(const vector<User *> &users, const string &username) {
     return nullptr; // Return nullptr if user is not found
 }
 
+//method to find user by id
 User *findById(const vector<User *> &users, const int targetId) {
     for (const auto &userPtr: users) {
         if (userPtr->userId == targetId) {
@@ -263,4 +282,38 @@ User *findById(const vector<User *> &users, const int targetId) {
     }
     cout << "User not found\n";
     return nullptr;
+}
+
+// Method to count number of rating
+int countRatings(const User &user, int type) {
+    int count = 0;
+
+    for (Rating rate: user.ratings) {
+        if (type == rate.getRatingTypeNumb()) {
+            count += 1;
+        }
+    }
+
+    return count;
+}
+
+// Method to calculate rating score
+double calRatingScore(const User &user, int type) {
+    double sum = 0;
+    double value = 0;
+
+    for (Rating rate: user.ratings) {
+        if (type == rate.getRatingTypeNumb()) {
+            sum += rate.getRatingValue();
+        }
+    }
+
+    value = sum / countRatings(user, type);
+
+    return value;
+}
+
+// Method to update rating score
+void updateScore(User user, int type) {
+
 }

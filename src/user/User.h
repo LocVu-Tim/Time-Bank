@@ -22,7 +22,7 @@ private:
     bool isBlock;
     vector<int> blocked;
     int creds, role, userId;
-    int skillRatingScore, supporterRatingScore, hostRatingScore;
+    double skillRatingScore, supporterRatingScore, hostRatingScore;
     std::vector<Rating> ratings;
 
     /*Rating *skillRating, *supporterRating, *hostRating;*/
@@ -33,7 +33,7 @@ public:
     // Constructor
     User(string userName, string pwd, string fullName, string email, string homeAddr,
          string phoneNo, bool block, vector<int> blocked, int creds, int role, int userId,
-         int skillRatingScore, int supporterRatingScore, int hostRatingScore, vector<Rating> ratings);
+         double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function
     User(const string &username);
@@ -160,6 +160,21 @@ public:
 
     //method to find user through id
     friend User *findById(const vector<User *> &users, const int targetId);
+
+    // Method to get user ratings
+    const vector<Rating> &getRatings() const;
+
+    // Method to count number of rating
+    friend int countRatings(const User &user, int type);
+
+    // Method to calculate rating score
+    friend double calRatingScore(const User &user, int type);
+
+    // Method to update rating score
+    friend void updateScore(User user, int type);
+
+    //Method to set user rating
+    friend void setRatingScore(User user, int type, double score);
 };
 
 // method to register user
@@ -183,5 +198,5 @@ bool verifyPwd(User user, string pwd);
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username);
 
-//method to find user by if
+//method to find user by id
 User *findById(const vector<User *> &users, int targetId);
