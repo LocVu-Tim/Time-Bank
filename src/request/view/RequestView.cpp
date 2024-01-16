@@ -98,7 +98,7 @@ void RequestView::list()
 {
   int numberOfSkills;
 
-  cout << "===Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): ===" << endl;
+  cout << "Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): " << endl;
   cout << "From: " << endl;
   setInput("timeFrom");
   cout << "To: " << endl;

@@ -42,43 +42,6 @@ void RequestController::selectAvailableFunction(int choice, RequestView requestV
     }
 }
 
-void RequestController::createRequestObject(map<string, string> userData)
-{
-    // TODO: add type data validation
-    try
-    {
-        bool continueCreate = true;
-        while (continueCreate)
-        {
-            requestModel.createRequest(userData);
-            vector<Request *> Test = requestModel.getRequests();
-            
-            cout << "Do you want to continue create request? (Y/N)" << endl;
-            string choice;
-            cin >> choice;
-            if (choice == "Y" || choice == "y")
-            {
-                continueCreate = true;
-            }
-            else
-            {
-                continueCreate = false;
-            }
-        }
-        // redirect user back to the main menu
-        OperationsList();
-    }
-    catch (const std::invalid_argument &ia)
-    {
-        std::cerr << "Invalid argument: " << ia.what() << '\n';
-        bool continueFlag = requestView.errorHandling("Invalid argument");
-        if (continueFlag)
-        {
-            listOrUnlist();
-        }
-    }
-}
-
 void RequestController::listOrUnlist()
 {
     int choice;
@@ -121,7 +84,6 @@ void RequestController::unlist()
     RequestView requestView;
     requestView.unlist();
     // FIXME: implement this function
-
 }
 
 void RequestController::lookForSupport()
@@ -139,6 +101,46 @@ void RequestController::lookForSupport()
         cout << "Invalid input" << endl;
     }
 };
+
+// Functions that unrelated to the class
+void RequestController::createRequestObject(map<string, string> userData)
+{
+    // TODO: add type data validation
+    try
+    {
+        bool continueCreate = true;
+        while (continueCreate)
+        {
+            requestModel.createRequest(userData);
+            vector<userRequest *> Test = requestModel.getRequests();
+            // write to file
+            // requestModel.createRequest(request);
+
+            cout << "Do you want to continue create request? (Y/N)" << endl;
+            string choice;
+            cin >> choice;
+            if (choice == "Y" || choice == "y")
+            {
+                continueCreate = true;
+            }
+            else
+            {
+                continueCreate = false;
+            }
+        }
+        // redirect user back to the main menu
+        OperationsList();
+    }
+    catch (const std::invalid_argument &ia)
+    {
+        std::cerr << "Invalid argument: " << ia.what() << '\n';
+        bool continueFlag = requestView.errorHandling("Invalid argument");
+        if (continueFlag)
+        {
+            listOrUnlist();
+        }
+    }
+}
 
 void RequestController::onLoad()
 {

@@ -1,7 +1,7 @@
 #ifndef REQUEST_CONTROLLER_H
 #define REQUEST_CONTROLLER_H
 
-#include "../Request.h"
+#include "../request.h"
 #include "../view/RequestView.h"
 #include "../model/RequestModel.h"
 #include "../controller/RequestController.h"
