@@ -20,6 +20,7 @@ public:
     }
     void writeToFile(userRequest *request);
     void loadFromFile(vector<userRequest *> &requestList);
+    void modifyFile(vector<userRequest *> &requestList);
     // void updateFile(vector<userRequest *> &requestList);
 };
 

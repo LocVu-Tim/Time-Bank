@@ -4,6 +4,14 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <iostream>
+// Time handling
+#include <ctime>
+#include <sstream>
+#include <iomanip>
+
+#include "../model/RequestModel.h"
+
 using namespace std;
 
 class RequestView
@@ -18,7 +26,8 @@ public:
     // method supporting gettting input from user
     void setInput(string inputField);
     void setOptionalInput(string inputField);
-    void checkOptionalInput();
+    void checkBeforeSubmitting(string form);
+    bool isValidDate(string date);
     string getInput(string field);
     map<string, string> getUserInputs();
 
@@ -39,10 +48,8 @@ public:
     void unlist();
 
     // 2. lookForSupport a new request
-    void lookForSupport();
-
-private:
-    // Add your member variables here
+    void lookForSupport(vector<userRequest *> &requestList);
+    vector<userRequest *> dateFilter(vector<userRequest *> &dataToFilter);
 };
 
 #endif // REQUEST_VIEW_H

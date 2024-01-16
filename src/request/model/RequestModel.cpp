@@ -28,7 +28,6 @@ void RequestModel::createRequest(map<string, string> userData)
     request->city = userData["city"];
     // split the skill string by comma
     int numberOfSkills = count(userData["skill"].begin(), userData["skill"].end(), ',') + 1;
-    cout << numberOfSkills << endl;
     for (int i = 0; i < numberOfSkills; i++)
     {
         // push back the skill to the vector
@@ -41,18 +40,10 @@ void RequestModel::createRequest(map<string, string> userData)
     if (userData["requestOperation"] == "list")
     {
         request->availability = true;
-        request->minimumRatingForSupporter = 0;
         request->minimumRatingForHost = stod(userData["minimumRatingForHost"]);
     }
-    else if (userData["requestOperation"] == "lookForSupport")
-    {
-        request->availability = false;
-        request->minimumRatingForSupporter = stod(userData["minimumRatingForSupporter"]);
-        request->minimumRatingForHost = 0;
-    }
 
-    request->isAccepted = false;
-    request->supporterName = "";
+    request->hostName = "";
     // push the request object to the requestList
     requestList.push_back(request);
     // write to file

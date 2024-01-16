@@ -26,6 +26,12 @@ public:
     // void writeToFile(Request *request);
     void load();
     vector<userRequest *> getRequests();
+
+    friend class RequestController;
+    friend class RequestView;
+    friend class fileUtility;
+    friend class userRequest;
+    friend class Request;
 };
 
 #endif // REQUEST_MODEL_H

@@ -30,6 +30,7 @@ public:
     friend class RequestController;
     friend class RequestView;
     friend class fileUtility;
+    friend class userRequest;
 
     void printInfo();
 };

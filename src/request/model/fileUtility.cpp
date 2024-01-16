@@ -16,11 +16,18 @@ void fileUtility::writeToFile(userRequest *request)
     fout << "timeFrom:" << request->timeFrom << endl;
     fout << "timeTo:" << request->timeTo << endl;
     fout << "city:" << request->city << endl;
-    fout << "skill:" << endl;
+    fout << "skill:";
     for (string skill : request->skill)
     {
-        fout << skill << endl;
+        // If at the last skill, don't add comma
+        if (skill == request->skill.back())
+        {
+            fout << skill;
+            break;
+        }
+        fout << skill << ",";
     }
+    fout << endl;
     fout << "pointsPerHour:" << request->pointsPerHour << endl;
     if (request->availability)
     {
@@ -30,10 +37,9 @@ void fileUtility::writeToFile(userRequest *request)
     else
     {
         fout << "availability:false" << endl;
-        fout << "minimumRatingForSupporter:" << request->minimumRatingForSupporter << endl;
     }
-    fout << "isAccepted:" << (request->isAccepted == true ? "true" : "false") << endl;
-    fout << "supporterName:" << request->supporterName << endl;
+    // Check if supporterName is empty
+    fout << "hostName:" << (request->hostName.empty() ? "none" : request->hostName) << endl;
     fout << endl;
     fout.close();
 };
@@ -67,11 +73,11 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
         {
             string key = line.substr(0, line.find(":"));
             string value = line.substr(line.find(":") + 1);
-            if (key == "user")
-            {
-                request->user = new User(value);
-            }
-            else if (key == "id")
+            // if (key == "user")
+            // {
+            //     request->user = new User(value);
+            // }
+            if (key == "id")
             {
                 request->id = stoi(value);
             }
@@ -89,7 +95,18 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
             }
             else if (key == "skill")
             {
-                request->skill.push_back(value);
+                // request->skill.push_back(value);
+                int numberOfSkills = count(value.begin(), value.end(), ',') + 1;
+                string temp = value;
+                for (int i = 0; i < numberOfSkills; i++)
+                {
+                    // push back the skill to the vector
+                    request->skill.push_back(temp.substr(0, value.find(",")));
+                    // remove the skill from the string
+                    temp.erase(0, value.find(",") + 1);
+                    // log the process
+                    cout << "Skill: " << request->skill[i] << endl;
+                }
             }
             else if (key == "pointsPerHour")
             {
@@ -110,26 +127,37 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
             {
                 request->minimumRatingForHost = stod(value);
             }
-            else if (key == "minimumRatingForSupporter")
+            else if (key == "hostName")
             {
-                request->minimumRatingForSupporter = stod(value);
-            }
-            else if (key == "isAccepted")
-            {
-                if (value == "true")
-                {
-                    request->isAccepted = true;
-                }
-                else
-                {
-                    request->isAccepted = false;
-                }
-            }
-            else if (key == "supporterName")
-            {
-                request->supporterName = value;
+                request->hostName = value;
             }
         }
     }
     fin.close();
+    cout << "Number of requests: " << requestList.size() << endl;
+}
+
+void fileUtility::modifyFile(vector<userRequest *> &requestList)
+{
+    cout << "===============" << endl;
+    cout << "modifying the file..." << endl;
+    cout << "===============" << endl;
+    ofstream fout;
+    // clear the file first
+    fout.open(FILENAME, ios::trunc);
+    fout.close();
+
+    fout.open(FILENAME, ios::out);
+    if (!fout.is_open())
+    {
+        cout << "File not found" << endl;
+        return;
+    }
+    for (userRequest *request : requestList)
+    {
+        // rewrite all the data to the file
+        writeToFile(request);
+    }
+    fout.close();
+    cout << "Session saved sucessfully!" << endl;
 }

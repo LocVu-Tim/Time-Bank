@@ -9,26 +9,27 @@
 class RequestController
 {
 private:
-    RequestModel requestModel;
-    RequestView requestView;
+    RequestModel *requestModel;
+    RequestView *requestView;
 
 public:
-    RequestController(RequestModel requestModel, RequestView requestView);
+    RequestController(RequestModel &requestModel, RequestView &requestView);
     ~RequestController();
 
-    // Add your member functions here
     int OperationsList();
     void onLoad();
-    void selectAvailableFunction(int choice, RequestView requestView, RequestModel requestModel);
+    void selectAvailableFunction();
     void createRequestObject(map<string, string> userData);
     void listOrUnlist();
     // 1. List and unlist your own requests
     void list();
     void unlist();
-    void lookForSupport();
+    void lookForSupport(RequestModel &rm);
+    userRequest *findARequest(int position, vector<userRequest *> requestList);
 
-private:
-    // Add your member variables here
+    friend class RequestView;
+    friend class RequestModel;
+    friend class Request;
 };
 
 #endif // REQUEST_CONTROLLER_H

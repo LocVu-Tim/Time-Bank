@@ -2,11 +2,11 @@
 #include "RequestController.h"
 using namespace std;
 
-RequestController::RequestController(RequestModel requestModel, RequestView requestView)
+RequestController::RequestController(RequestModel &requestModel, RequestView &requestView)
 {
     // initialize the model
-    this->requestModel = requestModel;
-    this->requestView = requestView;
+    this->requestModel = &requestModel;
+    this->requestView = &requestView;
 }
 RequestController::~RequestController(){};
 
@@ -20,24 +20,26 @@ int RequestController::OperationsList()
     return choice;
 }
 
-void RequestController::selectAvailableFunction(int choice, RequestView requestView, RequestModel requestModel)
+void RequestController::selectAvailableFunction()
 {
+    int choice = OperationsList();
+    fileUtility fileUtility;
     switch (choice)
     {
     case 1:
         listOrUnlist();
         break;
     case 2:
-        lookForSupport();
+        lookForSupport(*requestModel);
         break;
     case 6:
-        break;
+        fileUtility.modifyFile(requestModel->requestList);
+        exit(0);
     default:
-        requestView.errorHandling("Invalid choice");
+        requestView->errorHandling("Invalid choice");
         cin.clear();
         // Rerun again
-        int choice = OperationsList();
-        selectAvailableFunction(choice, requestView, requestModel);
+        selectAvailableFunction();
         break;
     }
 }
@@ -46,7 +48,7 @@ void RequestController::listOrUnlist()
 {
     int choice;
     // RequestView requestView;
-    requestView.listOrUnlist();
+    requestView->listOrUnlist();
     cin >> choice;
     switch (choice)
     {
@@ -57,7 +59,7 @@ void RequestController::listOrUnlist()
         // unlist();
         break;
     default:
-        requestView.errorHandling("Invalid choice");
+        requestView->errorHandling("Invalid choice");
         // Rerun again
         listOrUnlist();
         break;
@@ -66,9 +68,8 @@ void RequestController::listOrUnlist()
 
 void RequestController::list()
 {
-    requestView.list();
-    map<string, string> userData = requestView.getUserInputs();
-    cout << "UserData:" << userData.size() << endl;
+    requestView->list();
+    map<string, string> userData = requestView->getUserInputs();
 
     if (userData.size() == 7)
     {
@@ -85,22 +86,70 @@ void RequestController::unlist()
 {
     RequestView requestView;
     requestView.unlist();
-    // FIXME: implement this function
 }
 
-void RequestController::lookForSupport()
+void RequestController::lookForSupport(RequestModel &rm)
 {
     RequestView requestView;
-    requestView.lookForSupport();
-    map<string, string> userData = requestView.getUserInputs();
-    if (userData.size() == 6)
+    bool choice = true;
+    string input;
+    // filter by date first
+    vector<userRequest *> dataToPass = rm.getRequests();
+    vector<userRequest *> filteredData = requestView.dateFilter(dataToPass);
+    if (filteredData.size() == 0)
     {
-        // create Request object to store data
-        createRequestObject(userData);
+        cout << "No data found" << endl;
+        return selectAvailableFunction();
     }
-    else
+    while (choice)
     {
-        cout << "Invalid input" << endl;
+        vector<userRequest *> requestList = rm.getRequests();
+        cout << "Request list size: " << requestList.size() << endl;
+        requestView.lookForSupport(requestList);
+        cin >> input;
+        if (input == "Y" || input == "y")
+        {
+            cout << "Please enter the option you want to request: " << endl;
+            cin >> input;
+            // look for the data (-1 because of display)
+            userRequest *request = findARequest(stoi(input) - 1, filteredData);
+            cout << "Data found! Now modifying the data" << endl;
+            // edit the data
+            // TODO: get the current user name as the host name
+            request->hostName = "test";
+            cout << "Data modified!" << endl;
+            cout << "The current host name is: " << request->hostName << endl;
+            cout << "Would you like to try again? (Y/n)" << endl;
+            cin >> input;
+            if (input == "Y" || input == "y")
+            {
+                choice = true;
+            }
+            else
+            {
+                choice = false;
+                return selectAvailableFunction();
+            }
+        }
+        else
+        {
+            choice = false;
+            return selectAvailableFunction();
+        }
+    }
+};
+
+userRequest *RequestController::findARequest(int position, vector<userRequest *> requestList)
+{
+    cout << "Finding the data at position: " << position << endl;
+    try
+    {
+        return requestList.at(position);
+    }
+    catch (const std::out_of_range &oor)
+    {
+        std::cerr << "Out of Range error: " << oor.what() << '\n';
+        return NULL;
     }
 };
 
@@ -113,8 +162,8 @@ void RequestController::createRequestObject(map<string, string> userData)
         bool continueCreate = true;
         while (continueCreate)
         {
-            requestModel.createRequest(userData);
-            vector<userRequest *> Test = requestModel.getRequests();
+            requestModel->createRequest(userData);
+            vector<userRequest *> Test = requestModel->getRequests();
             // write to file
             // requestModel.createRequest(request);
 
@@ -131,12 +180,12 @@ void RequestController::createRequestObject(map<string, string> userData)
             }
         }
         // redirect user back to the main menu
-        OperationsList();
+        return selectAvailableFunction();
     }
     catch (const std::invalid_argument &ia)
     {
         std::cerr << "Invalid argument: " << ia.what() << '\n';
-        bool continueFlag = requestView.errorHandling("Invalid argument");
+        bool continueFlag = requestView->errorHandling("Invalid argument");
         if (continueFlag)
         {
             listOrUnlist();
@@ -147,5 +196,5 @@ void RequestController::createRequestObject(map<string, string> userData)
 void RequestController::onLoad()
 {
     // load data from file
-    requestModel.load();
+    requestModel->load();
 }

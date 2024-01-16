@@ -28,8 +28,6 @@ int main()
     // User user();
     // load data from file
     rm.load();
-
-    int operationNum = rc.OperationsList();
-    rc.selectAvailableFunction(operationNum, rv, rm);
+    rc.selectAvailableFunction();
     return 0;
 }
