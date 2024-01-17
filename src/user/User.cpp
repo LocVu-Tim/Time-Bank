@@ -8,6 +8,7 @@
 */
 
 // constructor
+User::User(){};
 User::User(int userIdVal, string username, string pwd, string fullName, string email,
            string homeAddr, string phoneNo, int creds, int ratingScore) : role(0)
 {
