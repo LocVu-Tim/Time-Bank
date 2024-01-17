@@ -9,8 +9,8 @@
 
 // constructor
 User::User(){};
-User::User(int userIdVal, string username, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, int creds, int ratingScore) : role(0)
+User::User(int userIdVal = 0, string username = "", string pwd = "", string fullName = "", string email = "",
+           string homeAddr = "", string phoneNo = "", int creds = 0, int ratingScore = 0) : role(0)
 {
     this->userId = userIdVal;
     this->username = username;

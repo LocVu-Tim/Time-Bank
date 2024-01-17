@@ -47,6 +47,26 @@ void RequestView::checkBeforeSubmitting(string form)
     }
   }
 
+  // validate if timeFrom is before timeTo
+  tm timeFrom_tm;
+  istringstream ss(userInputs["timeFrom"]);
+  ss >> get_time(&timeFrom_tm, "%d/%m/%Y");
+  tm timeTo_tm;
+  istringstream ss2(userInputs["timeTo"]);
+  ss2 >> get_time(&timeTo_tm, "%d/%m/%Y");
+  if (difftime(mktime(&timeFrom_tm), mktime(&timeTo_tm)) >= 0)
+  {
+    errorHandling("Invalid date");
+    if (form == "list")
+    {
+      return list();
+    }
+    else if (form == "requestForSupporter")
+    {
+      return requestForSupporter();
+    }
+  }
+
   // Validate if city is Ha Noi or Ho Chi Minh
   if (userInputs["city"] != "Ha Noi" && userInputs["city"] != "Ho Chi Minh")
   {
@@ -81,6 +101,7 @@ void RequestView::checkBeforeSubmitting(string form)
   }
 
   // validate if the minimumRatingForHost is a number
+  // qq potential
   try
   {
     stod(userInputs["minimumRatingForHost"]);
@@ -184,8 +205,11 @@ void RequestView::viewAvailableFunctions()
 
 void RequestView::listOrUnlist()
 {
+  cout << "==============================" << endl;
   cout << "1. List" << endl;
   cout << "2. Unlist" << endl;
+  cout << "3. Back" << endl;
+  cout << "==============================" << endl;
 };
 
 void RequestView::list()
@@ -210,14 +234,21 @@ void RequestView::list()
   checkBeforeSubmitting(userInputs["requestOperation"]);
 };
 
-void RequestView::unlist()
+void RequestView::unlist(vector<userRequest *> &availableRequests)
 {
-  cout << "Your current requests: " << endl;
+  cout << "Your current request for working: " << endl;
   cout << string(50, '=') << endl;
-  // get all of the user's own the list of requests
+  for (int i = 0; i < availableRequests.size(); i++)
+  {
+    cout << "Request no. " << i + 1 << endl;
+    cout << string(50, '=') << endl;
+    availableRequests[i]->printInfo();
+    cout << string(50, '=') << endl;
+  }
   cout << "Which request do you want to remove?" << endl;
 };
 
+// TODO - view all should be not from user but all other. So we need to filter the data
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests)
 {
   // qq change in the implementation - display all available reqyests

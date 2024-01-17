@@ -5,7 +5,7 @@ using namespace std;
 void userRequest::printInfo()
 {
     cout << "Request ID: " << this->id << endl;
-    // cout << "Requester: " << this->user->getUsername() << endl;
+    cout << "userId created this request: " << this->userId << endl;
     cout << "Availability: " << (this->availability == true ? "true" : "false") << endl;
     cout << "Points per hour: " << this->pointsPerHour << endl;
     cout << "Time from: " << this->timeFrom << endl;
@@ -24,5 +24,5 @@ void userRequest::printInfo()
         cout << this->skill[i] << ",";
     }
     cout << endl;
-    cout << "Host name: " << this->hostName << endl;
+    cout << "Host ID: " << (this->hostId == "0" ? "none" : this->hostId) << endl;
 }

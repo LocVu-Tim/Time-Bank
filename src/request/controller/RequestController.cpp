@@ -59,8 +59,10 @@ void RequestController::listOrUnlist()
         list();
         break;
     case 2:
-        // unlist();
+        unlist();
         break;
+    case 3:
+        return selectAvailableFunction();
     default:
         requestView->errorHandling("Invalid choice");
         // Rerun again
@@ -101,20 +103,87 @@ void RequestController::requestForSupporter()
     }
 }
 
-// This is for finding the request by user
-vector<userRequest *> RequestController::filterRequestByUser(vector<userRequest *> requestList, string username){
+// This is for finding all of the available request
+vector<userRequest *> RequestController::filterRequestAvailable(vector<userRequest *> &requestList, string userId, vector<string> blocked)
+{
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (requestList[i]->hostId == userId)
+        {
+            requestList.erase(requestList.begin() + i);
+        }
+        for (int j = 0; j < blocked.size(); j++)
+        {
+            if (requestList[i]->hostId == blocked[j])
+            {
+                requestList.erase(requestList.begin() + i);
+            }
+        }
+    }
+    return requestList;
+}
+
+// Finding the request that user had created to have someone hire them
+vector<userRequest *> RequestController::filterUserList(vector<userRequest *> &requestList)
+{
+    vector<userRequest *> filteredList;
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (stoi(requestList[i]->userId) == this->user->getUserId())
+        {
+            filteredList.push_back(requestList[i]);
+        }
+    }
     // return vector<userRequest *>();
+    return filteredList;
 };
 
-// This is for finding all of the available request
-vector<userRequest *> RequestController::filterRequestAvailable(vector<userRequest *> requestList, string username, vector<string> blocked){
-    // return vector<userRequest *>();
+void RequestController::setUser(User *user)
+{
+    this->user = user;
 };
 
 void RequestController::unlist()
 {
     RequestView requestView;
-    requestView.unlist();
+    // filter out the request that user had created
+    vector<userRequest *> filteredList = filterUserList(requestModel->requestList);
+    if (filteredList.size() == 0)
+    {
+        cout << "No data found" << endl;
+        return selectAvailableFunction();
+    }
+    while (true)
+    {
+        requestView.unlist(filteredList);
+        string unlistChoice;
+        cin >> unlistChoice;
+        // return the object that user had selected
+        userRequest *foundRequest = findARequest(stoi(unlistChoice) - 1, filteredList);
+        int id = foundRequest->id;
+        // pass the object to the requestModel
+        int pos = requestModel->getPositionOfRequest(id);
+        // if not found - display error and return to the main menu
+        if (pos == -1)
+        {
+            cout << "No data found" << endl;
+            return selectAvailableFunction();
+        }
+        // pop the object out of the requestModel vector
+        requestModel->requestList.erase(requestModel->requestList.begin() + pos);
+        // ask user if they want to continue
+        cout << "Do you want to continue? (Y/n)" << endl;
+        string choice;
+        cin >> choice;
+        if (choice == "Y" || choice == "y")
+        {
+            continue;
+        }
+        else
+        {
+            return selectAvailableFunction();
+        }
+    }
 }
 
 void RequestController::viewAllRequests(RequestModel &rm)
@@ -125,7 +194,10 @@ void RequestController::viewAllRequests(RequestModel &rm)
     // filter by date first
     vector<userRequest *> dataToPass = rm.getRequests();
     vector<userRequest *> filteredData = requestView.dateFilter(dataToPass);
-    if (filteredData.size() == 0)
+
+    // continue filtering by availability, excluding current user and blocked user
+    vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(), this->user->getBlocked());
+    if (availableData.size() == 0)
     {
         cout << "No data found" << endl;
         return selectAvailableFunction();
@@ -145,9 +217,11 @@ void RequestController::viewAllRequests(RequestModel &rm)
             cout << "Data found! Now modifying the data" << endl;
             // edit the data
             // TODO: get the current user name as the host name
-            request->hostName = "test";
+            request->hostId = to_string(this->user->getUserId());
             cout << "Data modified!" << endl;
-            cout << "The current host name is: " << request->hostName << endl;
+            // should have a function to query user name from user id qq
+            // Temporary solution
+            cout << "The current host name is: " << request->hostId << endl;
             cout << "Would you like to try again? (Y/n)" << endl;
             cin >> input;
             if (input == "Y" || input == "y")
@@ -191,11 +265,11 @@ void RequestController::createRequestObject(map<string, string> userData)
         bool continueCreate = true;
         while (continueCreate)
         {
-            requestModel->createRequest(userData);
+            // qq bug here
+            cout << "Creating request..." << endl;
+            cout << "User ID: " << this->user->getUserId() << endl;
+            requestModel->createRequest(userData, this->user->getUserId());
             vector<userRequest *> Test = requestModel->getRequests();
-            // write to file
-            // requestModel.createRequest(request);
-
             cout << "Do you want to continue create request? (Y/N)" << endl;
             string choice;
             cin >> choice;

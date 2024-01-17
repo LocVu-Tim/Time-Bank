@@ -17,10 +17,10 @@ private:
     vector<string> skill;
     double minimumRatingForHost;
     double minimumRatingForSupporter;
-    string hostName;
+    string hostId;
 
 public:
-    userRequest(User *user = nullptr, int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}, double minimumRatingForSupporter = 0) : Request(user, id)
+    userRequest(string userId = "", int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}, double minimumRatingForSupporter = 0) : Request(userId, id)
     {
         this->skill = skills;
         this->availability = availability;

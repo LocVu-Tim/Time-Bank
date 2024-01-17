@@ -45,7 +45,7 @@ public:
     void listOrUnlist();
     // 1. list and unlist your own requests
     void list();
-    void unlist();
+    void unlist(vector<userRequest *> &requestList);
 
     // 2. lookForSupport a new request
     void viewAllRequests(vector<userRequest *> &requestList);
