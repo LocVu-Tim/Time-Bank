@@ -152,7 +152,7 @@ public:
     friend User *findByUsername(const vector<User *> &users, const string &username);
 
     //method to find user thru id
-    friend User *findById(const vector<User *> &users, const int targetId);
+    friend User *afindById(const vector<User *> &users, const int targetId);
 };
 // method to register user
 User registerMember(vector<User *> users);

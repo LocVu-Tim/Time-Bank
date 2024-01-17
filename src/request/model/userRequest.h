@@ -1,6 +1,7 @@
 #ifndef USER_REQUEST_H
 #define USER_REQUEST_H
 #include "../request.h"
+#include "../../user/User.h"
 // #include "./fileUtility.h"
 
 using namespace std;
@@ -36,7 +37,7 @@ public:
     friend class RequestController;
     friend class RequestView;
 
-    void printInfo();
+    void printInfo(vector<User *> &userList);
 };
 
 #endif // USER_REQUEST_H

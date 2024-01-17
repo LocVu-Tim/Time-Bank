@@ -234,7 +234,7 @@ void RequestView::list()
   checkBeforeSubmitting(userInputs["requestOperation"]);
 };
 
-void RequestView::unlist(vector<userRequest *> &availableRequests)
+void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
   cout << "Your current request for working: " << endl;
   cout << string(50, '=') << endl;
@@ -242,14 +242,14 @@ void RequestView::unlist(vector<userRequest *> &availableRequests)
   {
     cout << "Request no. " << i + 1 << endl;
     cout << string(50, '=') << endl;
-    availableRequests[i]->printInfo();
+    availableRequests[i]->printInfo(allUsers);
     cout << string(50, '=') << endl;
   }
   cout << "Which request do you want to remove?" << endl;
 };
 
 // TODO - view all should be not from user but all other. So we need to filter the data
-void RequestView::viewAllRequests(vector<userRequest *> &availableRequests)
+void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
   // qq change in the implementation - display all available reqyests
   vector<userRequest *> filteredData = dateFilter(availableRequests);
@@ -258,7 +258,7 @@ void RequestView::viewAllRequests(vector<userRequest *> &availableRequests)
   {
     cout << "Request no. " << i + 1 << endl;
     cout << string(50, '=') << endl;
-    filteredData[i]->printInfo();
+    filteredData[i]->printInfo(allUsers);
     cout << string(50, '=') << endl;
   }
   cout << "Would you like to look for support for any of the above requests? (y/n)" << endl;

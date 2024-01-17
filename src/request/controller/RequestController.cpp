@@ -143,6 +143,11 @@ void RequestController::setUser(User *user)
     this->user = user;
 };
 
+void RequestController::setUserList(vector<User *> userList)
+{
+    this->userList = userList;
+};
+
 void RequestController::unlist()
 {
     RequestView requestView;
@@ -155,7 +160,7 @@ void RequestController::unlist()
     }
     while (true)
     {
-        requestView.unlist(filteredList);
+        requestView.unlist(filteredList, this->userList);
         string unlistChoice;
         cin >> unlistChoice;
         // return the object that user had selected
@@ -206,7 +211,7 @@ void RequestController::viewAllRequests(RequestModel &rm)
     {
         vector<userRequest *> requestList = rm.getRequests();
         cout << "Request list size: " << requestList.size() << endl;
-        requestView.viewAllRequests(requestList);
+        requestView.viewAllRequests(requestList, this->userList);
         cin >> input;
         if (input == "Y" || input == "y")
         {

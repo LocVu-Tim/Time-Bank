@@ -29,7 +29,6 @@ int main()
 
     // load data from file
     rm.load();
-    // vector<User *> userList;
     // Create a test user
     // User usertoTest = registerMember(userList);
 
@@ -50,7 +49,10 @@ int main()
     testUser2->setUserId(13);
 
     testUser->setBlocked(to_string(jao->getUserId()));
+    vector<User *> userList = {testUser, testUser2, jao};
+
     rc.setUser(testUser);
+    rc.setUserList(userList);
     // cout << "User ID: " << testUser->getUserId() << endl;
     // cout << "You are logged in as: " << user->getUsername() << endl;
 

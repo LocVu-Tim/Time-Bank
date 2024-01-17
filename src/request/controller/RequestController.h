@@ -12,6 +12,7 @@ private:
     RequestModel *requestModel;
     RequestView *requestView;
     User *user;
+    vector<User *> userList;
 
 public:
     RequestController(RequestModel &requestModel, RequestView &requestView);
@@ -31,6 +32,7 @@ public:
     vector<userRequest *> filterRequestAvailable(vector<userRequest *> &requestList, string username, vector<string> blocked);
     vector<userRequest *> filterUserList(vector<userRequest *> &requestList);
     void setUser(User *user);
+    void setUserList(vector<User *> userList);
 
     friend class RequestView;
     friend class RequestModel;
