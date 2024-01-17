@@ -317,7 +317,7 @@ void RequestView::requestForSupporter()
   setMultipleInputs(numberOfSkills, "skill");
   cout << "==============================" << endl;
 
-  cout << "Point consumed / hour: " << endl;
+  cout << "Points to be paid / hour: " << endl;
   setInput("pointsPerHour");
   cout << "==============================" << endl;
 
