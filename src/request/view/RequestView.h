@@ -2,26 +2,39 @@
 #define REQUEST_VIEW_H
 
 #include <vector>
+#include <map>
 #include <string>
+#include <iostream>
+// Time handling
+#include <ctime>
+#include <sstream>
+#include <iomanip>
+
+#include "../model/RequestModel.h"
+
 using namespace std;
 
 class RequestView
 {
 private:
-    vector<string> userInputs;
+    // vector<string> userInputs;
+    map<string, string> userInputs;
 
 public:
     RequestView();
     // ~RequestView();
     // method supporting gettting input from user
-    void setInput();
-    void setOptionalInput();
-    void checkOptionalInput();
-    string getInput(int index);
-    vector<string> getUserInputs();
+    void setInput(string inputField);
+    void setOptionalInput(string inputField);
+    void checkBeforeSubmitting(string form);
+    bool isValidDate(string date);
+    string getInput(string field);
+    map<string, string> getUserInputs();
+
+    void setMultipleInputs(int numberOfInputs, string fieldName);
 
     // Error handling for error controller
-    void errorHandling(string error);
+    bool errorHandling(string error);
 
     // Validate user input
     // 1. Validate the date
@@ -32,13 +45,12 @@ public:
     void listOrUnlist();
     // 1. list and unlist your own requests
     void list();
-    void unlist();
+    void unlist(vector<userRequest *> &requestList, vector<User *> &userList);
 
     // 2. lookForSupport a new request
-    void lookForSupport();
-
-private:
-    // Add your member variables here
+    void viewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList);
+    vector<userRequest *> dateFilter(vector<userRequest *> &dataToFilter);
+    void requestForSupporter();
 };
 
 #endif // REQUEST_VIEW_H

@@ -124,7 +124,8 @@ vector<int> User::getBlocked() {
 }
 
 // method to set block
-void User::setBlocked(int blocks) {
+void User::setBlocked(string blocks)
+{
     blocked.push_back(blocks);
 }
 
