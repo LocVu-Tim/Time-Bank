@@ -47,6 +47,20 @@ void RequestView::checkBeforeSubmitting(string form)
     }
   }
 
+  // Validate if city is Ha Noi or Ho Chi Minh
+  if (userInputs["city"] != "Ha Noi" && userInputs["city"] != "Ho Chi Minh")
+  {
+    errorHandling("Invalid city");
+    if (form == "list")
+    {
+      return list();
+    }
+    else if (form == "requestForSupporter")
+    {
+      return requestForSupporter();
+    }
+  }
+
   // validate if the pointsPerHour is a number
   try
   {
@@ -182,7 +196,7 @@ void RequestView::list()
   setInput("timeFrom");
   cout << "To: " << endl;
   setInput("timeTo");
-  cout << "City: " << endl;
+  cout << "City (Only Ha Noi or Ho Chi Minh): " << endl;
   setInput("city");
   cout << "How many skill you want to request for: " << endl;
   cin >> numberOfSkills;
@@ -253,21 +267,33 @@ vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilte
 void RequestView::requestForSupporter()
 {
   int numberOfSkills;
+  cout << "==============================" << endl;
   cout << "Enter the time period you want to request another people (In date and with format dd/mm/yyyy): " << endl;
   cout << "From: " << endl;
   setInput("timeFrom");
   cout << "To: " << endl;
   setInput("timeTo");
-  cout << "City: " << endl;
+  cout << "==============================" << endl;
+  cout << "City (Only Ha Noi or Ho Chi Minh): " << endl;
   setInput("city");
+  cout << "==============================" << endl;
+
   cout << "How many skill you want to list yourself for: " << endl;
   cin >> numberOfSkills;
+  cout << "==============================" << endl;
+
   cout << "Skill to perform " << endl;
   setMultipleInputs(numberOfSkills, "skill");
+  cout << "==============================" << endl;
+
   cout << "Point consumed / hour: " << endl;
   setInput("pointsPerHour");
+  cout << "==============================" << endl;
+
   cout << "Minimum rating for supporter (Optional, press Enter if you want to skip): " << endl;
   setOptionalInput("minimumRatingForSupporter");
+  cout << "==============================" << endl;
+
   userInputs["requestOperation"] = "requestForSupporter";
   checkBeforeSubmitting(userInputs["requestOperation"]);
 };
