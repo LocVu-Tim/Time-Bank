@@ -7,4 +7,6 @@
 
 int main () {
     welcomeInterface();
+
+    return 0;
 }

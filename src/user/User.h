@@ -106,7 +106,7 @@ public:
     // method to show info member
     void showInfoMember();
 
-    // method to show info admin 
+    // method to show info admin
     void showInfoAdmin();
 
     // method to top up credit points with pwd authorization
@@ -121,7 +121,7 @@ public:
     // method to login for member
     bool loginMember(vector<User *> users, string checkUsername);
 
-    //method to login for admin
+    // method to login for admin
     bool loginAdmin(vector<User *> users, string checkUsername);
 
     // method to showinfo without rating score

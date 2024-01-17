@@ -3,7 +3,9 @@
 #include<stdlib.h>
 #include<string.h>
 
+
 using namespace std;
+
 
 void menu();
 void Guest();
@@ -16,16 +18,16 @@ void welcomeInterface(){
     int choice;
 
     // Welcome Interface//
+    cout <<""<<endl;
     cout <<"EEET2482/COSC2082 ASSIGNMENT"<<endl;
     cout <<"''Time BANK'' APPLICATION"<<endl;
     cout <<""<<endl;
     cout <<"Instructor: Mr. Tran Duc Linh"<<endl;
-    cout <<"Group: "<<endl;
-    cout <<"s3891483, Vu Loc"<<endl;
-    cout <<"s3927082, Van Hong Lam "<<endl;
-    cout <<"s3979199, Luong Anh Huy"<<endl;
-    cout <<"s3978609, Tran Tuan Minh"<<endl;
-    cout <<""<<endl;
+    cout <<"Group: 18"<<endl;
+    cout <<"s3891483 | Vu Loc"<<endl;
+    cout <<"s3927082 | Van Hong Lam "<<endl;
+    cout <<"s3979199 | Luong Anh Huy"<<endl;
+    cout <<"s3978609 | Tran Tuan Minh"<<endl;
     menu();
 }
 
@@ -34,6 +36,7 @@ void menu (){
     bool running = true;
 
     while (running) {
+        cout <<""<<endl;
         cout <<"**************************************************"<<endl;
         cout <<"************ WELCOME TO TIME BANK ****************"<<endl;
         cout <<"Use the app as: "<<endl;
@@ -53,127 +56,163 @@ void menu (){
             continue; 
         }
 
-        switch(choice){
+        switch (choice) {
             case 1:
                 adminLogin();
-                
+                break;
             case 2:
-                Member();
-                
+                memberLogin();
+                break;
             case 3:
                 Guest();
-                
+                break;
+            case 0:
+                running = false;
+                cout << "Exiting the application." << endl;
+                break;
+            default:
+                cout << "Invalid choice! Please try again." << endl;
         }
 
     }
 }
 
 void Admin(){
-
     int choice;
-    cout << "\nAdmin menu\n";
-    cout << "1.View admin information\n";
-    cout << "2.Reset member password\n";
-    cout << "3.Back to main menu\n";
-    cout << "Enter your choice: ";
-    cin >> choice;
-    switch (choice)
-    {
-    case 1:
-        menu();
-        break;
-    case 2:
-        menu();
-        break;
-    case 3:
-        menu();
-        break;
-    default:
-        cout << "Invalid choice!"
-             << "\n";
-        break;
+    bool running = true;
+
+    while (running) {
+        cout << "\nAdmin menu\n";
+        cout << "1.View admin information\n";
+        cout << "2.Reset member password\n";
+        cout << "3.Back to main menu\n";
+        cout << "0. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+            case 1:
+                menu();
+                break;
+            case 2:
+                menu();
+                break;
+            case 3:
+                menu();
+                break;
+            
+            case 0:
+                running = false;
+                cout << "Exiting the application." << endl;
+                break;
+            default:
+                cout << "Invalid choice!"
+                    << "\n";
+                break;
+        }
     }
 }
 
 void adminLogin() {
-    int count;
-    string aName,aPass,aN,aP;
-    system("cls");
-    cout <<"Enter username: ";
+    string aName, aPass, aN, aP;
+
+    cout << "Enter username: ";
     cin >> aName;
-    cout<<"Enter password: ";
+
+    cout << "Enter password: ";
     cin >> aPass;
 
-    ifstream input("adminDetail.dat");
-    while(input>>aN>>aP){
-        if(aN==aName && aP==aPass){
-            count =1;
-            system("cls");
+    ifstream adminFile("./welcomeInterface/adminDetail.dat");
+    int found = 0;
+
+    while (adminFile >> aN >> aP) {
+        if (aName == aN && aPass == aP) {
+            found = 1;
+            break;
         }
     }
-    input.close();
-    if(count==1){
-        cout<<"Login Successful\n"; 
+
+    adminFile.close();
+
+    if (found) {
+        cout << "Login Successful\n";
         Admin();
-    }
-    else{
-        cout<<"Login Error \n Please check your details"<<endl;
+    } else {
+        cout << "Login Error\n";
         adminLogin();
     }
-   
 }
+
 
 void Member(){
     int choice;
-    cout << "\nMember menu:\n";
-    cout << "1.View information\n";
-    cout << "2.Add skills\n";
-    cout << "3.Listed as supporter\n";
-    cout << "Enter your choice: ";
-    cin >> choice;
-    switch (choice)
-    {
-        case 1:
-            menu();
-            break;
-        case 2:
-            menu();
-            break;
-        case 3:
-            menu();
-            break;
-        default:
-            cout << "Invalid choice!"
-                << "\n";
-            break;
+    bool running = true;
+
+    while (running) {
+        cout << "\nMember Menu" << endl;
+        cout << "1. View Information" << endl;
+        cout << "2. Add Skills" << endl;
+        cout << "3. List as Supporter" << endl;
+        cout << "4. View Supporters" << endl;
+        cout << "5. View Requests" << endl;
+        cout << "6. Block Member" << endl;
+        cout << "7. Back to Main Menu" << endl;
+        cout << "0. Exit" << endl;
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+            case 1:
+                menu();
+                break;
+            case 2:
+                menu();
+                break;
+            case 3:
+                menu();
+                break;
+
+            case 0:
+                running = false;
+                cout << "Exiting the application." << endl;
+                break;
+            default:
+                cout << "Invalid choice!"
+                    << "\n";
+                break;
+        }
     }
 }
 
-void loginMember() {
-    int count;
+void memberLogin() {
     string mName,mPass,mN,mP;
-    system("cls");
-    cout <<"Enter username: ";
+
+    cout << "Enter username: ";
     cin >> mName;
-    cout<<"Enter password: ";
+
+    cout << "Enter password: ";
     cin >> mPass;
 
-    ifstream input("memberDetail.txt");
-    while(input>>mN>>mP){
-        if(mN==mName && mP==mPass){
-            count =1;
-            system("cls");
+    ifstream memberFile("./welcomeInterface/memberDetail.dat");
+    int found = 0;
+
+    while (memberFile >> mN >> mP) {
+        if (mName == mN && mPass == mP) {
+            found = 1;
+            break;
         }
     }
-    input.close();
-    if(count==1){
-        cout<<"Login Successful\n"; 
-        cin.get();
+
+    memberFile.close();
+
+    if (found) {
+        cout << "Login Successful\n";
         Member();
-    }
-    else{
-        cout<<"Login Error \n Please check your details"<<endl;
-        loginMember();
+    } else {
+        cout << "Login Error\n";
+        memberLogin();
     }
 }
 

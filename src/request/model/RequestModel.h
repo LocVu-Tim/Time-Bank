@@ -2,34 +2,36 @@
 #define REQUEST_MODEL_H
 
 #include "../request.h"
+#include "./userRequest.h"
+#include "./fileUtility.h"
 
 #include <vector>
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <map>
 using namespace std;
 
 class RequestModel
 {
     // serves for later file storage
 private:
-    vector<Request *> requests;
+    vector<userRequest *> requestList;
 
 public:
-    RequestModel(vector<Request *> requests = {});
+    RequestModel(vector<userRequest *> requests = {});
     ~RequestModel();
 
-    void createRequest(vector<string> userData);
-    vector<Request *> getRequests();
+    void createRequest(map<string, string> userData);
+    // void writeToFile(Request *request);
+    void load();
+    vector<userRequest *> getRequests();
 
-    // Load data from file
-    // void load();
-
-    // CRUD functions
-    // void createRequest();
-    // void readRequest();
-    // void updateRequest();
-    // void deleteRequest();
-
-private:
-    // Add your member variables here
+    friend class RequestController;
+    friend class RequestView;
+    friend class fileUtility;
+    friend class userRequest;
+    friend class Request;
 };
 
 #endif // REQUEST_MODEL_H
