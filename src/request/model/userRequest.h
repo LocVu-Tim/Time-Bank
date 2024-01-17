@@ -20,7 +20,7 @@ private:
     string hostName;
 
 public:
-    userRequest(User *user = nullptr, int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}) : Request(user, id)
+    userRequest(User *user = nullptr, int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}, double minimumRatingForSupporter = 0) : Request(user, id)
     {
         this->skill = skills;
         this->availability = availability;
@@ -29,7 +29,7 @@ public:
         this->timeTo = timeTo;
         this->city = city;
         this->minimumRatingForHost = minimumRatingForHost;
-        this->minimumRatingForSupporter = 0;
+        this->minimumRatingForSupporter = minimumRatingForSupporter;
     };
     friend class fileUtility;
     friend class RequestModel;
