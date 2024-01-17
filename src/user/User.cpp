@@ -7,8 +7,8 @@
     - FIND BY USERNAME
 */
 
-User::User() {}
 // constructor
+User::User(){};
 User::User(int userIdVal, string username, string pwd, string fullName, string email,
            string homeAddr, string phoneNo, int creds, int ratingScore) : role(0)
 {
@@ -142,7 +142,7 @@ vector<string> User::getBlocked()
 // method to set block
 void User::setBlocked(string blocks)
 {
-   blocked.push_back(blocks);
+    blocked.push_back(blocks);
 }
 
 // method to get userId

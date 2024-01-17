@@ -1,7 +1,7 @@
 #ifndef REQUEST_CONTROLLER_H
 #define REQUEST_CONTROLLER_H
 
-#include "../Request.h"
+#include "../request.h"
 #include "../view/RequestView.h"
 #include "../model/RequestModel.h"
 #include "../controller/RequestController.h"
@@ -9,25 +9,31 @@
 class RequestController
 {
 private:
-    RequestModel requestModel;
-    RequestView requestView;
+    RequestModel *requestModel;
+    RequestView *requestView;
 
 public:
-    RequestController(RequestModel requestModel, RequestView requestView);
+    RequestController(RequestModel &requestModel, RequestView &requestView);
     ~RequestController();
 
-    // Add your member functions here
     int OperationsList();
-    void selectAvailableFunction(int choice, RequestView requestView, RequestModel requestModel);
-    void createRequestObject(vector<string> userData);
+    void selectAvailableFunction();
+    void createRequestObject(map<string, string> userData);
     void listOrUnlist();
     // 1. List and unlist your own requests
     void list();
     void unlist();
-    void lookForSupport();
+    void viewAllRequests(RequestModel &rm);
+    userRequest *findARequest(int position, vector<userRequest *> requestList);
+    void requestForSupporter();
+    // for view active request
+    vector<userRequest *> filterRequestByUser(vector<userRequest *> requestList, string username);
+    // for view available request
+    vector<userRequest *> filterRequestAvailable(vector<userRequest *> requestList, string username, vector<string> blocked);
 
-private:
-    // Add your member variables here
+    friend class RequestView;
+    friend class RequestModel;
+    friend class Request;
 };
 
 #endif // REQUEST_CONTROLLER_H
