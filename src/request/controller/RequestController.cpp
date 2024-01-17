@@ -224,9 +224,6 @@ void RequestController::viewAllRequests(RequestModel &rm)
             // TODO: get the current user name as the host name
             request->hostId = to_string(this->user->getUserId());
             cout << "Data modified!" << endl;
-            // should have a function to query user name from user id qq
-            // Temporary solution
-            cout << "The current host name is: " << request->hostId << endl;
             cout << "Would you like to try again? (Y/n)" << endl;
             cin >> input;
             if (input == "Y" || input == "y")
@@ -270,7 +267,6 @@ void RequestController::createRequestObject(map<string, string> userData)
         bool continueCreate = true;
         while (continueCreate)
         {
-            // qq bug here
             cout << "Creating request..." << endl;
             cout << "User ID: " << this->user->getUserId() << endl;
             requestModel->createRequest(userData, this->user->getUserId());

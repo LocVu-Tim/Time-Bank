@@ -101,7 +101,6 @@ void RequestView::checkBeforeSubmitting(string form)
   }
 
   // validate if the minimumRatingForHost is a number
-  // qq potential
   try
   {
     stod(userInputs["minimumRatingForHost"]);
@@ -248,7 +247,7 @@ void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *
   cout << "Which request do you want to remove?" << endl;
 };
 
-// TODO - view all should be not from user but all other. So we need to filter the data
+// TODO - the data now need to be filtered by the rating of the request user to the current user.
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
   // qq change in the implementation - display all available reqyests

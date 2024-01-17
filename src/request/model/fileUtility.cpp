@@ -39,7 +39,6 @@ void fileUtility::writeToFile(userRequest *request)
     }
     fout << "minimumRatingForHost:" << request->minimumRatingForHost << endl;
     fout << "minimumRatingForSupporter:" << request->minimumRatingForSupporter << endl;
-    // Check if supporterName is emptyqq
     fout << "hostId:" << request->hostId << endl;
     fout << endl;
     fout.close();

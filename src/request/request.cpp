@@ -53,8 +53,6 @@ int main()
 
     rc.setUser(testUser);
     rc.setUserList(userList);
-    // cout << "User ID: " << testUser->getUserId() << endl;
-    // cout << "You are logged in as: " << user->getUsername() << endl;
 
     rc.selectAvailableFunction();
 

@@ -24,7 +24,6 @@ void RequestModel::createRequest(map<string, string> userData, int userId)
         // create a new request object
         userRequest *request = new userRequest();
         // store the data to the request object
-        // qq potential: id isn't string
         request->userId = id;
         request->id = time(0);
         request->timeFrom = userData["timeFrom"];
@@ -50,8 +49,7 @@ void RequestModel::createRequest(map<string, string> userData, int userId)
         else if (userData["requestOperation"] == "requestForSupporter")
         {
             request->minimumRatingForSupporter = stod(userData["minimumRatingForSupporter"]);
-            // TODO: hostName is the current user qq
-            // request->hostName = userData["hostName"];
+            request->hostId = id;
         }
         // push the request object to the requestList
         requestList.push_back(request);
