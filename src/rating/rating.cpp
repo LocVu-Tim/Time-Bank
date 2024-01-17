@@ -1,17 +1,19 @@
 #include "rating.h"
 
+#include <utility>
+
 //1. Method to get rating ID
-int Rating::getRatingID() {
+int Rating::getRatingID() const {
     return this->ratingID;
 }
 
 //2. Method to get user ID
-int Rating::getUserID() {
+int Rating::getUserID() const {
     return this->userID;
 }
 
 //3. Method to get rater ID
-int Rating::getRaterID() {
+int Rating::getRaterID() const {
     return this->raterID;
 }
 
@@ -33,7 +35,7 @@ int Rating::getRatingTypeNumb() {
 }
 
 //6. Method to get rating value
-double Rating::getRatingValue() {
+double Rating::getRatingValue() const {
     return this->ratingValue;
 }
 
@@ -77,5 +79,15 @@ void Rating::setRatingValue(double value) {
 
 //13. Method to set comment
 void Rating::setComment(std::string rComment) {
-    this->comment = rComment;
+    this->comment = std::move(rComment);
+}
+
+//14. Method to show rating info
+void Rating::showRatingInfo() {
+    std::cout << "Rating ID: " << this->ratingID << std::endl
+              << "User ID: " << this->userID << std::endl
+              << "Author ID: " << this->raterID << std::endl
+              << "Type: " << this->type << std::endl
+              << "Score: " << this->ratingValue << std::endl
+              << "Comment: " << this->comment << std::endl << "\n";
 }
