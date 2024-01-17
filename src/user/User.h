@@ -73,6 +73,12 @@ public:
     // method to set credit points
     void setCreds(int creds);
 
+    //method to get rating score
+    int getRatingScore();
+
+    //method to set rating score
+    void setRatingScore(int ratingScore);
+
     /*method to get and set role
     1: Guest
     2: Member
