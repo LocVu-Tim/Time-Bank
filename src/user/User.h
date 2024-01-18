@@ -12,11 +12,12 @@
 #include <vector>
 #include <regex>
 #include "Tools/Tool.h"
-#include "rating.h"
+#include "../rating/rating.h"
 
 using namespace std;
 
-class User {
+class User
+{
 private:
     string userName, pwd, fullName, email, homeAddr, phoneNo;
     bool isBlock;
@@ -80,10 +81,10 @@ public:
     // method to set credit points
     void setCreds(int creds);
 
-    //method to get rating score
+    // method to get rating score
     int getRatingScore();
 
-    //method to set rating score
+    // method to set rating score
     void setRatingScore(int ratingScore);
 
     /*method to get and set role
@@ -104,10 +105,10 @@ public:
     // method to set block
     void setBlocked(int blocks);
 
-    //method to get userId
+    // method to get userId
     int getUserId();
 
-    //method to set user id
+    // method to set user id
     void setUserId(int id);
 
     // method to block user from viewing content
@@ -134,7 +135,7 @@ public:
     // method to login for member
     bool loginMember(vector<User *> users, string checkUsername);
 
-    //method to login for admin
+    // method to login for admin
     bool loginAdmin(const vector<User *> &users, string checkUsername);
 
     // method to showinfo without rating score
@@ -164,7 +165,7 @@ public:
     // method to find user through username
     friend User *findByUsername(const vector<User *> &users, const string &username);
 
-    //method to find user through id
+    // method to find user through id
     friend User *findById(const vector<User *> &users, const int targetId);
 
     // Method to get user ratings
@@ -179,7 +180,7 @@ public:
     // Method to update rating score
     friend void updateScore(User user, int type);
 
-    //Method to set user rating
+    // Method to set user rating
     friend void setRatingScore(User user, int type, double score);
 };
 
@@ -204,5 +205,5 @@ bool verifyPwd(User user, string pwd);
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username);
 
-//method to find user by id
+// method to find user by id
 User *findById(const vector<User *> &users, int targetId);
