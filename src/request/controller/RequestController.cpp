@@ -201,6 +201,7 @@ void RequestController::viewAllRequests(RequestModel &rm)
     vector<userRequest *> filteredData = requestView.dateFilter(dataToPass);
 
     // continue filtering by availability, excluding current user and blocked user
+    // TODO qq add rating id ref to the current user.
     vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(), this->user->getBlocked());
     if (availableData.size() == 0)
     {

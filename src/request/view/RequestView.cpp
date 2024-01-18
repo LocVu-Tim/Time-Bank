@@ -130,7 +130,6 @@ void RequestView::setMultipleInputs(int numberOfInputs, string fieldName)
   {
     string input;
     cin >> input;
-    // userInputs[fieldName].append(input);
     // make it a vector containing all the skills with delimiter
     userInputs[fieldName].append(input);
     if (i != numberOfInputs - 1)

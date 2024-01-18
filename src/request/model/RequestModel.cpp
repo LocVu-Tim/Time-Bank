@@ -16,12 +16,14 @@ RequestModel::~RequestModel()
     }
 }
 
-void RequestModel::createRequest(map<string, string> userData, User &user)
+void RequestModel::createRequest(map<string, string> userData, int userid)
 {
     // create a new request object
     userRequest *request = new userRequest();
+    // convert int to string
+    string id = to_string(userid);
     // store the data to the request object
-    // request->user = new User(userData["user"]);
+    request->userId = id;
     request->id = time(0);
     request->timeFrom = userData["timeFrom"];
     request->timeTo = userData["timeTo"];
@@ -48,8 +50,7 @@ void RequestModel::createRequest(map<string, string> userData, User &user)
     {
         request->minimumRatingForHost = 0;
         request->minimumRatingForSupporter = stod(userData["minimumRatingForSupporter"]);
-        // TODO: hostName is the current user qq
-        // request->hostName = userData["hostName"];
+        request->hostId = id;
     }
     // push the request object to the requestList
     requestList.push_back(request);

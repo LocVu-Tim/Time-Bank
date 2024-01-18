@@ -22,7 +22,7 @@ public:
     RequestModel(vector<userRequest *> requests = {});
     ~RequestModel();
 
-    void createRequest(map<string, string> userData, User &user);
+    void createRequest(map<string, string> userData, int userid);
     // void writeToFile(Request *request);
     void load();
     vector<userRequest *> getRequests();
