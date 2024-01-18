@@ -67,6 +67,7 @@ void User::changePwdMember(User user, string temp) {
 }
 
 // method to show info
+
 void User::showInfoMember() {
     cout << userName << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-"
          << "Member\n";

@@ -234,21 +234,45 @@ void RequestController::viewAllRequests(RequestModel &rm)
             cin >> input;
             // look for the data (-1 because of display)
             userRequest *request = findARequest(stoi(input) - 1, filteredData);
-            cout << "Data found! Now modifying the data" << endl;
-            // edit the data
-            // TODO: get the current user name as the host name
-            request->hostId = to_string(this->user->getUserId());
-            cout << "Data modified!" << endl;
-            cout << "Would you like to try again? (Y/n)" << endl;
+            cout << "Data found! What do you want to do with the data?" << endl;
+            cout << "1. Request" << endl;
+            cout << "2. View user profile" << endl;
             cin >> input;
-            if (input == "Y" || input == "y")
+            if (input == "1")
             {
-                choice = true;
+                cout << "Data found! Now modifying the data" << endl;
+                // edit the data
+                // TODO: get the current user name as the host name
+                request->hostId = to_string(this->user->getUserId());
+                cout << "Data modified!" << endl;
+                cout << "Would you like to try again? (Y/n)" << endl;
+                cin >> input;
+                if (input == "Y" || input == "y")
+                {
+                    choice = true;
+                }
+                else
+                {
+                    choice = false;
+                    return selectAvailableFunction();
+                }
             }
-            else
+            else if (input == "2")
             {
-                choice = false;
-                return selectAvailableFunction();
+                // view user profile
+                User *user = findById(this->userList, stoi(request->userId));
+                user->showInfoMember();
+                cout << "Would you like to return to the previous page? (Y/n)" << endl;
+                cin >> input;
+                if (input == "Y" || input == "y")
+                {
+                    choice = true;
+                }
+                else
+                {
+                    choice = false;
+                    return selectAvailableFunction();
+                }
             }
         }
         else
