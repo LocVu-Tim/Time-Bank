@@ -51,6 +51,7 @@ public:
     void viewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList);
     vector<userRequest *> dateFilter(vector<userRequest *> &dataToFilter);
     void GuestViewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList);
+    void adminViewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList);
     void requestForSupporter();
 };
 

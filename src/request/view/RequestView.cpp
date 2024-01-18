@@ -263,6 +263,18 @@ void RequestView::GuestViewAllRequests(vector<userRequest *> &requestList, vecto
     requestList[i]->printInfo(userList);
     cout << string(50, '=') << endl;
   }
+}
+
+void RequestView::adminViewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList)
+{
+  cout << "All requests: " << endl;
+  for (int i = 0; i < requestList.size(); i++)
+  {
+    cout << "Request no. " << i + 1 << endl;
+    cout << string(50, '=') << endl;
+    requestList[i]->printInfo(userList);
+    cout << string(50, '=') << endl;
+  }
 };
 
 void RequestView::requestForSupporter()

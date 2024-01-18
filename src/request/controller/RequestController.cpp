@@ -290,6 +290,14 @@ void RequestController::GuestViewAllRequests(RequestModel &rm)
     requestView->GuestViewAllRequests(filteredData, this->userList);
     return;
     // return to the main interface qq
+}
+void RequestController::adminViewAllRequests(RequestModel &rm)
+{
+    // filter by date and availability
+    vector<userRequest *> dataToPass = rm.getRequests();
+    requestView->adminViewAllRequests(dataToPass, this->userList);
+    return;
+    // return to the main interface qq
 };
 
 userRequest *RequestController::findARequest(int position, vector<userRequest *> requestList)
