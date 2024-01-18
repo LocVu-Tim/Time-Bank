@@ -26,6 +26,7 @@ public:
     void list();
     void unlist();
     void viewAllRequests(RequestModel &rm);
+    void GuestViewAllRequests(RequestModel &rm);
     userRequest *findARequest(int position, vector<userRequest *> requestList);
     void requestForSupporter();
     // for view available request
