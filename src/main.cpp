@@ -9,12 +9,12 @@
 #include "./welcomeInterface/welcomeInterface.cpp"
 #include "user/User.h"
 #include "user/User.cpp"
-
+#include "user/Tools/Tool.cpp"
 bool defaultData = false;
 
 int main()
 {
-    welcomeInterface();
+    // welcomeInterface();
 
     // Initialize or reload default data 
     fstream myUserFile;
@@ -88,7 +88,7 @@ int main()
     }
 
 
-
+    
 
     // Save user data to file
 	myUserFile.open("user.dat", std::ios::out);
