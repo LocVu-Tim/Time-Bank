@@ -22,10 +22,11 @@ public:
     RequestModel(vector<userRequest *> requests = {});
     ~RequestModel();
 
-    void createRequest(map<string, string> userData);
+    void createRequest(map<string, string> userData, int userid, vector<string> skills);
     // void writeToFile(Request *request);
     void load();
     vector<userRequest *> getRequests();
+    int getPositionOfRequest(int id);
 
     friend class RequestController;
     friend class RequestView;

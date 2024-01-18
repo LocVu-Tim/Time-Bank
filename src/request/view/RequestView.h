@@ -45,12 +45,23 @@ public:
     void listOrUnlist();
     // 1. list and unlist your own requests
     void list();
-    void unlist();
+    void unlist(vector<userRequest *> &requestList, vector<User *> &userList);
 
     // 2. lookForSupport a new request
-    void viewAllRequests(vector<userRequest *> &requestList);
+    void viewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList);
+    void viewAllHostRequests(vector<userRequest *> &requestList, vector<User *> &userList);
     vector<userRequest *> dateFilter(vector<userRequest *> &dataToFilter);
+    void GuestViewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList);
+    void adminViewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList);
     void requestForSupporter();
+
+    // 3. view all incoming requests
+    void viewIncomingRequests(vector<userRequest *> &requestList, vector<User *> &userList);
+    // 4. view all outgoing requests
+    void viewOutgoingRequests(vector<userRequest *> &requestList, vector<User *> &userList);
+    // misc: ask for request confirmation
+    bool requestConfirmation(string message);
 };
+
 
 #endif // REQUEST_VIEW_H
