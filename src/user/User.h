@@ -17,14 +17,14 @@
 
 using namespace std;
 
-class User
-{
+class User {
 private:
+    int userID;
     string userName, pwd, fullName, email, homeAddr, phoneNo;
     bool isBlock;
     vector<int> blocked;
     vector<string> skills;
-    int creds, role, userId;
+    int creds, role;
     double skillRatingScore, supporterRatingScore, hostRatingScore;
     std::vector<Rating> ratings;
 
@@ -34,8 +34,8 @@ public:
     User();
 
     // Constructor
-    User(string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo, bool block, vector<int> blocked, int creds, int role, int userId,
+    User(int userId, string userName, string pwd, string fullName, string email, string homeAddr,
+         string phoneNo, bool block, vector<int> blocked, int creds, int role,
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function
@@ -82,12 +82,6 @@ public:
 
     // method to set credit points
     void setCreds(int creds);
-
-    // method to get rating score
-    int getRatingScore();
-
-    // method to set rating score
-    void setRatingScore(int ratingScore);
 
     /*method to get and set role
     1: Guest
@@ -156,7 +150,7 @@ public:
     friend bool checkValidUsername(vector<User *> users, string userName);
 
     // method to check valid email
-    friend bool checkValidEmail(vector<User *> users, string email);
+    friend bool checkValidEmail(const vector<User *> &users, const string &email);
 
     // method to check valid phone number
     friend bool checkValidPhoneNo(vector<User *> users, string phoneNo);
@@ -165,13 +159,13 @@ public:
     friend bool checkValidPwd(string pwd);
 
     // method to verify password
-    friend bool verifyPwd(User user, string pwd);
+    friend bool verifyPwd(User user, const string &pwd);
 
     // method to find user through username
     friend User *findByUsername(const vector<User *> &users, const string &username);
 
     // method to find user through id
-    friend User *findById(const vector<User *> &users, const int targetId);
+    friend User *findById(const vector<User *> &users, int targetId);
 
     // Method to get user ratings
     const vector<Rating> &getRatings() const;
@@ -182,11 +176,23 @@ public:
     // Method to calculate rating score
     friend double calRatingScore(const User &user, int type);
 
-    // Method to update rating score
-    friend void updateScore(User user, int type);
-
-    // Method to set user rating
+    // Method to set rating score
     friend void setRatingScore(User user, int type, double score);
+
+    // Method to update user rating
+    friend void updateRatingScore(User user, int type);
+
+    // Method to get host rating
+    double getHostRating() const;
+
+    // Method to get skill rating
+    double getSkillRating() const;
+
+    // Method to get supporter rating
+    double getSupporterRating() const;
+
+    // Method to get skill
+    vector<string> getSkillList();
 };
 
 // method to register user
@@ -196,7 +202,7 @@ User registerMember(vector<User *> users);
 bool checkValidUsername(vector<User *> users, string userName);
 
 // method to check valid email
-bool checkValidEmail(vector<User *> users, string email);
+bool checkValidEmail(const vector<User *> &users, const string &email);
 
 // method to check valid phone number
 bool checkValidPhoneNo(vector<User *> users, string phoneNo);
@@ -205,10 +211,10 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo);
 bool checkValidPwd(string pwd);
 
 // method to verify password
-bool verifyPwd(User user, string pwd);
+bool verifyPwd(User user, const string &pwd);
 
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username);
 
 // method to find user by if
-User *findById(const vector<User *> &users, const int targetId);
+User *findById(const vector<User *> &users, int targetId);

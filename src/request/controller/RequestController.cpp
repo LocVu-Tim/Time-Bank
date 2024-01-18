@@ -1,5 +1,6 @@
 #include <iostream>
 #include "RequestController.h"
+
 using namespace std;
 
 RequestController::RequestController(RequestModel &requestModel, RequestView &requestView)
@@ -8,6 +9,7 @@ RequestController::RequestController(RequestModel &requestModel, RequestView &re
     this->requestModel = &requestModel;
     this->requestView = &requestView;
 }
+
 RequestController::~RequestController(){};
 
 int RequestController::OperationsList()
@@ -75,8 +77,8 @@ void RequestController::list()
 {
     requestView->list();
     map<string, string> userData = requestView->getUserInputs();
-
-    if (userData.size() == 7)
+    cout << "Current data size: " << userData.size() << endl;
+    if (userData.size() == 5)
     {
         // lookForSupport Request object to store data
         createRequestObject(userData);
@@ -92,7 +94,9 @@ void RequestController::requestForSupporter()
     requestView->list();
     map<string, string> userData = requestView->getUserInputs();
 
-    if (userData.size() == 7)
+    // TODO 6 is the real one
+    // TODO fix the supporter field input from host -> supporter + host name
+    if (userData.size() == 5)
     {
         // lookForSupport Request object to store data
         createRequestObject(userData);
@@ -124,7 +128,8 @@ vector<userRequest *> RequestController::filterRequestAvailable(vector<userReque
     return requestList;
 }
 
-vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating)
+vector<userRequest *>
+RequestController::filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating)
 {
     for (int i = 0; i < requestList.size(); i++)
     {
@@ -214,7 +219,8 @@ void RequestController::viewAllRequests(RequestModel &rm)
     vector<userRequest *> filteredData = requestView.dateFilter(dataToPass);
 
     // continue filtering by availability, excluding current user and blocked user
-    vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(), this->user->getBlocked());
+    vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(),
+                                                                 this->user->getBlocked());
     // TODO qqTam thoi gan mock function vao day (this->user->getHostRating())
     availableData = filterBasedOnHostRating(availableData, 2.0);
 
@@ -283,6 +289,7 @@ void RequestController::viewAllRequests(RequestModel &rm)
         }
     }
 }
+
 void RequestController::GuestViewAllRequests(RequestModel &rm)
 {
     // filter by date and availability
@@ -292,6 +299,7 @@ void RequestController::GuestViewAllRequests(RequestModel &rm)
     return;
     // return to the main interface qq
 }
+
 void RequestController::adminViewAllRequests(RequestModel &rm)
 {
     // filter by date and availability

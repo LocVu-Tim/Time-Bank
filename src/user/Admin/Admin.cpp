@@ -1,5 +1,5 @@
 #include "../User.h"
-#include "../Tools/Tool.h"
+#include "Admin.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO ADMIN:
@@ -10,7 +10,7 @@
 
 
 // method to login
-bool User::loginAdmin(const vector<User *>& users, string checkUsername) {
+bool User::loginAdmin(const vector<User *> &users, string checkUsername) {
     string checkPwd;
     cout << "--------------Login--------------" << endl;
 
@@ -35,8 +35,7 @@ bool User::loginAdmin(const vector<User *>& users, string checkUsername) {
 }
 
 // method to show info admin
-void User::showInfoAdmin()
-{
+void User::showInfoAdmin() {
     showInfo();
     cout.width(ROLE_WIDTH);
     cout << left << "Admin";
@@ -44,7 +43,7 @@ void User::showInfoAdmin()
 }
 
 // method to change password for admin
-void User::changePwdAdmin(const vector<User *>& users, string username) {
+void User::changePwdAdmin(const vector<User *> &users, string username) {
     string reset;
     cout << "Enter username for changing password: ";
     cin >> username;
