@@ -39,7 +39,8 @@ void RequestController::selectAvailableFunction()
         break;
     case 4:
         fileUtility.modifyFile(requestModel->requestList);
-        exit(0);
+        // exit(0);
+        return;
     default:
         requestView->errorHandling("Invalid choice");
         cin.clear();
@@ -91,7 +92,7 @@ void RequestController::list()
 
 void RequestController::requestForSupporter()
 {
-    requestView->list();
+    requestView->requestForSupporter();
     map<string, string> userData = requestView->getUserInputs();
 
     // TODO 6 is the real one
@@ -219,8 +220,7 @@ void RequestController::viewAllRequests(RequestModel &rm)
     vector<userRequest *> filteredData = requestView.dateFilter(dataToPass);
 
     // continue filtering by availability, excluding current user and blocked user
-    vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(),
-                                                                 this->user->getBlocked());
+    vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(), this->user->getBlocked());
     // TODO qqTam thoi gan mock function vao day (this->user->getHostRating())
     availableData = filterBasedOnHostRating(availableData, 2.0);
 
