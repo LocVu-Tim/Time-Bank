@@ -19,7 +19,8 @@ void adminLogin();
 
 void memberLogin();
 
-void welcomeInterface() {
+void welcomeInterface()
+{
     int choice;
 
     // Welcome Interface//
@@ -46,11 +47,13 @@ void welcomeInterface() {
     menu();
 }
 
-void menu() {
+void menu()
+{
     int choice;
     bool running = true;
 
-    while (running) {
+    while (running)
+    {
         cout << "" << endl;
         cout << "**************************************************" << endl;
         cout << "************ WELCOME TO TIME BANK ****************" << endl;
@@ -62,7 +65,8 @@ void menu() {
 
         cin >> choice;
 
-        if (cin.fail()) {
+        if (cin.fail())
+        {
             cin.clear();
             cin.ignore(INT_MAX, '\n');
             cout << "Invalid input! Please enter a number."
@@ -92,7 +96,8 @@ void menu() {
     }
 }
 
-void Admin() {
+void Admin()
+{
     int choice;
     bool running = true;
 
@@ -106,25 +111,26 @@ void Admin() {
         cout << "Enter your choice: ";
         cin >> choice;
 
-        switch (choice) {
-            case 1:
-                menu();
-                break;
-            case 2:
-                menu();
-                break;
-            case 3:
-                menu();
-                break;
+        switch (choice)
+        {
+        case 1:
+            menu();
+            break;
+        case 2:
+            menu();
+            break;
+        case 3:
+            menu();
+            break;
 
-            case 0:
-                running = false;
-                cout << "Exiting the application." << endl;
-                break;
-            default:
-                cout << "Invalid choice!"
-                     << "\n";
-                break;
+        case 0:
+            running = false;
+            cout << "Exiting the application." << endl;
+            break;
+        default:
+            cout << "Invalid choice!"
+                 << "\n";
+            break;
         }
     }
 }
@@ -217,30 +223,35 @@ void Member()
         cout << "Enter your choice: ";
         cin >> choice;
 
-        switch (choice) {
-            case 1:
-                menu();
-                break;
-            case 2:
-                menu();
-                break;
-            case 3:
-                menu();
-                break;
+        switch (choice)
+        {
+        case 1:
+            menu();
+            break;
+        case 2:
+            menu();
+            break;
+        case 3:
+            menu();
+            break;
+        case 5:
+            rc.selectAvailableFunction();
+            break;
 
-            case 0:
-                running = false;
-                cout << "Exiting the application." << endl;
-                break;
-            default:
-                cout << "Invalid choice!"
-                     << "\n";
-                break;
+        case 0:
+            running = false;
+            cout << "Exiting the application." << endl;
+            break;
+        default:
+            cout << "Invalid choice!"
+                 << "\n";
+            break;
         }
     }
 }
 
-void memberLogin() {
+void memberLogin()
+{
     string mName, mPass, mN, mP;
 
     cout << "Enter username: ";
@@ -275,7 +286,8 @@ void memberLogin() {
     }
 }
 
-void Guest() {
+void Guest()
+{
 
     int choice;
     cout << "1. View supporters\n";
@@ -284,19 +296,20 @@ void Guest() {
     cout << "Enter your choice: ";
     cin >> choice;
 
-    switch (choice) {
-        case 1:
-            menu();
-            break;
-        case 2:
-            menu();
-            break;
-        case 3:
-            menu();
-            break;
-        default:
-            cout << "Invalid choice!"
-                 << "\n";
-            break;
+    switch (choice)
+    {
+    case 1:
+        menu();
+        break;
+    case 2:
+        menu();
+        break;
+    case 3:
+        menu();
+        break;
+    default:
+        cout << "Invalid choice!"
+             << "\n";
+        break;
     }
 }

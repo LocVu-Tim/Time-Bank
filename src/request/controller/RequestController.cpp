@@ -77,8 +77,8 @@ void RequestController::list()
 {
     requestView->list();
     map<string, string> userData = requestView->getUserInputs();
-
-    if (userData.size() == 7)
+    cout << "Current data size: " << userData.size() << endl;
+    if (userData.size() == 5)
     {
         // lookForSupport Request object to store data
         createRequestObject(userData);
@@ -94,7 +94,9 @@ void RequestController::requestForSupporter()
     requestView->list();
     map<string, string> userData = requestView->getUserInputs();
 
-    if (userData.size() == 7)
+    // TODO 6 is the real one
+    // TODO fix the supporter field input from host -> supporter + host name
+    if (userData.size() == 5)
     {
         // lookForSupport Request object to store data
         createRequestObject(userData);
