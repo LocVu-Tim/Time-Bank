@@ -1,4 +1,5 @@
 #include "User.h"
+#include "../Width.h"
 #include <iostream>
 
 /*THIS FILE CONTAINS GENERAL FUNCTIONS OF CLASS USER INCLUDING
@@ -186,8 +187,21 @@ int User::topUpCreds(User user, int topUp)
     return creds;
 }
 
-// method to reset password for member
-
+//method to show info 
+void User::showInfo() {
+    cout.width(USERNAME_WIDTH);
+    cout << left << username;
+    cout.width(FULLNAME_WIDTH);
+    cout << left << fullName;
+    cout.width(EMAIL_WIDTH);
+    cout << left << email;
+    cout.width(HOME_ADDR_WIDTH);
+    cout << left << homeAddr;
+    cout.width(PHONE_NUMBER_WIDTH);
+    cout << left << phoneNo;
+    cout.width(CREDIT_POINT_WIDTH);
+    cout << left << creds;
+}
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName)
 {

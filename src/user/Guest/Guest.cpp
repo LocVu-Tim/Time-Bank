@@ -93,11 +93,11 @@ void User::showInfoWithoutRating(vector<User *> users)
 {
     for (int i = 0; i < users.size(); i++)
     {
-        cout << users[i]->getUsername() << " - " << users[i]->getFullName() << " - " << users[i]->getPhoneNo() << " - " << users[i]->getEmail() << " - " << users[i]->getHomeAddr() << " - " << users[i]->getCreds() << " - ";
-        if (users[i]->getRole() == 3 || users[i]->getRole() == 2)
-        {
-            cout << users[i]->getRole() << " - "; // add rating later
+        if(users[i]->getRole() == 2) {
+            users[i]->showInfoMember();
+        } 
+        if(users[i]->getRole() == 3) {
+            users[i]->showInfoAdmin();
         }
-        cout << endl;
-    }
+    }    
 }

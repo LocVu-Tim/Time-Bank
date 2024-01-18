@@ -12,3 +12,5 @@ const int PHONE_NUMBER_WIDTH = 15;
 const int CREDIT_POINT_WIDTH = 15;
 const int ROLE_WIDTH = 10;
 const int RATING_SCORE_WIDTH = 15;
+const int EMAIL_WIDTH = 35;
+const int HOME_ADDR_WIDTH = 35;

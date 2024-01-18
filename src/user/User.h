@@ -11,6 +11,7 @@
 #include <vector>
 #include <regex>
 #include "Tools/Tool.h"
+#include "../Width.h"
 using namespace std;
 
 class User
@@ -105,6 +106,9 @@ public:
 
     // method to block user from viewing content
     void blockUser(vector<User *> users);
+
+    //method to show info with global width
+    void showInfo();
 
     // method to show info with block
     void showInfoWithBlock(vector<User *> users);

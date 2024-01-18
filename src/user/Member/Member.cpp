@@ -1,5 +1,6 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
+#include "../../Width.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO MEMBER:
@@ -83,7 +84,11 @@ void User::changePwdMember(User user, string temp)
 // method to show info
 void User::showInfoMember()
 {
-    cout << username << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-" << "Member\n";
+    showInfo();
+    cout.width(ROLE_WIDTH);
+    cout << left << "Member";
+    cout << endl;
+    
 }
 // method to show info with blocked
 void User::showInfoWithBlock(vector<User *> users)
