@@ -161,9 +161,7 @@ void RequestView::viewAvailableFunctions()
   cout << "1. List or unlist a request" << endl;
   cout << "2. Request for a supporter" << endl;
   cout << "3. View all request" << endl;
-  cout << "4. View all active requests" << endl;
-  cout << "5. Search for a request" << endl;
-  cout << "6. Exit" << endl;
+  cout << "4. Exit" << endl;
   cout << "==============================" << endl;
 };
 
