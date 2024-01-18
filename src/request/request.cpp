@@ -15,8 +15,7 @@
 
 using namespace std;
 
-void Request::printInfo()
-{
+void Request::printInfo() {
 }
 
 //int main()

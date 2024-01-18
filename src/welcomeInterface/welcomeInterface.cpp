@@ -8,52 +8,56 @@ using namespace std;
 
 
 void menu();
+
 void Guest();
+
 void Member();
+
 void Admin();
+
 void adminLogin();
+
 void memberLogin();
 
-void welcomeInterface(){
+void welcomeInterface() {
     int choice;
 
     // Welcome Interface//
-    cout <<""<<endl;
-    cout <<"EEET2482/COSC2082 ASSIGNMENT"<<endl;
-    cout <<"''Time BANK'' APPLICATION"<<endl;
-    cout <<""<<endl;
-    cout <<"Instructor: Mr. Tran Duc Linh"<<endl;
-    cout <<"Group: 18"<<endl;
-    cout <<"s3891483 | Vu Loc"<<endl;
-    cout <<"s3927082 | Van Hong Lam "<<endl;
-    cout <<"s3979199 | Luong Anh Huy"<<endl;
-    cout <<"s3978609 | Tran Tuan Minh"<<endl;
+    cout << "" << endl;
+    cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
+    cout << "''Time BANK'' APPLICATION" << endl;
+    cout << "" << endl;
+    cout << "Instructor: Mr. Tran Duc Linh" << endl;
+    cout << "Group: 18" << endl;
+    cout << "s3891483 | Vu Loc" << endl;
+    cout << "s3927082 | Van Hong Lam " << endl;
+    cout << "s3979199 | Luong Anh Huy" << endl;
+    cout << "s3978609 | Tran Tuan Minh" << endl;
     menu();
 }
 
-void menu (){
+void menu() {
     int choice;
     bool running = true;
 
     while (running) {
-        cout <<""<<endl;
-        cout <<"**************************************************"<<endl;
-        cout <<"************ WELCOME TO TIME BANK ****************"<<endl;
-        cout <<"Use the app as: "<<endl;
-        cout<<"1. Admin"<<endl;
-        cout<<"2. Member"<<endl;
-        cout<<"3. Guest"<<endl;
-        cout<<"Enter Your Choice: ";
+        cout << "" << endl;
+        cout << "**************************************************" << endl;
+        cout << "************ WELCOME TO TIME BANK ****************" << endl;
+        cout << "Use the app as: " << endl;
+        cout << "1. Admin" << endl;
+        cout << "2. Member" << endl;
+        cout << "3. Guest" << endl;
+        cout << "Enter Your Choice: ";
 
         cin >> choice;
 
-        if (cin.fail())
-        {
-            cin.clear();               
-            cin.ignore(INT_MAX, '\n'); 
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
             cout << "Invalid input! Please enter a number."
                  << "\n";
-            continue; 
+            continue;
         }
 
         switch (choice) {
@@ -77,7 +81,7 @@ void menu (){
     }
 }
 
-void Admin(){
+void Admin() {
     int choice;
     bool running = true;
 
@@ -90,8 +94,7 @@ void Admin(){
         cout << "Enter your choice: ";
         cin >> choice;
 
-        switch (choice)
-        {
+        switch (choice) {
             case 1:
                 menu();
                 break;
@@ -101,14 +104,14 @@ void Admin(){
             case 3:
                 menu();
                 break;
-            
+
             case 0:
                 running = false;
                 cout << "Exiting the application." << endl;
                 break;
             default:
                 cout << "Invalid choice!"
-                    << "\n";
+                     << "\n";
                 break;
         }
     }
@@ -145,7 +148,7 @@ void adminLogin() {
 }
 
 
-void Member(){
+void Member() {
     int choice;
     bool running = true;
 
@@ -162,8 +165,7 @@ void Member(){
         cout << "Enter your choice: ";
         cin >> choice;
 
-        switch (choice)
-        {
+        switch (choice) {
             case 1:
                 menu();
                 break;
@@ -180,14 +182,14 @@ void Member(){
                 break;
             default:
                 cout << "Invalid choice!"
-                    << "\n";
+                     << "\n";
                 break;
         }
     }
 }
 
 void memberLogin() {
-    string mName,mPass,mN,mP;
+    string mName, mPass, mN, mP;
 
     cout << "Enter username: ";
     cin >> mName;
@@ -217,7 +219,7 @@ void memberLogin() {
 }
 
 void Guest() {
-    
+
     int choice;
     cout << "1. View supporters\n";
     cout << "2. Register member\n";
@@ -225,21 +227,20 @@ void Guest() {
     cout << "Enter your choice: ";
     cin >> choice;
 
-    switch (choice)
-    {
-    case 1:
-        menu();
-        break;
-    case 2:
-        menu();
-        break;
-    case 3:
-        menu();
-        break;
-    default:
-        cout << "Invalid choice!"
-             << "\n";
-        break;
+    switch (choice) {
+        case 1:
+            menu();
+            break;
+        case 2:
+            menu();
+            break;
+        case 3:
+            menu();
+            break;
+        default:
+            cout << "Invalid choice!"
+                 << "\n";
+            break;
     }
 }
 
