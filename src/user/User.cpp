@@ -192,9 +192,9 @@ int User::topUpCreds(User user, int topUp)
 bool checkValidUsername(vector<User *> users, string userName)
 {
     // check for valid length
-    if (userName.size() < 4)
+    if (!(userName.size() > 4 && userName.size() < 21))
     {
-        cout << "Username must contain 5 characters or more.\n";
+        cout << "Username must contain 5-20 characters.\n";
         return false;
     }
 
@@ -273,9 +273,9 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo)
 // method to check valid password
 bool checkValidPwd(string pwd)
 {
-    if (pwd.length() < 8 || pwd.length() > 15)
+    if (!(pwd.size() >= 8 && pwd.size() <= 15))
     {
-        cout << "Password must be at least 8 characters long and at most 15 characters long\n";
+        cout << "Password must contain 8-15 characters.\n";
         return false;
     }
 
