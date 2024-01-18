@@ -253,14 +253,14 @@ vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilte
   // return vector<userRequest *>();
   return filteredData;
 }
-void RequestView::GuestViewAllRequests(vector<userRequest *> &requestList)
+void RequestView::GuestViewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList)
 {
   cout << "Available requests: " << endl;
   for (int i = 0; i < requestList.size(); i++)
   {
     cout << "Request no. " << i + 1 << endl;
     cout << string(50, '=') << endl;
-    requestList[i]->printInfo();
+    requestList[i]->printInfo(userList);
     cout << string(50, '=') << endl;
   }
 };

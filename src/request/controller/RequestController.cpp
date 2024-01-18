@@ -287,7 +287,7 @@ void RequestController::GuestViewAllRequests(RequestModel &rm)
     // filter by date and availability
     vector<userRequest *> dataToPass = rm.getRequests();
     vector<userRequest *> filteredData = requestView->dateFilter(dataToPass);
-    requestView->GuestViewAllRequests(filteredData);
+    requestView->GuestViewAllRequests(filteredData, this->userList);
     return;
     // return to the main interface qq
 };
