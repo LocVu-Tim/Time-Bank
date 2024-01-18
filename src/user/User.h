@@ -23,6 +23,7 @@ private:
     string userName, pwd, fullName, email, homeAddr, phoneNo;
     bool isBlock;
     vector<int> blocked;
+    vector<string> skills;
     int creds, role, userId;
     double skillRatingScore, supporterRatingScore, hostRatingScore;
     std::vector<Rating> ratings;
@@ -115,7 +116,7 @@ public:
     // method to block user from viewing content
     void blockUser(const vector<User *> &users);
 
-    //method to show info with global width
+    // method to show info with global width
     void showInfo();
 
     // method to show info with block

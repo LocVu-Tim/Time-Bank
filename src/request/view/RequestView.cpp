@@ -97,20 +97,6 @@ void RequestView::checkBeforeSubmitting(string form)
       return requestForSupporter();
     }
   }
-
-  // validate if skills not empty
-  if (userInputs["skill"] == "")
-  {
-    errorHandling("Invalid skill");
-    if (form == "list")
-    {
-      return list();
-    }
-    else if (form == "requestForSupporter")
-    {
-      return requestForSupporter();
-    }
-  }
 }
 
 string RequestView::getInput(string inputField)
@@ -182,10 +168,10 @@ void RequestView::list()
   setInput("timeFrom");
   cout << "To: " << endl;
   setInput("timeTo");
-  cout << "How many skill you want to request for: " << endl;
-  cin >> numberOfSkills;
-  cout << "Skill to perform " << endl;
-  setMultipleInputs(numberOfSkills, "skill");
+  // cout << "How many skill you want to request for: " << endl;
+  // cin >> numberOfSkills;
+  // cout << "Skill to perform " << endl;
+  // setMultipleInputs(numberOfSkills, "skill");
   cout << "Point consumed / hour: " << endl;
   setInput("pointsPerHour");
   cout << "Minimum rating for host (Optional, press Enter if you want to skip): " << endl;
@@ -288,13 +274,13 @@ void RequestView::requestForSupporter()
   setInput("timeTo");
   cout << "==============================" << endl;
 
-  cout << "How many skill you want to list yourself for: " << endl;
-  cin >> numberOfSkills;
-  cout << "==============================" << endl;
+  // cout << "How many skill you want to list yourself for: " << endl;
+  // cin >> numberOfSkills;
+  // cout << "==============================" << endl;
 
-  cout << "Skill to perform " << endl;
-  setMultipleInputs(numberOfSkills, "skill");
-  cout << "==============================" << endl;
+  // cout << "Skill to perform " << endl;
+  // setMultipleInputs(numberOfSkills, "skill");
+  // cout << "==============================" << endl;
 
   cout << "Points to be paid / hour: " << endl;
   setInput("pointsPerHour");

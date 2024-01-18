@@ -16,7 +16,7 @@ RequestModel::~RequestModel()
     }
 }
 
-void RequestModel::createRequest(map<string, string> userData, int userid)
+void RequestModel::createRequest(map<string, string> userData, int userid, vector<string> skills)
 {
     // create a new request object
     userRequest *request = new userRequest();
@@ -29,13 +29,14 @@ void RequestModel::createRequest(map<string, string> userData, int userid)
     request->timeTo = userData["timeTo"];
     request->city = userData["city"];
     // split the skill string by comma
-    int numberOfSkills = count(userData["skill"].begin(), userData["skill"].end(), ',') + 1;
-    for (int i = 0; i < numberOfSkills; i++)
+    // int numberOfSkills = count(skills.begin(), skills.end(), ',') + 1;
+    for (int i = 0; i < skills.size(); i++)
     {
-        // push back the skill to the vector
-        request->skill.push_back(userData["skill"].substr(0, userData["skill"].find(",")));
-        // remove the skill from the string
-        userData["skill"].erase(0, userData["skill"].find(",") + 1);
+        request->skill.push_back(skills[i]);
+        // // push back the skill to the vector
+        // request->skill.push_back(skills.substr(0, skills.find(",")));
+        // // remove the skill from the string
+        // skills.erase(0, skills.find(",") + 1);
     }
     request->pointsPerHour = stod(userData["pointsPerHour"]);
     request->availability = true;
