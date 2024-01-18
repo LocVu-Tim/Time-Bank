@@ -192,7 +192,7 @@ public:
 };
 
 // method to register user
-User registerMember(vector<User *> users);
+User registerMember(vector<User *> users, User currentUser);
 
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName);

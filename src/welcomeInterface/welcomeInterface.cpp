@@ -267,7 +267,7 @@ void Guest(vector<User *> users, User currentUser) {
         currentUser.showInfoWithoutRating(users);
         break;
     case 2:
-        registerMember(users);
+        registerMember(users, currentUser);
         break;
     case 3:
         menu(users, currentUser);

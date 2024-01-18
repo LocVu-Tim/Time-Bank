@@ -6,7 +6,7 @@
     - SHOW INFO OF USERS WITHOUT RATING*/
 
 // method to register to become user (for guest)
-User registerMember(vector<User *> users)
+User registerMember(vector<User *> users, User currentUser)
 {
     int fee = 20;
     string temp;
@@ -14,11 +14,19 @@ User registerMember(vector<User *> users)
     bool check = true;
     cout << "--------------Register--------------" << endl;
 
-    while (check == true)
-    {
+    while(check) {
         cout << "Please enter your full name: ";
         getline(cin, temp);
         user.setFullName(temp);
+        if(!(temp.empty())) {
+            break;
+        } else {
+            continue;
+        }
+    }
+    while (check == true)
+    {
+        
         cout << "Please enter your username: ";
         cin >> temp;
         if (checkValidUsername(users, temp) == false)
