@@ -1,4 +1,5 @@
 #include "User.h"
+#include "../Width.h"
 #include <iostream>
 #include <utility>
 
@@ -166,28 +167,46 @@ void setRatingScore(User user, int type, double score) {
 }
 
 // method to top up credit points with pwd authorization
-//  int User::topUpCreds (User user, int topUp) {
-//      string temp;
-//      cout << "Please enter password for authorization: ";
-//      cin >> temp;
-//      if(verifyPwd(user, temp) == false) {
-//          cout << "Incorrect password";
-//      } else{
-//          cout << "Enter top up amount: ";
-//          cin >> topUp;
+int User::topUpCreds(User user, int topUp)
+{
+    string temp;
+    cout << "Please enter password for authorization: ";
+    cin >> temp;
+    if (verifyPwd(user, temp) == false)
+    {
+        cout << "Incorrect password";
+    }
+    else
+    {
+        cout << "Enter top up amount: ";
+        cin >> topUp;
 
-//         creds += topUp;
-//     }
-//     return creds;
-// }
+        creds += topUp;
+    }
+    return creds;
+}
 
-// method to reset password for member
-
+//method to show info 
+void User::showInfo() {
+    cout.width(USERNAME_WIDTH);
+    cout << left << username;
+    cout.width(FULLNAME_WIDTH);
+    cout << left << fullName;
+    cout.width(EMAIL_WIDTH);
+    cout << left << email;
+    cout.width(HOME_ADDR_WIDTH);
+    cout << left << homeAddr;
+    cout.width(PHONE_NUMBER_WIDTH);
+    cout << left << phoneNo;
+    cout.width(CREDIT_POINT_WIDTH);
+    cout << left << creds;
+}
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName) {
     // check for valid length
-    if (userName.size() < 4) {
-        cout << "Username must contain 5 characters or more.\n";
+    if (!(userName.size() > 7 && userName.size() < 16))
+    {
+        cout << "Username must contain 5-15 characters.\n";
         return false;
     }
 
@@ -249,9 +268,11 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo) {
 }
 
 // method to check valid password
-bool checkValidPwd(string pwd) {
-    if (pwd.length() < 8) {
-        cout << "Password must be at least 8 characters long\n";
+bool checkValidPwd(string pwd)
+{
+    if (!(pwd.size() >= 8 && pwd.size() <= 15))
+    {
+        cout << "Password must contain 8-15 characters.\n";
         return false;
     }
 

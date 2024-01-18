@@ -1,5 +1,6 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
+#include "../../Width.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO MEMBER:
@@ -57,7 +58,8 @@ void User::changePwdMember(User user, string temp) {
     if (verifyPwd(user, temp)) {
         cout << "Password verified. Please enter new password: ";
         cin >> newPwd;
-        if (checkValidPwd(newPwd)) {
+        if (checkValidPwd(newPwd) == true && caseSensitiveStringCompare(newPwd, user.username) == false)
+        {
             user.setPwd(newPwd);
             cout << "Password successfully reset\n";
         }
@@ -67,10 +69,13 @@ void User::changePwdMember(User user, string temp) {
 }
 
 // method to show info
-
-void User::showInfoMember() {
-    cout << userName << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-"
-         << "Member\n";
+void User::showInfoMember()
+{
+    showInfo();
+    cout.width(ROLE_WIDTH);
+    cout << left << "Member";
+    cout << endl;
+    
 }
 
 // method to show info with blocked

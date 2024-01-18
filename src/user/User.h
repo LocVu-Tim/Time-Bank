@@ -12,6 +12,7 @@
 #include <vector>
 #include <regex>
 #include "Tools/Tool.h"
+#include "../Width.h"
 #include "../rating/rating.h"
 
 using namespace std;
@@ -114,6 +115,9 @@ public:
     // method to block user from viewing content
     void blockUser(const vector<User *> &users);
 
+    //method to show info with global width
+    void showInfo();
+
     // method to show info with block
     void showInfoWithBlock(vector<User *> users);
 
@@ -124,7 +128,7 @@ public:
     void showInfoAdmin();
 
     // method to top up credit points with pwd authorization
-    //  int topUpCreds (User user, int topUp);
+    int topUpCreds(User user, int topUp);
 
     // method to reset password for member
     void changePwdMember(User user, string temp);
@@ -205,5 +209,5 @@ bool verifyPwd(User user, string pwd);
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username);
 
-// method to find user by id
-User *findById(const vector<User *> &users, int targetId);
+// method to find user by if
+User *findById(const vector<User *> &users, const int targetId);

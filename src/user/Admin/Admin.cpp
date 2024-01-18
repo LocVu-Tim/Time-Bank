@@ -35,9 +35,12 @@ bool User::loginAdmin(const vector<User *>& users, string checkUsername) {
 }
 
 // method to show info admin
-void User::showInfoAdmin() {
-    cout << userName << "-" << fullName << "-" << email << "-" << homeAddr << "-" << phoneNo << "-" << creds << "-"
-         << "Admin\n";
+void User::showInfoAdmin()
+{
+    showInfo();
+    cout.width(ROLE_WIDTH);
+    cout << left << "Admin";
+    cout << endl;
 }
 
 // method to change password for admin

@@ -21,7 +21,7 @@ User registerMember(vector<User *> users)
     {
         cout << "Please enter your username: ";
         cin >> temp;
-        if (!checkValidUsername(users, temp))
+        if (checkValidUsername(users, temp) == false)
         {
             continue;
         }
@@ -37,7 +37,7 @@ User registerMember(vector<User *> users)
         bool check;
         cout << "Please enter your password: ";
         cin >> temp;
-        if (!checkValidPwd(temp))
+        if (checkValidPwd(temp) == false)
         {
             continue;
         }
@@ -52,7 +52,7 @@ User registerMember(vector<User *> users)
     {
         cout << "Please enter your email: ";
         cin >> temp;
-        if (!checkValidEmail(users, temp))
+        if (checkValidEmail(users, temp) == false)
         {
             continue;
         }
@@ -67,7 +67,7 @@ User registerMember(vector<User *> users)
     {
         cout << "Please enter your phone number: ";
         cin >> temp;
-        if (!checkValidPhoneNo(users, temp))
+        if (checkValidPhoneNo(users, temp) == false)
         {
             continue;
         }
@@ -93,11 +93,11 @@ void User::showInfoWithoutRating(vector<User *> users)
 {
     for (int i = 0; i < users.size(); i++)
     {
-        cout << users[i]->getUsername() << " - " << users[i]->getFullName() << " - " << users[i]->getPhoneNo() << " - " << users[i]->getEmail() << " - " << users[i]->getHomeAddr() << " - " << users[i]->getCreds() << " - ";
-        if (users[i]->getRole() == 3 || users[i]->getRole() == 2)
-        {
-            cout << users[i]->getRole() << " - "; // add rating later
+        if(users[i]->getRole() == 2) {
+            users[i]->showInfoMember();
+        } 
+        if(users[i]->getRole() == 3) {
+            users[i]->showInfoAdmin();
         }
-        cout << endl;
-    }
+    }    
 }
