@@ -15,7 +15,7 @@ private:
     std::string comment;
 
 public:
-    //Default construct or
+    //Default constructor
     Rating() {};
 
     //Constructor
@@ -25,38 +25,44 @@ public:
               comment(comment) {}
 
     //1. Method to get rating ID
-    int getRatingID();
+    int getRatingID() const;
 
     //2. Method to get user ID
-    int getUserID();
+    int getUserID() const;
 
     //3. Method to get rater ID
-    int getRaterID();
+    int getRaterID() const;
 
     //4. Method to get rating type
     std::string getRatingType();
 
-    //5. Method to get rating value
-    double getRatingValue();
+    //5. Method to get rating type as a number
+    int getRatingTypeNumb();
 
-    //6. Method to get comment
+    //6. Method to get rating value
+    double getRatingValue() const;
+
+    //7. Method to get comment
     std::string getComment();
 
-    //7. Method to set rating ID
+    //8. Method to set rating ID
     void setRatingID(int ID);
 
-    //8. Method to set user ID
+    //9. Method to set user ID
     void setUserID(int ID);
 
-    //9. Method to set rater ID
+    //10. Method to set rater ID
     void setRaterID(int ID);
 
-    //10. Method to set rating type
+    //11. Method to set rating type
     void setRatingType(int rType);
 
-    //11. Method to set rating value
+    //12. Method to set rating value
     void setRatingValue(double value);
 
-    //12. Method to set comment
+    //13. Method to set comment
     void setComment(std::string rComment);
+
+    //14. Method to show rating info
+    void showRatingInfo();
 };
