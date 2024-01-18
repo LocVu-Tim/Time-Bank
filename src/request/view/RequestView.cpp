@@ -47,41 +47,7 @@ void RequestView::checkBeforeSubmitting(string form)
     }
   }
 
-  // validate if timeFrom is before timeTo
-  tm timeFrom_tm;
-  istringstream ss(userInputs["timeFrom"]);
-  ss >> get_time(&timeFrom_tm, "%d/%m/%Y");
-  tm timeTo_tm;
-  istringstream ss2(userInputs["timeTo"]);
-  ss2 >> get_time(&timeTo_tm, "%d/%m/%Y");
-  if (difftime(mktime(&timeFrom_tm), mktime(&timeTo_tm)) >= 0)
-  {
-    errorHandling("Invalid date");
-    if (form == "list")
-    {
-      return list();
-    }
-    else if (form == "requestForSupporter")
-    {
-      return requestForSupporter();
-    }
-  }
-
-  // Validate if city is Ha Noi or Ho Chi Minh
-  if (userInputs["city"] != "Ha Noi" && userInputs["city"] != "Ho Chi Minh")
-  {
-    errorHandling("Invalid city");
-    if (form == "list")
-    {
-      return list();
-    }
-    else if (form == "requestForSupporter")
-    {
-      return requestForSupporter();
-    }
-  }
-
-  // validate if the pointsPerHour is a number
+   // validate if the pointsPerHour is a number
   try
   {
     stod(userInputs["pointsPerHour"]);
@@ -219,8 +185,6 @@ void RequestView::list()
   setInput("timeFrom");
   cout << "To: " << endl;
   setInput("timeTo");
-  cout << "City (Only Ha Noi or Ho Chi Minh): " << endl;
-  setInput("city");
   cout << "How many skill you want to request for: " << endl;
   cin >> numberOfSkills;
   cout << "Skill to perform " << endl;
@@ -303,9 +267,6 @@ void RequestView::requestForSupporter()
   setInput("timeFrom");
   cout << "To: " << endl;
   setInput("timeTo");
-  cout << "==============================" << endl;
-  cout << "City (Only Ha Noi or Ho Chi Minh): " << endl;
-  setInput("city");
   cout << "==============================" << endl;
 
   cout << "How many skill you want to list yourself for: " << endl;
