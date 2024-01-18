@@ -7,7 +7,7 @@ using namespace std;
 
 //format width for ease of data viewing
 const int USERNAME_WIDTH = 20;
-const int FULLNAME_WIDTH = 25;
+const int FULLNAME_WIDTH = 20;
 const int PHONE_NUMBER_WIDTH = 15;
 const int CREDIT_POINT_WIDTH = 15;
 const int ROLE_WIDTH = 10;

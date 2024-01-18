@@ -8,6 +8,7 @@
 #include "user/Tools/Tool.h"
 #include "./welcomeInterface/welcomeInterface.cpp"
 #include "user/User.h"
+#include "user/User.cpp"
 
 bool defaultData = false;
 
