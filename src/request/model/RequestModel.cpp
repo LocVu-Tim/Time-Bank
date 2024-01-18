@@ -16,7 +16,7 @@ RequestModel::~RequestModel()
     }
 }
 
-void RequestModel::createRequest(map<string, string> userData)
+void RequestModel::createRequest(map<string, string> userData, User &user)
 {
     // create a new request object
     userRequest *request = new userRequest();
@@ -25,7 +25,7 @@ void RequestModel::createRequest(map<string, string> userData)
     request->id = time(0);
     request->timeFrom = userData["timeFrom"];
     request->timeTo = userData["timeTo"];
-    request->city = userData["city"];
+    request->city = user.getHomeAddr();
     // split the skill string by comma
     int numberOfSkills = count(userData["skill"].begin(), userData["skill"].end(), ',') + 1;
     for (int i = 0; i < numberOfSkills; i++)
