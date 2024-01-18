@@ -17,14 +17,14 @@
 
 using namespace std;
 
-class User
-{
+class User {
 private:
+    int userID;
     string userName, pwd, fullName, email, homeAddr, phoneNo;
     bool isBlock;
     vector<int> blocked;
     vector<string> skills;
-    int creds, role, userId;
+    int creds, role;
     double skillRatingScore, supporterRatingScore, hostRatingScore;
     std::vector<Rating> ratings;
 
@@ -34,8 +34,8 @@ public:
     User();
 
     // Constructor
-    User(string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo, bool block, vector<int> blocked, int creds, int role, int userId,
+    User(int userId, string userName, string pwd, string fullName, string email, string homeAddr,
+         string phoneNo, bool block, vector<int> blocked, int creds, int role,
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function
@@ -187,6 +187,15 @@ public:
 
     // Method to set user rating
     friend void setRatingScore(User user, int type, double score);
+
+    // Method to get host rating
+    double getHostRating();
+
+    // Method to get skill rating
+    double getSkillRating();
+
+    // Method to get supporter rating
+    double getSupporterRating();
 };
 
 // method to register user

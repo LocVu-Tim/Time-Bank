@@ -325,7 +325,7 @@ void RequestController::createRequestObject(map<string, string> userData)
         {
             cout << "Creating request..." << endl;
             cout << "User ID: " << this->user->getUserId() << endl;
-            requestModel->createRequest(userData, this->user->getUserId());
+            requestModel->createRequest(userData, this->user->getUserId(), );
             cout << "Do you want to continue create request? (Y/N)" << endl;
             string choice;
             cin >> choice;
