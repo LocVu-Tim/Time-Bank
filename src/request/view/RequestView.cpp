@@ -47,7 +47,7 @@ void RequestView::checkBeforeSubmitting(string form)
     }
   }
 
-   // validate if the pointsPerHour is a number
+  // validate if the pointsPerHour is a number
   try
   {
     stod(userInputs["pointsPerHour"]);
@@ -97,20 +97,6 @@ void RequestView::checkBeforeSubmitting(string form)
       return requestForSupporter();
     }
   }
-
-  // validate if skills not empty
-  if (userInputs["skill"] == "")
-  {
-    errorHandling("Invalid skill");
-    if (form == "list")
-    {
-      return list();
-    }
-    else if (form == "requestForSupporter")
-    {
-      return requestForSupporter();
-    }
-  }
 }
 
 string RequestView::getInput(string inputField)
@@ -130,7 +116,6 @@ void RequestView::setMultipleInputs(int numberOfInputs, string fieldName)
   {
     string input;
     cin >> input;
-    // userInputs[fieldName].append(input);
     // make it a vector containing all the skills with delimiter
     userInputs[fieldName].append(input);
     if (i != numberOfInputs - 1)
@@ -162,16 +147,17 @@ void RequestView::viewAvailableFunctions()
   cout << "1. List or unlist a request" << endl;
   cout << "2. Request for a supporter" << endl;
   cout << "3. View all request" << endl;
-  cout << "4. View all active requests" << endl;
-  cout << "5. Search for a request" << endl;
-  cout << "6. Exit" << endl;
+  cout << "4. Exit" << endl;
   cout << "==============================" << endl;
 };
 
 void RequestView::listOrUnlist()
 {
+  cout << "==============================" << endl;
   cout << "1. List" << endl;
   cout << "2. Unlist" << endl;
+  cout << "3. Back" << endl;
+  cout << "==============================" << endl;
 };
 
 void RequestView::list()
@@ -182,10 +168,10 @@ void RequestView::list()
   setInput("timeFrom");
   cout << "To: " << endl;
   setInput("timeTo");
-  cout << "How many skill you want to request for: " << endl;
-  cin >> numberOfSkills;
-  cout << "Skill to perform " << endl;
-  setMultipleInputs(numberOfSkills, "skill");
+  // cout << "How many skill you want to request for: " << endl;
+  // cin >> numberOfSkills;
+  // cout << "Skill to perform " << endl;
+  // setMultipleInputs(numberOfSkills, "skill");
   cout << "Point consumed / hour: " << endl;
   setInput("pointsPerHour");
   cout << "Minimum rating for host (Optional, press Enter if you want to skip): " << endl;
@@ -194,24 +180,30 @@ void RequestView::list()
   checkBeforeSubmitting(userInputs["requestOperation"]);
 };
 
-void RequestView::unlist()
+void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
-  cout << "Your current requests: " << endl;
+  cout << "Your current request for working: " << endl;
   cout << string(50, '=') << endl;
-  // get all of the user's own the list of requests
-  cout << "Which request do you want to remove?" << endl;
-};
-
-void RequestView::viewAllRequests(vector<userRequest *> &availableRequests)
-{
-  // qq change in the implementation - display all available reqyests
-  vector<userRequest *> filteredData = dateFilter(availableRequests);
-  cout << "Available requests: " << endl;
-  for (int i = 0; i < filteredData.size(); i++)
+  for (int i = 0; i < availableRequests.size(); i++)
   {
     cout << "Request no. " << i + 1 << endl;
     cout << string(50, '=') << endl;
-    filteredData[i]->printInfo();
+    availableRequests[i]->printInfo(allUsers);
+    cout << string(50, '=') << endl;
+  }
+  cout << "Which request do you want to remove?" << endl;
+};
+
+// TODO - the data now need to be filtered by the rating of the request user to the current user.
+void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
+{
+  // qq change in the implementation - display all available reqyests
+  cout << "Available requests for you to rent: " << endl;
+  for (int i = 0; i < availableRequests.size(); i++)
+  {
+    cout << "Request no. " << i + 1 << endl;
+    cout << string(50, '=') << endl;
+    availableRequests[i]->printInfo(allUsers);
     cout << string(50, '=') << endl;
   }
   cout << "Would you like to look for support for any of the above requests? (y/n)" << endl;
@@ -246,6 +238,29 @@ vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilte
   }
   // return vector<userRequest *>();
   return filteredData;
+}
+void RequestView::GuestViewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList)
+{
+  cout << "Available requests: " << endl;
+  for (int i = 0; i < requestList.size(); i++)
+  {
+    cout << "Request no. " << i + 1 << endl;
+    cout << string(50, '=') << endl;
+    requestList[i]->printInfo(userList);
+    cout << string(50, '=') << endl;
+  }
+}
+
+void RequestView::adminViewAllRequests(vector<userRequest *> &requestList, vector<User *> &userList)
+{
+  cout << "All requests: " << endl;
+  for (int i = 0; i < requestList.size(); i++)
+  {
+    cout << "Request no. " << i + 1 << endl;
+    cout << string(50, '=') << endl;
+    requestList[i]->printInfo(userList);
+    cout << string(50, '=') << endl;
+  }
 };
 
 void RequestView::requestForSupporter()
@@ -259,15 +274,15 @@ void RequestView::requestForSupporter()
   setInput("timeTo");
   cout << "==============================" << endl;
 
-  cout << "How many skill you want to list yourself for: " << endl;
-  cin >> numberOfSkills;
-  cout << "==============================" << endl;
+  // cout << "How many skill you want to list yourself for: " << endl;
+  // cin >> numberOfSkills;
+  // cout << "==============================" << endl;
 
-  cout << "Skill to perform " << endl;
-  setMultipleInputs(numberOfSkills, "skill");
-  cout << "==============================" << endl;
+  // cout << "Skill to perform " << endl;
+  // setMultipleInputs(numberOfSkills, "skill");
+  // cout << "==============================" << endl;
 
-  cout << "Point consumed / hour: " << endl;
+  cout << "Points to be paid / hour: " << endl;
   setInput("pointsPerHour");
   cout << "==============================" << endl;
 
