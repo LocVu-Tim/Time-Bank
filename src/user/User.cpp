@@ -112,6 +112,17 @@ void User::setCreds(int creds)
     this->creds = creds;
 }
 
+// method to get rating score
+int User::getRatingScore()
+{
+    return ratingScore;
+}
+
+// method to set rating score
+void User::setRatingScore(int ratingScore)
+{
+    this->ratingScore = ratingScore;
+}
 /*method to get and set role
 1: Guest
 2: Member
