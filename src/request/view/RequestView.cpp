@@ -47,7 +47,43 @@ void RequestView::checkBeforeSubmitting(string form)
     }
   }
 
-   // validate if the pointsPerHour is a number
+  // validate if the timeFrom is before timeTo
+  tm timeFrom_tm;
+  istringstream ss(userInputs["timeFrom"]);
+  ss >> get_time(&timeFrom_tm, "%d/%m/%Y");
+  tm timeTo_tm;
+  istringstream ss2(userInputs["timeTo"]);
+  ss2 >> get_time(&timeTo_tm, "%d/%m/%Y");
+  if (difftime(mktime(&timeFrom_tm), mktime(&timeTo_tm)) >= 0)
+  {
+    errorHandling("From date must be before To date");
+    if (form == "list")
+    {
+      return list();
+    }
+    else if (form == "requestForSupporter")
+    {
+      return requestForSupporter();
+    }
+  }
+
+  // validate if the timeFrom is after current time
+  time_t now = time(0);
+  tm *ltm = localtime(&now);
+  if (difftime(mktime(ltm), mktime(&timeFrom_tm)) >= 0)
+  {
+    errorHandling("Date must be after current date");
+    if (form == "list")
+    {
+      return list();
+    }
+    else if (form == "requestForSupporter")
+    {
+      return requestForSupporter();
+    }
+  }
+
+  // validate if the pointsPerHour is a number
   try
   {
     stod(userInputs["pointsPerHour"]);
