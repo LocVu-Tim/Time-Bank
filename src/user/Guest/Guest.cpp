@@ -1,7 +1,6 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
 
-
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO GUEST:
     - REGISTER TO BECOME MEMBER
     - SHOW INFO OF USERS WITHOUT RATING*/
@@ -14,11 +13,12 @@ User registerMember(vector<User *> users)
     User user;
     bool check = true;
     cout << "--------------Register--------------" << endl;
-    cout << "Please enter your full name: ";
-    getline(cin, temp);
-    user.setFullName(temp);
+
     while (check == true)
     {
+        cout << "Please enter your full name: ";
+        getline(cin, temp);
+        user.setFullName(temp);
         cout << "Please enter your username: ";
         cin >> temp;
         if (checkValidUsername(users, temp) == false)
@@ -93,11 +93,13 @@ void User::showInfoWithoutRating(vector<User *> users)
 {
     for (int i = 0; i < users.size(); i++)
     {
-        if(users[i]->getRole() == 2) {
+        if (users[i]->getRole() == 2)
+        {
             users[i]->showInfoMember();
-        } 
-        if(users[i]->getRole() == 3) {
+        }
+        if (users[i]->getRole() == 3)
+        {
             users[i]->showInfoAdmin();
         }
-    }    
+    }
 }

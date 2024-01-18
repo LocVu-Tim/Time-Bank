@@ -14,3 +14,6 @@ const int ROLE_WIDTH = 10;
 const int RATING_SCORE_WIDTH = 10;
 const int EMAIL_WIDTH = 20;
 const int HOME_ADDR_WIDTH = 20;
+const int SKILL_RATING_WIDTH = 10;
+const int SUPPORTER_RATING_WIDTH = 10;
+const int HOST_RATING_WIDTH = 10;

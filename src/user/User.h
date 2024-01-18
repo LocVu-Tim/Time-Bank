@@ -186,6 +186,9 @@ public:
 
     // Method to set user rating
     friend void setRatingScore(User user, int type, double score);
+
+    // Method to show member info with rating
+    // void User::showInfoMemberWithRating(vector<User *> users);
 };
 
 // method to register user

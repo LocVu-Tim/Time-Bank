@@ -58,7 +58,7 @@ void User::changePwdMember(User user, string temp) {
     if (verifyPwd(user, temp)) {
         cout << "Password verified. Please enter new password: ";
         cin >> newPwd;
-        if (checkValidPwd(newPwd) == true && caseSensitiveStringCompare(newPwd, user.username) == false)
+        if (checkValidPwd(newPwd) == true && caseSensitiveStringCompare(newPwd, user.userName) == false)
         {
             user.setPwd(newPwd);
             cout << "Password successfully reset\n";
@@ -78,6 +78,9 @@ void User::showInfoMember()
     
 }
 
+// void User::showInfoMemberWithRating(vector<User *> users) {
+    
+// }
 // method to show info with blocked
 void User::showInfoWithBlock(vector<User *> users) {
 

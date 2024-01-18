@@ -101,17 +101,17 @@ void User::setCreds(int creds) {
     this->creds = creds;
 }
 
-// method to get rating score
-int User::getRatingScore()
-{
-    return ratingScore;
-}
+// // method to get rating score
+// int User::getRatingScore()
+// {
+//     return ratingScore;
+// }
 
-// method to set rating score
-void User::setRatingScore(int ratingScore)
-{
-    this->ratingScore = ratingScore;
-}
+// // method to set rating score
+// void User::setRatingScore(int ratingScore)
+// {
+//     this->ratingScore = ratingScore;
+// }
 /*method to get and set role
 1: Guest
 2: Member
@@ -189,7 +189,7 @@ int User::topUpCreds(User user, int topUp)
 //method to show info 
 void User::showInfo() {
     cout.width(USERNAME_WIDTH);
-    cout << left << username;
+    cout << left << userName;
     cout.width(FULLNAME_WIDTH);
     cout << left << fullName;
     cout.width(EMAIL_WIDTH);
@@ -201,10 +201,12 @@ void User::showInfo() {
     cout.width(CREDIT_POINT_WIDTH);
     cout << left << creds;
 }
+
+
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName) {
     // check for valid length
-    if (!(userName.size() > 7 && userName.size() < 16))
+    if (!(userName.size() > 4 && userName.size() < 16))
     {
         cout << "Username must contain 5-15 characters.\n";
         return false;
