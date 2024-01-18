@@ -42,7 +42,7 @@ void RequestModel::createRequest(map<string, string> userData, User &user)
     {
         request->minimumRatingForHost = stod(userData["minimumRatingForHost"]);
         request->minimumRatingForSupporter = 0;
-        request->hostName = "";
+        request->hostId = "0";
     }
     else if (userData["requestOperation"] == "requestForSupporter")
     {
