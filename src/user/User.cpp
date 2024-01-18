@@ -156,23 +156,12 @@ const vector<Rating> &User::getRatings() const {
     return ratings;
 }
 
-// Method to set user rating
-void setRatingScore(User user, int type, double score) {
-    if (type == 1) {
-        user.skillRatingScore = calRatingScore(user, type);
-    } else if (type == 2) {
-        user.supporterRatingScore = calRatingScore(user, type);
-    } else if (type == 3) {
-        user.hostRatingScore = calRatingScore(user, type);
-    }
-}
-
 // method to top up credit points with pwd authorization
 int User::topUpCreds(User user, int topUp) {
     string temp;
     cout << "Please enter password for authorization: ";
     cin >> temp;
-    if (verifyPwd(user, temp) == false) {
+    if (!verifyPwd(std::move(user), temp)) {
         cout << "Incorrect password";
     } else {
         cout << "Enter top up amount: ";
@@ -227,7 +216,7 @@ bool checkValidUsername(vector<User *> users, string userName) {
 }
 
 // method to check valid email
-bool checkValidEmail(vector<User *> users, string email) {
+bool checkValidEmail(const vector<User *> &users, const string &email) {
     const regex pattern(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
 
     return regex_match(email, pattern);
@@ -281,7 +270,7 @@ bool checkValidPwd(string pwd) {
 }
 
 // method to verify password
-bool verifyPwd(User user, string pwd) {
+bool verifyPwd(User user, const string &pwd) {
     if (!caseSensitiveStringCompare(user.getPwd(), pwd)) {
         cout << "Incorrect password\n";
         return false;
@@ -327,7 +316,6 @@ int countRatings(const User &user, int type) {
 // Method to calculate rating score
 double calRatingScore(const User &user, int type) {
     double sum = 0;
-    double value = 0;
 
     for (Rating rate: user.ratings) {
         if (type == rate.getRatingTypeNumb()) {
@@ -335,31 +323,49 @@ double calRatingScore(const User &user, int type) {
         }
     }
 
-    value = sum / countRatings(user, type);
+    double value = sum / countRatings(user, type);
 
     return value;
 }
 
-// Method to update rating score
-void updateScore(User user, int type) {
-}
-
 // Method to get host rating
-double User::getHostRating() {
+double User::getHostRating() const {
     return this->hostRatingScore;
 }
 
 // Method to get skill rating
-double User::getSkillRating() {
+double User::getSkillRating() const {
     return this->skillRatingScore;
 }
 
 // Method to get supporter rating
-double User::getSupporterRating() {
+double User::getSupporterRating() const {
     return this->supporterRatingScore;
 }
 
 // Method to get skill list
 vector<string> User::getSkillList() {
     return this->skills;
+}
+
+// Method to set user rating score
+void updateRatingScore(User user, int type) {
+    if (type == 1) {
+        user.skillRatingScore = calRatingScore(user, type);
+    } else if (type == 2) {
+        user.supporterRatingScore = calRatingScore(user, type);
+    } else if (type == 3) {
+        user.hostRatingScore = calRatingScore(user, type);
+    }
+}
+
+// Method to set rating score
+void setRatingScore(User user, int type, double score) {
+    if (type == 1) {
+        user.skillRatingScore = score;
+    } else if (type == 2) {
+        user.supporterRatingScore = score;
+    } else if (type == 3) {
+        user.hostRatingScore = score;
+    }
 }
