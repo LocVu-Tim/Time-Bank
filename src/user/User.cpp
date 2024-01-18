@@ -167,20 +167,24 @@ void User::setUserId(int userId)
     this->userId = userId;
 }
 // method to top up credit points with pwd authorization
-//  int User::topUpCreds (User user, int topUp) {
-//      string temp;
-//      cout << "Please enter password for authorization: ";
-//      cin >> temp;
-//      if(verifyPwd(user, temp) == false) {
-//          cout << "Incorrect password";
-//      } else{
-//          cout << "Enter top up amount: ";
-//          cin >> topUp;
+int User::topUpCreds(User user, int topUp)
+{
+    string temp;
+    cout << "Please enter password for authorization: ";
+    cin >> temp;
+    if (verifyPwd(user, temp) == false)
+    {
+        cout << "Incorrect password";
+    }
+    else
+    {
+        cout << "Enter top up amount: ";
+        cin >> topUp;
 
-//         creds += topUp;
-//     }
-//     return creds;
-// }
+        creds += topUp;
+    }
+    return creds;
+}
 
 // method to reset password for member
 
