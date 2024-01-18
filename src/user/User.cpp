@@ -273,9 +273,9 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo)
 // method to check valid password
 bool checkValidPwd(string pwd)
 {
-    if (pwd.length() < 8)
+    if (pwd.length() < 8 || pwd.length() > 15)
     {
-        cout << "Password must be at least 8 characters long\n";
+        cout << "Password must be at least 8 characters long and at most 15 characters long\n";
         return false;
     }
 

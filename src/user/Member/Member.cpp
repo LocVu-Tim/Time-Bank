@@ -68,7 +68,7 @@ void User::changePwdMember(User user, string temp)
     {
         cout << "Password verified. Please enter new password: ";
         cin >> newPwd;
-        if (checkValidPwd(newPwd) == true)
+        if (checkValidPwd(newPwd) == true && caseSensitiveStringCompare(newPwd, user.username) == false)
         {
             user.setPwd(newPwd);
             cout << "Password successfully reset\n";
