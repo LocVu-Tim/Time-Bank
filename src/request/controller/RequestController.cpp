@@ -104,7 +104,7 @@ void RequestController::requestForSupporter()
 }
 
 // This is for finding all of the available request
-vector<userRequest *> RequestController::filterRequestAvailable(vector<userRequest *> &requestList, string userId, vector<string> blocked)
+vector<userRequest *> RequestController::filterRequestAvailable(vector<userRequest *> &requestList, string userId, vector<int> blocked)
 {
     for (int i = 0; i < requestList.size(); i++)
     {
@@ -114,10 +114,22 @@ vector<userRequest *> RequestController::filterRequestAvailable(vector<userReque
         }
         for (int j = 0; j < blocked.size(); j++)
         {
-            if (requestList[i]->hostId == blocked[j])
+            if (stoi(requestList[i]->hostId) == blocked[j])
             {
                 requestList.erase(requestList.begin() + i);
             }
+        }
+    }
+    return requestList;
+}
+
+vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating)
+{
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (hostRating < requestList[i]->minimumRatingForHost)
+        {
+            requestList.erase(requestList.begin() + i);
         }
     }
     return requestList;
@@ -201,8 +213,10 @@ void RequestController::viewAllRequests(RequestModel &rm)
     vector<userRequest *> filteredData = requestView.dateFilter(dataToPass);
 
     // continue filtering by availability, excluding current user and blocked user
-    // TODO qq add rating id ref to the current user.
     vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(), this->user->getBlocked());
+    // TODO qqTam thoi gan mock function vao day
+    availableData = filterBasedOnHostRating(availableData, this->user->getHostRating());
+
     if (availableData.size() == 0)
     {
         cout << "No data found" << endl;

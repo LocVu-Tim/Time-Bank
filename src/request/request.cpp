@@ -48,7 +48,7 @@ int main()
     testUser2->setUsername("usefalcuty2");
     testUser2->setUserId(13);
 
-    testUser->setBlocked(to_string(jao->getUserId()));
+    testUser->setBlocked(jao->getUserId());
     vector<User *> userList = {testUser, testUser2, jao};
 
     rc.setUser(testUser);
