@@ -192,9 +192,9 @@ int User::topUpCreds(User user, int topUp)
 bool checkValidUsername(vector<User *> users, string userName)
 {
     // check for valid length
-    if (!(userName.size() > 4 && userName.size() < 21))
+    if (!(userName.size() > 7 && userName.size() < 16))
     {
-        cout << "Username must contain 5-20 characters.\n";
+        cout << "Username must contain 5-15 characters.\n";
         return false;
     }
 
