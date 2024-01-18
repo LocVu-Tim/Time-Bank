@@ -1,0 +1,10 @@
+#ifndef TIME_BANK_WELCOMEINTERFACE_H
+#define TIME_BANK_WELCOMEINTERFACE_H
+void menu();
+void Guest();
+void Member();
+void Admin();
+void adminLogin();
+void welcomeInterface();
+//void memberLogin();
+#endif //TIME_BANK_WELCOMEINTERFACE_H

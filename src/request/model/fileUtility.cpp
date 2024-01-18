@@ -11,7 +11,7 @@ void fileUtility::writeToFile(userRequest *request)
         return;
     }
     // TODO: implement user
-    // fout << "user:" << request->user->getFullName() << endl;
+    fout << "userId:" << request->userId << endl;
     fout << "id:" << request->id << endl;
     fout << "timeFrom:" << request->timeFrom << endl;
     fout << "timeTo:" << request->timeTo << endl;
@@ -39,8 +39,7 @@ void fileUtility::writeToFile(userRequest *request)
     }
     fout << "minimumRatingForHost:" << request->minimumRatingForHost << endl;
     fout << "minimumRatingForSupporter:" << request->minimumRatingForSupporter << endl;
-    // Check if supporterName is empty
-    fout << "hostName:" << (request->hostName.empty() ? "none" : request->hostName) << endl;
+    fout << "hostId:" << request->hostId << endl;
     fout << endl;
     fout.close();
 };
@@ -74,10 +73,10 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
         {
             string key = line.substr(0, line.find(":"));
             string value = line.substr(line.find(":") + 1);
-            // if (key == "user")
-            // {
-            //     request->user = new User(value);
-            // }
+            if (key == "userId")
+            {
+                request->userId = value;
+            }
             if (key == "id")
             {
                 request->id = stoi(value);
@@ -106,7 +105,7 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
                     // remove the skill from the string
                     temp.erase(0, value.find(",") + 1);
                     // log the process
-                    cout << "Skill: " << request->skill[i] << endl;
+                    // cout << "Skill: " << request->skill[i] << endl;
                 }
             }
             else if (key == "pointsPerHour")
@@ -132,9 +131,9 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
             {
                 request->minimumRatingForSupporter = stod(value);
             }
-            else if (key == "hostName")
+            else if (key == "hostId")
             {
-                request->hostName = value;
+                request->hostId = value;
             }
         }
     }
