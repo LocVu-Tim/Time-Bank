@@ -214,8 +214,8 @@ void RequestController::viewAllRequests(RequestModel &rm)
 
     // continue filtering by availability, excluding current user and blocked user
     vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(), this->user->getBlocked());
-    // TODO qqTam thoi gan mock function vao day
-    availableData = filterBasedOnHostRating(availableData, this->user->getHostRating());
+    // TODO qqTam thoi gan mock function vao day (this->user->getHostRating())
+    availableData = filterBasedOnHostRating(availableData, 2.0);
 
     if (availableData.size() == 0)
     {
