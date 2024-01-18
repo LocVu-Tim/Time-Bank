@@ -198,7 +198,7 @@ void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
   // qq change in the implementation - display all available reqyests
-  cout << "Available requests for you to rent: " << endl;
+  cout << "Available requests for you to join: " << endl;
   for (int i = 0; i < availableRequests.size(); i++)
   {
     cout << "Request no. " << i + 1 << endl;
@@ -206,7 +206,7 @@ void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vect
     availableRequests[i]->printInfo(allUsers);
     cout << string(50, '=') << endl;
   }
-  cout << "Would you like to look for support for any of the above requests? (y/n)" << endl;
+  cout << "Would you like to support any of the above requests? (y/n)" << endl;
 }
 
 vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilter)
@@ -263,6 +263,19 @@ void RequestView::adminViewAllRequests(vector<userRequest *> &requestList, vecto
   }
 };
 
+void RequestView::viewAllHostRequests(vector<userRequest *> &requestList, vector<User *> &userList)
+{
+  cout << "Your current requests: " << endl;
+  for (int i = 0; i < requestList.size(); i++)
+  {
+    cout << "Request no. " << i + 1 << endl;
+    cout << string(50, '=') << endl;
+    requestList[i]->printInfo(userList);
+    cout << string(50, '=') << endl;
+  }
+  cout << "Would you like to apply for any of the above requests? (y/n)" << endl;
+};
+
 void RequestView::requestForSupporter()
 {
   int numberOfSkills;
@@ -292,4 +305,38 @@ void RequestView::requestForSupporter()
 
   userInputs["requestOperation"] = "requestForSupporter";
   checkBeforeSubmitting(userInputs["requestOperation"]);
-};
+}
+
+void RequestView::viewIncomingRequests(vector<userRequest *> &requestList, vector<User *> &userList) {}
+
+void RequestView::viewOutgoingRequests(vector<userRequest *> &requestList, vector<User *> &userList){};
+
+bool RequestView::requestConfirmation(string msg){};
+
+void RequestView::viewIncomingRequests(vector<userRequest *> &requestList, vector<User *> &userList)
+{
+  cout << "==============================" << endl;
+  cout << "=== Incoming Requests ===" << endl;
+  cout << "==============================" << endl;
+  for (int i = 0; i < requestList.size(); i++)
+  {
+    cout << "Request " << i + 1 << endl;
+    requestList[i]->printInfo(userList);
+    cout << "==============================" << endl;
+  }
+  cout << "Do you want to accept any of the requests above(Y/n)?" << endl;
+}
+
+void RequestView::viewOutgoingRequests(vector<userRequest *> &requestList, vector<User *> &userList)
+{
+  cout << "==============================" << endl;
+  cout << "=== Outgoing Requests ===" << endl;
+  cout << "==============================" << endl;
+  for (int i = 0; i < requestList.size(); i++)
+  {
+    cout << "Request " << i + 1 << endl;
+    requestList[i]->printInfo(userList);
+    cout << "==============================" << endl;
+  }
+  cout << "Do you want to accept any of the requests above(Y/n)?" << endl;
+}

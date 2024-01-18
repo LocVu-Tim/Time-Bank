@@ -45,13 +45,17 @@ void RequestModel::createRequest(map<string, string> userData, int userid, vecto
     {
         request->minimumRatingForHost = stod(userData["minimumRatingForHost"]);
         request->minimumRatingForSupporter = 0;
-        request->hostId = "0";
+        // set the hostId to -1 to indicate that the request is not assigned to any host
+        request->hostId = -1;
+        request->supporterId = stoi(id);
     }
     else if (userData["requestOperation"] == "requestForSupporter")
     {
         request->minimumRatingForHost = 0;
         request->minimumRatingForSupporter = stod(userData["minimumRatingForSupporter"]);
-        request->hostId = id;
+        request->hostId = stoi(id);
+        // set the supporterId to -1 to indicate that the request is not assigned to any supporter
+        request->supporterId = -1;
     }
     // push the request object to the requestList
     requestList.push_back(request);

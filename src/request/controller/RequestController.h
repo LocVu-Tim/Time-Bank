@@ -28,20 +28,30 @@ public:
     void viewAllRequests(RequestModel &rm);
     void GuestViewAllRequests(RequestModel &rm);
     void adminViewAllRequests(RequestModel &rm);
+    void hostViewAvailableRequest(RequestModel &rm);
     userRequest *findARequest(int position, vector<userRequest *> requestList);
     void requestForSupporter();
     // for view available request
     vector<userRequest *> filterRequestAvailable(vector<userRequest *> &requestList, string username, vector<int> blocked);
     // For looking for supporter
     vector<userRequest *> filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating);
+    vector<userRequest *> filterBasedOnSupporterRating(vector<userRequest *> &requestList, double supporterRating);
+
+    void processRequest();
+    void calculatePointsConsumed(userRequest *request);
 
     vector<userRequest *> filterUserList(vector<userRequest *> &requestList);
     void setUser(User *user);
+    vector<userRequest *> filterIncomingRequest();
+    vector<userRequest *> filterOutgoingRequest();
     void setUserList(vector<User *> userList);
 
     friend class RequestView;
     friend class RequestModel;
     friend class Request;
 };
+
+// Buffer functions for moving to the cpp file
+// It's faster to do it this way instead of coding straight in the cpp file
 
 #endif // REQUEST_CONTROLLER_H

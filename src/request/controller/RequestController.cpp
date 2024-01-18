@@ -103,18 +103,19 @@ void RequestController::requestForSupporter()
     }
 }
 
-// This is for finding all of the available request
+// This is for finding all of the available request, excluding the current user and blocked user
 vector<userRequest *> RequestController::filterRequestAvailable(vector<userRequest *> &requestList, string userId, vector<int> blocked)
 {
     for (int i = 0; i < requestList.size(); i++)
     {
-        if (requestList[i]->hostId == userId)
+        // the user cannot see their own request
+        if (requestList[i]->hostId == stoi(userId))
         {
             requestList.erase(requestList.begin() + i);
         }
         for (int j = 0; j < blocked.size(); j++)
         {
-            if (stoi(requestList[i]->hostId) == blocked[j])
+            if (requestList[i]->hostId == blocked[j])
             {
                 requestList.erase(requestList.begin() + i);
             }
@@ -127,7 +128,7 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
 {
     for (int i = 0; i < requestList.size(); i++)
     {
-        if (hostRating < requestList[i]->minimumRatingForHost)
+        if (hostRating < requestList[i]->minimumRatingForHost && requestList[i]->availability == false && requestList[i]->hostId != this->user->getUserId())
         {
             requestList.erase(requestList.begin() + i);
         }
@@ -135,7 +136,7 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
     return requestList;
 }
 
-// Finding the request that user had created to have someone hire them
+// Filter the requests made by the user
 vector<userRequest *> RequestController::filterUserList(vector<userRequest *> &requestList)
 {
     vector<userRequest *> filteredList;
@@ -242,8 +243,8 @@ void RequestController::viewAllRequests(RequestModel &rm)
             {
                 cout << "Data found! Now modifying the data" << endl;
                 // edit the data
-                // TODO: get the current user name as the host name
-                request->hostId = to_string(this->user->getUserId());
+                request->availability = false;
+                request->supporterId = this->user->getUserId();
                 cout << "Data modified!" << endl;
                 cout << "Would you like to try again? (Y/n)" << endl;
                 cin >> input;
@@ -298,6 +299,64 @@ void RequestController::adminViewAllRequests(RequestModel &rm)
     requestView->adminViewAllRequests(dataToPass, this->userList);
     return;
     // return to the main interface qq
+}
+
+// view all the request - user to join
+void RequestController::hostViewAvailableRequest(RequestModel &rm)
+{
+    // filter by date and availability
+    vector<userRequest *> dataToPass = rm.getRequests();
+    vector<userRequest *> filteredData = requestView->dateFilter(dataToPass);
+    vector<userRequest *> availableData = filterRequestAvailable(filteredData, this->user->getUsername(), this->user->getBlocked());
+    // TODO qq find function to get user supporter rating, temporary mock function
+    availableData = filterBasedOnSupporterRating(availableData, 2.0);
+    requestView->viewAllHostRequests(availableData, this->userList);
+    // apply -> find the request, available->false, supporterId = current user
+    bool continueFlag = true;
+    while (continueFlag)
+    {
+        cout << "Please enter the option you want to request: " << endl;
+        string input;
+        cin >> input;
+        // look for the data (-1 because of display)
+        userRequest *request = findARequest(stoi(input) - 1, filteredData);
+        cout << "Data found! What do you want to do with the data?" << endl;
+        cout << "1. Join" << endl;
+        cout << "2. View host profile" << endl;
+        cin >> input;
+        if (input == "1")
+        {
+            cout << "Data found! Now modifying the data" << endl;
+            // edit the data
+            request->availability = false;
+            request->hostId = this->user->getUserId();
+            cout << "Data modified!" << endl;
+        }
+        else if (input == "2")
+        {
+            // view user profile
+            User *user = findById(this->userList, request->hostId);
+            user->showInfoMember();
+            cout << "Would you like to return to the previous page? (Y/n)" << endl;
+            cin >> input;
+            if (input == "Y" || input == "y")
+            {
+                return selectAvailableFunction();
+            }
+        }
+    }
+};
+
+vector<userRequest *> RequestController::filterBasedOnSupporterRating(vector<userRequest *> &requestList, double supporterRating)
+{
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (supporterRating < requestList[i]->minimumRatingForSupporter && requestList[i]->availability == false && requestList[i]->hostId == this->user->getUserId())
+        {
+            requestList.erase(requestList.begin() + i);
+        }
+    }
+    return requestList;
 };
 
 userRequest *RequestController::findARequest(int position, vector<userRequest *> requestList)
@@ -314,6 +373,40 @@ userRequest *RequestController::findARequest(int position, vector<userRequest *>
     }
 };
 
+vector<userRequest *> RequestController::filterIncomingRequest()
+{
+    // get the current user id
+    // get all the requests
+    vector<userRequest *> requestList = requestModel->getRequests();
+    // filter requests based on the current user id
+    vector<userRequest *> filteredRequestList = {};
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (requestList[i]->hostId == user->getUserId() && requestList[i]->availability == false)
+        {
+            filteredRequestList.push_back(requestList[i]);
+        }
+    }
+    return filteredRequestList;
+};
+
+vector<userRequest *> RequestController::filterOutgoingRequest()
+{
+    // get the current user id
+    // get all the requests
+    vector<userRequest *> requestList = requestModel->getRequests();
+    // filter requests based on the current user id
+    vector<userRequest *> filteredRequestList = {};
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (requestList[i]->supporterId == user->getUserId() && requestList[i]->availability == false)
+        {
+            filteredRequestList.push_back(requestList[i]);
+        }
+    }
+    return filteredRequestList;
+};
+
 // Functions that unrelated to the class
 void RequestController::createRequestObject(map<string, string> userData)
 {
@@ -325,7 +418,7 @@ void RequestController::createRequestObject(map<string, string> userData)
         {
             cout << "Creating request..." << endl;
             cout << "User ID: " << this->user->getUserId() << endl;
-            requestModel->createRequest(userData, this->user->getUserId());
+            requestModel->createRequest(userData, this->user->getUserId(), {});
             cout << "Do you want to continue create request? (Y/N)" << endl;
             string choice;
             cin >> choice;

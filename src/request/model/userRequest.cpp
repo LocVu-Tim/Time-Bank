@@ -25,14 +25,16 @@ void userRequest::printInfo(vector<User *> &userList)
         cout << this->skill[i] << ",";
     }
     cout << endl;
-    // cout << "Host name: " << (this->hostId == "0" ? "none" : this->hostId) << endl;
-    if (hostId != "0")
+    if (hostId != -1)
     {
         User *host = findById(userList, stoi(userId));
         cout << "Host name: " << host->getUsername() << endl;
+        cout << "Suppoqrter name: none" << endl;
     }
     else
     {
+        User *supporter = findById(userList, stoi(userId));
         cout << "Host name: none" << endl;
+        cout << "Supporter name: " << supporter->getUsername() << endl;
     }
 }
