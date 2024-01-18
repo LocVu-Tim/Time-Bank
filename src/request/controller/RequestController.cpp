@@ -35,7 +35,7 @@ void RequestController::selectAvailableFunction()
     case 3:
         viewAllRequests(*requestModel);
         break;
-    case 6:
+    case 4:
         fileUtility.modifyFile(requestModel->requestList);
         exit(0);
     default:
