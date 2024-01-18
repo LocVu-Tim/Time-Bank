@@ -11,6 +11,8 @@ class RequestController
 private:
     RequestModel *requestModel;
     RequestView *requestView;
+    User *user;
+    vector<User *> userList;
 
 public:
     RequestController(RequestModel &requestModel, RequestView &requestView);
@@ -26,10 +28,11 @@ public:
     void viewAllRequests(RequestModel &rm);
     userRequest *findARequest(int position, vector<userRequest *> requestList);
     void requestForSupporter();
-    // for view active request
-    vector<userRequest *> filterRequestByUser(vector<userRequest *> requestList, string username);
     // for view available request
-    vector<userRequest *> filterRequestAvailable(vector<userRequest *> requestList, string username, vector<string> blocked);
+    vector<userRequest *> filterRequestAvailable(vector<userRequest *> &requestList, string username, vector<string> blocked);
+    vector<userRequest *> filterUserList(vector<userRequest *> &requestList);
+    void setUser(User *user);
+    void setUserList(vector<User *> userList);
 
     friend class RequestView;
     friend class RequestModel;

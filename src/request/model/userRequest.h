@@ -1,6 +1,7 @@
 #ifndef USER_REQUEST_H
 #define USER_REQUEST_H
 #include "../request.h"
+#include "../../user/User.h"
 // #include "./fileUtility.h"
 
 using namespace std;
@@ -17,10 +18,10 @@ private:
     vector<string> skill;
     double minimumRatingForHost;
     double minimumRatingForSupporter;
-    string hostName;
+    string hostId;
 
 public:
-    userRequest(User *user = nullptr, int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}, double minimumRatingForSupporter = 0) : Request(user, id)
+    userRequest(string userId = "", int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}, double minimumRatingForSupporter = 0) : Request(userId, id)
     {
         this->skill = skills;
         this->availability = availability;
@@ -36,7 +37,7 @@ public:
     friend class RequestController;
     friend class RequestView;
 
-    void printInfo();
+    void printInfo(vector<User *> &userList);
 };
 
 #endif // USER_REQUEST_H

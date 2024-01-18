@@ -12,15 +12,17 @@ using namespace std;
 class Request
 {
 private:
-    User *user;
+    // User *user;
+    string userId;
     int id;
     int supporterRatingScore;
     int hostRatingScore;
 
 public:
-    Request(User *user = nullptr, int id = 0, int supporterRatingScore = 0, int hostRatingScore = 0)
+    // User *user = nullptr - old parameter
+    Request(string userId = "", int id = 0, int supporterRatingScore = 0, int hostRatingScore = 0)
     {
-        this->user = user;
+        this->userId = userId;
         this->supporterRatingScore = supporterRatingScore;
         this->hostRatingScore = hostRatingScore;
     };

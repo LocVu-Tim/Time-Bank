@@ -16,16 +16,18 @@ RequestModel::~RequestModel()
     }
 }
 
-void RequestModel::createRequest(map<string, string> userData, User &user)
+void RequestModel::createRequest(map<string, string> userData, int userid)
 {
     // create a new request object
     userRequest *request = new userRequest();
+    // convert int to string
+    string id = to_string(userid);
     // store the data to the request object
-    // request->user = new User(userData["user"]);
+    request->userId = id;
     request->id = time(0);
     request->timeFrom = userData["timeFrom"];
     request->timeTo = userData["timeTo"];
-    request->city = user.getHomeAddr();
+    request->city = userData["city"];
     // split the skill string by comma
     int numberOfSkills = count(userData["skill"].begin(), userData["skill"].end(), ',') + 1;
     for (int i = 0; i < numberOfSkills; i++)
@@ -42,14 +44,13 @@ void RequestModel::createRequest(map<string, string> userData, User &user)
     {
         request->minimumRatingForHost = stod(userData["minimumRatingForHost"]);
         request->minimumRatingForSupporter = 0;
-        request->hostName = "";
+        request->hostId = "0";
     }
     else if (userData["requestOperation"] == "requestForSupporter")
     {
         request->minimumRatingForHost = 0;
         request->minimumRatingForSupporter = stod(userData["minimumRatingForSupporter"]);
-        // TODO: hostName is the current user qq
-        // request->hostName = userData["hostName"];
+        request->hostId = id;
     }
     // push the request object to the requestList
     requestList.push_back(request);
@@ -61,6 +62,20 @@ void RequestModel::createRequest(map<string, string> userData, User &user)
 vector<userRequest *> RequestModel::getRequests()
 {
     return requestList;
+}
+
+int RequestModel::getPositionOfRequest(int id)
+{
+    cout << "The request ID: " << id << endl;
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (requestList[i]->id == id)
+        {
+            cout << "The request is found!" << endl;
+            return i;
+        }
+    }
+    return -1;
 }
 
 void RequestModel::load()

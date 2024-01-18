@@ -130,7 +130,6 @@ void RequestView::setMultipleInputs(int numberOfInputs, string fieldName)
   {
     string input;
     cin >> input;
-    // userInputs[fieldName].append(input);
     // make it a vector containing all the skills with delimiter
     userInputs[fieldName].append(input);
     if (i != numberOfInputs - 1)
@@ -170,8 +169,11 @@ void RequestView::viewAvailableFunctions()
 
 void RequestView::listOrUnlist()
 {
+  cout << "==============================" << endl;
   cout << "1. List" << endl;
   cout << "2. Unlist" << endl;
+  cout << "3. Back" << endl;
+  cout << "==============================" << endl;
 };
 
 void RequestView::list()
@@ -194,15 +196,22 @@ void RequestView::list()
   checkBeforeSubmitting(userInputs["requestOperation"]);
 };
 
-void RequestView::unlist()
+void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
-  cout << "Your current requests: " << endl;
+  cout << "Your current request for working: " << endl;
   cout << string(50, '=') << endl;
-  // get all of the user's own the list of requests
+  for (int i = 0; i < availableRequests.size(); i++)
+  {
+    cout << "Request no. " << i + 1 << endl;
+    cout << string(50, '=') << endl;
+    availableRequests[i]->printInfo(allUsers);
+    cout << string(50, '=') << endl;
+  }
   cout << "Which request do you want to remove?" << endl;
 };
 
-void RequestView::viewAllRequests(vector<userRequest *> &availableRequests)
+// TODO - the data now need to be filtered by the rating of the request user to the current user.
+void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
   // qq change in the implementation - display all available reqyests
   vector<userRequest *> filteredData = dateFilter(availableRequests);
@@ -211,7 +220,7 @@ void RequestView::viewAllRequests(vector<userRequest *> &availableRequests)
   {
     cout << "Request no. " << i + 1 << endl;
     cout << string(50, '=') << endl;
-    filteredData[i]->printInfo();
+    filteredData[i]->printInfo(allUsers);
     cout << string(50, '=') << endl;
   }
   cout << "Would you like to look for support for any of the above requests? (y/n)" << endl;
@@ -267,7 +276,7 @@ void RequestView::requestForSupporter()
   setMultipleInputs(numberOfSkills, "skill");
   cout << "==============================" << endl;
 
-  cout << "Point consumed / hour: " << endl;
+  cout << "Points to be paid / hour: " << endl;
   setInput("pointsPerHour");
   cout << "==============================" << endl;
 
