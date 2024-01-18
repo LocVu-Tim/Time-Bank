@@ -30,6 +30,7 @@ public:
     vector<userRequest *> filterRequestByUser(vector<userRequest *> requestList, string username);
     // for view available request
     vector<userRequest *> filterRequestAvailable(vector<userRequest *> requestList, string username, vector<string> blocked);
+    
 
     friend class RequestView;
     friend class RequestModel;

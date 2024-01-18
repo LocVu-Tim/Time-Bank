@@ -83,17 +83,42 @@ void Admin(){
 
     while (running) {
         cout << "\nAdmin menu\n";
-        cout << "1.View admin information\n";
-        cout << "2.Reset member password\n";
-        cout << "3.Back to main menu\n";
+        cout << "1.Reset Member password\n";
+        cout << "2.Back to main menu\n";
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
 
         switch (choice)
         {
-            case 1:
-                menu();
+            case 1: // Reset Member password
+            cout << "\nChoose a Member to reset password \n";
+            // View all Member information
+            
+                switch (choice)
+                {
+                case 1:
+                    cout << "Member 1: "; // << TODO: username1 << "\n; //
+                    // TODO: Reset Member password function
+                case 2:
+                    cout << "Member 2: "; // << TODO: username2 << "\n; //
+                    // TODO: Reset Member password function
+                    break;
+                case 3:
+                    cout << "Member 3: "; // << TODO: username3 << "\n"; //
+                    // TODO: Reset Member password function
+                    break;
+                
+
+                case 0:
+                    running = false;
+                    cout << "Exiting the application." << endl;
+                    break;
+                default:
+                    cout << "Invalid choice!"
+                    << "\n";
+                break;
+                }
                 break;
             case 2:
                 menu();
@@ -164,15 +189,44 @@ void Member(){
 
         switch (choice)
         {
-            case 1:
+            case 1: //View Information
                 menu();
                 break;
-            case 2:
+
+            case 2: //add skill
                 menu();
                 break;
-            case 3:
+
+            case 3: //list as supporter
                 menu();
                 break;
+
+            case 4: //view request
+                switch (choice) {
+                    // choose host
+                    case 1: //host 1
+                        menu();
+                        break;
+                    case 2://host 2..
+                        menu(); //your booking is received
+                        //previous booked request
+                        break;
+                    case 3:
+                        menu();
+                        break;
+                    case 4:
+                        menu();
+                        break;
+                }
+                menu();
+                break;
+            case 5:
+                menu();
+                break;
+            case 6:
+                menu();
+                break;
+
 
             case 0:
                 running = false;
