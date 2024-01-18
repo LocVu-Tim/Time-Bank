@@ -196,6 +196,9 @@ public:
 
     // Method to get supporter rating
     double getSupporterRating();
+
+    // Method to get skill
+    vector<string> getSkillList();
 };
 
 // method to register user

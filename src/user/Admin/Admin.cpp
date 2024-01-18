@@ -1,5 +1,5 @@
 #include "../User.h"
-#include "../Tools/Tool.h"
+#include "Admin.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO ADMIN:

@@ -13,8 +13,8 @@
 User::User() {}
 
 // Constructor
-User::User(int userID, string userName, string pwd, string fullName, string email = " ",
-           string homeAddr = " ", string phoneNo = " ", bool block = false, vector<int> blocked = {}, int creds = 20,
+User::User(int userID, string userName, string pwd, string fullName, string email,
+           string homeAddr, string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
            int role = 2,
            double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
@@ -357,4 +357,9 @@ double User::getSkillRating() {
 // Method to get supporter rating
 double User::getSupporterRating() {
     return this->supporterRatingScore;
+}
+
+// Method to get skill list
+vector<string> User::getSkillList() {
+    return this->skills;
 }

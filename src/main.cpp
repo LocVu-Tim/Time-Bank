@@ -2,11 +2,11 @@
 #include <fstream>
 #include <stdlib.h>
 #include <string.h>
-#include "user/Admin/Admin.cpp"
-#include "user/Guest/Guest.cpp"
-#include "user/Member/Member.cpp"
+#include "user/Admin/Admin.h"
+#include "user/Guest/Guest.h"
+#include "user/Member/Member.h"
 #include "user/Tools/Tool.h"
-#include "./welcomeInterface/welcomeInterface.cpp"
+#include "./welcomeInterface/welcomeInterface.h"
 
 bool defaultData = false;
 
@@ -78,9 +78,9 @@ int main()
                 break;
             }
 
-            User *userData = new (std::nothrow) User(stoi(userIdData), usernameData, pwdData, fullNameData, emailData, homeAddrData, phoneNoData, stoi(credsData), stoi(ratingScoreData));
-            userData->setRole(stoi(roleData));
-            userReload.push_back(userData);
+//            User *userData = new (std::nothrow) User(stoi(userIdData), usernameData, pwdData, fullNameData, emailData, homeAddrData, phoneNoData, stoi(credsData), stoi(ratingScoreData));
+//            userData->setRole(stoi(roleData));
+//            userReload.push_back(userData);
         }
         myUserFile.close();
 
@@ -96,9 +96,9 @@ int main()
 
 
     //Save data to user.dat with delimiter : 
-    for(auto user: users) {
-        myUserFile << user->getUserId() << ":" << user->getUsername() << ":" << user->getPwd() << ":" << user->getFullName() << ":" << user->getEmail() << ":" << user->getHomeAddr() << ":" << user->getPhoneNo() << ":"<< user->getCreds() << ":" << user->getRatingScore() << ":" << user->getRole() << ":" << endl;
-    }
+//    for(auto user: users) {
+//        myUserFile << user->getUserId() << ":" << user->getUsername() << ":" << user->getPwd() << ":" << user->getFullName() << ":" << user->getEmail() << ":" << user->getHomeAddr() << ":" << user->getPhoneNo() << ":"<< user->getCreds() << ":" << user->getRatingScore() << ":" << user->getRole() << ":" << endl;
+//    }
 
     myUserFile.close();
     return 0;
