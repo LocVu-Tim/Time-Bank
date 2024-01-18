@@ -7,6 +7,7 @@
 #include "user/Member/Member.cpp"
 #include "user/Tools/Tool.h"
 #include "./welcomeInterface/welcomeInterface.cpp"
+#include "user/User.h"
 
 bool defaultData = false;
 
@@ -84,6 +85,8 @@ int main()
 
 
     }
+
+
 
 
     // Save user data to file
