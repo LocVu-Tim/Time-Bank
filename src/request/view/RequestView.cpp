@@ -47,7 +47,7 @@ void RequestView::checkBeforeSubmitting(string form)
     }
   }
 
-   // validate if the pointsPerHour is a number
+  // validate if the pointsPerHour is a number
   try
   {
     stod(userInputs["pointsPerHour"]);
@@ -214,13 +214,12 @@ void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
   // qq change in the implementation - display all available reqyests
-  vector<userRequest *> filteredData = dateFilter(availableRequests);
-  cout << "Available requests: " << endl;
-  for (int i = 0; i < filteredData.size(); i++)
+  cout << "Available requests for you to rent: " << endl;
+  for (int i = 0; i < availableRequests.size(); i++)
   {
     cout << "Request no. " << i + 1 << endl;
     cout << string(50, '=') << endl;
-    filteredData[i]->printInfo(allUsers);
+    availableRequests[i]->printInfo(allUsers);
     cout << string(50, '=') << endl;
   }
   cout << "Would you like to look for support for any of the above requests? (y/n)" << endl;

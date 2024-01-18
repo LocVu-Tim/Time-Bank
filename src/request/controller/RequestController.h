@@ -29,7 +29,10 @@ public:
     userRequest *findARequest(int position, vector<userRequest *> requestList);
     void requestForSupporter();
     // for view available request
-    vector<userRequest *> filterRequestAvailable(vector<userRequest *> &requestList, string username, vector<string> blocked);
+    vector<userRequest *> filterRequestAvailable(vector<userRequest *> &requestList, string username, vector<int> blocked);
+    // For looking for supporter
+    vector<userRequest *> filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating);
+
     vector<userRequest *> filterUserList(vector<userRequest *> &requestList);
     void setUser(User *user);
     void setUserList(vector<User *> userList);
