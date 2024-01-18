@@ -3,15 +3,17 @@
 
 using namespace std;
 
-RequestController::RequestController(RequestModel &requestModel, RequestView &requestView) {
+RequestController::RequestController(RequestModel &requestModel, RequestView &requestView)
+{
     // initialize the model
     this->requestModel = &requestModel;
     this->requestView = &requestView;
 }
 
-RequestController::~RequestController() {};
+RequestController::~RequestController(){};
 
-int RequestController::OperationsList() {
+int RequestController::OperationsList()
+{
     int choice;
     RequestView requestView;
     RequestModel requestModel;
@@ -20,86 +22,103 @@ int RequestController::OperationsList() {
     return choice;
 }
 
-void RequestController::selectAvailableFunction() {
+void RequestController::selectAvailableFunction()
+{
     int choice = OperationsList();
     fileUtility fileUtility;
-    switch (choice) {
-        case 1:
-            listOrUnlist();
-            break;
-        case 2:
-            requestForSupporter();
-            break;
-        case 3:
-            viewAllRequests(*requestModel);
-            break;
-        case 4:
-            fileUtility.modifyFile(requestModel->requestList);
-            exit(0);
-        default:
-            requestView->errorHandling("Invalid choice");
-            cin.clear();
-            // Rerun again
-            selectAvailableFunction();
-            break;
+    switch (choice)
+    {
+    case 1:
+        listOrUnlist();
+        break;
+    case 2:
+        requestForSupporter();
+        break;
+    case 3:
+        viewAllRequests(*requestModel);
+        break;
+    case 4:
+        fileUtility.modifyFile(requestModel->requestList);
+        exit(0);
+    default:
+        requestView->errorHandling("Invalid choice");
+        cin.clear();
+        // Rerun again
+        selectAvailableFunction();
+        break;
     }
 }
 
-void RequestController::listOrUnlist() {
+void RequestController::listOrUnlist()
+{
     int choice;
     // RequestView requestView;
     requestView->listOrUnlist();
     cin >> choice;
-    switch (choice) {
-        case 1:
-            list();
-            break;
-        case 2:
-            unlist();
-            break;
-        case 3:
-            return selectAvailableFunction();
-        default:
-            requestView->errorHandling("Invalid choice");
-            // Rerun again
-            listOrUnlist();
-            break;
+    switch (choice)
+    {
+    case 1:
+        list();
+        break;
+    case 2:
+        unlist();
+        break;
+    case 3:
+        return selectAvailableFunction();
+    default:
+        requestView->errorHandling("Invalid choice");
+        // Rerun again
+        listOrUnlist();
+        break;
     }
 };
 
-void RequestController::list() {
+void RequestController::list()
+{
     requestView->list();
     map<string, string> userData = requestView->getUserInputs();
 
-    if (userData.size() == 7) {
+    if (userData.size() == 7)
+    {
         // lookForSupport Request object to store data
         createRequestObject(userData);
-    } else {
+    }
+    else
+    {
         cout << "Invalid input" << endl;
     }
 };
 
-void RequestController::requestForSupporter() {
+void RequestController::requestForSupporter()
+{
     requestView->list();
     map<string, string> userData = requestView->getUserInputs();
 
-    if (userData.size() == 7) {
+    if (userData.size() == 7)
+    {
         // lookForSupport Request object to store data
         createRequestObject(userData);
-    } else {
+    }
+    else
+    {
         cout << "Invalid input" << endl;
     }
 }
 
 // This is for finding all of the available request
 vector<userRequest *>
-RequestController::filterRequestAvailable(vector<userRequest *> &requestList, string userId, vector<int> blocked) {
-    for (int i = 0; i < requestList.size(); i++) {
-        if (requestList[i]->hostId == userId) {
+RequestController::filterRequestAvailable(vector<userRequest *> &requestList, string userId, vector<int> blocked)
+{
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (requestList[i]->hostId == userId)
+        {
             requestList.erase(requestList.begin() + i);
         }
-        for (int j = 0; j < blocked.size(); j++) {
-            if (stoi(requestList[i]->hostId) == blocked[j]) {
+        for (int j = 0; j < blocked.size(); j++)
+        {
+            if (stoi(requestList[i]->hostId) == blocked[j])
+            {
                 requestList.erase(requestList.begin() + i);
             }
         }
@@ -108,9 +127,12 @@ RequestController::filterRequestAvailable(vector<userRequest *> &requestList, st
 }
 
 vector<userRequest *>
-RequestController::filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating) {
-    for (int i = 0; i < requestList.size(); i++) {
-        if (hostRating < requestList[i]->minimumRatingForHost) {
+RequestController::filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating)
+{
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (hostRating < requestList[i]->minimumRatingForHost)
+        {
             requestList.erase(requestList.begin() + i);
         }
     }
@@ -118,10 +140,13 @@ RequestController::filterBasedOnHostRating(vector<userRequest *> &requestList, d
 }
 
 // Finding the request that user had created to have someone hire them
-vector<userRequest *> RequestController::filterUserList(vector<userRequest *> &requestList) {
+vector<userRequest *> RequestController::filterUserList(vector<userRequest *> &requestList)
+{
     vector<userRequest *> filteredList;
-    for (int i = 0; i < requestList.size(); i++) {
-        if (stoi(requestList[i]->userId) == this->user->getUserId()) {
+    for (int i = 0; i < requestList.size(); i++)
+    {
+        if (stoi(requestList[i]->userId) == this->user->getUserId())
+        {
             filteredList.push_back(requestList[i]);
         }
     }
@@ -129,23 +154,28 @@ vector<userRequest *> RequestController::filterUserList(vector<userRequest *> &r
     return filteredList;
 };
 
-void RequestController::setUser(User *user) {
+void RequestController::setUser(User *user)
+{
     this->user = user;
 };
 
-void RequestController::setUserList(vector<User *> userList) {
+void RequestController::setUserList(vector<User *> userList)
+{
     this->userList = userList;
 };
 
-void RequestController::unlist() {
+void RequestController::unlist()
+{
     RequestView requestView;
     // filter out the request that user had created
     vector<userRequest *> filteredList = filterUserList(requestModel->requestList);
-    if (filteredList.size() == 0) {
+    if (filteredList.size() == 0)
+    {
         cout << "No data found" << endl;
         return selectAvailableFunction();
     }
-    while (true) {
+    while (true)
+    {
         requestView.unlist(filteredList, this->userList);
         string unlistChoice;
         cin >> unlistChoice;
@@ -155,7 +185,8 @@ void RequestController::unlist() {
         // pass the object to the requestModel
         int pos = requestModel->getPositionOfRequest(id);
         // if not found - display error and return to the main menu
-        if (pos == -1) {
+        if (pos == -1)
+        {
             cout << "No data found" << endl;
             return selectAvailableFunction();
         }
@@ -165,15 +196,19 @@ void RequestController::unlist() {
         cout << "Do you want to continue? (Y/n)" << endl;
         string choice;
         cin >> choice;
-        if (choice == "Y" || choice == "y") {
+        if (choice == "Y" || choice == "y")
+        {
             continue;
-        } else {
+        }
+        else
+        {
             return selectAvailableFunction();
         }
     }
 }
 
-void RequestController::viewAllRequests(RequestModel &rm) {
+void RequestController::viewAllRequests(RequestModel &rm)
+{
     RequestView requestView;
     bool choice = true;
     string input;
@@ -187,16 +222,19 @@ void RequestController::viewAllRequests(RequestModel &rm) {
     // TODO qqTam thoi gan mock function vao day (this->user->getHostRating())
     availableData = filterBasedOnHostRating(availableData, 2.0);
 
-    if (availableData.size() == 0) {
+    if (availableData.size() == 0)
+    {
         cout << "No data found" << endl;
         return selectAvailableFunction();
     }
-    while (choice) {
+    while (choice)
+    {
         vector<userRequest *> requestList = rm.getRequests();
         cout << "Request list size: " << requestList.size() << endl;
         requestView.viewAllRequests(requestList, this->userList);
         cin >> input;
-        if (input == "Y" || input == "y") {
+        if (input == "Y" || input == "y")
+        {
             cout << "Please enter the option you want to request: " << endl;
             cin >> input;
             // look for the data (-1 because of display)
@@ -205,7 +243,8 @@ void RequestController::viewAllRequests(RequestModel &rm) {
             cout << "1. Request" << endl;
             cout << "2. View user profile" << endl;
             cin >> input;
-            if (input == "1") {
+            if (input == "1")
+            {
                 cout << "Data found! Now modifying the data" << endl;
                 // edit the data
                 // TODO: get the current user name as the host name
@@ -213,33 +252,44 @@ void RequestController::viewAllRequests(RequestModel &rm) {
                 cout << "Data modified!" << endl;
                 cout << "Would you like to try again? (Y/n)" << endl;
                 cin >> input;
-                if (input == "Y" || input == "y") {
+                if (input == "Y" || input == "y")
+                {
                     choice = true;
-                } else {
+                }
+                else
+                {
                     choice = false;
                     return selectAvailableFunction();
                 }
-            } else if (input == "2") {
+            }
+            else if (input == "2")
+            {
                 // view user profile
                 User *user = findById(this->userList, stoi(request->userId));
                 user->showInfoMember();
                 cout << "Would you like to return to the previous page? (Y/n)" << endl;
                 cin >> input;
-                if (input == "Y" || input == "y") {
+                if (input == "Y" || input == "y")
+                {
                     choice = true;
-                } else {
+                }
+                else
+                {
                     choice = false;
                     return selectAvailableFunction();
                 }
             }
-        } else {
+        }
+        else
+        {
             choice = false;
             return selectAvailableFunction();
         }
     }
 }
 
-void RequestController::GuestViewAllRequests(RequestModel &rm) {
+void RequestController::GuestViewAllRequests(RequestModel &rm)
+{
     // filter by date and availability
     vector<userRequest *> dataToPass = rm.getRequests();
     vector<userRequest *> filteredData = requestView->dateFilter(dataToPass);
@@ -248,7 +298,8 @@ void RequestController::GuestViewAllRequests(RequestModel &rm) {
     // return to the main interface qq
 }
 
-void RequestController::adminViewAllRequests(RequestModel &rm) {
+void RequestController::adminViewAllRequests(RequestModel &rm)
+{
     // filter by date and availability
     vector<userRequest *> dataToPass = rm.getRequests();
     requestView->adminViewAllRequests(dataToPass, this->userList);
@@ -256,42 +307,53 @@ void RequestController::adminViewAllRequests(RequestModel &rm) {
     // return to the main interface qq
 };
 
-userRequest *RequestController::findARequest(int position, vector<userRequest *> requestList) {
+userRequest *RequestController::findARequest(int position, vector<userRequest *> requestList)
+{
     cout << "Finding the data at position: " << position << endl;
-    try {
+    try
+    {
         return requestList.at(position);
     }
-    catch (const std::out_of_range &oor) {
+    catch (const std::out_of_range &oor)
+    {
         std::cerr << "Out of Range error: " << oor.what() << '\n';
         return NULL;
     }
 };
 
 // Functions that unrelated to the class
-void RequestController::createRequestObject(map<string, string> userData) {
+void RequestController::createRequestObject(map<string, string> userData)
+{
     // TODO: add type data validation
-    try {
+    try
+    {
         bool continueCreate = true;
-        while (continueCreate) {
+        while (continueCreate)
+        {
             cout << "Creating request..." << endl;
             cout << "User ID: " << this->user->getUserId() << endl;
             requestModel->createRequest(userData, this->user->getUserId(), this->user->getSkillList());
             cout << "Do you want to continue create request? (Y/N)" << endl;
             string choice;
             cin >> choice;
-            if (choice == "Y" || choice == "y") {
+            if (choice == "Y" || choice == "y")
+            {
                 continueCreate = true;
-            } else {
+            }
+            else
+            {
                 continueCreate = false;
             }
         }
         // redirect user back to the main menu
         return selectAvailableFunction();
     }
-    catch (const std::invalid_argument &ia) {
+    catch (const std::invalid_argument &ia)
+    {
         std::cerr << "Invalid argument: " << ia.what() << '\n';
         bool continueFlag = requestView->errorHandling("Invalid argument");
-        if (continueFlag) {
+        if (continueFlag)
+        {
             listOrUnlist();
         }
     }

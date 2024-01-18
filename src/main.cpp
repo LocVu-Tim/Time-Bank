@@ -13,10 +13,10 @@ bool defaultData = false;
 int main() {
     welcomeInterface();
 
-    // Initialize or reload default data 
-    fstream myUserFile;
-    string userFile = "user.dat";
-    vector<User *> users = {};
+    // Initialize or reload default data
+    // fstream myUserFile;
+    // string userFile = "user.dat";
+    // vector<User *> users = {};
 
     if (defaultData) //if there's no default data then create and initialize default data using dynamic memory allocation
     {
@@ -40,6 +40,7 @@ int main() {
                                              "0923784590", false, {}, 20, 2, 0, 0, 0, {});
         User *user8 = new(std::nothrow) User(10, "popo", "12313", "Boby Spark", "sth@gmail.com", "752 Sth Street",
                                              "9812411", false, {}, 20, 2, 0, 0, 0, {});
+ 
 
         admin1->setRole(3);
         admin2->setRole(3);
@@ -64,22 +65,22 @@ int main() {
         /* Reload users' data from the file */
         string userIdData, usernameData, pwdData, fullNameData, emailData, homeAddrData, phoneNoData, credsData, ratingScoreData, roleData;
 
-        vector<User *> userReload = {};
+    //     vector<User *> userReload = {};
 
         while (!myUserFile.eof()) {
             userIdData = "", usernameData = "", pwdData = "", fullNameData = "", emailData = "", homeAddrData = "", phoneNoData = "", credsData = "", ratingScoreData = "", roleData = "";
 
-            //read data from .dat file 
-            getline(myUserFile, userIdData, ':'); //getline using delimiter
-            getline(myUserFile, usernameData, ':');
-            getline(myUserFile, pwdData, ':');
-            getline(myUserFile, fullNameData, ':');
-            getline(myUserFile, emailData, ':');
-            getline(myUserFile, homeAddrData, ':');
-            getline(myUserFile, phoneNoData, ':');
-            getline(myUserFile, credsData, ':');
-            getline(myUserFile, ratingScoreData, ':');
-            getline(myUserFile, roleData, ':');
+    //         //read data from .dat file
+    //         getline(myUserFile, userIdData, ':'); //getline using delimiter
+    //         getline(myUserFile, usernameData, ':');
+    //         getline(myUserFile, pwdData, ':');
+    //         getline(myUserFile, fullNameData, ':');
+    //         getline(myUserFile, emailData, ':');
+    //         getline(myUserFile, homeAddrData, ':');
+    //         getline(myUserFile, phoneNoData, ':');
+    //         getline(myUserFile, credsData, ':');
+    //         getline(myUserFile, ratingScoreData, ':');
+    //         getline(myUserFile, roleData, ':');
 
             if (userIdData == "" || userIdData == "\n") {
                 break;
@@ -104,6 +105,6 @@ int main() {
 //        myUserFile << user->getUserId() << ":" << user->getUsername() << ":" << user->getPwd() << ":" << user->getFullName() << ":" << user->getEmail() << ":" << user->getHomeAddr() << ":" << user->getPhoneNo() << ":"<< user->getCreds() << ":" << user->getRatingScore() << ":" << user->getRole() << ":" << endl;
 //    }
 
-    myUserFile.close();
+    // myUserFile.close();
     return 0;
 }
