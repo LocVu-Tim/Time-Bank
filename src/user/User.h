@@ -35,7 +35,7 @@ public:
 
     // Constructor
     User(string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo, bool block, vector<int> blocked, int creds, int role, int userId,
+         string phoneNo, bool block, vector<string> blocked, int creds, int role, int userId,
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function
@@ -96,10 +96,10 @@ public:
     bool isBlocked();
 
     // method to get blocked person/people
-    vector<int> getBlocked();
+    void getBlocked();
 
     // method to set block
-    void setBlocked(int blocks);
+    void setBlocked(string blocks);
 
     // method to get userId
     int getUserId();

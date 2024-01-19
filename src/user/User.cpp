@@ -149,13 +149,16 @@ bool User::isBlocked()
 }
 
 // method to get blocked person/people
-vector<int> User::getBlocked()
+void User::getBlocked()
 {
-    return blocked;
+    cout << "List of blocked usesr\n";
+    for(auto &block: blocked) {
+        cout << "- " << block << endl;
+    }
 }
 
 // method to set block
-void User::setBlocked(int blocks)
+void User::setBlocked(string blocks)
 {
     blocked.push_back(blocks);
 }
@@ -580,5 +583,5 @@ void setRatingScore(User user, int type, double score)
     {
         user.hostRatingScore = score;
     }
-    
+
 }

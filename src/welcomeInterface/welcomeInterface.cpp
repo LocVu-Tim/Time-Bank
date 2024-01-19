@@ -213,7 +213,18 @@ void Member(vector<User *> users, User currentUser)
             // menu();
             break;
         case 6:
-            // menu();
+            showInfoHeaderWithRating();
+            cout << endl;
+            for(auto &user: users) {
+                if(user->getRole() == 2) 
+                {
+                    user->showInfoWithRating();
+                    cout << endl;
+                }
+
+            }
+            currentUser.blockUser(users, currentUser);
+            currentUser.getBlocked();
             break;
         case 7:
             menu(users, currentUser);
@@ -241,14 +252,34 @@ void memberLogin(vector<User *> users, User currentUser)
     string mName, mPass;
     if (currentUser.loginMember(users, mName) == true)
     {
-        Member(users, currentUser);
-        currentUser.setUsername(mName);
-        cout << currentUser.getUsername();
-    }
-    else
-    {
-        memberLogin(users, currentUser);
-    }
+        cout << "Please enter registered username: ";
+        cin >> mName;
+        if (currentUser.loginMember(users, mName))
+        {
+            currentUser.setUsername(mName);
+            // User *foundUser = findMemberByUsername(users, currentUser.getUsername());
+
+            // if (foundUser != nullptr)
+            // {
+            //     currentUser = *foundUser;
+            //     Member(users, currentUser);
+            //     loginSuccessful = true;
+            // }
+            // else
+            // {
+            //     cout << "Error: User not found\n";
+            // }
+            cout << mName << endl;
+            cout << "set name " << currentUser.getUsername() << endl;
+            Member(users, currentUser);
+            loginSuccessful = true;
+        }
+        else
+        {
+            cout << "Login error\n";
+        }
+
+    } while (!loginSuccessful);
 }
 
 void Guest(vector<User *> users, User currentUser)
