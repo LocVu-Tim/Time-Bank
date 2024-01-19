@@ -2,6 +2,10 @@
 
 #include <utility>
 
+Rating::Rating(int ratingId, int userId, int raterId, std::string type, double ratingValue, std::string comment)
+        : ratingID(ratingId), userID(userId), raterID(raterId), type(std::move(type)), ratingValue(ratingValue),
+          comment(std::move(comment)) {}
+
 //1. Method to get rating ID
 int Rating::getRatingID() const {
     return this->ratingID;
@@ -67,8 +71,6 @@ void Rating::setRatingType(int rType) {
         this->type = "supporter";
     } else if (rType == 3) {
         this->type = "host";
-    } else {
-        std::cout << "Invalid choice!";
     }
 }
 

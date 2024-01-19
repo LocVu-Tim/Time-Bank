@@ -375,3 +375,29 @@ void User::setSkills(const vector<string> &skills) {
     User::skills = skills;
 }
 
+// Method to rate another user
+void rateUser(User rater, User rated) {
+    int type = 0;
+    double ratingValue;
+    std::string comment;
+    std::cout << "What do you want to rate this user on: " << std::endl
+              << "1. Skill" << std::endl
+              << "2. Supporter" << std::endl
+              << "3. Host" << std::endl
+              << "Your answer:";
+    std::cin >> type;
+    std::cout << "\n";
+    std::cout << "Your point for the other user (1 to 5):";
+    std::cin >> ratingValue;
+    std::cout << "\n";
+    std::cout << "Your comment:";
+    std::getline(std::cin >> std::skipws, comment);
+    Rating rating;
+    rating.setRatingID(rated.ratings.size() - 1);
+    rating.setRaterID(rater.userID);
+    rating.setUserID(rated.userID);
+    rating.setRatingType(type);
+    rating.setRatingValue(ratingValue);
+    rating.setComment(comment);
+    rated.ratings.push_back(rating);
+}

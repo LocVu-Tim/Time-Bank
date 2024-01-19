@@ -19,10 +19,8 @@ public:
     Rating() {};
 
     //Constructor
-    Rating(int ratingId, int userId, int raterId, std::string &type, double ratingValue,
-           std::string &comment)
-            : ratingID(ratingId), userID(userId), raterID(raterId), type(type), ratingValue(ratingValue),
-              comment(comment) {}
+    Rating(int ratingId, int userId, int raterId, std::string type, double ratingValue,
+           std::string comment);
 
     //1. Method to get rating ID
     int getRatingID() const;

@@ -17,6 +17,8 @@
 
 using namespace std;
 
+class Rating;
+
 class User {
 private:
     int userID;
@@ -196,6 +198,9 @@ public:
 
     // Method to set skill
     void setSkills(const vector<string> &skills);
+
+    // Method to rate another user
+    friend void rateUser(User rater, User rated);
 };
 
 // method to register user
