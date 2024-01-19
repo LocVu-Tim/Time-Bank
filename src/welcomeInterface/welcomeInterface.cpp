@@ -250,6 +250,7 @@ void Member(vector<User *> users, User currentUser)
 void memberLogin(vector<User *> users, User currentUser)
 {
     string mName, mPass;
+    bool loginSuccessful = false;
     if (currentUser.loginMember(users, mName) == true)
     {
         cout << "Please enter registered username: ";

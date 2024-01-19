@@ -34,9 +34,11 @@ public:
     User();
 
     // Constructor
-    User(string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo, bool block, vector<string> blocked, int creds, int role, int userId,
-         double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
+    User(string userName, string pwd, string fullName, string email,
+           string homeAddr, string phoneNo, bool block = false, vector<string> blocked = {}, int creds = 20,
+           int role = 2, int userId,
+           double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
+           vector<Rating> ratings = {});
 
     // constructor used for block function
     User(const string &username);
@@ -96,7 +98,7 @@ public:
     bool isBlocked();
 
     // method to get blocked person/people
-    void getBlocked();
+    vector<int> getBlocked();
 
     // method to set block
     void setBlocked(string blocks);
@@ -108,13 +110,13 @@ public:
     void setUserId(int id);
 
     // method to block user from viewing content
-    void blockUser(const vector<User *> &users);
+    void blockUser(const vector<User *> &users, User &currentUser);
 
     // method to show info with global width
     void showInfo();
 
     // method to show info with block
-    void showInfoWithBlock(vector<User *> users);
+    void showInfoWithBlock(vector<User *> users, User currentUser);
 
     // method to show info member
     void showInfoMember();
@@ -159,7 +161,7 @@ public:
     friend bool checkValidPwd(string pwd);
 
     // method to verify password
-    friend bool verifyPwd(User user, const string &pwd);
+    friend bool verifyPwd(User user,  string pwd);
 
     // method to find user through username
     friend User *findByUsername(const vector<User *> &users, const string &username);
@@ -219,7 +221,7 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo);
 bool checkValidPwd(string pwd);
 
 // method to verify password
-bool verifyPwd(User user, const string &pwd);
+bool verifyPwd(User user,  string pwd);
 
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username);

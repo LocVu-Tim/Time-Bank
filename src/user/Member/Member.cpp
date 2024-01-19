@@ -25,7 +25,7 @@ bool User::loginMember(vector<User *> users, string checkUsername) {
     } else {
         cout << "Please enter password: ";
         cin >> checkPwd;
-        if (verifyPwd(user, &checkPwd)) {
+        if (verifyPwd(*user, checkPwd)) {
             cout << "Login successful\n";
         } else {
             cout << "Incorrect username/password\n";
@@ -39,15 +39,15 @@ bool User::loginMember(vector<User *> users, string checkUsername) {
 // method to block member
 void User::blockUser(const vector<User *>& users, User &currentUser) {
     
-   string blockName;
-   cout << "Enter username to block: ";
-   cin >> blockName;
+   int blockId;
+   cout << "Enter user ID to block: ";
+   cin >> blockId;
    
-   if (findByUsername(users, blockName) == nullptr) {
+   if (findById(users, blockId) == nullptr) {
        cout << "Username not found\n";
    } else {
-       currentUser.blocked.push_back(blockName);
-       cout << "User " << blockName << " is blocked\n";
+       currentUser.blocked.push_back(blockId);
+       cout << "User " << blockId << " is blocked\n";
    }
 }
 
@@ -56,7 +56,7 @@ void User::changePwdMember(User user, string temp) {
     string newPwd;
     cout << "Enter old password: ";
     cin >> temp;
-    if (verifyPwd(user, &temp)) {
+    if (verifyPwd(user, temp)) {
         cout << "Password verified. Please enter new password: ";
         cin >> newPwd;
         if (checkValidPwd(newPwd) == true && caseSensitiveStringCompare(newPwd, user.userName) == false)
@@ -83,7 +83,7 @@ void User::showInfoMember()
     
 // }
 // method to show info with blocked
-void User::showInfoWithBlock(vector<User *> users) {
+void User::showInfoWithBlock(vector<User *> users, User currentUser) {
 
     for (auto &user: users) {
         vector<int> blocks = user->getBlocked();
