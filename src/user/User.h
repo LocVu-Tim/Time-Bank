@@ -108,13 +108,13 @@ public:
     void setUserId(int id);
 
     // method to block user from viewing content
-    void blockUser(const vector<User *> &users, User &currentUser);
+    void blockUser(const vector<User *> &users);
 
     // method to show info with global width
     void showInfo();
 
     // method to show info with block
-    void showInfoWithBlock(vector<User *> users, User currentUser);
+    void showInfoWithBlock(vector<User *> users);
 
     // method to show info member
     void showInfoMember();
@@ -126,7 +126,7 @@ public:
     int topUpCreds(User user, int topUp);
 
     // method to reset password for member
-    void changePwdMember(User user, string &temp);
+    void changePwdMember(User user, string temp);
 
     // method to change password for admin
     void changePwdAdmin(const vector<User *> &users, string username);
@@ -179,14 +179,6 @@ public:
     // Method to set rating score
     friend void setRatingScore(User user, int type, double score);
 
-    // Method to show member info with rating
-    // void User::showInfoMemberWithRating(vector<User *> users);
-
-    //method to show all info (including password and rating) 
-    void showAllInfo();
-
-    // Method to show info with rating
-    void showInfoWithRating();
     // Method to update user rating
     friend void updateRatingScore(User user, int type);
 
@@ -204,7 +196,7 @@ public:
 };
 
 // method to register user
-User registerMember(vector<User *> &users, User currentUser);
+User registerMember(vector<User *> users);
 
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName);
@@ -225,10 +217,4 @@ bool verifyPwd(User user, const string &pwd);
 User *findByUsername(const vector<User *> &users, const string &username);
 
 // method to find user by if
-User *findById(const vector<User *> &users, const int targetId);
-
-// method to find member through username
-User *findMemberByUsername(const vector<User *> &users, const string &username);
-
-// method to find admin through username
-User *findAdminByUsername(const vector<User *> &users, const string &username);
+User *findById(const vector<User *> &users, int targetId);
