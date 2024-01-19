@@ -19,9 +19,9 @@ void Guest(vector<User *> users, User currentUser);
 void Member(vector<User *> users, User currentUser);
 void Admin(vector<User *> users, User currentUser);
 void adminLogin(vector<User *> users, User currentUser);
-void memberLogin(vector<User *> users, User currentUser);
+void memberLogin(vector<User *> users, User &currentUser);
 
-void welcomeInterface(vector<User *> &users, User currentUser)
+void welcomeInterface(vector<User *> users, User currentUser)
 {
     int choice;
 
@@ -127,10 +127,11 @@ void Admin(vector<User *> users, User currentUser)
 
         case 3://show all info 
             showAllInfoHeader();
+            cout << endl;
             for(auto &user: users) {
                 user->showAllInfo();
                 cout << endl;
-                
+
             }
 
         case 0:
@@ -148,12 +149,22 @@ void Admin(vector<User *> users, User currentUser)
 void adminLogin(vector<User *> users, User currentUser)
 {
     string aName;
-    if(currentUser.loginAdmin(users, aName) == true) {
-        Admin(users, currentUser);
-    }
-    else{
-        menu(users, currentUser);
-    }
+    bool loginSuccessful = false;
+
+    do
+    {
+        if (currentUser.loginAdmin(users, aName))
+        {
+            Admin(users, currentUser);
+            loginSuccessful = true;
+        }
+        else
+        {
+            cout << "Login Error\n";
+            cout << "Enter username again: ";
+            cin >> aName;
+        }
+    } while (!loginSuccessful);
 }
 
 void Member(vector<User *> users, User currentUser)
@@ -213,10 +224,22 @@ void Member(vector<User *> users, User currentUser)
             // menu();
             break;
         case 6:
-            // menu();
+            showInfoHeaderWithRating();
+            cout << endl;
+            for(auto &user: users) {
+                if(user->getRole() == 2) 
+                {
+                    user->showInfoWithRating();
+                    cout << endl;
+                }
+
+            }
+            currentUser.blockUser(users, currentUser);
+            currentUser.getBlocked();
             break;
         case 7:
             menu(users, currentUser);
+            break;
         case 0:
             running = false;
             cout << "Exiting the application." << endl;
@@ -229,19 +252,41 @@ void Member(vector<User *> users, User currentUser)
     }
 }
 
-void memberLogin(vector<User *> users, User currentUser)
+void memberLogin(vector<User *> users, User &currentUser)
 {
-    string mName, mPass;
-    if (currentUser.loginMember(users, mName) == true)
+    string mName;
+    bool loginSuccessful = false;
+
+    do
     {
-        Member(users, currentUser);
-        currentUser.setUsername(mName);
-        cout << currentUser.getUsername();
-    }
-    else
-    {
-        memberLogin(users, currentUser);
-    }
+        cout << "Please enter registered username: ";
+        cin >> mName;
+        if (currentUser.loginMember(users, mName))
+        {
+            currentUser.setUsername(mName);
+            // User *foundUser = findMemberByUsername(users, currentUser.getUsername());
+
+            // if (foundUser != nullptr)
+            // {
+            //     currentUser = *foundUser;
+            //     Member(users, currentUser);
+            //     loginSuccessful = true;
+            // }
+            // else
+            // {
+            //     cout << "Error: User not found\n";
+            // }
+            cout << mName << endl;
+            cout << "set name " << currentUser.getUsername() << endl;
+            Member(users, currentUser);
+            loginSuccessful = true;
+        }
+        else
+        {
+            cout << "Login error\n";
+        }
+
+    } while (!loginSuccessful);
 }
 
 void Guest(vector<User *> users, User currentUser)
@@ -261,6 +306,7 @@ void Guest(vector<User *> users, User currentUser)
         break;
     case 2:
         registerMember(users, currentUser);
+        Member(users, currentUser);
         // currentUser.showInfoWithoutRating(users);
         // users.push_back(&currentUser);
         break;

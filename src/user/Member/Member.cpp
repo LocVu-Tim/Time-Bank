@@ -15,8 +15,8 @@
 bool User::loginMember(vector<User *> users, string checkUsername) {
     string checkPwd;
 
-    cout << "Please enter registered username: ";
-    cin >> checkUsername;
+    // cout << "Please enter registered username: ";
+    // cin >> checkUsername;
     User *user = findByUsername(users, checkUsername);
     if (user == nullptr) {
         cout << "Username not found\n";
@@ -35,20 +35,20 @@ bool User::loginMember(vector<User *> users, string checkUsername) {
 }
 
 // TODO: Rewrite block function
-//// method to block member
-//void User::blockUser(const vector<User *>& users) {
-//    string blockName;
-//    int blockID;
-//    cout << "Enter username to block: ";
-//    cin >> blockName;
-//    checkValidUsername(users, blockName);
-//    if (findByUsername(users, blockName) == nullptr) {
-//        cout << "Username not found\n";
-//    } else {
-//        setBlocked(blockName);
-//        cout << "User " << blockName << " is blocked";
-//    }
-//}
+// method to block member
+void User::blockUser(const vector<User *>& users, User &currentUser) {
+    
+   string blockName;
+   cout << "Enter username to block: ";
+   cin >> blockName;
+   
+   if (findByUsername(users, blockName) == nullptr) {
+       cout << "Username not found\n";
+   } else {
+       currentUser.blocked.push_back(blockName);
+       cout << "User " << blockName << " is blocked\n";
+   }
+}
 
 // method to reset password for member
 void User::changePwdMember(User user, string temp) {
@@ -82,22 +82,22 @@ void User::showInfoMember()
     
 // }
 // method to show info with blocked
-void User::showInfoWithBlock(vector<User *> users) {
+// void User::showInfoWithBlock(vector<User *> users) {
 
-    cout << "----------Show users information----------\n";
-    for (auto &user: users) {
-        vector<int> blocks = user->getBlocked();
-        bool block = false;
-        for (int j: blocks) {
-            if (getUserId() == j) {
-                block = true;
-                break;
-            }
-        }
-        if (block) {
-            continue;
-        } else {
-            user->showInfoMember();
-        }
-    }
-}
+//     cout << "----------Show users information----------\n";
+//     for (auto &user: users) {
+//         vector<int> blocks = user->getBlocked();
+//         bool block = false;
+//         for (int j: blocks) {
+//             if (getUserId() == j) {
+//                 block = true;
+//                 break;
+//             }
+//         }
+//         if (block) {
+//             continue;
+//         } else {
+//             user->showInfoMember();
+//         }
+//     }
+// }
