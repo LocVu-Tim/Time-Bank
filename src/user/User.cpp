@@ -13,10 +13,10 @@
 User::User() {}
 
 // Constructor
-User::User(string userName, string pwd, string fullName, string email,
+User::User(int userID, string userName, string pwd, string fullName, string email,
            string homeAddr, string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
            int role = 2,
-           int userId = 0, double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
+           double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
     : userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)), email(std::move(email)),
       homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), isBlock(block), blocked(std::move(blocked)),
@@ -196,17 +196,13 @@ void setRatingScore(User user, int type, double score)
 }
 
 // method to top up credit points with pwd authorization
-int User::topUpCreds(User user, int topUp)
-{
+int User::topUpCreds(User user, int topUp) {
     string temp;
     cout << "Please enter password for authorization: ";
     cin >> temp;
-    if (verifyPwd(user, temp) == false)
-    {
+    if (!verifyPwd(std::move(user), temp)) {
         cout << "Incorrect password";
-    }
-    else
-    {
+    } else {
         cout << "Enter top up amount: ";
         cin >> topUp;
 
@@ -350,8 +346,7 @@ bool checkValidUsername(vector<User *> users, string userName)
 }
 
 // method to check valid email
-bool checkValidEmail(vector<User *> users, string email)
-{
+bool checkValidEmail(const vector<User *> &users, const string &email) {
     const regex pattern(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
 
     return regex_match(email, pattern);
@@ -396,10 +391,8 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo)
 }
 
 // method to check valid password
-bool checkValidPwd(string pwd)
-{
-    if (!(pwd.size() >= 8 && pwd.size() <= 15))
-    {
+bool checkValidPwd(string pwd) {
+    if (!(pwd.size() >= 8 && pwd.size() <= 15)) {
         cout << "Password must contain 8-15 characters.\n";
         return false;
     }
@@ -505,7 +498,6 @@ int countRatings(const User &user, int type)
 double calRatingScore(const User &user, int type)
 {
     double sum = 0;
-    double value = 0;
 
     for (Rating rate : user.ratings)
     {
@@ -515,7 +507,7 @@ double calRatingScore(const User &user, int type)
         }
     }
 
-    value = sum / countRatings(user, type);
+    double value = sum / countRatings(user, type);
 
     return value;
 }
@@ -523,4 +515,44 @@ double calRatingScore(const User &user, int type)
 // Method to update rating score
 void updateScore(User user, int type)
 {
+// Method to get host rating
+double User::getHostRating() const {
+    return this->hostRatingScore;
+}
+
+// Method to get skill rating
+double User::getSkillRating() const {
+    return this->skillRatingScore;
+}
+
+// Method to get supporter rating
+double User::getSupporterRating() const {
+    return this->supporterRatingScore;
+}
+
+// Method to get skill list
+vector<string> User::getSkillList() {
+    return this->skills;
+}
+
+// Method to set user rating score
+void updateRatingScore(User user, int type) {
+    if (type == 1) {
+        user.skillRatingScore = calRatingScore(user, type);
+    } else if (type == 2) {
+        user.supporterRatingScore = calRatingScore(user, type);
+    } else if (type == 3) {
+        user.hostRatingScore = calRatingScore(user, type);
+    }
+}
+
+// Method to set rating score
+void setRatingScore(User user, int type, double score) {
+    if (type == 1) {
+        user.skillRatingScore = score;
+    } else if (type == 2) {
+        user.supporterRatingScore = score;
+    } else if (type == 3) {
+        user.hostRatingScore = score;
+    }
 }

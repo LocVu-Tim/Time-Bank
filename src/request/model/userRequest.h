@@ -18,7 +18,10 @@ private:
     vector<string> skill;
     double minimumRatingForHost;
     double minimumRatingForSupporter;
-    string hostId;
+    int hostId;
+    int supporterId;
+    int pointsConsumed;
+    bool isCompleted;
 
 public:
     userRequest(string userId = "", int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}, double minimumRatingForSupporter = 0) : Request(userId, id)

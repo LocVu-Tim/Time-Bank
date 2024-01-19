@@ -40,6 +40,9 @@ void fileUtility::writeToFile(userRequest *request)
     fout << "minimumRatingForHost:" << request->minimumRatingForHost << endl;
     fout << "minimumRatingForSupporter:" << request->minimumRatingForSupporter << endl;
     fout << "hostId:" << request->hostId << endl;
+    fout << "supporterId:" << request->supporterId << endl;
+    fout << "pointsConsumed:" << request->pointsConsumed << endl;
+    fout << "isCompleted:" << (request->isCompleted == true ? "true" : "false") << endl;
     fout << endl;
     fout.close();
 };
@@ -133,7 +136,22 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
             }
             else if (key == "hostId")
             {
-                request->hostId = value;
+                request->hostId = stoi(value);
+            }
+            else if (key == "pointsConsumed")
+            {
+                request->pointsConsumed = stoi(value);
+            }
+            else if (key == "isCompleted")
+            {
+                if (value == "true")
+                {
+                    request->isCompleted = true;
+                }
+                else
+                {
+                    request->isCompleted = false;
+                }
             }
         }
     }
