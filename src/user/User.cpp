@@ -369,3 +369,9 @@ void setRatingScore(User user, int type, double score) {
         user.hostRatingScore = score;
     }
 }
+
+// Method to set skill
+void User::setSkills(const vector<string> &skills) {
+    User::skills = skills;
+}
+

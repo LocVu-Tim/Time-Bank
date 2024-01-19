@@ -193,6 +193,9 @@ public:
 
     // Method to get skill
     vector<string> getSkillList();
+
+    // Method to set skill
+    void setSkills(const vector<string> &skills);
 };
 
 // method to register user

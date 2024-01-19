@@ -351,7 +351,7 @@ void RequestView::requestForSupporter()
     checkBeforeSubmitting(userInputs["requestOperation"]);
 }
 
-bool RequestView::requestConfirmation(string msg){};
+//bool RequestView::requestConfirmation(string msg){};
 
 void RequestView::viewIncomingRequests(vector<userRequest *> &requestList, vector<User *> &userList)
 {
