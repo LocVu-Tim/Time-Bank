@@ -17,7 +17,8 @@
 
 using namespace std;
 
-class User {
+class User
+{
 private:
     int userID;
     string userName, pwd, fullName, email, homeAddr, phoneNo;
@@ -190,6 +191,9 @@ public:
 
     // Method to get supporter rating
     double getSupporterRating() const;
+
+    // TODO mock function remove later
+    void setSkills(vector<string> skills);
 
     // Method to get skill
     vector<string> getSkillList();

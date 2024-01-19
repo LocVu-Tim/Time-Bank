@@ -13,14 +13,14 @@ class Request
 {
 private:
     // User *user;
-    string userId;
+    int userId;
     int id;
     int supporterRatingScore;
     int hostRatingScore;
 
 public:
     // User *user = nullptr - old parameter
-    Request(string userId = "", int id = 0, int supporterRatingScore = 0, int hostRatingScore = 0)
+    Request(int userId = 0, int id = 0, int supporterRatingScore = 0, int hostRatingScore = 0)
     {
         this->userId = userId;
         this->supporterRatingScore = supporterRatingScore;

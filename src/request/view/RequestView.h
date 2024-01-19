@@ -19,6 +19,7 @@ class RequestView
 private:
     // vector<string> userInputs;
     map<string, string> userInputs;
+    vector<string> userSkills;
 
 public:
     RequestView();
@@ -61,7 +62,8 @@ public:
     void viewOutgoingRequests(vector<userRequest *> &requestList, vector<User *> &userList);
     // misc: ask for request confirmation
     bool requestConfirmation(string message);
-};
 
+    friend class RequestController;
+};
 
 #endif // REQUEST_VIEW_H

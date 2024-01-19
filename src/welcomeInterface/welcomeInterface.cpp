@@ -201,12 +201,15 @@ void Member()
     testUser2->setUserId(13);
 
     testUser->setBlocked(jao->getUserId());
+    testUser->setSkills({"C++", "Java", "Python"});
     vector<User *> userList = {testUser, testUser2, jao};
 
-    rc.setUser(testUser);
+    int choice;
+    cout << "enter 0 to 2 to test the user in function:" << endl;
+    cin >> choice;
+    rc.setUser(userList[choice]);
     rc.setUserList(userList);
 
-    int choice;
     bool running = true;
 
     while (running)
