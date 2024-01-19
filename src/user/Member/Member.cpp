@@ -71,7 +71,7 @@ void User::changePwdMember(User user, string &newPwd) {
 // method to show info
 void User::showInfoMember()
 {
-    showInfo();
+    showInfoWithRating();
     cout.width(ROLE_WIDTH);
     cout << left << "Member";
     cout << endl;
@@ -84,7 +84,6 @@ void User::showInfoMember()
 // method to show info with blocked
 void User::showInfoWithBlock(vector<User *> users, User currentUser) {
 
-    cout << "----------Show users information----------\n";
     for (auto &user: users) {
         vector<int> blocks = user->getBlocked();
         bool block = false;

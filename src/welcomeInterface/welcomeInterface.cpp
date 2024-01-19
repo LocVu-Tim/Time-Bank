@@ -246,7 +246,9 @@ void Member(vector<User *> users, User currentUser)
             break;
 
         case 8:
-            
+            showInfoHeaderWithRating();
+            currentUser.showInfoWithBlock(users, currentUser);
+            break;
             
         case 0:
             running = false;
