@@ -6,3 +6,11 @@
 # Ignore cmake build directory
 build/
 .cache/
+
+# Any file related to visual studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vcproj
+*.vcproj.*
