@@ -234,6 +234,7 @@ void RequestController::viewAllRequests()
     int userId = this->user->getUserId();
     vector<int> blocked = this->user->getBlocked();
     vector<userRequest *> availableData = filterRequestAvailable(filteredData, userId, blocked);
+    // Now filter by rating
     availableData = filterBasedOnHostRating(availableData, this->user->getHostRating());
 
     if (availableData.size() == 0)
