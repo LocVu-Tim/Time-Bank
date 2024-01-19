@@ -513,8 +513,8 @@ double calRatingScore(const User &user, int type)
 }
 
 // Method to update rating score
-void updateScore(User user, int type)
-{
+// void updateScore(User user, int type)
+// {
 // Method to get host rating
 double User::getHostRating() const {
     return this->hostRatingScore;
