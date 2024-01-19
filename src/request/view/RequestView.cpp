@@ -35,45 +35,8 @@ bool RequestView::isValidDate(string date)
 // Might be improved with inserting the type of request as a parameter
 void RequestView::checkBeforeSubmitting(string form)
 {
-    cout << isValidDate(userInputs["timeFrom"]) << endl;
     // validate date
     if (!isValidDate(userInputs["timeFrom"]) || !isValidDate(userInputs["timeTo"]))
-    {
-        errorHandling("Invalid date");
-        if (form == "list")
-        {
-            return list();
-        }
-        else if (form == "requestForSupporter")
-        {
-            return requestForSupporter();
-        }
-    }
-
-    // validate if the timeFrom is before timeTo
-    tm dateFrom_tm;
-    istringstream ss(userInputs["timeFrom"]);
-    ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
-    tm dateTo_tm;
-    istringstream ss2(userInputs["timeTo"]);
-    ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
-    if (difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm)) >= 0)
-    {
-        errorHandling("Invalid date");
-        if (form == "list")
-        {
-            return list();
-        }
-        else if (form == "requestForSupporter")
-        {
-            return requestForSupporter();
-        }
-    }
-
-    // validate if the timeFrom is after the current date
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
-    if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0)
     {
         errorHandling("Invalid date");
         if (form == "list")
@@ -166,20 +129,18 @@ void RequestView::setMultipleInputs(int numberOfInputs, string fieldName)
 
 bool RequestView::errorHandling(string error)
 {
-    string userInput;
     cout << "==============================" << endl;
     cout << "Invalid choice" << endl;
     cout << "Reason: " << error << endl;
     cout << "Please try again" << endl;
     cout << "Press Enter key to continue..." << endl;
-    getline(cin, userInput);
-    // cin >> error;
+    getline(cin, error);
     // cin >> error;
     // Clear the input buffer
     cin.ignore(10000, '\n');
     // cin.clear();
     cout << "==============================" << endl;
-    return false;
+    return true;
 }
 
 void RequestView::viewAvailableFunctions()
@@ -351,7 +312,7 @@ void RequestView::requestForSupporter()
     checkBeforeSubmitting(userInputs["requestOperation"]);
 }
 
-//bool RequestView::requestConfirmation(string msg){};
+bool RequestView::requestConfirmation(string msg){};
 
 void RequestView::viewIncomingRequests(vector<userRequest *> &requestList, vector<User *> &userList)
 {
