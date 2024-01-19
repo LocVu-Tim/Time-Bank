@@ -13,8 +13,8 @@
 User::User() {}
 
 // Constructor
-User::User(string userName, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, bool block = false, vector<string> blocked = {}, int creds = 20,
+User::User(string userName, string pwd, string fullName, string email, string homeAddr,
+           string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
            int role = 2,
            double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
@@ -149,16 +149,13 @@ bool User::isBlocked()
 }
 
 // method to get blocked person/people
-void User::getBlocked()
+vector<int> User::getBlocked()
 {
-    cout << "List of blocked usesr\n";
-    for(auto &block: blocked) {
-        cout << "- " << block << endl;
-    }
+    return blocked;
 }
 
 // method to set block
-void User::setBlocked(string blocks)
+void User::setBlocked(int blocks)
 {
     blocked.push_back(blocks);
 }
@@ -199,13 +196,17 @@ void setRatingScore(User user, int type, double score)
 }
 
 // method to top up credit points with pwd authorization
-int User::topUpCreds(User user, int topUp) {
+int User::topUpCreds(User user, int topUp)
+{
     string temp;
     cout << "Please enter password for authorization: ";
     cin >> temp;
-    if (!verifyPwd(std::move(user), temp)) {
+    if (!verifyPwd(std::move(user), temp))
+    {
         cout << "Incorrect password";
-    } else {
+    }
+    else
+    {
         cout << "Enter top up amount: ";
         cin >> topUp;
 
@@ -265,8 +266,9 @@ void User::showAllInfo()
     cout.width(HOST_RATING_WIDTH);
     cout << left << hostRatingScore;
 }
-// Method to show header of table 
-void showAllInfoHeader() {
+// Method to show header of table
+void showAllInfoHeader()
+{
     cout.width(USERNAME_WIDTH);
     cout << left << "USERNAME";
     cout.width(PWD_WIDTH);
@@ -289,7 +291,8 @@ void showAllInfoHeader() {
     cout << left << "HOST RATING SCORE";
 }
 // Method to show table header without rating n pwd
-void showInfoHeaderWithoutRating() {
+void showInfoHeaderWithoutRating()
+{
     cout.width(USERNAME_WIDTH);
     cout << left << "USERNAME";
     cout.width(FULLNAME_WIDTH);
@@ -303,8 +306,9 @@ void showInfoHeaderWithoutRating() {
     cout.width(CREDIT_POINT_WIDTH);
     cout << left << "CREDS";
 }
-// Method to show table header with rating 
-void showInfoHeaderWithRating() {
+// Method to show table header with rating
+void showInfoHeaderWithRating()
+{
     showInfoHeaderWithoutRating();
     cout.width(SKILL_RATING_WIDTH);
     cout << left << "SKILL RATING SCORE";
@@ -313,7 +317,6 @@ void showInfoHeaderWithRating() {
     cout.width(HOST_RATING_WIDTH);
     cout << left << "HOST RATING SCORE";
 }
-
 
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName)
@@ -349,7 +352,8 @@ bool checkValidUsername(vector<User *> users, string userName)
 }
 
 // method to check valid email
-bool checkValidEmail(const vector<User *> &users, const string &email) {
+bool checkValidEmail(const vector<User *> &users, const string &email)
+{
     const regex pattern(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
 
     return regex_match(email, pattern);
@@ -394,12 +398,14 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo)
 }
 
 // method to check valid password
-bool checkValidPwd(string pwd) {
-    if (!(pwd.size() >= 8 && pwd.size() <= 15)) {
+bool checkValidPwd(string pwd)
+{
+    if (!(pwd.size() >= 8 && pwd.size() <= 15))
+    {
         cout << "Password must contain 8-15 characters.\n";
         return false;
     }
-    else 
+    else
     {
         for (int i = 0; i < pwd.length(); i++)
         {
@@ -435,7 +441,7 @@ User *findByUsername(const vector<User *> &users, const string &username)
             return userPtr;
         }
     }
-    // cout << "Username not found\n";
+    cout << "Username not found\n";
     return nullptr; // Return nullptr if user is not found
 }
 
@@ -449,7 +455,7 @@ User *findMemberByUsername(const vector<User *> &users, const string &username)
             return userPtr;
         }
     }
-    // cout << "Member not found\n";
+    cout << "Member not found\n";
     return nullptr; // Return nullptr if user is not found
 }
 
@@ -519,43 +525,60 @@ double calRatingScore(const User &user, int type)
 // void updateScore(User user, int type)
 // {
 // Method to get host rating
-double User::getHostRating() const {
+double User::getHostRating() const
+{
     return this->hostRatingScore;
 }
 
 // Method to get skill rating
-double User::getSkillRating() const {
+double User::getSkillRating() const
+{
     return this->skillRatingScore;
 }
 
 // Method to get supporter rating
-double User::getSupporterRating() const {
+double User::getSupporterRating() const
+{
     return this->supporterRatingScore;
 }
 
 // Method to get skill list
-vector<string> User::getSkillList() {
+vector<string> User::getSkillList()
+{
     return this->skills;
 }
 
 // Method to set user rating score
-void updateRatingScore(User user, int type) {
-    if (type == 1) {
+void updateRatingScore(User user, int type)
+{
+    if (type == 1)
+    {
         user.skillRatingScore = calRatingScore(user, type);
-    } else if (type == 2) {
+    }
+    else if (type == 2)
+    {
         user.supporterRatingScore = calRatingScore(user, type);
-    } else if (type == 3) {
+    }
+    else if (type == 3)
+    {
         user.hostRatingScore = calRatingScore(user, type);
     }
 }
 
 // Method to set rating score
-void setRatingScore(User user, int type, double score) {
-    if (type == 1) {
+void setRatingScore(User user, int type, double score)
+{
+    if (type == 1)
+    {
         user.skillRatingScore = score;
-    } else if (type == 2) {
+    }
+    else if (type == 2)
+    {
         user.supporterRatingScore = score;
-    } else if (type == 3) {
+    }
+    else if (type == 3)
+    {
         user.hostRatingScore = score;
     }
+    
 }

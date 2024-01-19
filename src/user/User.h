@@ -35,7 +35,7 @@ public:
 
     // Constructor
     User(string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo, bool block, vector<string> blocked, int creds, int role, int userId,
+         string phoneNo, bool block, vector<int> blocked, int creds, int role, int userId,
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function
@@ -96,10 +96,10 @@ public:
     bool isBlocked();
 
     // method to get blocked person/people
-    void getBlocked();
+    vector<int> getBlocked();
 
     // method to set block
-    void setBlocked(string blocks);
+    void setBlocked(int blocks);
 
     // method to get userId
     int getUserId();
@@ -108,7 +108,7 @@ public:
     void setUserId(int id);
 
     // method to block user from viewing content
-    void blockUser(const vector<User *> &users, User &currentUser);
+    void blockUser(const vector<User *> &users);
 
     // method to show info with global width
     void showInfo();
