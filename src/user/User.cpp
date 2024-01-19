@@ -13,8 +13,13 @@
 User::User() {}
 
 // Constructor
+<<<<<<< HEAD
 User::User(string userName, string pwd, string fullName, string email, string homeAddr,
            string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
+=======
+User::User(string userName, string pwd, string fullName, string email,
+           string homeAddr, string phoneNo, bool block = false, vector<string> blocked = {}, int creds = 20,
+>>>>>>> parent of 6c8c35e (fix block function to use id instead of username)
            int role = 2,
            double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
