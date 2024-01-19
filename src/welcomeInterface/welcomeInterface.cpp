@@ -180,7 +180,7 @@ void Member(vector<User *> users, User currentUser)
         cout << "2. Add Skills" << endl;
         cout << "3. List as Supporter" << endl;
         cout << "4. View Supporters" << endl;
-        cout << "5. View Requests" << endl;
+        cout << "5. Manage Requests" << endl;
         cout << "6. Block Member" << endl;
         cout << "7. Back to Main Menu" << endl;
         cout << "8. View Other Members' Information" << endl;
