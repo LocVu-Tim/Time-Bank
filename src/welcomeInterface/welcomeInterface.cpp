@@ -2,24 +2,26 @@
 #include <fstream>
 #include <stdlib.h>
 #include <string.h>
-#include <vector>
-#include "welcomeInterface.h"
+#include "../user/Admin/Admin.cpp"
+#include "../user/Member/Member.cpp"
+#include "../user/Guest/Guest.cpp"
+#include "../user/User.h"
+#include "../user/Tools/Tool.h"
+#include "../user/Tools/Tool.cpp"
+#include "../user/User.cpp"
+#include "../rating/rating.h"
+#include "../rating/rating.cpp"
 
 using namespace std;
 
-void menu();
+void menu(vector<User *> users, User currentUser);
+void Guest(vector<User *> users, User currentUser);
+void Member(vector<User *> users, User currentUser);
+void Admin(vector<User *> users, User currentUser);
+void adminLogin(vector<User *> users, User currentUser);
+void memberLogin(vector<User *> users, User &currentUser);
 
-void Guest();
-
-void Member();
-
-void Admin();
-
-void adminLogin();
-
-void memberLogin();
-
-void welcomeInterface()
+void welcomeInterface(vector<User *> users, User currentUser)
 {
     int choice;
 
@@ -34,22 +36,12 @@ void welcomeInterface()
     cout << "s3927082 | Van Hong Lam " << endl;
     cout << "s3979199 | Luong Anh Huy" << endl;
     cout << "s3978609 | Tran Tuan Minh" << endl;
-    cout << "" << endl;
-    cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
-    cout << "''Time BANK'' APPLICATION" << endl;
-    cout << "" << endl;
-    cout << "Instructor: Mr. Tran Duc Linh" << endl;
-    cout << "Group: 18" << endl;
-    cout << "s3891483 | Vu Loc" << endl;
-    cout << "s3927082 | Van Hong Lam " << endl;
-    cout << "s3979199 | Luong Anh Huy" << endl;
-    cout << "s3978609 | Tran Tuan Minh" << endl;
-    menu();
+    menu(users, currentUser);
 }
 
-void menu()
+void menu(vector<User *> users, User currentUser)
 {
-    int choice;
+    int role;
     bool running = true;
 
     while (running)
@@ -58,12 +50,12 @@ void menu()
         cout << "**************************************************" << endl;
         cout << "************ WELCOME TO TIME BANK ****************" << endl;
         cout << "Use the app as: " << endl;
-        cout << "1. Admin" << endl;
+        cout << "1. Guest" << endl;
         cout << "2. Member" << endl;
-        cout << "3. Guest" << endl;
+        cout << "3. Admin" << endl;
         cout << "Enter Your Choice: ";
 
-        cin >> choice;
+        cin >> role;
 
         if (cin.fail())
         {
@@ -72,19 +64,18 @@ void menu()
             cout << "Invalid input! Please enter a number."
                  << "\n";
             continue;
-            continue;
         }
 
-        switch (choice)
+        switch (role)
         {
         case 1:
-            adminLogin();
+            Guest(users, currentUser);
             break;
         case 2:
-            memberLogin();
+            memberLogin(users, currentUser);
             break;
         case 3:
-            Guest();
+            adminLogin(users, currentUser);
             break;
         case 0:
             running = false;
@@ -93,10 +84,11 @@ void menu()
         default:
             cout << "Invalid choice! Please try again." << endl;
         }
+        // running = false;
     }
 }
 
-void Admin()
+void Admin(vector<User *> users, User currentUser)
 {
     int choice;
     bool running = true;
@@ -104,24 +96,43 @@ void Admin()
     while (running)
     {
         cout << "\nAdmin menu\n";
-        cout << "1.View admin information\n";
-        cout << "2.Reset member password\n";
-        cout << "3.Back to main menu\n";
+        cout << "1.Reset Member password\n";
+        cout << "2.Back to main menu\n";
+        cout << "3.Show information of all users\n";
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
-
+        string username;
         switch (choice)
         {
-        case 1:
-            menu();
+        case 1: // Reset Member password
+            
+            cout << "\nChoose a Member to reset password \n";
+            // View all Member information
+            for(auto &user: users) {
+                if(user->getRole() == 2) {
+                    user->showAllInfo();
+                }
+                
+                cout << endl;
+            }
+            cout << "Enter username for changing password: ";
+            cin >> username;
+            currentUser.changePwdAdmin(users, username);
+            (findByUsername(users, username))->showAllInfo();
             break;
         case 2:
-            menu();
+            menu(users, currentUser);
             break;
-        case 3:
-            menu();
-            break;
+
+        case 3://show all info 
+            showAllInfoHeader();
+            cout << endl;
+            for(auto &user: users) {
+                user->showAllInfo();
+                cout << endl;
+
+            }
 
         case 0:
             running = false;
@@ -135,109 +146,108 @@ void Admin()
     }
 }
 
-void adminLogin()
+void adminLogin(vector<User *> users, User currentUser)
 {
-    string aName, aPass, aN, aP;
+    string aName;
+    bool loginSuccessful = false;
 
-    cout << "Enter username: ";
-    cin >> aName;
-
-    cout << "Enter password: ";
-    cin >> aPass;
-
-    ifstream adminFile("./welcomeInterface/adminDetail.dat");
-    int found = 0;
-
-    while (adminFile >> aN >> aP)
+    do
     {
-        if (aName == aN && aPass == aP)
+        if (currentUser.loginAdmin(users, aName))
         {
-            found = 1;
-            break;
+            Admin(users, currentUser);
+            loginSuccessful = true;
         }
-    }
-
-    adminFile.close();
-
-    if (found)
-    {
-        cout << "Login Successful\n";
-        Admin();
-    }
-    else
-    {
-        cout << "Login Error\n";
-        adminLogin();
-    }
+        else
+        {
+            cout << "Login Error\n";
+            cout << "Enter username again: ";
+            cin >> aName;
+        }
+    } while (!loginSuccessful);
 }
 
-void Member()
+void Member(vector<User *> users, User currentUser)
 {
-    // database
-    RequestModel rm;
-    RequestView rv;
-    RequestController rc(rm, rv);
-
-    // TODO: Request Test data - should be removed when user is implemented
-    // load data from file
-    rm.load();
-    // Create a test user
-    // User usertoTest = registerMember(userList);
-
-    // User *relUser = &usertoTest;
-    // rc.setUser(relUser);
-    User *user = new User();
-    User *toBeBlocked = new User();
-    User *jao = *&toBeBlocked;
-    jao->setUsername("jao");
-    jao->setUserId(11);
-    // Normal one
-    User *testUser = *&user;
-    testUser->setUsername("usefalcuty");
-    testUser->setUserId(12);
-    // Another one
-    User *testUser2 = new User();
-    testUser2->setUsername("usefalcuty2");
-    testUser2->setUserId(13);
-
-    testUser->setBlocked(jao->getUserId());
-    vector<User *> userList = {testUser, testUser2, jao};
-
-    rc.setUser(testUser);
-    rc.setUserList(userList);
-
     int choice;
     bool running = true;
+    string newPwd;
 
     while (running)
     {
         cout << "\nMember Menu" << endl;
-        cout << "1. View Information" << endl;
+        cout << "1. View Personal Information" << endl;
         cout << "2. Add Skills" << endl;
         cout << "3. List as Supporter" << endl;
         cout << "4. View Supporters" << endl;
         cout << "5. Manage Requests" << endl;
         cout << "6. Block Member" << endl;
         cout << "7. Back to Main Menu" << endl;
+        cout << "8. View Other Members' Information" << endl;
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
 
         switch (choice)
         {
-        case 1:
-            menu();
-            break;
-        case 2:
-            menu();
-            break;
-        case 3:
-            menu();
-            break;
-        case 5:
-            rc.selectAvailableFunction();
+        case 1: // View Information
+            findMemberByUsername(users, currentUser.getUsername())->showAllInfo();
             break;
 
+        case 2: // add skill
+            // menu();
+            break;
+
+        case 3: // list as supporter
+            // menu();
+            break;
+
+        case 4: // view request
+            switch (choice)
+            {
+            // choose host
+            case 1: // host 1
+                // menu();
+                break;
+            case 2: // host 2..
+                // menu(); //your booking is received
+                // previous booked request
+                break;
+            case 3:
+                // menu();
+                break;
+            case 4:
+                // menu();
+                break;
+            }
+            // menu();
+            break;
+        case 5:
+            // menu();
+            break;
+        case 6:
+            showInfoHeaderWithRating();
+            cout << endl;
+            // for(auto &user: users) {
+            //     if(user->getRole() == 2) 
+            //     {
+                    currentUser.showInfoWithBlock(users, currentUser);
+            //         cout << endl;
+            //     }
+
+            // }
+            currentUser.blockUser(users, currentUser);
+            for(auto block: currentUser.getBlocked()) {
+                cout << block;
+            }
+            break;
+        case 7:
+            menu(users, currentUser);
+            break;
+
+        case 8:
+            
+            
         case 0:
             running = false;
             cout << "Exiting the application." << endl;
@@ -250,43 +260,45 @@ void Member()
     }
 }
 
-void memberLogin()
+void memberLogin(vector<User *> users, User &currentUser)
 {
-    string mName, mPass, mN, mP;
+    string mName;
+    bool loginSuccessful = false;
 
-    cout << "Enter username: ";
-    cin >> mName;
-
-    cout << "Enter password: ";
-    cin >> mPass;
-
-    ifstream memberFile("./welcomeInterface/memberDetail.dat");
-    int found = 0;
-
-    while (memberFile >> mN >> mP)
+    do
     {
-        if (mName == mN && mPass == mP)
+        cout << "Please enter registered username: ";
+        cin >> mName;
+        if (currentUser.loginMember(users, mName))
         {
-            found = 1;
-            break;
+            currentUser.setUsername(mName);
+            currentUser.setPwd(findByUsername(users, mName)->getPwd());
+            // User *foundUser = findMemberByUsername(users, currentUser.getUsername());
+
+            // if (foundUser != nullptr)
+            // {
+            //     currentUser = *foundUser;
+            //     Member(users, currentUser);
+            //     loginSuccessful = true;
+            // }
+            // else
+            // {
+            //     cout << "Error: User not found\n";
+            // }
+            cout << mName << endl;
+            cout << "set name " << currentUser.getUsername() << currentUser.getPwd() << endl;
+            Member(users, currentUser);
+            loginSuccessful = true;
         }
-    }
+        else
+        {
+            cout << "Login error\n";
+        }
 
-    memberFile.close();
-
-    if (found)
-    {
-        cout << "Login Successful\n";
-        Member();
-    }
-    else
-    {
-        cout << "Login Error\n";
-        memberLogin();
-    }
+    } while (!loginSuccessful);
 }
 
-void Guest()
+void Guest(vector<User *> users, User currentUser)
 {
 
     int choice;
@@ -299,17 +311,44 @@ void Guest()
     switch (choice)
     {
     case 1:
-        menu();
+        currentUser.showInfoWithoutRating(users);
         break;
     case 2:
-        menu();
+        registerMember(users, currentUser);
+        Member(users, currentUser);
+        // currentUser.showInfoWithoutRating(users);
+        // users.push_back(&currentUser);
         break;
     case 3:
-        menu();
+        menu(users, currentUser);
         break;
     default:
         cout << "Invalid choice!"
              << "\n";
         break;
     }
+}
+bool defaultData = false;
+
+int main()
+{
+    vector<User *> users;
+    User currentUser;
+    User nextUser;
+    User admin1 = User("admin1", "password1", "John Doe", "john@example.com", "123 Main St", "0123456789", false, {}, 20, 3, 1, 3, 4, 2, {});
+    User admin2 = User("admin2", "password2", "Jane Doe", "jane@example.com", "456 Oak St", "0213645987", false, {}, 20, 3, 2, 3, 4, 2, {});
+    User user1 = User("user1", "password3", "Bob Doe", "bob@example.com", "234 Wall St", "0345671298", false, {}, 20, 2, 3, 3, 4, 2, {});
+    User user2 = User("user2", "password4", "Bob Smtih", "smith@example.com", "234 Oak St", "0498765298", false, {}, 20, 2, 4, 3, 4, 2, {});
+    User user3 = User("user3", "password5", "John Smtih", "jsmtih@example.com", "456 Main St", "0512345678", false, {}, 20, 2, 5, 3, 4, 2, {});
+    User user4 = User("user4", "password6", "Bob Dover", "dover@example.com", "789 Greens St", "0648395023", false, {}, 20, 2, 6, 3, 4, 2, {});
+    User user5 = User("user5", "password7", "Peter Smtih", "peter@example.com", "123 Greens St", "0712312345", false, {}, 20, 2, 7, 3, 4, 2, {});
+    User user6 = User("user6", "password8", "Peter Parker", "parker@example.com", "345 Brooklyn St", "0898745631", false, {}, 20, 2, 8, 3, 4, 2, {});
+    User user7 = User("user7", "password9", "Harry Bon", "bon@example.com", "123 Oak St", "0923784590", false, {}, 20, 2, 9, 3, 4, 2, {});
+
+    users = {&admin1, &admin2, &user1, &user2, &user3, &user4, &user5, &user6, &user7};
+    welcomeInterface(users, currentUser);
+    // currentUser = registerMember(users, currentUser);
+    // currentUser.showInfoWithoutRating(users);
+    // memberLogin(users, currentUser);
+    return 0;
 }
