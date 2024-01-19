@@ -2,6 +2,8 @@
 // Ignore all files in the vscode/ directory
 .vscode/
 .vscode/settings.json
+
+// Ignore all files in the .vs directory
 .vs/
 
 # Ignore cmake build directory
@@ -15,3 +17,4 @@ build/
 *.vcxproj.user
 *.vcproj
 *.vcproj.*
+
