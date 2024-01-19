@@ -335,7 +335,7 @@ void RequestView::viewAllHostRequests(vector<userRequest *> &requestList, vector
         requestList[i]->printInfo(userList);
         cout << string(50, '=') << endl;
     }
-    cout << "Would you like to apply for any of the above requests? (y/n)" << endl;
+    cout << "Would you like to have supporter for any of the above requests? (y/n)" << endl;
 };
 
 void RequestView::requestForSupporter()

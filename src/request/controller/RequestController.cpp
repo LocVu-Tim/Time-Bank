@@ -191,10 +191,10 @@ void RequestController::unlist()
     while (true)
     {
         requestView.unlist(filteredList, this->userList);
-        string unlistChoice;
-        cin >> unlistChoice;
+        string unlistenChoice;
+        cin >> unlistenChoice;
         // return the object that user had selected
-        userRequest *foundRequest = findARequest(stoi(unlistChoice) - 1, filteredList);
+        userRequest *foundRequest = findARequest(stoi(unlistenChoice) - 1, filteredList);
         int id = foundRequest->id;
         // pass the object to the requestModel
         int pos = requestModel->getPositionOfRequest(id);
@@ -654,6 +654,7 @@ vector<userRequest *> RequestController::filterBasedOnSkills(vector<userRequest 
             requestList.erase(requestList.begin() + i);
         }
     }
+    return requestList;
 }
 
 vector<userRequest *> RequestController::filterRatedRequest(vector<userRequest *> &requestList)
@@ -665,4 +666,5 @@ vector<userRequest *> RequestController::filterRatedRequest(vector<userRequest *
             requestList.erase(requestList.begin() + i);
         }
     }
+    return requestList;
 }
