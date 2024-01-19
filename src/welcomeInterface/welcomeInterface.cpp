@@ -125,6 +125,14 @@ void Admin(vector<User *> users, User currentUser)
             menu(users, currentUser);
             break;
 
+        case 3://show all info 
+            showAllInfoHeader();
+            for(auto &user: users) {
+                user->showAllInfo();
+                cout << endl;
+                
+            }
+
         case 0:
             running = false;
             cout << "Exiting the application." << endl;
