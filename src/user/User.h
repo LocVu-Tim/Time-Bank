@@ -189,10 +189,16 @@ public:
 
     // Method to show member info with rating
     // void User::showInfoMemberWithRating(vector<User *> users);
+
+    //method to show all info (including password and rating) 
+    void showAllInfo();
+
+    // Method to show info with rating
+    void showInfoWithRating();
 };
 
 // method to register user
-User registerMember(vector<User *> users, User currentUser);
+User registerMember(vector<User *> &users, User currentUser);
 
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName);
@@ -214,3 +220,9 @@ User *findByUsername(const vector<User *> &users, const string &username);
 
 // method to find user by if
 User *findById(const vector<User *> &users, const int targetId);
+
+// method to find member through username
+User *findMemberByUsername(const vector<User *> &users, const string &username);
+
+// method to find admin through username
+User *findAdminByUsername(const vector<User *> &users, const string &username);

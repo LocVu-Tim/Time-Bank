@@ -17,3 +17,4 @@ const int HOME_ADDR_WIDTH = 20;
 const int SKILL_RATING_WIDTH = 10;
 const int SUPPORTER_RATING_WIDTH = 10;
 const int HOST_RATING_WIDTH = 10;
+const int PWD_WIDTH = 15;

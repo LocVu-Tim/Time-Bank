@@ -6,7 +6,7 @@
     - SHOW INFO OF USERS WITHOUT RATING*/
 
 // method to register to become user (for guest)
-User registerMember(vector<User *> users, User *currentUser)
+User registerMember(vector<User *> &users, User currentUser)
 {
     int fee = 20;
     string temp;
@@ -18,8 +18,10 @@ User registerMember(vector<User *> users, User *currentUser)
         cout << "Please enter your full name: ";
         cin.ignore();  // Clear the input buffer
         getline(cin, temp);
-        currentUser->setFullName(temp);
+        currentUser.setFullName(temp);
+        
         if (!(temp.empty())) {
+            temp = "";
             break;
         } else {
             continue;
@@ -32,7 +34,8 @@ User registerMember(vector<User *> users, User *currentUser)
         if (checkValidUsername(users, temp) == false) {
             continue;
         } else {
-            currentUser->setUsername(temp);
+            currentUser.setUsername(temp);
+            temp = "";
             break;
         }
     }
@@ -43,7 +46,8 @@ User registerMember(vector<User *> users, User *currentUser)
         if (checkValidPwd(temp) == false) {
             continue;
         } else {
-            currentUser->setPwd(temp);
+            currentUser.setPwd(temp);
+            temp = "";
             break;
         }
     }
@@ -55,7 +59,8 @@ User registerMember(vector<User *> users, User *currentUser)
             cout << "Invalid email\n";
             continue;
         } else {
-            currentUser->setEmail(temp);
+            currentUser.setEmail(temp);
+            temp = "";
             break;
         }
     }
@@ -66,7 +71,8 @@ User registerMember(vector<User *> users, User *currentUser)
         if (checkValidPhoneNo(users, temp) == false) {
             continue;
         } else {
-            currentUser->setPhoneNo(temp);
+            currentUser.setPhoneNo(temp);
+            temp = "";
             break;
         }
     }
@@ -74,16 +80,20 @@ User registerMember(vector<User *> users, User *currentUser)
     cout << "Please enter your home address: ";
     cin.ignore();  // Clear the input buffer
     getline(cin, temp);
-    currentUser->setHomeAddr(temp);
+    currentUser.setHomeAddr(temp);
+    temp = "";
 
     cout << "Initial credit points set to 20\n";
-    currentUser->setCreds(fee);
-    return *currentUser;
+    currentUser.setCreds(fee);
+    currentUser.setRole(2);
+    users.push_back(new User(currentUser));
+    return currentUser;
 }
 
 // method to showinfo without rating score
 void User::showInfoWithoutRating(vector<User *> users)
 {
+    cout << users.size() << endl;
     for (int i = 0; i < users.size(); i++)
     {
         if (users[i]->getRole() == 2)
@@ -95,4 +105,5 @@ void User::showInfoWithoutRating(vector<User *> users)
             users[i]->showInfoAdmin();
         }
     }
+    
 }

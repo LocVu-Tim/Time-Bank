@@ -21,7 +21,7 @@ void Admin(vector<User *> users, User currentUser);
 void adminLogin(vector<User *> users, User currentUser);
 void memberLogin(vector<User *> users, User currentUser);
 
-void welcomeInterface(vector<User *> users, User currentUser)
+void welcomeInterface(vector<User *> &users, User currentUser)
 {
     int choice;
 
@@ -84,6 +84,7 @@ void menu(vector<User *> users, User currentUser)
         default:
             cout << "Invalid choice! Please try again." << endl;
         }
+        // running = false;
     }
 }
 
@@ -100,41 +101,20 @@ void Admin(vector<User *> users, User currentUser)
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
-
+        string username;
         switch (choice)
         {
         case 1: // Reset Member password
+            
             cout << "\nChoose a Member to reset password \n";
             // View all Member information
+            currentUser.showAllInfo();
+            cout << "Enter username for changing password: ";
+            cin >> username;
+            currentUser.changePwdAdmin(users, username);
 
-            switch (choice)
-            {
-            case 1:
-                cout << "Member 1: "; // << TODO: username1 << "\n; //
-                // TODO: Reset Member password function
-            case 2:
-                cout << "Member 2: "; // << TODO: username2 << "\n; //
-                // TODO: Reset Member password function
-                break;
-            case 3:
-                cout << "Member 3: "; // << TODO: username3 << "\n"; //
-                // TODO: Reset Member password function
-                break;
-
-            case 0:
-                running = false;
-                cout << "Exiting the application." << endl;
-                break;
-            default:
-                cout << "Invalid choice!"
-                     << "\n";
-                break;
-            }
             break;
         case 2:
-            menu(users, currentUser);
-            break;
-        case 3:
             menu(users, currentUser);
             break;
 
@@ -152,41 +132,16 @@ void Admin(vector<User *> users, User currentUser)
 
 void adminLogin(vector<User *> users, User currentUser)
 {
-    string aName, aPass, aN, aP;
-
-    cout << "Enter username: ";
-    cin >> aName;
-
-    cout << "Enter password: ";
-    cin >> aPass;
-
-    ifstream adminFile("./welcomeInterface/adminDetail.dat");
-    int found = 0;
-
-    while (adminFile >> aN >> aP)
-    {
-        if (aName == aN && aPass == aP)
-        {
-            found = 1;
-            break;
-        }
-    }
-
-    adminFile.close();
-
-    if (found)
-    {
-        cout << "Login Successful\n";
+    string aName;
+    if(currentUser.loginAdmin(users, aName) == true) {
         Admin(users, currentUser);
     }
-    else
-    {
-        cout << "Login Error\n";
-        adminLogin(users, currentUser);
+    else{
+        menu(users, currentUser);
     }
 }
 
-void Member()
+void Member(vector<User *> users, User currentUser)
 {
     int choice;
     bool running = true;
@@ -208,7 +163,7 @@ void Member()
         switch (choice)
         {
         case 1: // View Information
-            // menu();
+            findMemberByUsername(users, currentUser.getUsername())->showAllInfo();
             break;
 
         case 2: // add skill
@@ -245,7 +200,8 @@ void Member()
         case 6:
             // menu();
             break;
-
+        case 7:
+            menu(users, currentUser);
         case 0:
             running = false;
             cout << "Exiting the application." << endl;
@@ -261,7 +217,16 @@ void Member()
 void memberLogin(vector<User *> users, User currentUser)
 {
     string mName, mPass;
-    currentUser.loginMember(users, mName);
+    if (currentUser.loginMember(users, mName) == true)
+    {
+        Member(users, currentUser);
+        currentUser.setUsername(mName);
+        cout << currentUser.getUsername();
+    }
+    else
+    {
+        memberLogin(users, currentUser);
+    }
 }
 
 void Guest(vector<User *> users, User currentUser)
@@ -280,8 +245,9 @@ void Guest(vector<User *> users, User currentUser)
         currentUser.showInfoWithoutRating(users);
         break;
     case 2:
-        registerMember(users, &currentUser);
-        users.push_back(&currentUser);
+        registerMember(users, currentUser);
+        // currentUser.showInfoWithoutRating(users);
+        // users.push_back(&currentUser);
         break;
     case 3:
         menu(users, currentUser);
@@ -298,6 +264,7 @@ int main()
 {
     vector<User *> users;
     User currentUser;
+    User nextUser;
     User admin1 = User("admin1", "password1", "John Doe", "john@example.com", "123 Main St", "0123456789", false, {}, 20, 3, 1, 3, 4, 2, {});
     User admin2 = User("admin2", "password2", "Jane Doe", "jane@example.com", "456 Oak St", "0213645987", false, {}, 20, 3, 2, 3, 4, 2, {});
     User user1 = User("user1", "password3", "Bob Doe", "bob@example.com", "234 Wall St", "0345671298", false, {}, 20, 2, 3, 3, 4, 2, {});
@@ -310,6 +277,8 @@ int main()
 
     users = {&admin1, &admin2, &user1, &user2, &user3, &user4, &user5, &user6, &user7};
     welcomeInterface(users, currentUser);
-
+    // currentUser = registerMember(users, currentUser);
+    // currentUser.showInfoWithoutRating(users);
+    // memberLogin(users, currentUser);
     return 0;
 }

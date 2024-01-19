@@ -201,6 +201,39 @@ void User::showInfo() {
     cout.width(CREDIT_POINT_WIDTH);
     cout << left << creds;
 }
+//method to show info with rating 
+void User::showInfoWithRating() {
+    User::showInfo();
+    cout.width(SKILL_RATING_WIDTH);
+    cout << left << skillRatingScore;
+    cout.width(SUPPORTER_RATING_WIDTH);
+    cout << left << supporterRatingScore;
+    cout.width(HOST_RATING_WIDTH);
+    cout << left << hostRatingScore;
+}
+//method to show all info (including password and rating) 
+void User::showAllInfo() {
+    cout.width(USERNAME_WIDTH);
+    cout << left << userName;
+    cout.width(PWD_WIDTH);
+    cout << left << pwd;
+    cout.width(FULLNAME_WIDTH);
+    cout << left << fullName;
+    cout.width(EMAIL_WIDTH);
+    cout << left << email;
+    cout.width(HOME_ADDR_WIDTH);
+    cout << left << homeAddr;
+    cout.width(PHONE_NUMBER_WIDTH);
+    cout << left << phoneNo;
+    cout.width(CREDIT_POINT_WIDTH);
+    cout << left << creds;
+    cout.width(SKILL_RATING_WIDTH);
+    cout << left << skillRatingScore;
+    cout.width(SUPPORTER_RATING_WIDTH);
+    cout << left << supporterRatingScore;
+    cout.width(HOST_RATING_WIDTH);
+    cout << left << hostRatingScore;
+}
 
 
 // method to check valid username
@@ -299,13 +332,36 @@ bool verifyPwd(User user, string pwd) {
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username) {
     for (const auto &userPtr: users) {
-        if (caseInsensitiveStringCompare(userPtr->getUsername(), username)) {
+        if (userPtr->getUsername() == username) {
             return userPtr;
         }
     }
-    cout << "User not found\n";
+    cout << "Username not found\n";
     return nullptr; // Return nullptr if user is not found
 }
+
+// method to find member through username
+User *findMemberByUsername(const vector<User *> &users, const string &username) {
+    for (const auto &userPtr: users) {
+        if (caseInsensitiveStringCompare(userPtr->getUsername(), username) && userPtr->getRole() == 2) {
+            return userPtr;
+        }
+    }
+    cout << "Member not found\n";
+    return nullptr; // Return nullptr if user is not found
+}
+
+// method to find admin through username
+User *findAdminByUsername(const vector<User *> &users, const string &username) {
+    for (const auto &userPtr: users) {
+        if (caseInsensitiveStringCompare(userPtr->getUsername(), username) && userPtr->getRole() == 3) {
+            return userPtr;
+        }
+    }
+    cout << "Admin not found\n";
+    return nullptr; // Return nullptr if user is not found
+}
+
 
 //method to find user by id
 User *findById(const vector<User *> &users, const int targetId) {

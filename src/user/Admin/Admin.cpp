@@ -19,7 +19,6 @@ bool User::loginAdmin(const vector<User *>& users, string checkUsername) {
     cin >> checkUsername;
     User *user = findByUsername(users, checkUsername);
     if (user == nullptr) {
-        cout << "Username not found\n";
         return false;
     } else {
         cout << "Please enter password: ";
@@ -27,7 +26,6 @@ bool User::loginAdmin(const vector<User *>& users, string checkUsername) {
         if (verifyPwd(*user, checkPwd)) {
             cout << "Login successful\n";
         } else {
-            cout << "Incorrect username/password\n";
             return false;
         }
         return true;
@@ -46,8 +44,7 @@ void User::showInfoAdmin()
 // method to change password for admin
 void User::changePwdAdmin(const vector<User *>& users, string username) {
     string reset;
-    cout << "Enter username for changing password: ";
-    cin >> username;
+    
 
     User *user = findByUsername(users, username);
     if (user == nullptr) {
