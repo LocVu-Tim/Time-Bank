@@ -171,17 +171,19 @@ void Member(vector<User *> users, User currentUser)
 {
     int choice;
     bool running = true;
+    string newPwd;
 
     while (running)
     {
         cout << "\nMember Menu" << endl;
-        cout << "1. View Information" << endl;
+        cout << "1. View Personal Information" << endl;
         cout << "2. Add Skills" << endl;
         cout << "3. List as Supporter" << endl;
         cout << "4. View Supporters" << endl;
         cout << "5. View Requests" << endl;
         cout << "6. Block Member" << endl;
         cout << "7. Back to Main Menu" << endl;
+        cout << "8. View Other Members' Information" << endl;
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
@@ -226,20 +228,26 @@ void Member(vector<User *> users, User currentUser)
         case 6:
             showInfoHeaderWithRating();
             cout << endl;
-            for(auto &user: users) {
-                if(user->getRole() == 2) 
-                {
-                    user->showInfoWithRating();
-                    cout << endl;
-                }
+            // for(auto &user: users) {
+            //     if(user->getRole() == 2) 
+            //     {
+                    currentUser.showInfoWithBlock(users, currentUser);
+            //         cout << endl;
+            //     }
 
-            }
+            // }
             currentUser.blockUser(users, currentUser);
-            currentUser.getBlocked();
+            for(auto block: currentUser.getBlocked()) {
+                cout << block;
+            }
             break;
         case 7:
             menu(users, currentUser);
             break;
+
+        case 8:
+            
+            
         case 0:
             running = false;
             cout << "Exiting the application." << endl;
@@ -264,6 +272,7 @@ void memberLogin(vector<User *> users, User &currentUser)
         if (currentUser.loginMember(users, mName))
         {
             currentUser.setUsername(mName);
+            currentUser.setPwd(findByUsername(users, mName)->getPwd());
             // User *foundUser = findMemberByUsername(users, currentUser.getUsername());
 
             // if (foundUser != nullptr)
@@ -277,7 +286,7 @@ void memberLogin(vector<User *> users, User &currentUser)
             //     cout << "Error: User not found\n";
             // }
             cout << mName << endl;
-            cout << "set name " << currentUser.getUsername() << endl;
+            cout << "set name " << currentUser.getUsername() << currentUser.getPwd() << endl;
             Member(users, currentUser);
             loginSuccessful = true;
         }
