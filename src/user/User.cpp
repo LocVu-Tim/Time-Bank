@@ -400,4 +400,5 @@ void rateUser(User rater, User rated) {
     rating.setRatingValue(ratingValue);
     rating.setComment(comment);
     rated.ratings.push_back(rating);
+    updateRatingScore(rated, type);
 }
