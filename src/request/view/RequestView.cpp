@@ -257,7 +257,7 @@ void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *
 // TODO - the data now need to be filtered by the rating of the request user to the current user.
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
-    // qq change in the implementation - display all available reqyests
+    // qq change in the implementation - display all available requests
     cout << "Available requests for you to join: " << endl;
     for (int i = 0; i < availableRequests.size(); i++)
     {

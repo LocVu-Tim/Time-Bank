@@ -26,7 +26,6 @@ int RequestController::OperationsList()
 void RequestController::selectAvailableFunction()
 {
     int choice = OperationsList();
-    // TODO test if the change is applied
     fileUtility fileUtility;
     switch (choice)
     {
@@ -504,7 +503,7 @@ void RequestController::incomingProcess()
                     // calculate the points consumed
                     calculatePointsConsumedForSupporter(request);
                 }
-                // TODO rating
+                // TODO 
                 cout << "Do you want to continue? (Y/n)" << endl;
                 if (choice == "Y" || choice == "y")
                 {
