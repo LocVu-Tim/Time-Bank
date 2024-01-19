@@ -98,6 +98,7 @@ void Admin(vector<User *> users, User currentUser)
         cout << "\nAdmin menu\n";
         cout << "1.Reset Member password\n";
         cout << "2.Back to main menu\n";
+        cout << "3.Show information of all users\n";
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
@@ -108,11 +109,17 @@ void Admin(vector<User *> users, User currentUser)
             
             cout << "\nChoose a Member to reset password \n";
             // View all Member information
-            currentUser.showAllInfo();
+            for(auto &user: users) {
+                if(user->getRole() == 2) {
+                    user->showAllInfo();
+                }
+                
+                cout << endl;
+            }
             cout << "Enter username for changing password: ";
             cin >> username;
             currentUser.changePwdAdmin(users, username);
-
+            (findByUsername(users, username))->showAllInfo();
             break;
         case 2:
             menu(users, currentUser);
