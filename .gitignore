@@ -1,9 +1,23 @@
 
-// Ignore all files in the vscode/ directory
+# Ignore all files in the vscode/ directory
 .vscode/
 .vscode/settings.json
 .vs/
 
+# Ignore all files in the .vs directory
+.vs/
+
+
+
 # Ignore cmake build directory
 build/
 .cache/
+
+# Any file related to visual studio
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vcproj
+*.vcproj.*
+
