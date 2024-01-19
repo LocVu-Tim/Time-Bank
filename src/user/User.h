@@ -193,6 +193,9 @@ public:
     // Method to get supporter rating
     double getSupporterRating() const;
 
+    // TODO mock function remove later
+    void setSkills(vector<string> skills);
+
     // Method to get skill
     vector<string> getSkillList();
 

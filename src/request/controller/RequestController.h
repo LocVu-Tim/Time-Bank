@@ -6,7 +6,8 @@
 #include "../model/RequestModel.h"
 #include "../controller/RequestController.h"
 
-class RequestController {
+class RequestController
+{
 private:
     RequestModel *requestModel;
     RequestView *requestView;
@@ -31,33 +32,38 @@ public:
 
     void unlist();
 
-    void viewAllRequests(RequestModel &rm);
+    void viewAllRequests();
 
     void GuestViewAllRequests(RequestModel &rm);
 
     void adminViewAllRequests(RequestModel &rm);
-    void hostViewAvailableRequest(RequestModel &rm);
+    void hostViewAvailableRequest();
     userRequest *findARequest(int position, vector<userRequest *> requestList);
 
     void requestForSupporter();
 
     // for view available request
     vector<userRequest *>
-    filterRequestAvailable(vector<userRequest *> &requestList, string username, vector<int> blocked);
+    filterRequestAvailable(vector<userRequest *> &requestList, int userId, vector<int> blocked);
 
     // For looking for supporter
     vector<userRequest *> filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating);
     vector<userRequest *> filterBasedOnSupporterRating(vector<userRequest *> &requestList, double supporterRating);
+    vector<userRequest *> filterBasedOnSkills(vector<userRequest *> &requestList, string skill);
+    vector<userRequest *> filterRatedRequest(vector<userRequest *> &requestList);
 
-    void processRequest();
-    void calculatePointsConsumed(userRequest *request);
+    void incomingProcess();
+    void outgoingProcess();
+    void calculatePointsConsumedForHost(userRequest *request);
+    void calculatePointsConsumedForSupporter(userRequest *request);
 
     vector<userRequest *> filterUserList(vector<userRequest *> &requestList);
 
     void setUser(User *user);
     vector<userRequest *> filterIncomingRequest();
     vector<userRequest *> filterOutgoingRequest();
-    void setUserList(vector<User *> userList);
+    void setUserList(vector<User *> &userList);
+    bool handleRating(vector<userRequest *> &requestList);
 
     friend class RequestView;
 

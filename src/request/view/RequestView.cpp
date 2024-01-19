@@ -1,8 +1,6 @@
 #include "../request.h"
 #include "RequestView.h"
 
-// TODO list skill
-
 RequestView::RequestView() {}
 
 // RequestView::~RequestView(){};
@@ -50,41 +48,46 @@ void RequestView::checkBeforeSubmitting(string form)
         }
     }
 
-    // validate if the timeFrom is before timeTo
-    tm dateFrom_tm;
-    istringstream ss(userInputs["timeFrom"]);
-    ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
-    tm dateTo_tm;
-    istringstream ss2(userInputs["timeTo"]);
-    ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
-    if (difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm)) >= 0)
-    {
-        errorHandling("Invalid date");
-        if (form == "list")
-        {
-            return list();
-        }
-        else if (form == "requestForSupporter")
-        {
-            return requestForSupporter();
-        }
-    }
+    // // validate if the timeFrom is before timeTo
+    // tm dateFrom_tm;
+    // istringstream ss(userInputs["timeFrom"]);
+    // ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
+    // tm dateTo_tm;
+    // istringstream ss2(userInputs["timeTo"]);
+    // ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
 
-    // validate if the timeFrom is after the current date
-    time_t now = time(0);
-    tm *ltm = localtime(&now);
-    if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0)
-    {
-        errorHandling("Invalid date");
-        if (form == "list")
-        {
-            return list();
-        }
-        else if (form == "requestForSupporter")
-        {
-            return requestForSupporter();
-        }
-    }
+    // // Debug
+    // // print timeFrom and timeTo
+    // cout << "Time from: " << userInputs["timeFrom"] << endl;
+    // cout << "Time to: " << userInputs["timeTo"] << endl;
+    // if (difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm)) >= 0)
+    // {
+    //     errorHandling("Invalid date");
+    //     if (form == "list")
+    //     {
+    //         return list();
+    //     }
+    //     else if (form == "requestForSupporter")
+    //     {
+    //         return requestForSupporter();
+    //     }
+    // }
+
+    // // validate if the timeFrom is after the current date
+    // time_t now = time(0);
+    // tm *ltm = localtime(&now);
+    // if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0)
+    // {
+    //     errorHandling("From date must after current");
+    //     if (form == "list")
+    //     {
+    //         return list();
+    //     }
+    //     else if (form == "requestForSupporter")
+    //     {
+    //         return requestForSupporter();
+    //     }
+    // }
 
     // validate if the pointsPerHour is a number
     try
@@ -172,13 +175,9 @@ bool RequestView::errorHandling(string error)
     cout << "Reason: " << error << endl;
     cout << "Please try again" << endl;
     cout << "Press Enter key to continue..." << endl;
-    getline(cin, userInput);
-    // cin >> error;
-    // cin >> error;
-    // Clear the input buffer
-    cin.ignore(10000, '\n');
+    cin.ignore(1000, '\n');
     // cin.clear();
-    cout << "==============================" << endl;
+    cout << endl;
     return false;
 }
 
@@ -187,8 +186,11 @@ void RequestView::viewAvailableFunctions()
     cout << "==============================" << endl;
     cout << "1. List or unlist a request" << endl;
     cout << "2. Request for a supporter" << endl;
-    cout << "3. View all request" << endl;
-    cout << "4. Exit" << endl;
+    cout << "3. View all request as a supporter" << endl;
+    cout << "4. View all request as a host" << endl;
+    cout << "5. View all incoming requests" << endl;
+    cout << "6. View all outgoing requests" << endl;
+    cout << "7. Exit" << endl;
     cout << "==============================" << endl;
 };
 
@@ -203,9 +205,10 @@ void RequestView::listOrUnlist()
 
 void RequestView::list()
 {
+    // TODO list skill
+
     int numberOfSkills;
-    cout << "Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): "
-         << endl;
+    cout << "Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): " << endl;
     cout << "From: " << endl;
     setInput("timeFrom");
     cout << "To: " << endl;
@@ -214,6 +217,21 @@ void RequestView::list()
     // cin >> numberOfSkills;
     // cout << "Skill to perform " << endl;
     // setMultipleInputs(numberOfSkills, "skill");
+    string choice;
+    cout << "Available skills: " << endl;
+    if (userSkills.size() == 0)
+    {
+        cout << "none" << endl;
+        return;
+    }
+    for (int i = 0; i < userSkills.size(); i++)
+    {
+        cout << "Skill " << i + 1 << ": " << userSkills[i] << endl;
+    }
+    cout << "Select the skill you want to add: " << endl;
+    int skillChoice;
+    cin >> skillChoice;
+    userInputs["skill"] = userSkills[skillChoice - 1];
     cout << "Point consumed / hour: " << endl;
     setInput("pointsPerHour");
     cout << "Minimum rating for host (Optional, press Enter if you want to skip): " << endl;
@@ -239,7 +257,7 @@ void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *
 // TODO - the data now need to be filtered by the rating of the request user to the current user.
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
-    // qq change in the implementation - display all available reqyests
+    // qq change in the implementation - display all available requests
     cout << "Available requests for you to join: " << endl;
     for (int i = 0; i < availableRequests.size(); i++)
     {
@@ -317,11 +335,13 @@ void RequestView::viewAllHostRequests(vector<userRequest *> &requestList, vector
         requestList[i]->printInfo(userList);
         cout << string(50, '=') << endl;
     }
-    cout << "Would you like to apply for any of the above requests? (y/n)" << endl;
+    cout << "Would you like to have supporter for any of the above requests? (y/n)" << endl;
 };
 
 void RequestView::requestForSupporter()
 {
+    // TODO customs skill
+
     int numberOfSkills;
     cout << "==============================" << endl;
     cout << "Enter the time period you want to request another people (In date and with format dd/mm/yyyy): " << endl;
@@ -335,9 +355,10 @@ void RequestView::requestForSupporter()
     // cin >> numberOfSkills;
     // cout << "==============================" << endl;
 
-    // cout << "Skill to perform " << endl;
+    cout << "Skill for supporter to perform " << endl;
     // setMultipleInputs(numberOfSkills, "skill");
-    // cout << "==============================" << endl;
+    setInput("skill");
+    cout << "==============================" << endl;
 
     cout << "Points to be paid / hour: " << endl;
     setInput("pointsPerHour");
@@ -351,7 +372,7 @@ void RequestView::requestForSupporter()
     checkBeforeSubmitting(userInputs["requestOperation"]);
 }
 
-//bool RequestView::requestConfirmation(string msg){};
+// bool RequestView::requestConfirmation(string msg){};
 
 void RequestView::viewIncomingRequests(vector<userRequest *> &requestList, vector<User *> &userList)
 {
@@ -378,5 +399,5 @@ void RequestView::viewOutgoingRequests(vector<userRequest *> &requestList, vecto
         requestList[i]->printInfo(userList);
         cout << "==============================" << endl;
     }
-    cout << "Do you want to accept any of the requests above(Y/n)?" << endl;
+    cout << "Do you want to perform any actions for these requests above(Y/n)?" << endl;
 }

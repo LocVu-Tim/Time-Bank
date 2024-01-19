@@ -22,9 +22,10 @@ private:
     int supporterId;
     int pointsConsumed;
     bool isCompleted;
+    bool isRated;
 
 public:
-    userRequest(string userId = "", int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}, double minimumRatingForSupporter = 0) : Request(userId, id)
+    userRequest(int userId = 0, int id = 0, bool availability = false, int pointsPerHour = 0, string timeFrom = "", string timeTo = "", string city = "", double minimumRatingForHost = 0, vector<string> skills = {}, double minimumRatingForSupporter = 0) : Request(userId, id)
     {
         this->skill = skills;
         this->availability = availability;
