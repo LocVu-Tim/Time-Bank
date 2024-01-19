@@ -17,14 +17,13 @@
 
 using namespace std;
 
-class User {
+class User
+{
 private:
-    int userID;
     string userName, pwd, fullName, email, homeAddr, phoneNo;
     bool isBlock;
     vector<int> blocked;
-    vector<string> skills;
-    int creds, role;
+    int creds, role, userId;
     double skillRatingScore, supporterRatingScore, hostRatingScore;
     std::vector<Rating> ratings;
 
@@ -34,11 +33,9 @@ public:
     User();
 
     // Constructor
-    User(string userName, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, bool block = false, vector<string> blocked = {}, int creds = 20,
-           int role = 2, int userId,
-           double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
-           vector<Rating> ratings = {});
+    User(string userName, string pwd, string fullName, string email, string homeAddr,
+         string phoneNo, bool block, vector<int> blocked, int creds, int role, int userId,
+         double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function
     User(const string &username);
@@ -85,6 +82,12 @@ public:
     // method to set credit points
     void setCreds(int creds);
 
+    // method to get rating score
+    int getRatingScore();
+
+    // method to set rating score
+    void setRatingScore(int ratingScore);
+
     /*method to get and set role
     1: Guest
     2: Member
@@ -101,7 +104,7 @@ public:
     vector<int> getBlocked();
 
     // method to set block
-    void setBlocked(string blocks);
+    void setBlocked(int blocks);
 
     // method to get userId
     int getUserId();
@@ -112,7 +115,7 @@ public:
     // method to block user from viewing content
     void blockUser(const vector<User *> &users, User &currentUser);
 
-    // method to show info with global width
+    //method to show info with global width
     void showInfo();
 
     // method to show info with block
@@ -128,7 +131,7 @@ public:
     int topUpCreds(User user, int topUp);
 
     // method to reset password for member
-    void changePwdMember(User user, string temp);
+    void changePwdMember(User user, string &temp);
 
     // method to change password for admin
     void changePwdAdmin(const vector<User *> &users, string username);
@@ -152,7 +155,7 @@ public:
     friend bool checkValidUsername(vector<User *> users, string userName);
 
     // method to check valid email
-    friend bool checkValidEmail(const vector<User *> &users, const string &email);
+    friend bool checkValidEmail(vector<User *> users, string email);
 
     // method to check valid phone number
     friend bool checkValidPhoneNo(vector<User *> users, string phoneNo);
@@ -161,13 +164,13 @@ public:
     friend bool checkValidPwd(string pwd);
 
     // method to verify password
-    friend bool verifyPwd(User user,  string pwd);
+    friend bool verifyPwd(User user, string pwd);
 
     // method to find user through username
     friend User *findByUsername(const vector<User *> &users, const string &username);
 
     // method to find user through id
-    friend User *findById(const vector<User *> &users, int targetId);
+    friend User *findById(const vector<User *> &users, const int targetId);
 
     // Method to get user ratings
     const vector<Rating> &getRatings() const;
@@ -178,7 +181,10 @@ public:
     // Method to calculate rating score
     friend double calRatingScore(const User &user, int type);
 
-    // Method to set rating score
+    // Method to update rating score
+    friend void updateScore(User user, int type);
+
+    // Method to set user rating
     friend void setRatingScore(User user, int type, double score);
 
     // Method to show member info with rating
@@ -189,20 +195,6 @@ public:
 
     // Method to show info with rating
     void showInfoWithRating();
-    // Method to update user rating
-    friend void updateRatingScore(User user, int type);
-
-    // Method to get host rating
-    double getHostRating() const;
-
-    // Method to get skill rating
-    double getSkillRating() const;
-
-    // Method to get supporter rating
-    double getSupporterRating() const;
-
-    // Method to get skill
-    vector<string> getSkillList();
 };
 
 // method to register user
@@ -212,7 +204,7 @@ User registerMember(vector<User *> &users, User currentUser);
 bool checkValidUsername(vector<User *> users, string userName);
 
 // method to check valid email
-bool checkValidEmail(const vector<User *> &users, const string &email);
+bool checkValidEmail(vector<User *> users, string email);
 
 // method to check valid phone number
 bool checkValidPhoneNo(vector<User *> users, string phoneNo);
@@ -221,7 +213,7 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo);
 bool checkValidPwd(string pwd);
 
 // method to verify password
-bool verifyPwd(User user,  string pwd);
+bool verifyPwd(User user, string pwd);
 
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username);

@@ -1,7 +1,6 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
 #include "../../Width.h"
-#include "Member.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO MEMBER:
@@ -16,8 +15,8 @@
 bool User::loginMember(vector<User *> users, string checkUsername) {
     string checkPwd;
 
-    cout << "Please enter registered username: ";
-    cin >> checkUsername;
+    // cout << "Please enter registered username: ";
+    // cin >> checkUsername;
     User *user = findByUsername(users, checkUsername);
     if (user == nullptr) {
         cout << "Username not found\n";
@@ -52,14 +51,14 @@ void User::blockUser(const vector<User *>& users, User &currentUser) {
 }
 
 // method to reset password for member
-void User::changePwdMember(User user, string temp) {
-    string newPwd;
+void User::changePwdMember(User user, string &newPwd) {
+    string temp;
     cout << "Enter old password: ";
     cin >> temp;
     if (verifyPwd(user, temp)) {
         cout << "Password verified. Please enter new password: ";
         cin >> newPwd;
-        if (checkValidPwd(newPwd) == true && caseSensitiveStringCompare(newPwd, user.userName) == false)
+        if (checkValidPwd(newPwd) == true)
         {
             user.setPwd(newPwd);
             cout << "Password successfully reset\n";
@@ -72,7 +71,7 @@ void User::changePwdMember(User user, string temp) {
 // method to show info
 void User::showInfoMember()
 {
-    showInfoWithRating();
+    showInfo();
     cout.width(ROLE_WIDTH);
     cout << left << "Member";
     cout << endl;
@@ -85,6 +84,7 @@ void User::showInfoMember()
 // method to show info with blocked
 void User::showInfoWithBlock(vector<User *> users, User currentUser) {
 
+    cout << "----------Show users information----------\n";
     for (auto &user: users) {
         vector<int> blocks = user->getBlocked();
         bool block = false;
