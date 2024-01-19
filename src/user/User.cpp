@@ -13,8 +13,8 @@
 User::User() {}
 
 // Constructor
-User::User(int userID, string userName, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
+User::User(string userName, string pwd, string fullName, string email,
+           string homeAddr, string phoneNo, bool block = false, vector<string> blocked = {}, int creds = 20,
            int role = 2,
            double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
@@ -149,13 +149,16 @@ bool User::isBlocked()
 }
 
 // method to get blocked person/people
-vector<int> User::getBlocked()
+void User::getBlocked()
 {
-    return blocked;
+    cout << "List of blocked usesr\n";
+    for(auto &block: blocked) {
+        cout << "- " << block << endl;
+    }
 }
 
 // method to set block
-void User::setBlocked(int blocks)
+void User::setBlocked(string blocks)
 {
     blocked.push_back(blocks);
 }
@@ -414,12 +417,12 @@ bool checkValidPwd(string pwd) {
 // method to verify password
 bool verifyPwd(User user, string pwd)
 {
-    if (caseSensitiveStringCompare(user.getPwd(), pwd))
+    if (!caseSensitiveStringCompare(user.getPwd(), pwd))
     {
-        // cout << "Incorrect password\n";
-        return true;
+        cout << "Incorrect password\n";
+        return false;
     }
-    return false;
+    return true;
 }
 
 // method to find user through username

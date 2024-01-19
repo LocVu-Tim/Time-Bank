@@ -25,7 +25,7 @@ bool User::loginMember(vector<User *> users, string checkUsername) {
     } else {
         cout << "Please enter password: ";
         cin >> checkPwd;
-        if (verifyPwd(*user, checkPwd)) {
+        if (verifyPwd(*user, &checkPwd)) {
             cout << "Login successful\n";
         } else {
             cout << "Incorrect username/password\n";
@@ -39,27 +39,27 @@ bool User::loginMember(vector<User *> users, string checkUsername) {
 // method to block member
 void User::blockUser(const vector<User *>& users, User &currentUser) {
     
-   int blockId;
-   cout << "Enter user ID to block: ";
-   cin >> blockId;
+   string blockName;
+   cout << "Enter username to block: ";
+   cin >> blockName;
    
-   if (findById(users, blockId) == nullptr) {
+   if (findByUsername(users, blockName) == nullptr) {
        cout << "Username not found\n";
    } else {
-       currentUser.blocked.push_back(blockId);
-       cout << "User " << blockId << " is blocked\n";
+       currentUser.blocked.push_back(blockName);
+       cout << "User " << blockName << " is blocked\n";
    }
 }
 
 // method to reset password for member
-void User::changePwdMember(User user, string &newPwd) {
-    string temp;
+void User::changePwdMember(User user, string temp) {
+    string newPwd;
     cout << "Enter old password: ";
     cin >> temp;
     if (verifyPwd(user, temp)) {
         cout << "Password verified. Please enter new password: ";
         cin >> newPwd;
-        if (checkValidPwd(newPwd) == true)
+        if (checkValidPwd(newPwd) == true && caseSensitiveStringCompare(newPwd, user.userName) == false)
         {
             user.setPwd(newPwd);
             cout << "Password successfully reset\n";
@@ -83,7 +83,7 @@ void User::showInfoMember()
     
 // }
 // method to show info with blocked
-void User::showInfoWithBlock(vector<User *> users, User currentUser) {
+void User::showInfoWithBlock(vector<User *> users) {
 
     for (auto &user: users) {
         vector<int> blocks = user->getBlocked();

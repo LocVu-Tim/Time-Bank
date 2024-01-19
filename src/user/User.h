@@ -34,8 +34,8 @@ public:
     User();
 
     // Constructor
-    User(int userId, string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo, bool block, vector<int> blocked, int creds, int role,
+    User(string userName, string pwd, string fullName, string email, string homeAddr,
+         string phoneNo, bool block, vector<string> blocked, int creds, int role, int userId,
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function
@@ -96,10 +96,10 @@ public:
     bool isBlocked();
 
     // method to get blocked person/people
-    vector<int> getBlocked();
+    void getBlocked();
 
     // method to set block
-    void setBlocked(int blocks);
+    void setBlocked(string blocks);
 
     // method to get userId
     int getUserId();
@@ -114,7 +114,7 @@ public:
     void showInfo();
 
     // method to show info with block
-    void showInfoWithBlock(vector<User *> users, User currentUser);
+    void showInfoWithBlock(vector<User *> users);
 
     // method to show info member
     void showInfoMember();
@@ -126,7 +126,7 @@ public:
     int topUpCreds(User user, int topUp);
 
     // method to reset password for member
-    void changePwdMember(User user, string &temp);
+    void changePwdMember(User user, string temp);
 
     // method to change password for admin
     void changePwdAdmin(const vector<User *> &users, string username);
