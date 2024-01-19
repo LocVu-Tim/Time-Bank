@@ -2,109 +2,103 @@
 #include "../Tools/Tool.h"
 #include "Guest.h"
 
+
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO GUEST:
     - REGISTER TO BECOME MEMBER
     - SHOW INFO OF USERS WITHOUT RATING*/
 
 // method to register to become user (for guest)
-User registerMember(vector<User *> &users, User currentUser)
+User registerMember(vector<User *> users)
 {
     int fee = 20;
     string temp;
-    
+    User user;
     bool check = true;
     cout << "--------------Register--------------" << endl;
-
-    while (check) {
-        cout << "Please enter your full name: ";
-        cin.ignore();  // Clear the input buffer
-        getline(cin, temp);
-        currentUser.setFullName(temp);
-        
-        if (!(temp.empty())) {
-            temp = "";
-            break;
-        } else {
-            continue;
-        }
-    }
-
-    while (check) {
+    cout << "Please enter your full name: ";
+    getline(cin, temp);
+    user.setFullName(temp);
+    while (check == true)
+    {
         cout << "Please enter your username: ";
         cin >> temp;
-        if (checkValidUsername(users, temp) == false) {
+        if (checkValidUsername(users, temp) == false)
+        {
             continue;
-        } else {
-            currentUser.setUsername(temp);
+        }
+        else
+        {
+            user.setUsername(temp);
             temp = "";
             break;
         }
     }
-
-    while (check) {
+    while (check)
+    {
+        bool check;
         cout << "Please enter your password: ";
         cin >> temp;
-        if (checkValidPwd(temp) == false) {
+        if (checkValidPwd(temp) == false)
+        {
             continue;
-        } else {
-            currentUser.setPwd(temp);
+        }
+        else
+        {
+            user.setPwd(temp);
             temp = "";
             break;
         }
     }
-
-    while (check) {
+    while (check)
+    {
         cout << "Please enter your email: ";
         cin >> temp;
-        if (checkValidEmail(users, temp) == false) {
-            cout << "Invalid email\n";
+        if (checkValidEmail(users, temp) == false)
+        {
             continue;
-        } else {
-            currentUser.setEmail(temp);
+        }
+        else
+        {
+            user.setEmail(temp);
             temp = "";
             break;
         }
     }
-
-    while (check) {
+    while (check)
+    {
         cout << "Please enter your phone number: ";
         cin >> temp;
-        if (checkValidPhoneNo(users, temp) == false) {
+        if (checkValidPhoneNo(users, temp) == false)
+        {
             continue;
-        } else {
-            currentUser.setPhoneNo(temp);
+        }
+        else
+        {
+            user.setPhoneNo(temp);
             temp = "";
             break;
         }
     }
-
     cout << "Please enter your home address: ";
-    cin.ignore();  // Clear the input buffer
-    getline(cin, temp);
-    currentUser.setHomeAddr(temp);
+    cin >> temp;
+    user.setHomeAddr(temp);
     temp = "";
-
     cout << "Initial credit points set to 20\n";
-    currentUser.setCreds(fee);
-    currentUser.setRole(2);
-    users.push_back(new User(currentUser));
-    return currentUser;
+    user.setCreds(fee);
+    users.push_back(&user);
+    return user;
 }
 
 // method to showinfo without rating score
 void User::showInfoWithoutRating(vector<User *> users)
 {
-    cout << users.size() << endl;
     for (int i = 0; i < users.size(); i++)
     {
-        if (users[i]->getRole() == 2)
-        {
+        if(users[i]->getRole() == 2) {
             users[i]->showInfoMember();
-        }
-        if (users[i]->getRole() == 3)
-        {
+        } 
+        if(users[i]->getRole() == 3) {
             users[i]->showInfoAdmin();
         }
-    }
-    
+    }    
 }
