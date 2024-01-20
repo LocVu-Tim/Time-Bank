@@ -31,6 +31,7 @@ bool RequestView::isValidDate(string date)
 };
 
 // Might be improved with inserting the type of request as a parameter
+// qq test fotr the function in visual studio
 void RequestView::checkBeforeSubmitting(string form)
 {
     cout << isValidDate(userInputs["timeFrom"]) << endl;
