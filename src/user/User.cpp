@@ -223,18 +223,26 @@ int User::topUpCreds(User user, int topUp)
 // method to show info
 void User::showInfo()
 {
-    cout.width(USERNAME_WIDTH);
-    cout << left << userName;
-    cout.width(FULLNAME_WIDTH);
-    cout << left << fullName;
-    cout.width(EMAIL_WIDTH);
-    cout << left << email;
-    cout.width(HOME_ADDR_WIDTH);
-    cout << left << homeAddr;
-    cout.width(PHONE_NUMBER_WIDTH);
-    cout << left << phoneNo;
-    cout.width(CREDIT_POINT_WIDTH);
-    cout << left << creds;
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+
+    // Get the maximum width among the fields
+    int maxWidth = max({USERNAME_WIDTH, FULLNAME_WIDTH, EMAIL_WIDTH, HOME_ADDR_WIDTH, PHONE_NUMBER_WIDTH, CREDIT_POINT_WIDTH});
+
+    // Display the top of the square box
+    cout << topLeft << setw(maxWidth + 2) << setfill(horizontal) << topRight << endl;
+
+    // Display each row of information in the square box
+    cout << vertical << " " << setw(maxWidth) << left << "Username: " << userName << " " << vertical << endl;
+    cout << vertical << " " << setw(maxWidth) << left << "Full Name: " << fullName << " " << vertical << endl;
+    cout << vertical << " " << setw(maxWidth) << left << "Email: " << email << " " << vertical << endl;
+    cout << vertical << " " << setw(maxWidth) << left << "Home Address: " << homeAddr << " " << vertical << endl;
+    cout << vertical << " " << setw(maxWidth) << left << "Phone Number: " << phoneNo << " " << vertical << endl;
+    cout << vertical << " " << setw(maxWidth) << left << "Credit Points: " << creds << " " << vertical << endl;
+
+    // Display the bottom of the square box
+    cout << bottomLeft << setw(maxWidth + 2) << setfill(horizontal) << bottomRight << endl;
 }
 
 // method to show info with rating
