@@ -214,7 +214,7 @@ void User::showInfo()
 bool checkValidUsername(vector<User *> users, string userName)
 {
     // check for valid length
-    if (!(userName.size() > 7 && userName.size() < 16))
+    if (!(userName.size() > 4 && userName.size() < 16))
     {
         cout << "Username must contain 5-15 characters.\n";
         return false;
