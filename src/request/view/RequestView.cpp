@@ -17,8 +17,7 @@ void RequestView::setOptionalInput(string inputField)
 {
     string userinput;
     // can be empty -> optional
-    getline(cin >> ws, userinput);
-    // cin.ignore(1000, '\n');
+    getline(cin, userinput);
     userInputs[inputField] = userinput;
 };
 
@@ -27,14 +26,22 @@ bool RequestView::isValidDate(string date)
     tm tm;
     istringstream ss(date);
     ss >> get_time(&tm, "%d/%m/%Y");
-    return !ss.fail();
+    // return ss.eof() && !ss.fail();
+    // check if date month and year are valid
+    if (ss.eof() && !ss.fail())
+    {
+        // check if the date is valid
+        if (tm.tm_mday > 0 && tm.tm_mday <= 31 && tm.tm_mon >= 0 && tm.tm_mon <= 12 && tm.tm_year >= 0)
+        {
+            return true;
+        }
+    }
+    return false;
 };
 
 // Might be improved with inserting the type of request as a parameter
-// qq test fotr the function in visual studio
 void RequestView::checkBeforeSubmitting(string form)
 {
-    cout << isValidDate(userInputs["timeFrom"]) << endl;
     // validate date
     if (!isValidDate(userInputs["timeFrom"]) || !isValidDate(userInputs["timeTo"]))
     {
@@ -206,7 +213,6 @@ void RequestView::listOrUnlist()
 
 void RequestView::list()
 {
-    // TODO list skill
 
     int numberOfSkills;
     cout << "Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): " << endl;

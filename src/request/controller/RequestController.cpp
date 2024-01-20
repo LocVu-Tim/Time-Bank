@@ -49,7 +49,7 @@ void RequestController::selectAvailableFunction()
         break;
     case 7:
         fileUtility.modifyFile(requestModel->requestList);
-         //exit(0);
+        // exit(0);
         break;
     default:
         requestView->errorHandling("Invalid choice");
@@ -386,13 +386,13 @@ void RequestController::hostViewAvailableRequest()
     cin >> choice;
     if (choice == "n" || choice == "N")
     {
-		return selectAvailableFunction();
-	}
+        return selectAvailableFunction();
+    }
     else if (choice != "Y" && choice != "y")
     {
-		requestView->errorHandling("Invalid choice");
-		return selectAvailableFunction();
-	}
+        requestView->errorHandling("Invalid choice");
+        return selectAvailableFunction();
+    }
     // apply -> find the request, available->false, supporterId = current user
     bool continueFlag = true;
     while (continueFlag)
@@ -472,7 +472,7 @@ vector<userRequest *> RequestController::filterIncomingRequest()
     vector<userRequest *> filteredRequestList = {};
     for (int i = 0; i < requestList.size(); i++)
     {
-        if ((requestList[i]->userId) != user->getUserId() && requestList[i]->availability == false && (requestList[i]->supporterId != user->getUserId() ||requestList[i]->hostId != user->getUserId()))
+        if ((requestList[i]->userId) != user->getUserId() && requestList[i]->availability == false && (requestList[i]->supporterId != user->getUserId() || requestList[i]->hostId != user->getUserId()))
         {
             filteredRequestList.push_back(requestList[i]);
         }
@@ -489,7 +489,7 @@ vector<userRequest *> RequestController::filterOutgoingRequest()
     vector<userRequest *> filteredRequestList = {};
     for (int i = 0; i < requestList.size(); i++)
     {
-        if ((requestList[i]->supporterId == this->user->getUserId() || requestList[i]->hostId == this->user->getUserId()) && requestList[i]->availability == false && requestList[i]->userId == this->user->getUserId() )
+        if ((requestList[i]->supporterId == this->user->getUserId() || requestList[i]->hostId == this->user->getUserId()) && requestList[i]->availability == false && requestList[i]->userId == this->user->getUserId())
         {
             filteredRequestList.push_back(requestList[i]);
         }
@@ -562,7 +562,8 @@ void RequestController::incomingProcess()
                 {
                     // if the requester is the host
                     // calculate the points consumed
-                    if (!calculatePointsConsumedForHost(request)) {
+                    if (!calculatePointsConsumedForHost(request))
+                    {
                         break;
                     };
                 }
@@ -577,7 +578,6 @@ void RequestController::incomingProcess()
                 cin >> choice;
                 if (choice == "Y" || choice == "y")
                 {
-                    // TODO filter the incoming request for looking for rating
                     handleRating(incomingRequest);
                 }
                 else
@@ -595,8 +595,8 @@ void RequestController::incomingProcess()
             }
             else
             {
-				return selectAvailableFunction();
-			}
+                return selectAvailableFunction();
+            }
         }
     }
 }
@@ -683,7 +683,6 @@ bool RequestController::handleRating(vector<userRequest *> &requestList)
             // if the user is the host
             // check if the supporter has rated the host
             // if not, continue creating rating
-            // TODO: I changed it
             rateSupporter(host, supporter);
         }
         else
@@ -691,11 +690,10 @@ bool RequestController::handleRating(vector<userRequest *> &requestList)
             // if the user is the supporter
             // check if the host has rated the supporter
             // if not, continue creating rating
-            // TODO: I changed it
             rateHost(supporter, host);
         }
     }
-    // TODO handle rating
+    return true;
 };
 
 bool RequestController::calculatePointsConsumedForHost(userRequest *request)
@@ -712,7 +710,7 @@ bool RequestController::calculatePointsConsumedForHost(userRequest *request)
     if (user->getCreds() < request->pointsConsumed)
     {
         cout << "You do not have enough points to complete the request" << endl;
-        //return selectAvailableFunction();
+        // return selectAvailableFunction();
         return false;
     }
     // modify the user
