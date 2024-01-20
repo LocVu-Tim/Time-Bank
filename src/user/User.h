@@ -219,6 +219,9 @@ public:
 
     // Method to show info with rating
     void showInfoWithRating();
+
+    // Method to set rating
+    void setRatings(const vector<Rating> &rate);
 };
 
 // method to register user

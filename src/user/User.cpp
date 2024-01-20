@@ -481,6 +481,6 @@ void rateUser(User *rater, User *rated) {
 }
 
 //Method to set rating
-void User::setRatings(const vector<Rating> &rates) {
-    User::ratings = rates;
+void User::setRatings(const vector<Rating> &rate) {
+    User::ratings = rate;
 }
