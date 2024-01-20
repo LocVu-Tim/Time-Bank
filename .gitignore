@@ -21,3 +21,5 @@ build/
 *.vcproj
 *.vcproj.*
 
+/latex
+/html
