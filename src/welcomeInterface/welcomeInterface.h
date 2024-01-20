@@ -13,6 +13,7 @@
 #include "../request/model/RequestModel.h"
 #include <vector>
 
+void welcomeInterface();
 //void menu(vector<User*> users, User currentUser);
 void Guest(vector<User*> &users);
 void Member(vector<User*> &users, User &currentUser);

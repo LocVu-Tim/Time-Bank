@@ -6,19 +6,7 @@
 #include "welcomeInterface.h"
 
 using namespace std;
-
 void menu();
-
-void Guest();
-
-void Member();
-
-void Admin();
-
-void adminLogin();
-
-void memberLogin();
-
 void welcomeInterface()
 {
     int choice;
