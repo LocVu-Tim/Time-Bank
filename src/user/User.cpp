@@ -14,7 +14,7 @@ User::User() {}
 
 // Constructor
 User::User(string userName, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, vector<int> blocked = {}, vector<string> skills, int creds = 20,
+           string homeAddr, string phoneNo, vector<int> blocked = {}, vector<string> skills={}, int creds = 20,
            int role = 2,
            int userId = 0, double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
