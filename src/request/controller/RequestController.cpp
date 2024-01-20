@@ -504,7 +504,8 @@ void RequestController::incomingProcess()
                     // calculate the points consumed
                     calculatePointsConsumedForSupporter(request);
                 }
-                // TODO 
+                // TODO add rating
+                
                 cout << "Do you want to continue? (Y/n)" << endl;
                 if (choice == "Y" || choice == "y")
                 {

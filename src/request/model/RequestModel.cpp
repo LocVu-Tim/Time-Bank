@@ -27,7 +27,7 @@ void RequestModel::createRequest(map<string, string> userData, int userid, strin
     request->id = time(0);
     request->timeFrom = userData["timeFrom"];
     request->timeTo = userData["timeTo"];
-    // TODO: get city from user
+    // TODO: get city from user (not home address)
     request->city = user->getHomeAddr();
     // split the skill string by comma
     // int numberOfSkills = count(skills.begin(), skills.end(), ',') + 1;
