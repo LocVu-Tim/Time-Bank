@@ -208,6 +208,8 @@ public:
     // TODO mock function remove later - method to set skill 
     void setSkills(const vector<string> &skills);
 
+    void addSkill(string skill);
+
     // Method to rate supporter
     friend void rateSupporter(User *rater, User *rated);
 

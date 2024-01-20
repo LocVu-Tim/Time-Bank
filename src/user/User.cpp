@@ -376,6 +376,10 @@ void User::setSkills(const vector<string> &skills) {
     User::skills = skills;
 }
 
+void User::addSkill(string skill) {
+	skills.push_back(skill);
+}
+
 // Method to rate supporter
 void rateSupporter(User *rater, User *rated) {
     double skillValue;
