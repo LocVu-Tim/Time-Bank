@@ -13,10 +13,14 @@
 #include "../request/model/RequestModel.h"
 #include <vector>
 
-void Guest();
-void Member();
-void Admin();
-void adminLogin();
+void Guest(vector<User*> &users, User &currentUser);
+void Member(vector<User*> &users, User &currentUser);
+void Admin(vector<User*> &users, User &currentUser);
+void adminLogin(vector<User*> &users, User &currentUser);
+void memberLogin(vector<User*> &users, User& currentUser);
+void menu(vector<User*> &users, User &currentUser);
+
 void welcomeInterface();
+//void welcomeInterface();
 // void memberLogin();
 #endif // TIME_BANK_WELCOMEINTERFACE_H

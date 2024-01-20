@@ -2,27 +2,22 @@
 #include <fstream>
 #include <stdlib.h>
 #include <string.h>
-#include "../Admin/Admin.cpp"
-#include "../Member/Member.cpp"
-#include "../Guest/Guest.cpp"
-#include "../User.h"
-#include "../Tools/Tool.h"
-#include "../Tools/Tool.cpp"
-#include "../User.cpp"
-#include "../Width.h"
-// #include "../rating/rating.h"
+//#include "../Admin/Admin.cpp"
+//#include "../Member/Member.cpp"
+//#include "../Guest/Guest.cpp"
+//#include "../user/User.h"
+//#include "../user/Tools/Tool.h"
+//#include "../Tools/Tool.cpp"
+//#include "../User.cpp"
+//#include "../Width.h"
+// #include "../rating/rating.h
+#include "./welcomeInterface.h"
 // #include "../rating/rating.cpp"
 
 using namespace std;
 
-void menu(vector<User *> users, User currentUser);
-void Guest(vector<User *> users, User currentUser);
-void Member(vector<User *> users, User currentUser);
-void Admin(vector<User *> users, User currentUser);
-void adminLogin(vector<User *> users, User currentUser);
-void memberLogin(vector<User *> users, User &currentUser);
 
-void welcomeInterface(vector<User *> users, User currentUser)
+void welcomeInterface()
 {
     int choice;
 
@@ -37,10 +32,15 @@ void welcomeInterface(vector<User *> users, User currentUser)
     cout << "s3927082 | Van Hong Lam " << endl;
     cout << "s3979199 | Luong Anh Huy" << endl;
     cout << "s3978609 | Tran Tuan Minh" << endl;
+    vector<User *> users;
+    User currentUser;
+
+
+
     menu(users, currentUser);
 }
 
-void menu(vector<User *> users, User currentUser)
+void menu(vector<User *> &users, User &currentUser)
 {
     int role;
     bool running = true;
@@ -89,7 +89,7 @@ void menu(vector<User *> users, User currentUser)
     }
 }
 
-void Admin(vector<User *> users, User currentUser)
+void Admin(vector<User *> &users, User &currentUser)
 {
     int choice;
     bool running = true;
@@ -147,7 +147,7 @@ void Admin(vector<User *> users, User currentUser)
     }
 }
 
-void adminLogin(vector<User *> users, User currentUser)
+void adminLogin(vector<User *> &users, User &currentUser)
 {
     string aName;
     bool loginSuccessful = false;
@@ -168,7 +168,7 @@ void adminLogin(vector<User *> users, User currentUser)
     } while (!loginSuccessful);
 }
 
-void Member(vector<User *> users, User currentUser)
+void Member(vector<User *> &users, User &currentUser)
 {
     // TODO: clean this up after testing
     // database
@@ -298,7 +298,7 @@ void Member(vector<User *> users, User currentUser)
     }
 }
 
-void memberLogin(vector<User *> users, User &currentUser)
+void memberLogin(vector<User *> &users, User &currentUser)
 {
     string mName;
     bool loginSuccessful = false;
@@ -336,7 +336,7 @@ void memberLogin(vector<User *> users, User &currentUser)
     } while (!loginSuccessful);
 }
 
-void Guest(vector<User *> users, User currentUser)
+void Guest(vector<User *> &users, User &currentUser)
 {
 
     int choice;
@@ -352,7 +352,7 @@ void Guest(vector<User *> users, User currentUser)
         currentUser.showInfoWithoutRating(users);
         break;
     case 2:
-        registerMember(users, currentUser);
+        registerMember(users);
         Member(users, currentUser);
         // currentUser.showInfoWithoutRating(users);
         // users.push_back(&currentUser);

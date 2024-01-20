@@ -68,6 +68,20 @@ void User::changePwdMember(User user, string &newPwd) {
     }
 }
 
+// method to find member through username
+User * findMemberByUsername(const vector<User*> &users, const string & username)
+{
+    for (const auto& userPtr : users)
+    {
+        if (caseInsensitiveStringCompare(userPtr->getUsername(), username) && userPtr->getRole() == 2)
+        {
+            return userPtr;
+        }
+    }
+    // cout << "Member not found\n";
+    return nullptr; // Return nullptr if user is not found
+}
+
 // method to show info
 void User::showInfoMember()
 {

@@ -115,13 +115,24 @@ public:
     void setUserId(int id);
 
     // method to block user from viewing content
-    void blockUser(const vector<User *> &users);
+    void blockUser(const vector<User *> &users, User &currentUser);
 
     //method to show info with global width
     void showInfo();
 
+    // method to show info with rating score
+    void showInfoWithRating();
+
+
+    //void showInfoHeaderWithoutRating();
+
+
+    void showInfoHeaderWithRating();
+
+
+
     // method to show info with block
-    void showInfoWithBlock(vector<User *> users);
+    void showInfoWithBlock(vector<User *> users, User currentUser);
 
     // method to show info member
     void showInfoMember();
@@ -133,7 +144,7 @@ public:
     int topUpCreds(User user, int topUp);
 
     // method to reset password for member
-    void changePwdMember(User user, string temp);
+    void changePwdMember(User user, string &newPwd);
 
     // method to change password for admin
     void changePwdAdmin(const vector<User *> &users, string username);
@@ -221,11 +232,18 @@ public:
     void showAllInfo();
 
     // Method to show info with rating
-    void showInfoWithRating();
 
     // Method to set rating
     void setRatings(const vector<Rating> &rate);
 };
+
+
+// Method to show header of table 
+void showAllInfoHeader();
+
+void showInfoHeaderWithoutRating();
+
+void showInfoHeaderWithRating();
 
 // method to register user
 User registerMember(vector<User *> users);

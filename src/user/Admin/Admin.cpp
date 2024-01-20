@@ -87,3 +87,17 @@ void User::changePwdAdmin(const vector<User *> &users, string username)
         }
     } while (!(checkName));
 }
+
+// method to find admin through username
+User* findAdminByUsername(const vector<User*>& users, const string& username)
+{
+    for (const auto& userPtr : users)
+    {
+        if (caseInsensitiveStringCompare(userPtr->getUsername(), username) && userPtr->getRole() == 3)
+        {
+            return userPtr;
+        }
+    }
+    cout << "Admin not found\n";
+    return nullptr; // Return nullptr if user is not found
+}
