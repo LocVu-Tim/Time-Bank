@@ -421,7 +421,7 @@ void rateHost(User *rater, User *rated) {
     std::string hostComment;
     std::cout << "\n";
     std::cout << "How would you rate the host overall (1 to 5):";
-    std::cin >> hostComment;
+    std::cin >> hostValue;
     std::cout << "\n";
     std::cout << "Your comment on the host overall:";
     std::getline(std::cin >> std::skipws, hostComment);
