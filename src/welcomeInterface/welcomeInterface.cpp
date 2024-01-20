@@ -214,12 +214,11 @@ void Member(vector<User*>& users, User& currentUser)
 		case 3:
 			rc.selectAvailableFunction();
 			break;
-			case 4:
-				menu();
-				break;
+		case 4:
+			menu();
+            break;
 		case 5:
-			break;
-
+            break;
 		case 0:
 			running = false;
 			cout << "Exiting the application." << endl;
