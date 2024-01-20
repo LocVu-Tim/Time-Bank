@@ -51,6 +51,7 @@ public:
     vector<userRequest *> filterBasedOnSupporterRating(vector<userRequest *> &requestList, double supporterRating);
     vector<userRequest *> filterBasedOnSkills(vector<userRequest *> &requestList, string skill);
     vector<userRequest *> filterRatedRequest(vector<userRequest *> &requestList);
+    vector<userRequest *> filterBasedOnBlocked(vector<userRequest *> &requestList, vector<int> blocked);
 
     void incomingProcess();
     void outgoingProcess();
@@ -64,6 +65,7 @@ public:
     vector<userRequest *> filterOutgoingRequest();
     void setUserList(vector<User *> &userList);
     bool handleRating(vector<userRequest *> &requestList);
+
 
     friend class RequestView;
 

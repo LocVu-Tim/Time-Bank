@@ -186,8 +186,8 @@ void RequestView::viewAvailableFunctions()
     cout << "==============================" << endl;
     cout << "1. List or unlist a request" << endl;
     cout << "2. Request for a supporter" << endl;
-    cout << "3. View all request as a supporter" << endl;
-    cout << "4. View all request as a host" << endl;
+    cout << "3. View all request as a host" << endl;
+    cout << "4. View all request as a supporter" << endl;
     cout << "5. View all incoming requests" << endl;
     cout << "6. View all outgoing requests" << endl;
     cout << "7. Exit" << endl;
@@ -251,14 +251,13 @@ void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *
         availableRequests[i]->printInfo(allUsers);
         cout << string(50, '=') << endl;
     }
-    cout << "Which request do you want to remove?" << endl;
 };
 
 // TODO - the data now need to be filtered by the rating of the request user to the current user.
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
     // qq change in the implementation - display all available requests
-    cout << "Available requests for you to join: " << endl;
+    cout << "Available requests for you to rent: " << endl;
     for (int i = 0; i < availableRequests.size(); i++)
     {
         cout << "Request no. " << i + 1 << endl;
@@ -266,7 +265,7 @@ void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vect
         availableRequests[i]->printInfo(allUsers);
         cout << string(50, '=') << endl;
     }
-    cout << "Would you like to support any of the above requests? (y/n)" << endl;
+    cout << "Would you like to host any of the above requests? (y/n)" << endl;
 }
 
 vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilter)
@@ -277,7 +276,8 @@ vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilte
     vector<userRequest *> filteredData;
     // if the time is between timeTo and timeFrom, then return the request
     // else return empty vector
-    for (int i = 0; i < dataToFilter.size(); i++)
+    int size = dataToFilter.size();
+    for (int i = 0; i < size; i++)
     {
         // convert string to date first
         string dateFrom = dataToFilter[i]->timeFrom;
@@ -335,7 +335,7 @@ void RequestView::viewAllHostRequests(vector<userRequest *> &requestList, vector
         requestList[i]->printInfo(userList);
         cout << string(50, '=') << endl;
     }
-    cout << "Would you like to have supporter for any of the above requests? (y/n)" << endl;
+    cout << "Would you like to join for any of the above requests? (y/n)" << endl;
 };
 
 void RequestView::requestForSupporter()

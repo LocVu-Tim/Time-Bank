@@ -316,15 +316,15 @@ bool checkValidPwd(string pwd)
 }
 
 // method to verify password
-//bool verifyPwd(User user, const string &pwd)
-//{
-//    if (!caseSensitiveStringCompare(user.getPwd(), pwd))
-//    {
-//        cout << "Incorrect password\n";
-//        return false;
-//    }
-//    return true;
-//}
+bool verifyPwd(User user, const string pwd)
+{
+    if (!caseSensitiveStringCompare(user.getPwd(), pwd))
+    {
+        cout << "Incorrect password\n";
+        return false;
+    }
+    return true;
+}
 
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username)
@@ -414,19 +414,19 @@ vector<string> User::getSkillList()
 }
 
 // Method to set user rating score
-void updateRatingScore(User user, int type)
+void updateRatingScore(User *user, int type)
 {
     if (type == 1)
     {
-        user.skillRatingScore = calRatingScore(user, type);
+        user->skillRatingScore = calRatingScore(*user, type);
     }
     else if (type == 2)
     {
-        user.supporterRatingScore = calRatingScore(user, type);
+        user->supporterRatingScore = calRatingScore(*user, type);
     }
     else if (type == 3)
     {
-        user.hostRatingScore = calRatingScore(user, type);
+        user->hostRatingScore = calRatingScore(*user, type);
     }
 }
 
@@ -447,13 +447,13 @@ void setRatingScore(User user, int type, double score)
     }
 }
 
-// Method to set skill
-//void User::setSkills(const vector<string> &skills) {
-//    User::skills = skills;
-//} 
+// TODO mock - Method to set skill
+void User::setSkills(const vector<string> &skills) {
+    User::skills = skills;
+} 
 
 // Method to rate another user
-void rateUser(User rater, User rated) {
+void rateUser(User *rater, User *rated) {
     int type = 0;
     double ratingValue;
     std::string comment;
@@ -470,12 +470,12 @@ void rateUser(User rater, User rated) {
     std::cout << "Your comment:";
     std::getline(std::cin >> std::skipws, comment);
     Rating rating;
-    rating.setRatingID(rated.ratings.size() - 1);
-    rating.setRaterID(rater.userId);
-    rating.setUserID(rated.userId);
+    rating.setRatingID(rated->ratings.size() - 1);
+    rating.setRaterID(rater->userId);
+    rating.setUserID(rated->userId);
     rating.setRatingType(type);
     rating.setRatingValue(ratingValue);
     rating.setComment(comment);
-    rated.ratings.push_back(rating);
+    rated->ratings.push_back(rating);
     updateRatingScore(rated, type);
 }

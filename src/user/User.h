@@ -157,7 +157,7 @@ public:
     friend bool checkValidUsername(vector<User *> users, string userName);
 
     // method to check valid email
-    friend bool checkValidEmail(vector<User *> users, string email);
+    friend bool checkValidEmail(const vector<User*>& users, const string& email);
 
     // method to check valid phone number
     friend bool checkValidPhoneNo(vector<User *> users, string phoneNo);
@@ -190,7 +190,7 @@ public:
     friend void setRatingScore(User user, int type, double score);
 
     // Method to update user rating
-    friend void updateRatingScore(User user, int type);
+    friend void updateRatingScore(User *user, int type);
 
     // Method to get host rating
     double getHostRating() const;
@@ -201,17 +201,16 @@ public:
     // Method to get supporter rating
     double getSupporterRating() const;
 
-    // TODO mock function remove later
-    //void setSkills(vector<string> skills);
+    
 
     // Method to get skill
     vector<string> getSkillList();
 
-    // Method to set skill
-    //void setSkills(const vector<string> &skills);
+    // TODO mock function remove later - method to set skill 
+    void setSkills(const vector<string> &skills);
 
     // Method to rate another user
-    friend void rateUser(User rater, User rated);
+    friend void rateUser(User *rater, User *rated);
     // Method to show member info with rating
     // void User::showInfoMemberWithRating(vector<User *> users);
 
@@ -229,7 +228,7 @@ User registerMember(vector<User *> users);
 bool checkValidUsername(vector<User *> users, string userName);
 
 // method to check valid email
-bool checkValidEmail(vector<User *> users, string email);
+//bool checkValidEmail(vector<User *> users, string email);
 
 // method to check valid phone number
 bool checkValidPhoneNo(vector<User *> users, string phoneNo);
@@ -238,7 +237,7 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo);
 bool checkValidPwd(string pwd);
 
 // method to verify password
-bool verifyPwd(User user, string pwd);
+//bool verifyPwd(User user, string pwd);
 
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username);
