@@ -35,6 +35,7 @@ void welcomeInterface()
     vector<User *> users;
     User currentUser;
 
+    // TODO: clean this up after testing
 
 
     menu(users, currentUser);
@@ -170,42 +171,12 @@ void adminLogin(vector<User *> &users, User &currentUser)
 
 void Member(vector<User *> &users, User &currentUser)
 {
-    // TODO: clean this up after testing
-    // database
+    // Request load
     RequestModel rm;
     RequestView rv;
     RequestController rc(rm, rv);
-
-    // TODO: Request Test data - should be removed when user is implemented
-    // load data from file
     rm.load();
-    // Create a test user
-    // User usertoTest = registerMember(userList);
 
-    // User *relUser = &usertoTest;
-    // rc.setUser(relUser);
-    User *user = new User();
-    User *toBeBlocked = new User();
-    User *jao = *&toBeBlocked;
-    jao->setUsername("jao");
-    jao->setUserId(11);
-    // Normal one
-    User *testUser = *&user;
-    testUser->setUsername("usefalcuty");
-    testUser->setUserId(12);
-    // TODO: finish this
-//    testUser->();
-    // Another one
-    User *testUser2 = new User();
-    testUser2->setUsername("usefalcuty2");
-    testUser2->setUserId(13);
-
-    testUser->setBlocked(jao->getUserId());
-    // set skills
-    testUser->setSkills({"C++", "Java", "Python"});
-    testUser2->setSkills({"C++", "Java", "Python"});
-    jao->setSkills({"C++", "Java", "Python"});
-    vector<User *> userList = {testUser, testUser2, jao};
 
     int choice;
     bool running = true;

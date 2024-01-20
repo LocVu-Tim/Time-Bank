@@ -87,9 +87,9 @@ void Rating::setComment(std::string rComment) {
 //14. Method to show rating info
 void Rating::showRatingInfo() {
     std::cout << "Rating ID: " << this->ratingID << std::endl
-              << "User ID: " << this->userID << std::endl
-              << "Author ID: " << this->raterID << std::endl
-              << "Type: " << this->type << std::endl
-              << "Score: " << this->ratingValue << std::endl
-              << "Comment: " << this->comment << std::endl << "\n";
-}
+        << "User ID: " << this->userID << std::endl
+        << "Author ID: " << this->raterID << std::endl
+        << "Type: " << this->type << std::endl
+        << "Score: " << this->ratingValue << std::endl
+        << "Comment: " << this->comment << std::endl << "\n";
+};
