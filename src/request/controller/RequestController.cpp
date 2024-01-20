@@ -504,15 +504,24 @@ void RequestController::incomingProcess()
                     // calculate the points consumed
                     calculatePointsConsumedForSupporter(request);
                 }
-                // TODO 
-                cout << "Do you want to continue? (Y/n)" << endl;
+                cout << "Optional: Do you want to rate the user? (Y/n)" << endl;
+                cin >> choice;
                 if (choice == "Y" || choice == "y")
                 {
-                    continue;
-                }
+					// TODO filter the incoming request for looking for rating 
+                    handleRating(incomingRequest);
+				}
                 else
                 {
-                    return selectAvailableFunction();
+                    cout << "Do you want to continue? (Y/n)" << endl;
+                    if (choice == "Y" || choice == "y")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return selectAvailableFunction();
+                    }
                 }
             }
         }
@@ -593,19 +602,20 @@ bool RequestController::handleRating(vector<userRequest *> &requestList)
     }
     else if (request->isCompleted == true)
     {
-        // check if the user is the host or supporter
-        if (request->hostId == this->user->getUserId())
-        {
-            // if the user is the host
-            // check if the supporter has rated the host
-            // if not, continue creating rating
-        }
-        else
-        {
-            // if the user is the supporter
-            // check if the host has rated the supporter
-            // if not, continue creating rating
-        }
+        //// check if the user is the host or supporter
+        //if (request->hostId == this->user->getUserId())
+        //{
+        //    // if the user is the host
+        //    // check if the supporter has rated the host
+        //    // if not, continue creating rating
+        //}
+        //else
+        //{
+        //    // if the user is the supporter
+        //    // check if the host has rated the supporter
+        //    // if not, continue creating rating
+        //}
+        rateUser(request);
     }
     // TODO handle rating
 };
