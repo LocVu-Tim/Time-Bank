@@ -27,11 +27,11 @@ User::User(string userName, string pwd, string fullName, string email,
       hostRatingScore(hostRatingScore),
       ratings(std::move(ratings)){};
 
-// constructor used for block function
-User::User(const string &username)
-{
-    this->userName = username;
-}
+// // constructor used for block function
+// User::User(const string &username)
+// {
+//     this->userName = username;
+// }
 
 // method to get username
 string User::getUsername()

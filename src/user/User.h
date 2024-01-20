@@ -19,10 +19,11 @@ using namespace std;
 
 class Rating;
 
-class User {
+class User
+{
 private:
     string userName, pwd, fullName, email, homeAddr, phoneNo;
-    
+
     vector<int> blocked;
     vector<string> skills;
     int creds, role, userId;
@@ -36,11 +37,11 @@ public:
 
     // Constructor
     User(string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo,  vector<int> blocked, vector<string> skills, int creds, int role, int userId,
+         string phoneNo, vector<int> blocked, vector<string> skills, int creds, int role, int userId,
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
-    // constructor used for block function
-    User(const string &username);
+    // // constructor used for block function
+    // User(const string &username);
 
     // method to get username
     string getUsername();
@@ -99,8 +100,6 @@ public:
     // method to set role
     void setRole(int role);
 
-
-
     // method to get blocked person/people
     vector<int> getBlocked();
 
@@ -116,7 +115,7 @@ public:
     // method to block user from viewing content
     void blockUser(const vector<User *> &users, User &currentUser);
 
-    //method to show info with global width
+    // method to show info with global width
     void showInfo();
 
     // method to show info with block
@@ -200,11 +199,10 @@ public:
     // Method to get supporter rating
     double getSupporterRating() const;
 
-
     // Method to get skill
     vector<string> getSkillList();
 
-    // TODO mock function remove later - method to set skill 
+    // TODO mock function remove later - method to set skill
     void setSkills(const vector<string> &skills);
 
     void addSkill(string skill);
@@ -218,7 +216,7 @@ public:
     // Method to show member info with rating
     // void User::showInfoMemberWithRating(vector<User *> users);
 
-    //method to show all info (including password and rating) 
+    // method to show all info (including password and rating)
     void showAllInfo();
 
     // Method to show info with rating
@@ -234,7 +232,7 @@ public:
     void User::readFromFile(std::ifstream &file);
 
     // Method to load default data
-    void loadDefaultData(vector<User *> &users, const string &filename);
+    friend void loadDefaultData(vector<User *> &users, const string &filename);
 };
 
 // method to register user
@@ -244,7 +242,7 @@ User registerMember(vector<User *> users);
 bool checkValidUsername(vector<User *> users, string userName);
 
 // method to check valid email
-//bool checkValidEmail(vector<User *> users, string email);
+// bool checkValidEmail(vector<User *> users, string email);
 
 // method to check valid phone number
 bool checkValidPhoneNo(vector<User *> users, string phoneNo);
@@ -253,7 +251,7 @@ bool checkValidPhoneNo(vector<User *> users, string phoneNo);
 bool checkValidPwd(string pwd);
 
 // method to verify password
-//bool verifyPwd(User user, string pwd);
+// bool verifyPwd(User user, string pwd);
 
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username);
@@ -261,7 +259,7 @@ User *findByUsername(const vector<User *> &users, const string &username);
 // method to find user by if
 // TODO decide which one to use
 // For now lets use the one with const int
-//User *findById(const vector<User *> &users, int targetId);
+// User *findById(const vector<User *> &users, int targetId);
 User *findById(const vector<User *> &users, const int targetId);
 
 // method to find member through username
@@ -269,3 +267,5 @@ User *findMemberByUsername(const vector<User *> &users, const string &username);
 
 // method to find admin through username
 User *findAdminByUsername(const vector<User *> &users, const string &username);
+// Method to load default data
+void loadDefaultData(vector<User *> &users, const string &filename);
