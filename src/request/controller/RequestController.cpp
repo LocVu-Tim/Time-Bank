@@ -677,14 +677,16 @@ bool RequestController::handleRating(vector<userRequest *> &requestList)
             // if the user is the host
             // check if the supporter has rated the host
             // if not, continue creating rating
-            rateUser(host, supporter);
+            // TODO: I changed it
+            rateSupporter(host, supporter);
         }
         else
         {
             // if the user is the supporter
             // check if the host has rated the supporter
             // if not, continue creating rating
-            rateUser(supporter, host);
+            // TODO: I changed it
+            rateHost(supporter, host);
         }
     }
     // TODO handle rating

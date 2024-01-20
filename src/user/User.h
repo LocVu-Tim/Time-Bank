@@ -157,7 +157,7 @@ public:
     friend bool checkValidUsername(vector<User *> users, string userName);
 
     // method to check valid email
-    friend bool checkValidEmail(const vector<User*>& users, const string& email);
+    friend bool checkValidEmail(const vector<User *> &users, const string &email);
 
     // method to check valid phone number
     friend bool checkValidPhoneNo(vector<User *> users, string phoneNo);
@@ -201,7 +201,6 @@ public:
     // Method to get supporter rating
     double getSupporterRating() const;
 
-    
 
     // Method to get skill
     vector<string> getSkillList();
@@ -209,8 +208,12 @@ public:
     // TODO mock function remove later - method to set skill 
     void setSkills(const vector<string> &skills);
 
-    // Method to rate another user
-    friend void rateUser(User *rater, User *rated);
+    // Method to rate supporter
+    friend void rateSupporter(User *rater, User *rated);
+
+    // Method to rate host
+    friend void rateHost(User *rater, User *rated);
+
     // Method to show member info with rating
     // void User::showInfoMemberWithRating(vector<User *> users);
 
