@@ -215,7 +215,7 @@ void Member(vector<User*>& users, User& currentUser)
 			rc.selectAvailableFunction();
 			break;
 		case 4:
-			menu();
+			currentUser.blockUser(users, currentUser);
             break;
 		case 5:
             break;
