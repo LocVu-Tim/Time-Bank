@@ -271,3 +271,11 @@ User *findMemberByUsername(const vector<User *> &users, const string &username);
 User *findAdminByUsername(const vector<User *> &users, const string &username);
 // Method to load default data
 void loadDefaultData(vector<User *> &users, const string &filename);
+
+void showAllInfoHeader();
+
+// Method to show table header without rating n pwd
+void showInfoHeaderWithoutRating();
+
+// Method to show table header with rating 
+void showInfoHeaderWithRating();

@@ -6,11 +6,15 @@
 using namespace std;
 
 //format width for ease of data viewing
-const int USERNAME_WIDTH = 20;
-const int FULLNAME_WIDTH = 25;
+const int USERNAME_WIDTH = 10;
+const int FULLNAME_WIDTH = 15;
 const int PHONE_NUMBER_WIDTH = 15;
 const int CREDIT_POINT_WIDTH = 15;
 const int ROLE_WIDTH = 10;
-const int RATING_SCORE_WIDTH = 15;
-const int EMAIL_WIDTH = 35;
-const int HOME_ADDR_WIDTH = 35;
+const int RATING_SCORE_WIDTH = 10;
+const int EMAIL_WIDTH = 20;
+const int HOME_ADDR_WIDTH = 20;
+const int SKILL_RATING_WIDTH = 15;
+const int SUPPORTER_RATING_WIDTH = 15;
+const int HOST_RATING_WIDTH = 15;
+const int PWD_WIDTH = 15;

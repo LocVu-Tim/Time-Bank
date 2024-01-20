@@ -222,6 +222,90 @@ void User::showInfo()
     cout << left << creds;
 }
 
+// method to show info with rating
+void User::showInfoWithRating()
+{
+    User::showInfo();
+    cout.width(SKILL_RATING_WIDTH);
+    cout << left << skillRatingScore;
+    cout.width(SUPPORTER_RATING_WIDTH);
+    cout << left << supporterRatingScore;
+    cout.width(HOST_RATING_WIDTH);
+    cout << left << hostRatingScore;
+}
+// method to show all info (including password and rating)
+void User::showAllInfo()
+{
+    cout.width(USERNAME_WIDTH);
+    cout << left << userName;
+    cout.width(PWD_WIDTH);
+    cout << left << pwd;
+    cout.width(FULLNAME_WIDTH);
+    cout << left << fullName;
+    cout.width(EMAIL_WIDTH);
+    cout << left << email;
+    cout.width(HOME_ADDR_WIDTH);
+    cout << left << homeAddr;
+    cout.width(PHONE_NUMBER_WIDTH);
+    cout << left << phoneNo;
+    cout.width(CREDIT_POINT_WIDTH);
+    cout << left << creds;
+    cout.width(SKILL_RATING_WIDTH);
+    cout << left << skillRatingScore;
+    cout.width(SUPPORTER_RATING_WIDTH);
+    cout << left << supporterRatingScore;
+    cout.width(HOST_RATING_WIDTH);
+    cout << left << hostRatingScore;
+}
+// Method to show header of table 
+void showAllInfoHeader() {
+    cout.width(USERNAME_WIDTH);
+    cout << left << "USERNAME";
+    cout.width(PWD_WIDTH);
+    cout << left << "PWD";
+    cout.width(FULLNAME_WIDTH);
+    cout << left << "FULLNAME";
+    cout.width(EMAIL_WIDTH);
+    cout << left << "EMAIL";
+    cout.width(HOME_ADDR_WIDTH);
+    cout << left << "HOME ADDRESS";
+    cout.width(PHONE_NUMBER_WIDTH);
+    cout << left << "PHONE NUMBER";
+    cout.width(CREDIT_POINT_WIDTH);
+    cout << left << "CREDIT POINTS";
+    cout.width(SKILL_RATING_WIDTH);
+    cout << left << "SKILL RATING SCORE";
+    cout.width(SUPPORTER_RATING_WIDTH);
+    cout << left << "SUPPORTER RATING SCORE";
+    cout.width(HOST_RATING_WIDTH);
+    cout << left << "HOST RATING SCORE";
+}
+// Method to show table header without rating n pwd
+void showInfoHeaderWithoutRating() {
+    cout.width(USERNAME_WIDTH);
+    cout << left << "USERNAME";
+    cout.width(FULLNAME_WIDTH);
+    cout << left << "FULL NAME";
+    cout.width(EMAIL_WIDTH);
+    cout << left << "EMAIL";
+    cout.width(HOME_ADDR_WIDTH);
+    cout << left << "HOME ADDRESS";
+    cout.width(PHONE_NUMBER_WIDTH);
+    cout << left << "PHONE NUMBER";
+    cout.width(CREDIT_POINT_WIDTH);
+    cout << left << "CREDS";
+}
+// Method to show table header with rating 
+void showInfoHeaderWithRating() {
+    showInfoHeaderWithoutRating();
+    cout.width(SKILL_RATING_WIDTH);
+    cout << left << "SKILL RATING SCORE";
+    cout.width(SUPPORTER_RATING_WIDTH);
+    cout << left << "SUPPORTER RATING SCORE";
+    cout.width(HOST_RATING_WIDTH);
+    cout << left << "HOST RATING SCORE";
+}
+
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName)
 {
