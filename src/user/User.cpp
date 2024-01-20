@@ -402,3 +402,8 @@ void rateUser(User rater, User rated) {
     rated.ratings.push_back(rating);
     updateRatingScore(rated, type);
 }
+
+//Method to set rating
+void User::setRatings(const vector<Rating> &rates) {
+    User::ratings = rates;
+}

@@ -201,6 +201,9 @@ public:
 
     // Method to rate another user
     friend void rateUser(User rater, User rated);
+
+    //Method to set rating
+    void setRatings(const vector<Rating> &rates);
 };
 
 // method to register user
