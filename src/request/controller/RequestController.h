@@ -55,8 +55,8 @@ public:
 
     void incomingProcess();
     void outgoingProcess();
-    void calculatePointsConsumedForHost(userRequest *request);
-    void calculatePointsConsumedForSupporter(userRequest *request);
+    bool calculatePointsConsumedForHost(userRequest* request);
+    void calculatePointsConsumedForSupporter(userRequest* request);
 
     vector<userRequest *> filterUserList(vector<userRequest *> &requestList);
 

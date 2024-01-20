@@ -48,46 +48,46 @@ void RequestView::checkBeforeSubmitting(string form)
         }
     }
 
-    // // validate if the timeFrom is before timeTo
-    // tm dateFrom_tm;
-    // istringstream ss(userInputs["timeFrom"]);
-    // ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
-    // tm dateTo_tm;
-    // istringstream ss2(userInputs["timeTo"]);
-    // ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
+    // validate if the timeFrom is before timeTo
+    tm dateFrom_tm;
+    istringstream ss(userInputs["timeFrom"]);
+    ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
+    tm dateTo_tm;
+    istringstream ss2(userInputs["timeTo"]);
+    ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
 
-    // // Debug
-    // // print timeFrom and timeTo
-    // cout << "Time from: " << userInputs["timeFrom"] << endl;
-    // cout << "Time to: " << userInputs["timeTo"] << endl;
-    // if (difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm)) >= 0)
-    // {
-    //     errorHandling("Invalid date");
-    //     if (form == "list")
-    //     {
-    //         return list();
-    //     }
-    //     else if (form == "requestForSupporter")
-    //     {
-    //         return requestForSupporter();
-    //     }
-    // }
+    // Debug
+    // print timeFrom and timeTo
+    cout << "Time from: " << userInputs["timeFrom"] << endl;
+    cout << "Time to: " << userInputs["timeTo"] << endl;
+    if (difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm)) >= 0)
+    {
+        errorHandling("Invalid date");
+        if (form == "list")
+        {
+            return list();
+        }
+        else if (form == "requestForSupporter")
+        {
+            return requestForSupporter();
+        }
+    }
 
-    // // validate if the timeFrom is after the current date
-    // time_t now = time(0);
-    // tm *ltm = localtime(&now);
-    // if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0)
-    // {
-    //     errorHandling("From date must after current");
-    //     if (form == "list")
-    //     {
-    //         return list();
-    //     }
-    //     else if (form == "requestForSupporter")
-    //     {
-    //         return requestForSupporter();
-    //     }
-    // }
+    // validate if the timeFrom is after the current date
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0)
+    {
+        errorHandling("From date must after current");
+        if (form == "list")
+        {
+            return list();
+        }
+        else if (form == "requestForSupporter")
+        {
+            return requestForSupporter();
+        }
+    }
 
     // validate if the pointsPerHour is a number
     try

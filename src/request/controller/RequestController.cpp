@@ -49,8 +49,8 @@ void RequestController::selectAvailableFunction()
         break;
     case 7:
         fileUtility.modifyFile(requestModel->requestList);
-        // exit(0);
-        return;
+         //exit(0);
+        break;
     default:
         requestView->errorHandling("Invalid choice");
         cin.clear();
@@ -472,7 +472,7 @@ vector<userRequest *> RequestController::filterIncomingRequest()
     vector<userRequest *> filteredRequestList = {};
     for (int i = 0; i < requestList.size(); i++)
     {
-        if ((requestList[i]->userId) == user->getUserId() && requestList[i]->availability == false)
+        if ((requestList[i]->userId) != user->getUserId() && requestList[i]->availability == false && (requestList[i]->supporterId != user->getUserId() ||requestList[i]->hostId != user->getUserId()))
         {
             filteredRequestList.push_back(requestList[i]);
         }
@@ -489,7 +489,7 @@ vector<userRequest *> RequestController::filterOutgoingRequest()
     vector<userRequest *> filteredRequestList = {};
     for (int i = 0; i < requestList.size(); i++)
     {
-        if ((requestList[i]->supporterId == this->user->getUserId() || requestList[i]->hostId == this->user->getUserId()) && requestList[i]->availability == false)
+        if ((requestList[i]->supporterId == this->user->getUserId() || requestList[i]->hostId == this->user->getUserId()) && requestList[i]->availability == false && requestList[i]->userId == this->user->getUserId() )
         {
             filteredRequestList.push_back(requestList[i]);
         }
@@ -557,13 +557,14 @@ void RequestController::incomingProcess()
                 // get the request to modify
                 cin >> choice;
                 userRequest *request = findARequest(stoi(choice) - 1, incomingRequest);
-                request->isCompleted = true;
                 // check if the requester is the host or supporter
                 if (request->hostId == this->user->getUserId())
                 {
                     // if the requester is the host
                     // calculate the points consumed
-                    calculatePointsConsumedForHost(request);
+                    if (!calculatePointsConsumedForHost(request)) {
+                        break;
+                    };
                 }
                 else
                 {
@@ -571,6 +572,7 @@ void RequestController::incomingProcess()
                     // calculate the points consumed
                     calculatePointsConsumedForSupporter(request);
                 }
+                request->isCompleted = true;
                 cout << "Optional: Do you want to rate the user? (Y/n)" << endl;
                 cin >> choice;
                 if (choice == "Y" || choice == "y")
@@ -591,6 +593,10 @@ void RequestController::incomingProcess()
                     }
                 }
             }
+            else
+            {
+				return selectAvailableFunction();
+			}
         }
     }
 }
@@ -690,10 +696,11 @@ bool RequestController::handleRating(vector<userRequest *> &requestList)
     // TODO handle rating
 };
 
-void RequestController::calculatePointsConsumedForHost(userRequest *request)
+bool RequestController::calculatePointsConsumedForHost(userRequest *request)
 {
     // get the duration of the request
-    cout << "Enter the duration of the request: " << endl;
+
+    cout << "Enter the duration of the request (in hour): " << endl;
     int duration;
     cin >> duration;
     // points consumed = duration * pointsPerHour
@@ -703,7 +710,8 @@ void RequestController::calculatePointsConsumedForHost(userRequest *request)
     if (user->getCreds() < request->pointsConsumed)
     {
         cout << "You do not have enough points to complete the request" << endl;
-        return selectAvailableFunction();
+        //return selectAvailableFunction();
+        return false;
     }
     // modify the user
     user->setCreds(user->getCreds() - request->pointsConsumed);
@@ -711,6 +719,7 @@ void RequestController::calculatePointsConsumedForHost(userRequest *request)
     // also add the points to the supporter
     User *supporter = findById(this->userList, request->supporterId);
     supporter->setCreds(supporter->getCreds() + request->pointsConsumed);
+    return true;
 }
 
 // qq might not needed
