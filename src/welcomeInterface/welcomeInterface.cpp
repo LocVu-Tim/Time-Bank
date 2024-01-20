@@ -186,7 +186,8 @@ void Member()
     User *testUser = *&user;
     testUser->setUsername("usefalcuty");
     testUser->setUserId(12);
-    //TODO testUser->(); 
+    // TODO: finish this
+//    testUser->();
     // Another one
     User *testUser2 = new User();
     testUser2->setUsername("usefalcuty2");
