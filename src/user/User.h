@@ -229,7 +229,7 @@ public:
     void saveToFile(std::ofstream &file);
 
     // Method to read data from file
-    void User::readFromFile(std::ifstream &file);
+    void readFromFile(std::ifstream &file);
 
     // Method to load default data
     friend void loadDefaultData(vector<User *> &users, const string &filename);
