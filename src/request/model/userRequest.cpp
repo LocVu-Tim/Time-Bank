@@ -5,7 +5,7 @@ using namespace std;
 void userRequest::printInfo(vector<User *> &userList)
 {
     cout << "Request ID: " << this->id << endl;
-    User *creator = findById(userList, stoi(userId));
+    User *creator = findById(userList, userId);
     cout << "user created this request: " << creator->getUsername() << endl;
     cout << "Availability: " << (this->availability == true ? "true" : "false") << endl;
     cout << "Points per hour: " << this->pointsPerHour << endl;
@@ -20,16 +20,14 @@ void userRequest::printInfo(vector<User *> &userList)
     {
         cout << "Minimum rating for host: " << this->minimumRatingForHost << endl;
     }
-    cout << "Skills: ";
-    for (int i = 0; i < this->skill.size(); i++)
+    cout << "Skill: ";
+    if (this->skill.size() == 0)
     {
-        // at the end dont print commaww
-        if (i == this->skill.size() - 1)
-        {
-            cout << this->skill[i];
-            break;
-        }
-        cout << this->skill[i] << ",";
+        cout << "none" << endl;
+    }
+    else
+    {
+        cout << this->skill[0];
     }
     cout << endl;
     // if (hostId != -1)

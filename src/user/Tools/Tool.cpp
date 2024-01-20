@@ -35,4 +35,3 @@ bool caseSensitiveStringCompare(const string &str1, const string &str2)
         return true;
     }
 }
-

@@ -2,9 +2,9 @@
 #define TIME_BANK_WELCOMEINTERFACE_H
 // #include "../main.cpp"
 #include "../user/User.h"
-#include "../user/Admin/Admin.h"
-#include "../user/Guest/Guest.h"
-#include "../user/Member/Member.h"
+//#include "../user/Admin/Admin.cpp"
+//#include "../user/Guest/Guest.cpp"
+//#include "../user/Member/Member.cpp"
 #include "../user/Tools/Tool.h"
 // #include "../welcomeInterface/welcomeInterface.cpp"
 #include "../request/request.h"

@@ -1,7 +1,6 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
 #include "../../Width.h"
-#include "Member.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO MEMBER:

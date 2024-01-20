@@ -1,5 +1,5 @@
 #include "../User.h"
-#include "Admin.h"
+#include "../Tools/Tool.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO ADMIN:
@@ -35,7 +35,8 @@ bool User::loginAdmin(const vector<User *> &users, string checkUsername) {
 }
 
 // method to show info admin
-void User::showInfoAdmin() {
+void User::showInfoAdmin()
+{
     showInfo();
     cout.width(ROLE_WIDTH);
     cout << left << "Admin";
