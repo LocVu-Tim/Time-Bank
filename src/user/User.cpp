@@ -14,18 +14,30 @@ User::User() {}
 
 // Constructor
 User::User(string userName, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, vector<int> blocked = {}, vector<string> skills={}, int creds = 20,
+           string homeAddr, string phoneNo, vector<int> blocked = {}, vector<string> skills = {}, int creds = 20,
            int role = 2,
            int userId = 0, double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
     : userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)),
       email(std::move(email)),
-      homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), blocked(std::move(blocked)),skills(std::move(skills)),
+      homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), blocked(std::move(blocked)), skills(std::move(skills)),
       creds(creds), role(role), userId(userId),
       skillRatingScore(skillRatingScore),
       supporterRatingScore(supporterRatingScore),
       hostRatingScore(hostRatingScore),
       ratings(std::move(ratings)){};
+
+User::User(const User &other)
+    : userName(other.userName), pwd(other.pwd), fullName(other.fullName),
+      email(other.email), homeAddr(other.homeAddr), phoneNo(other.phoneNo),
+      blocked(other.blocked), skills(other.skills),
+      creds(other.creds), role(other.role), userId(other.userId),
+      skillRatingScore(other.skillRatingScore),
+      supporterRatingScore(other.supporterRatingScore),
+      hostRatingScore(other.hostRatingScore),
+      ratings(other.ratings)
+{
+}
 
 // // constructor used for block function
 // User::User(const string &username)
@@ -541,7 +553,8 @@ void User::saveToFile(ofstream &file)
     {
         file << rating.getRatingID() << ",";
     }
-    file << "}" << "\n";
+    file << "}"
+         << "\n";
 }
 
 // Method to read user data from a file
