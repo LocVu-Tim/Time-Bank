@@ -1,6 +1,5 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
-#include "Guest.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO GUEST:

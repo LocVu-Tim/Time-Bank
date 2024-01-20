@@ -13,10 +13,10 @@
 User::User() {}
 
 // Constructor
-User::User(int userID, string userName, string pwd, string fullName, string email,
+User::User(string userName, string pwd, string fullName, string email,
            string homeAddr, string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
            int role = 2,
-           double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
+           int userId = 0, double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
     : userID(userID), userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)),
       email(std::move(email)),
@@ -374,6 +374,7 @@ int countRatings(const User &user, int type)
 double calRatingScore(const User &user, int type)
 {
     double sum = 0;
+    double value = 0;
 
     for (Rating rate : user.ratings)
     {
@@ -383,7 +384,7 @@ double calRatingScore(const User &user, int type)
         }
     }
 
-    double value = sum / countRatings(user, type);
+    value = sum / countRatings(user, type);
 
     return value;
 }
