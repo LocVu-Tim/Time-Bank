@@ -235,10 +235,9 @@ void memberLogin(vector<User*>& users, User &currentUser)
         cin >> mName;
         if (currentUser.loginMember(users, mName))
         {
-            currentUser.setUsername(mName);
-            currentUser.setPwd(findByUsername(users, mName)->getPwd());
+           /* currentUser.setUsername(mName);
+            currentUser.setPwd(findByUsername(users, mName)->getPwd());*/
             // User *foundUser = findMemberByUsername(users, currentUser.getUsername());
-
             // if (foundUser != nullptr)
             // {
             //     currentUser = *foundUser;
