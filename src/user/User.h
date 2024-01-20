@@ -22,7 +22,7 @@ class Rating;
 class User {
 private:
     string userName, pwd, fullName, email, homeAddr, phoneNo;
-    bool isBlock;
+    
     vector<int> blocked;
     vector<string> skills;
     int creds, role, userId;
@@ -36,7 +36,7 @@ public:
 
     // Constructor
     User(string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo, bool block, vector<int> blocked, int creds, int role, int userId,
+         string phoneNo,  vector<int> blocked, int creds, int role, int userId,
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function
@@ -99,8 +99,7 @@ public:
     // method to set role
     void setRole(int role);
 
-    // method to get blocked
-    bool isBlocked();
+
 
     // method to get blocked person/people
     vector<int> getBlocked();
@@ -115,7 +114,7 @@ public:
     void setUserId(int id);
 
     // method to block user from viewing content
-    void blockUser(const vector<User *> &users);
+    void blockUser(const vector<User *> &users, User &currentUser);
 
     //method to show info with global width
     void showInfo();
@@ -227,6 +226,15 @@ public:
 
     // Method to set rating
     void setRatings(const vector<Rating> &rate);
+
+    // Method to save data to file
+    void saveToFile(std::ofstream &file);
+
+    // Method to read data from file
+    void User::readFromFile(std::ifstream &file);
+
+    // Method to load default data
+    void loadDefaultData(vector<User *> &users, const string &filename);
 };
 
 // method to register user
