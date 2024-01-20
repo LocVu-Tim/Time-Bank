@@ -186,13 +186,18 @@ void Member()
     User *testUser = *&user;
     testUser->setUsername("usefalcuty");
     testUser->setUserId(12);
+    // TODO: finish this
+//    testUser->();
     // Another one
     User *testUser2 = new User();
     testUser2->setUsername("usefalcuty2");
     testUser2->setUserId(13);
 
     testUser->setBlocked(jao->getUserId());
-    //testUser->setSkills({"C++", "Java", "Python"});
+    // set skills
+    testUser->setSkills({"C++", "Java", "Python"});
+    testUser2->setSkills({"C++", "Java", "Python"});
+    jao->setSkills({"C++", "Java", "Python"});
     vector<User *> userList = {testUser, testUser2, jao};
 
     int choice;
@@ -307,27 +312,28 @@ void Guest()
         break;
     }
 }
-bool defaultData = false;
+//bool defaultData = false;
 
-int main()
-{
-    vector<User *> users;
-    User currentUser;
-    User nextUser;
-    User admin1 = User("admin1", "password1", "John Doe", "john@example.com", "123 Main St", "0123456789", false, {}, 20, 3, 1, 3, 4, 2, {});
-    User admin2 = User("admin2", "password2", "Jane Doe", "jane@example.com", "456 Oak St", "0213645987", false, {}, 20, 3, 2, 3, 4, 2, {});
-    User user1 = User("user1", "password3", "Bob Doe", "bob@example.com", "234 Wall St", "0345671298", false, {}, 20, 2, 3, 3, 4, 2, {});
-    User user2 = User("user2", "password4", "Bob Smtih", "smith@example.com", "234 Oak St", "0498765298", false, {}, 20, 2, 4, 3, 4, 2, {});
-    User user3 = User("user3", "password5", "John Smtih", "jsmtih@example.com", "456 Main St", "0512345678", false, {}, 20, 2, 5, 3, 4, 2, {});
-    User user4 = User("user4", "password6", "Bob Dover", "dover@example.com", "789 Greens St", "0648395023", false, {}, 20, 2, 6, 3, 4, 2, {});
-    User user5 = User("user5", "password7", "Peter Smtih", "peter@example.com", "123 Greens St", "0712312345", false, {}, 20, 2, 7, 3, 4, 2, {});
-    User user6 = User("user6", "password8", "Peter Parker", "parker@example.com", "345 Brooklyn St", "0898745631", false, {}, 20, 2, 8, 3, 4, 2, {});
-    User user7 = User("user7", "password9", "Harry Bon", "bon@example.com", "123 Oak St", "0923784590", false, {}, 20, 2, 9, 3, 4, 2, {});
-
-    users = {&admin1, &admin2, &user1, &user2, &user3, &user4, &user5, &user6, &user7};
-    welcomeInterface(users, currentUser);
-    // currentUser = registerMember(users, currentUser);
-    // currentUser.showInfoWithoutRating(users);
-    // memberLogin(users, currentUser);
-    return 0;
-}
+//int main()
+//{
+//    vector<User *> users;
+//    User currentUser;
+//    User nextUser;
+//    User admin1 = User("admin1", "password1", "John Doe", "john@example.com", "123 Main St", "0123456789", false, {}, 20, 3, 1, 3, 4, 2, {});
+//    User admin2 = User("admin2", "password2", "Jane Doe", "jane@example.com", "456 Oak St", "0213645987", false, {}, 20, 3, 2, 3, 4, 2, {});
+//    User user1 = User("user1", "password3", "Bob Doe", "bob@example.com", "234 Wall St", "0345671298", false, {}, 20, 2, 3, 3, 4, 2, {});
+//    User user2 = User("user2", "password4", "Bob Smtih", "smith@example.com", "234 Oak St", "0498765298", false, {}, 20, 2, 4, 3, 4, 2, {});
+//    User user3 = User("user3", "password5", "John Smtih", "jsmtih@example.com", "456 Main St", "0512345678", false, {}, 20, 2, 5, 3, 4, 2, {});
+//    User user4 = User("user4", "password6", "Bob Dover", "dover@example.com", "789 Greens St", "0648395023", false, {}, 20, 2, 6, 3, 4, 2, {});
+//    User user5 = User("user5", "password7", "Peter Smtih", "peter@example.com", "123 Greens St", "0712312345", false, {}, 20, 2, 7, 3, 4, 2, {});
+//    User user6 = User("user6", "password8", "Peter Parker", "parker@example.com", "345 Brooklyn St", "0898745631", false, {}, 20, 2, 8, 3, 4, 2, {});
+//    User user7 = User("user7", "password9", "Harry Bon", "bon@example.com", "123 Oak St", "0923784590", false, {}, 20, 2, 9, 3, 4, 2, {});
+//
+//    users = {&admin1, &admin2, &user1, &user2, &user3, &user4, &user5, &user6, &user7};
+//    //welcomeInterface(users, currentUser);
+//    welcomeInterface();
+//    // currentUser = registerMember(users, currentUser);
+//    // currentUser.showInfoWithoutRating(users);
+//    // memberLogin(users, currentUser);
+//    return 0;
+//}

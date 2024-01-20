@@ -50,7 +50,7 @@ void RequestController::selectAvailableFunction()
     case 7:
         fileUtility.modifyFile(requestModel->requestList);
         // exit(0);
-        return;
+        break;
     default:
         requestView->errorHandling("Invalid choice");
         cin.clear();
@@ -121,19 +121,42 @@ void RequestController::requestForSupporter()
 // This is for finding all of the available request, excluding the current user and blocked user
 vector<userRequest *> RequestController::filterRequestAvailable(vector<userRequest *> &requestList, int userId, vector<int> blocked)
 {
-    for (int i = 0; i < requestList.size(); i++)
+    for (int i = 0; i < requestList.size();)
     {
+        bool erased = false;
         // the user cannot see their own request
         if (requestList[i]->userId == (userId))
         {
             requestList.erase(requestList.begin() + i);
+            erased = true;
         }
+        // if not erased, continue checking
+        if (!erased)
+        {
+            ++i;
+        }
+    }
+    requestList = filterBasedOnBlocked(requestList, blocked);
+    return requestList;
+}
+
+vector<userRequest *> RequestController::filterBasedOnBlocked(vector<userRequest *> &requestList, vector<int> blocked)
+{
+    for (int i = 0; i < requestList.size();)
+    {
+        bool erased = false;
+        // if (requestList[i]->userId == blocked[])
         for (int j = 0; j < blocked.size(); j++)
         {
             if (requestList[i]->hostId == blocked[j])
             {
                 requestList.erase(requestList.begin() + i);
+                erased = true;
             }
+        }
+        if (!erased)
+        {
+            ++i;
         }
     }
     return requestList;
@@ -142,11 +165,17 @@ vector<userRequest *> RequestController::filterRequestAvailable(vector<userReque
 vector<userRequest *>
 RequestController::filterBasedOnHostRating(vector<userRequest *> &requestList, double hostRating)
 {
-    for (int i = 0; i < requestList.size(); i++)
+    bool erased = false;
+    for (int i = 0; i < requestList.size();)
     {
-        if (hostRating < requestList[i]->minimumRatingForHost && requestList[i]->availability == true && requestList[i]->supporterId == -1)
+        if (hostRating < requestList[i]->minimumRatingForHost && requestList[i]->availability == true && requestList[i]->hostId == -1)
         {
             requestList.erase(requestList.begin() + i);
+            erased = true;
+        }
+        if (!erased)
+        {
+            ++i;
         }
     }
     return requestList;
@@ -189,7 +218,20 @@ void RequestController::unlist()
     }
     while (true)
     {
+        string continueFlag;
         requestView.unlist(filteredList, this->userList);
+        cout << "Do you want to unlisten any of the request? (Y/n)" << endl;
+        cin >> continueFlag;
+        if (continueFlag == "n" || continueFlag == "N")
+        {
+            return selectAvailableFunction();
+        }
+        else if (continueFlag != "Y" && continueFlag != "y")
+        {
+            requestView.errorHandling("Invalid choice");
+            return selectAvailableFunction();
+        }
+        cout << "Which request do you want to remove?" << endl;
         string unlistenChoice;
         cin >> unlistenChoice;
         // return the object that user had selected
@@ -220,7 +262,7 @@ void RequestController::unlist()
     }
 }
 
-// supporter to view all request made by other host
+// support the user to view all of the available request
 void RequestController::viewAllRequests()
 {
     RequestView requestView;
@@ -236,6 +278,8 @@ void RequestController::viewAllRequests()
     vector<userRequest *> availableData = filterRequestAvailable(filteredData, userId, blocked);
     // Now filter by rating
     availableData = filterBasedOnHostRating(availableData, this->user->getHostRating());
+    // and skills too (for compatibility job for them instead of all of the skills)
+    string skill = this->user->getSkillList()[0];
 
     if (availableData.size() == 0)
     {
@@ -322,7 +366,7 @@ void RequestController::adminViewAllRequests(RequestModel &rm)
     // return to the main interface qq
 }
 
-// view all the request - user to join
+// view all the request for supporter
 void RequestController::hostViewAvailableRequest()
 {
     // filter by date and availability
@@ -332,7 +376,23 @@ void RequestController::hostViewAvailableRequest()
     vector<int> blocked = this->user->getBlocked();
     vector<userRequest *> availableData = filterRequestAvailable(filteredData, userId, blocked);
     availableData = filterBasedOnSupporterRating(availableData, this->user->getSupporterRating());
+    if (availableData.size() == 0)
+    {
+        cout << "No data found" << endl;
+        return selectAvailableFunction();
+    }
     requestView->viewAllHostRequests(availableData, this->userList);
+    string choice;
+    cin >> choice;
+    if (choice == "n" || choice == "N")
+    {
+        return selectAvailableFunction();
+    }
+    else if (choice != "Y" && choice != "y")
+    {
+        requestView->errorHandling("Invalid choice");
+        return selectAvailableFunction();
+    }
     // apply -> find the request, available->false, supporterId = current user
     bool continueFlag = true;
     while (continueFlag)
@@ -369,14 +429,21 @@ void RequestController::hostViewAvailableRequest()
     }
 };
 
-// assist the host to find a supporter
+// assist the supporter to find the host
 vector<userRequest *> RequestController::filterBasedOnSupporterRating(vector<userRequest *> &requestList, double supporterRating)
 {
-    for (int i = 0; i < requestList.size(); i++)
+    bool erased = false;
+    for (int i = 0; i < requestList.size();)
     {
+        bool erased = false;
         if (supporterRating < requestList[i]->minimumRatingForSupporter && requestList[i]->availability == true && requestList[i]->hostId == -1)
         {
             requestList.erase(requestList.begin() + i);
+            erased = true;
+        }
+        if (!erased)
+        {
+            ++i;
         }
     }
     return requestList;
@@ -405,7 +472,7 @@ vector<userRequest *> RequestController::filterIncomingRequest()
     vector<userRequest *> filteredRequestList = {};
     for (int i = 0; i < requestList.size(); i++)
     {
-        if ((requestList[i]->userId) == user->getUserId() && requestList[i]->availability == false)
+        if ((requestList[i]->userId) != user->getUserId() && requestList[i]->availability == false && (requestList[i]->supporterId != user->getUserId() || requestList[i]->hostId != user->getUserId()))
         {
             filteredRequestList.push_back(requestList[i]);
         }
@@ -422,7 +489,7 @@ vector<userRequest *> RequestController::filterOutgoingRequest()
     vector<userRequest *> filteredRequestList = {};
     for (int i = 0; i < requestList.size(); i++)
     {
-        if ((requestList[i]->supporterId == this->user->getUserId() || requestList[i]->hostId == this->user->getUserId()) && requestList[i]->availability == false)
+        if ((requestList[i]->supporterId == this->user->getUserId() || requestList[i]->hostId == this->user->getUserId()) && requestList[i]->availability == false && requestList[i]->userId == this->user->getUserId())
         {
             filteredRequestList.push_back(requestList[i]);
         }
@@ -490,13 +557,15 @@ void RequestController::incomingProcess()
                 // get the request to modify
                 cin >> choice;
                 userRequest *request = findARequest(stoi(choice) - 1, incomingRequest);
-                request->isCompleted = true;
                 // check if the requester is the host or supporter
                 if (request->hostId == this->user->getUserId())
                 {
                     // if the requester is the host
                     // calculate the points consumed
-                    calculatePointsConsumedForHost(request);
+                    if (!calculatePointsConsumedForHost(request))
+                    {
+                        break;
+                    };
                 }
                 else
                 {
@@ -504,17 +573,29 @@ void RequestController::incomingProcess()
                     // calculate the points consumed
                     calculatePointsConsumedForSupporter(request);
                 }
-                // TODO add rating
-                
-                cout << "Do you want to continue? (Y/n)" << endl;
+                request->isCompleted = true;
+                cout << "Optional: Do you want to rate the user? (Y/n)" << endl;
+                cin >> choice;
                 if (choice == "Y" || choice == "y")
                 {
-                    continue;
+                    handleRating(incomingRequest);
                 }
                 else
                 {
-                    return selectAvailableFunction();
+                    cout << "Do you want to continue? (Y/n)" << endl;
+                    if (choice == "Y" || choice == "y")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        return selectAvailableFunction();
+                    }
                 }
+            }
+            else
+            {
+                return selectAvailableFunction();
             }
         }
     }
@@ -594,41 +675,54 @@ bool RequestController::handleRating(vector<userRequest *> &requestList)
     }
     else if (request->isCompleted == true)
     {
+        User *host = findById(this->userList, request->hostId);
+        User *supporter = findById(this->userList, request->supporterId);
         // check if the user is the host or supporter
         if (request->hostId == this->user->getUserId())
         {
             // if the user is the host
             // check if the supporter has rated the host
             // if not, continue creating rating
+            rateSupporter(host, supporter);
         }
         else
         {
             // if the user is the supporter
             // check if the host has rated the supporter
             // if not, continue creating rating
+            rateHost(supporter, host);
         }
     }
-    // TODO handle rating
+    return true;
 };
 
-void RequestController::calculatePointsConsumedForHost(userRequest *request)
+bool RequestController::calculatePointsConsumedForHost(userRequest *request)
 {
     // get the duration of the request
-    cout << "Enter the duration of the request: " << endl;
+
+    cout << "Enter the duration of the request (in hour): " << endl;
     int duration;
     cin >> duration;
     // points consumed = duration * pointsPerHour
     // store the points consumed in the request
     request->pointsConsumed = duration * request->pointsPerHour;
-    // modify the user points
+    // check if the user has enough points
+    if (user->getCreds() < request->pointsConsumed)
+    {
+        cout << "You do not have enough points to complete the request" << endl;
+        // return selectAvailableFunction();
+        return false;
+    }
+    // modify the user
     user->setCreds(user->getCreds() - request->pointsConsumed);
     cout << "Points consumed: " << request->pointsConsumed << endl;
     // also add the points to the supporter
     User *supporter = findById(this->userList, request->supporterId);
     supporter->setCreds(supporter->getCreds() + request->pointsConsumed);
+    return true;
 }
 
-// qqmight not needed
+// qq might not needed
 void RequestController::calculatePointsConsumedForSupporter(userRequest *request)
 {
     // get the duration of the request
@@ -648,11 +742,17 @@ void RequestController::calculatePointsConsumedForSupporter(userRequest *request
 
 vector<userRequest *> RequestController::filterBasedOnSkills(vector<userRequest *> &requestList, string skill)
 {
-    for (int i = 0; i < requestList.size(); i++)
+    bool erased = false;
+    for (int i = 0; i < requestList.size();)
     {
         if (requestList[i]->skill[0] != skill)
         {
             requestList.erase(requestList.begin() + i);
+            erased = true;
+        }
+        if (!erased)
+        {
+            ++i;
         }
     }
     return requestList;
@@ -660,11 +760,17 @@ vector<userRequest *> RequestController::filterBasedOnSkills(vector<userRequest 
 
 vector<userRequest *> RequestController::filterRatedRequest(vector<userRequest *> &requestList)
 {
+    bool erased = false;
     for (int i = 0; i < requestList.size(); i++)
     {
         if (requestList[i]->isRated == true)
         {
             requestList.erase(requestList.begin() + i);
+            erased = true;
+        }
+        if (!erased)
+        {
+            ++i;
         }
     }
     return requestList;

@@ -26,7 +26,6 @@ add_executable(Time_Bank
         src/user/Admin/Admin.cpp
         src/user/Tools/Tool.cpp
         src/main.cpp
-        src/user/Member/Member.h
         src/request/request.h
         src/request/model/fileUtility.cpp
         src/request/model/userRequest.cpp)

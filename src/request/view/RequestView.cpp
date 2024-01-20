@@ -17,8 +17,7 @@ void RequestView::setOptionalInput(string inputField)
 {
     string userinput;
     // can be empty -> optional
-    getline(cin >> ws, userinput);
-    // cin.ignore(1000, '\n');
+    getline(cin, userinput);
     userInputs[inputField] = userinput;
 };
 
@@ -27,13 +26,22 @@ bool RequestView::isValidDate(string date)
     tm tm;
     istringstream ss(date);
     ss >> get_time(&tm, "%d/%m/%Y");
-    return !ss.fail();
+    // return ss.eof() && !ss.fail();
+    // check if date month and year are valid
+    if (ss.eof() && !ss.fail())
+    {
+        // check if the date is valid
+        if (tm.tm_mday > 0 && tm.tm_mday <= 31 && tm.tm_mon >= 0 && tm.tm_mon <= 12 && tm.tm_year >= 0)
+        {
+            return true;
+        }
+    }
+    return false;
 };
 
 // Might be improved with inserting the type of request as a parameter
 void RequestView::checkBeforeSubmitting(string form)
 {
-    cout << isValidDate(userInputs["timeFrom"]) << endl;
     // validate date
     if (!isValidDate(userInputs["timeFrom"]) || !isValidDate(userInputs["timeTo"]))
     {
@@ -48,46 +56,46 @@ void RequestView::checkBeforeSubmitting(string form)
         }
     }
 
-    // // validate if the timeFrom is before timeTo
-    // tm dateFrom_tm;
-    // istringstream ss(userInputs["timeFrom"]);
-    // ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
-    // tm dateTo_tm;
-    // istringstream ss2(userInputs["timeTo"]);
-    // ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
+    // validate if the timeFrom is before timeTo
+    tm dateFrom_tm;
+    istringstream ss(userInputs["timeFrom"]);
+    ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
+    tm dateTo_tm;
+    istringstream ss2(userInputs["timeTo"]);
+    ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
 
-    // // Debug
-    // // print timeFrom and timeTo
-    // cout << "Time from: " << userInputs["timeFrom"] << endl;
-    // cout << "Time to: " << userInputs["timeTo"] << endl;
-    // if (difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm)) >= 0)
-    // {
-    //     errorHandling("Invalid date");
-    //     if (form == "list")
-    //     {
-    //         return list();
-    //     }
-    //     else if (form == "requestForSupporter")
-    //     {
-    //         return requestForSupporter();
-    //     }
-    // }
+    // Debug
+    // print timeFrom and timeTo
+    cout << "Time from: " << userInputs["timeFrom"] << endl;
+    cout << "Time to: " << userInputs["timeTo"] << endl;
+    if (difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm)) >= 0)
+    {
+        errorHandling("Invalid date");
+        if (form == "list")
+        {
+            return list();
+        }
+        else if (form == "requestForSupporter")
+        {
+            return requestForSupporter();
+        }
+    }
 
-    // // validate if the timeFrom is after the current date
-    // time_t now = time(0);
-    // tm *ltm = localtime(&now);
-    // if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0)
-    // {
-    //     errorHandling("From date must after current");
-    //     if (form == "list")
-    //     {
-    //         return list();
-    //     }
-    //     else if (form == "requestForSupporter")
-    //     {
-    //         return requestForSupporter();
-    //     }
-    // }
+    // validate if the timeFrom is after the current date
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0)
+    {
+        errorHandling("From date must after current");
+        if (form == "list")
+        {
+            return list();
+        }
+        else if (form == "requestForSupporter")
+        {
+            return requestForSupporter();
+        }
+    }
 
     // validate if the pointsPerHour is a number
     try
@@ -186,8 +194,8 @@ void RequestView::viewAvailableFunctions()
     cout << "==============================" << endl;
     cout << "1. List or unlist a request" << endl;
     cout << "2. Request for a supporter" << endl;
-    cout << "3. View all request as a supporter" << endl;
-    cout << "4. View all request as a host" << endl;
+    cout << "3. View all request as a host" << endl;
+    cout << "4. View all request as a supporter" << endl;
     cout << "5. View all incoming requests" << endl;
     cout << "6. View all outgoing requests" << endl;
     cout << "7. Exit" << endl;
@@ -205,7 +213,6 @@ void RequestView::listOrUnlist()
 
 void RequestView::list()
 {
-    // TODO list skill
 
     int numberOfSkills;
     cout << "Enter the time period you want to list yourself for request (In date and with format dd/mm/yyyy): " << endl;
@@ -251,14 +258,13 @@ void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *
         availableRequests[i]->printInfo(allUsers);
         cout << string(50, '=') << endl;
     }
-    cout << "Which request do you want to remove?" << endl;
 };
 
 // TODO - the data now need to be filtered by the rating of the request user to the current user.
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
     // qq change in the implementation - display all available requests
-    cout << "Available requests for you to join: " << endl;
+    cout << "Available requests for you to rent: " << endl;
     for (int i = 0; i < availableRequests.size(); i++)
     {
         cout << "Request no. " << i + 1 << endl;
@@ -266,7 +272,7 @@ void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vect
         availableRequests[i]->printInfo(allUsers);
         cout << string(50, '=') << endl;
     }
-    cout << "Would you like to support any of the above requests? (y/n)" << endl;
+    cout << "Would you like to host any of the above requests? (y/n)" << endl;
 }
 
 vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilter)
@@ -277,7 +283,8 @@ vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilte
     vector<userRequest *> filteredData;
     // if the time is between timeTo and timeFrom, then return the request
     // else return empty vector
-    for (int i = 0; i < dataToFilter.size(); i++)
+    int size = dataToFilter.size();
+    for (int i = 0; i < size; i++)
     {
         // convert string to date first
         string dateFrom = dataToFilter[i]->timeFrom;
@@ -335,7 +342,7 @@ void RequestView::viewAllHostRequests(vector<userRequest *> &requestList, vector
         requestList[i]->printInfo(userList);
         cout << string(50, '=') << endl;
     }
-    cout << "Would you like to have supporter for any of the above requests? (y/n)" << endl;
+    cout << "Would you like to join for any of the above requests? (y/n)" << endl;
 };
 
 void RequestView::requestForSupporter()
