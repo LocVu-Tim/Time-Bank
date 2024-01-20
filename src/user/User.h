@@ -139,10 +139,10 @@ public:
     void changePwdAdmin(const vector<User *> &users, string username);
 
     // method to login for member
-    bool loginMember(vector<User *> users, string checkUsername);
+    User *loginMember(const vector<User *> &users);
 
     // method to login for admin
-    bool loginAdmin(const vector<User *> &users, string checkUsername);
+    User *User::loginAdmin(const vector<User *> &users);
 
     // method to showinfo without rating score
     void showInfoWithoutRating(vector<User *> users);
