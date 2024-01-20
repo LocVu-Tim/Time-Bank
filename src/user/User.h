@@ -142,7 +142,7 @@ public:
     User *loginMember(const vector<User *> &users);
 
     // method to login for admin
-    User *User::loginAdmin(const vector<User *> &users);
+    User *loginAdmin(const vector<User *> &users);
 
     // method to showinfo without rating score
     void showInfoWithoutRating(vector<User *> users);
