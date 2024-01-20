@@ -24,6 +24,7 @@ private:
     string userName, pwd, fullName, email, homeAddr, phoneNo;
     bool isBlock;
     vector<int> blocked;
+    vector<string> skills;
     int creds, role, userId;
     double skillRatingScore, supporterRatingScore, hostRatingScore;
     std::vector<Rating> ratings;
@@ -201,13 +202,13 @@ public:
     double getSupporterRating() const;
 
     // TODO mock function remove later
-    void setSkills(vector<string> skills);
+    //void setSkills(vector<string> skills);
 
     // Method to get skill
     vector<string> getSkillList();
 
     // Method to set skill
-    void setSkills(const vector<string> &skills);
+    //void setSkills(const vector<string> &skills);
 
     // Method to rate another user
     friend void rateUser(User rater, User rated);

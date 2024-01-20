@@ -18,10 +18,10 @@ User::User(string userName, string pwd, string fullName, string email,
            int role = 2,
            int userId = 0, double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
-    : userID(userID), userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)),
+    : userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)),
       email(std::move(email)),
       homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), isBlock(block), blocked(std::move(blocked)),
-      creds(creds), role(role),
+      creds(creds), role(role), userId(userId),
       skillRatingScore(skillRatingScore),
       supporterRatingScore(supporterRatingScore),
       hostRatingScore(hostRatingScore),
@@ -164,13 +164,13 @@ void User::setBlocked(int blocks)
 // method to get userId
 int User::getUserId()
 {
-    return userID;
+    return userId;
 }
 
 // Method to set user ID
 void User::setUserId(int id)
 {
-    this->userID = id;
+    this->userId = id;
 }
 
 // Method to get user ratings
@@ -316,15 +316,15 @@ bool checkValidPwd(string pwd)
 }
 
 // method to verify password
-bool verifyPwd(User user, const string &pwd)
-{
-    if (!caseSensitiveStringCompare(user.getPwd(), pwd))
-    {
-        cout << "Incorrect password\n";
-        return false;
-    }
-    return true;
-}
+//bool verifyPwd(User user, const string &pwd)
+//{
+//    if (!caseSensitiveStringCompare(user.getPwd(), pwd))
+//    {
+//        cout << "Incorrect password\n";
+//        return false;
+//    }
+//    return true;
+//}
 
 // method to find user through username
 User *findByUsername(const vector<User *> &users, const string &username)
@@ -345,7 +345,7 @@ User *findById(const vector<User *> &users, const int targetId)
 {
     for (const auto &userPtr : users)
     {
-        if (userPtr->userID == targetId)
+        if (userPtr->userId == targetId)
         {
             return userPtr;
         }
@@ -448,9 +448,9 @@ void setRatingScore(User user, int type, double score)
 }
 
 // Method to set skill
-void User::setSkills(const vector<string> &skills) {
-    User::skills = skills;
-}
+//void User::setSkills(const vector<string> &skills) {
+//    User::skills = skills;
+//} 
 
 // Method to rate another user
 void rateUser(User rater, User rated) {
@@ -471,8 +471,8 @@ void rateUser(User rater, User rated) {
     std::getline(std::cin >> std::skipws, comment);
     Rating rating;
     rating.setRatingID(rated.ratings.size() - 1);
-    rating.setRaterID(rater.userID);
-    rating.setUserID(rated.userID);
+    rating.setRaterID(rater.userId);
+    rating.setUserID(rated.userId);
     rating.setRatingType(type);
     rating.setRatingValue(ratingValue);
     rating.setComment(comment);

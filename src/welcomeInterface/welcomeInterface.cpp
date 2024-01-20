@@ -35,15 +35,6 @@ void welcomeInterface()
     cout << "s3979199 | Luong Anh Huy" << endl;
     cout << "s3978609 | Tran Tuan Minh" << endl;
     cout << "" << endl;
-    cout << "EEET2482/COSC2082 ASSIGNMENT" << endl;
-    cout << "''Time BANK'' APPLICATION" << endl;
-    cout << "" << endl;
-    cout << "Instructor: Mr. Tran Duc Linh" << endl;
-    cout << "Group: 18" << endl;
-    cout << "s3891483 | Vu Loc" << endl;
-    cout << "s3927082 | Van Hong Lam " << endl;
-    cout << "s3979199 | Luong Anh Huy" << endl;
-    cout << "s3978609 | Tran Tuan Minh" << endl;
     menu();
 }
 
@@ -201,7 +192,7 @@ void Member()
     testUser2->setUserId(13);
 
     testUser->setBlocked(jao->getUserId());
-    testUser->setSkills({"C++", "Java", "Python"});
+    //testUser->setSkills({"C++", "Java", "Python"});
     vector<User *> userList = {testUser, testUser2, jao};
 
     int choice;
