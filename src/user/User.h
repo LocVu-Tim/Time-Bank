@@ -36,7 +36,7 @@ public:
 
     // Constructor
     User(string userName, string pwd, string fullName, string email, string homeAddr,
-         string phoneNo,  vector<int> blocked, int creds, int role, int userId,
+         string phoneNo,  vector<int> blocked, vector<string> skills, int creds, int role, int userId,
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     // constructor used for block function

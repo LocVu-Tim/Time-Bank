@@ -14,13 +14,13 @@ User::User() {}
 
 // Constructor
 User::User(string userName, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, vector<int> blocked = {}, int creds = 20,
+           string homeAddr, string phoneNo, vector<int> blocked = {}, vector<string> skills, int creds = 20,
            int role = 2,
            int userId = 0, double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
     : userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)),
       email(std::move(email)),
-      homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), blocked(std::move(blocked)),
+      homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), blocked(std::move(blocked)),skills(std::move(skills)),
       creds(creds), role(role), userId(userId),
       skillRatingScore(skillRatingScore),
       supporterRatingScore(supporterRatingScore),
@@ -520,7 +520,8 @@ void User::setRatings(const vector<Rating> &rate)
     User::ratings = rate;
 }
 
-void User::saveToFile(std::ofstream &file)
+// Method to save user data to a file
+void User::saveToFile(ofstream &file)
 {
     file << userName << ":" << pwd << ":" << fullName << ":" << email << ":"
          << homeAddr << ":" << phoneNo << ":";
@@ -528,17 +529,23 @@ void User::saveToFile(std::ofstream &file)
     {
         file << blockedUser << ",";
     }
+    file << "}";
+    for (const string &skill : skills)
+    {
+        file << skill << ",";
+    }
     file << "}" << creds << ":" << role << ":"
-    << userId << ":" << skillRatingScore << ":" << supporterRatingScore << ":"
-    << hostRatingScore << ":{";
-    for (const Rating& rating : ratings) {
+         << userId << ":" << skillRatingScore << ":" << supporterRatingScore << ":"
+         << hostRatingScore << ":{";
+    for (const Rating &rating : ratings)
+    {
         file << rating.getRatingID() << ",";
     }
     file << "}" << "\n";
 }
 
-// Method to read from file
-void User::readFromFile(std::ifstream &file)
+// Method to read user data from a file
+void User::readFromFile(ifstream &file)
 {
     // Assuming the file format is the same as the one used in saveToFile
     string line;
@@ -569,15 +576,23 @@ void User::readFromFile(std::ifstream &file)
         blocked.push_back(stoi(blockedUser));
     }
 
-    creds = stoi(tokens[7]);
-    role = stoi(tokens[8]);
-    userId = stoi(tokens[9]);
-    skillRatingScore = stod(tokens[10]);
-    supporterRatingScore = stod(tokens[11]);
-    hostRatingScore = stod(tokens[12]);
+    // Parse skills
+    stringstream skillsStream(tokens[7]);
+    string skill;
+    while (getline(skillsStream, skill, ','))
+    {
+        skills.push_back(skill);
+    }
+
+    creds = stoi(tokens[8]);
+    role = stoi(tokens[9]);
+    userId = stoi(tokens[10]);
+    skillRatingScore = stod(tokens[11]);
+    supporterRatingScore = stod(tokens[12]);
+    hostRatingScore = stod(tokens[13]);
 
     // Parse ratings
-    stringstream ratingsStream(tokens[13]);
+    stringstream ratingsStream(tokens[14]);
     string ratingId;
     while (getline(ratingsStream, ratingId, ','))
     {
@@ -589,7 +604,8 @@ void User::readFromFile(std::ifstream &file)
     }
 }
 
-void loadDefaultData(vector<User *> &users, const string &filename)
+// Load user data from a file
+void loadDefaultData(vector<User *> &users, string &filename)
 {
     ifstream file(filename);
 
