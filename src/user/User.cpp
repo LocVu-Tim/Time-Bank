@@ -180,18 +180,22 @@ void User::setUserId(int id)
 }
 
 // Method to block user
-void User::blockUser(const vector<User *>& users, User &currentUser) {
-    
-   int blockId;
-   cout << "Enter user ID to block: ";
-   cin >> blockId;
-   
-   if (findById(users, blockId) == nullptr) {
-       cout << "Username not found\n";
-   } else {
-       currentUser.blocked.push_back(blockId);
-       cout << "User " << blockId << " is blocked\n";
-   }
+void User::blockUser(const vector<User *> &users, User &currentUser)
+{
+
+    int blockId;
+    cout << "Enter user ID to block: ";
+    cin >> blockId;
+
+    if (findById(users, blockId) == nullptr)
+    {
+        cout << "Username not found\n";
+    }
+    else
+    {
+        currentUser.blocked.push_back(blockId);
+        cout << "User " << blockId << " is blocked\n";
+    }
 }
 
 // Method to get user ratings
@@ -228,21 +232,30 @@ void User::showInfo()
     char horizontal = '-', vertical = '|';
 
     // Get the maximum width among the fields
-    int maxWidth = max({USERNAME_WIDTH, FULLNAME_WIDTH, EMAIL_WIDTH, HOME_ADDR_WIDTH, PHONE_NUMBER_WIDTH, CREDIT_POINT_WIDTH});
+    int uniformWidth = 30; // You can adjust this value based on your preference
 
     // Display the top of the square box
-    cout << topLeft << setw(maxWidth + 2) << setfill(horizontal) << topRight << endl;
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
 
     // Display each row of information in the square box
-    cout << vertical << " " << setw(maxWidth) << left << "Username: " << userName << " " << vertical << endl;
-    cout << vertical << " " << setw(maxWidth) << left << "Full Name: " << fullName << " " << vertical << endl;
-    cout << vertical << " " << setw(maxWidth) << left << "Email: " << email << " " << vertical << endl;
-    cout << vertical << " " << setw(maxWidth) << left << "Home Address: " << homeAddr << " " << vertical << endl;
-    cout << vertical << " " << setw(maxWidth) << left << "Phone Number: " << phoneNo << " " << vertical << endl;
-    cout << vertical << " " << setw(maxWidth) << left << "Credit Points: " << creds << " " << vertical << endl;
-
+    cout << vertical << " " << setw(uniformWidth) << left << "Username: " + userName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Full Name: " + fullName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Email: " + email << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical << endl;
     // Display the bottom of the square box
-    cout << bottomLeft << setw(maxWidth + 2) << setfill(horizontal) << bottomRight << endl;
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
 }
 
 // method to show info with rating
@@ -259,74 +272,58 @@ void User::showInfoWithRating()
 // method to show all info (including password and rating)
 void User::showAllInfo()
 {
-    cout.width(USERNAME_WIDTH);
-    cout << left << userName;
-    cout.width(PWD_WIDTH);
-    cout << left << pwd;
-    cout.width(FULLNAME_WIDTH);
-    cout << left << fullName;
-    cout.width(EMAIL_WIDTH);
-    cout << left << email;
-    cout.width(HOME_ADDR_WIDTH);
-    cout << left << homeAddr;
-    cout.width(PHONE_NUMBER_WIDTH);
-    cout << left << phoneNo;
-    cout.width(CREDIT_POINT_WIDTH);
-    cout << left << creds;
-    cout.width(SKILL_RATING_WIDTH);
-    cout << left << skillRatingScore;
-    cout.width(SUPPORTER_RATING_WIDTH);
-    cout << left << supporterRatingScore;
-    cout.width(HOST_RATING_WIDTH);
-    cout << left << hostRatingScore;
-}
-// Method to show header of table 
-void showAllInfoHeader() {
-    cout.width(USERNAME_WIDTH);
-    cout << left << "USERNAME";
-    cout.width(PWD_WIDTH);
-    cout << left << "PWD";
-    cout.width(FULLNAME_WIDTH);
-    cout << left << "FULLNAME";
-    cout.width(EMAIL_WIDTH);
-    cout << left << "EMAIL";
-    cout.width(HOME_ADDR_WIDTH);
-    cout << left << "HOME ADDRESS";
-    cout.width(PHONE_NUMBER_WIDTH);
-    cout << left << "PHONE NUMBER";
-    cout.width(CREDIT_POINT_WIDTH);
-    cout << left << "CREDIT POINTS";
-    cout.width(SKILL_RATING_WIDTH);
-    cout << left << "SKILL RATING SCORE";
-    cout.width(SUPPORTER_RATING_WIDTH);
-    cout << left << "SUPPORTER RATING SCORE";
-    cout.width(HOST_RATING_WIDTH);
-    cout << left << "HOST RATING SCORE";
-}
-// Method to show table header without rating n pwd
-void showInfoHeaderWithoutRating() {
-    cout.width(USERNAME_WIDTH);
-    cout << left << "USERNAME";
-    cout.width(FULLNAME_WIDTH);
-    cout << left << "FULL NAME";
-    cout.width(EMAIL_WIDTH);
-    cout << left << "EMAIL";
-    cout.width(HOME_ADDR_WIDTH);
-    cout << left << "HOME ADDRESS";
-    cout.width(PHONE_NUMBER_WIDTH);
-    cout << left << "PHONE NUMBER";
-    cout.width(CREDIT_POINT_WIDTH);
-    cout << left << "CREDS";
-}
-// Method to show table header with rating 
-void showInfoHeaderWithRating() {
-    showInfoHeaderWithoutRating();
-    cout.width(SKILL_RATING_WIDTH);
-    cout << left << "SKILL RATING SCORE";
-    cout.width(SUPPORTER_RATING_WIDTH);
-    cout << left << "SUPPORTER RATING SCORE";
-    cout.width(HOST_RATING_WIDTH);
-    cout << left << "HOST RATING SCORE";
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+    // Get the maximum width among the fields
+    int uniformWidth = 40; // You can adjust this value based on your preference
+    // Display the top of the square box
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
+    // Display each row of information in the square box
+    cout << vertical << " " << setw(uniformWidth) << left << "Username: " + userName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Password: " + pwd << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Full Name: " + fullName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Email: " + email << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of blocked user ID: ";
+    for (auto &block : blocked)
+    {
+        cout << block << ", ";
+    }
+    cout << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: ";
+    for (auto &skill : skills)
+    {
+        cout << skill << ", ";
+    }
+    cout << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Role: ";
+    if (role == 2)
+    {
+        cout << "Member";
+    }
+    else
+    {
+        cout << "Admin";
+    }
+    cout << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Skill rating score: " + to_string(skillRatingScore) << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Supporter rating score: " + to_string(supporterRatingScore) << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Host rating score: " + to_string(hostRatingScore) << " " << vertical << endl;
+    // Display the bottom of the square box
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
 }
 
 // method to check valid username

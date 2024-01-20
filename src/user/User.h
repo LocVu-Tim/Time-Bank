@@ -41,7 +41,7 @@ public:
          double skillRatingScore, double supporterRatingScore, double hostRatingScore, vector<Rating> ratings);
 
     //copy constructor
-    User::User(const User &other);
+    User(const User &other);
     // // constructor used for block function
     // User(const string &username);
 
