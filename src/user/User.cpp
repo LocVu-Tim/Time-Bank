@@ -179,6 +179,21 @@ void User::setUserId(int id)
     this->userId = id;
 }
 
+// Method to block user
+void User::blockUser(const vector<User *>& users, User &currentUser) {
+    
+   int blockId;
+   cout << "Enter user ID to block: ";
+   cin >> blockId;
+   
+   if (findById(users, blockId) == nullptr) {
+       cout << "Username not found\n";
+   } else {
+       currentUser.blocked.push_back(blockId);
+       cout << "User " << blockId << " is blocked\n";
+   }
+}
+
 // Method to get user ratings
 const vector<Rating> &User::getRatings() const
 {
