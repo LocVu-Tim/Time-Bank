@@ -90,7 +90,7 @@ void RequestController::list()
     requestView->userSkills = availableskills;
     requestView->list();
     map<string, string> userData = requestView->getUserInputs();
-    if (userData.size() == 6)
+    if (userData.size() == 7)
     {
         // lookForSupport Request object to store data
         createRequestObject(userData);
@@ -106,7 +106,7 @@ void RequestController::requestForSupporter()
     requestView->requestForSupporter();
     map<string, string> userData = requestView->getUserInputs();
 
-    if (userData.size() == 6)
+    if (userData.size() == 7)
     {
         // lookForSupport Request object to store data
         createRequestObject(userData);
