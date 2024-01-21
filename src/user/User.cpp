@@ -798,3 +798,10 @@ void loadDefaultData(vector<User *> &users, string &filename) {
 
     file.close();
 }
+
+// method to clear input buffer
+void clearInputBuffer()
+{
+    cin.clear();  // Clear error flags
+    while (cin.get() != '\n') ;  // Discard invalid input until a newline character is encountered
+}
