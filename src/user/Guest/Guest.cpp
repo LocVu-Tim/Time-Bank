@@ -109,6 +109,9 @@ User registerMember(vector<User *> users)
     user.setUserId(users.size() + 1);
     user.setRole(2);
     users.push_back(&user);
+    user.hostRatingScore = 0;
+    user.skillRatingScore = 0;
+    user.supporterRatingScore = 0;
     user.showAllInfo();
     return user;
 }
