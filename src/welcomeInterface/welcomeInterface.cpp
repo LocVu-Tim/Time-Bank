@@ -227,6 +227,10 @@ void Member(vector<User *> &users, User &currentUser) {
                 break;
             case 4:
                 currentUser.blockUser(users, currentUser);
+                cout << "Blocked user list: " ;
+                for(auto &block: currentUser.getBlocked()) {
+                    
+                }
                 break;
             case 5:
                 break;
@@ -273,7 +277,7 @@ void memberLogin(vector<User *> &users, User &currentUser) {
             Member(users, currentUser);
             loginSuccessful = true;
         } else {
-            cout << "Login error\n";
+            loginSuccessful = false;
         }
 
     } while (!loginSuccessful);

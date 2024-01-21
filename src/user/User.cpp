@@ -532,7 +532,6 @@ bool verifyPwd(User user, const string pwd)
 {
     if (!caseSensitiveStringCompare(user.getPwd(), pwd))
     {
-        cout << "Incorrect password\n";
         return false;
     }
     return true;
