@@ -95,5 +95,21 @@ username: user1
 password: user123
 ```
 ## Acknowledgement
+[1] _sharma_  “Check if the given email address is valid or not in C++”, GeeksforGeeks. Accessed: Jan. 21, 2024. [Online]. Available at: https://www.geeksforgeeks.org/check-if-given-email-address-is-valid-or-not-in-cpp/ 
 
+[2] https://chat.openai.com/ 
+
+[3] https://claude.ai/ 
+
+[4] “Learn C++ Programming”. Accessed: Jan. 21, 2024.[Online]. Available at: https://www.programiz.com/cpp-programming 
+
+[5] “C++ Tutorial”. Accessed: Jan. 21, 2024. [Online]. Available at: https://www.w3schools.com/cpp/default.asp 
+
+[6] “Learn C++ – Skill up with our free tutorials”. Accessed: Jan. 21, 2024. [Online]. Available at: https://www.learncpp.com/#google_vignette 
+
+[7] “C++ Tutorial”. Accessed: Jan. 21, 2024. [Online]. Available at: https://www.tutorialspoint.com/cplusplus/index.htm 
+
+[8] “C++ Programming Language”, GeeksforGeeks. Accessed: Jan. 21, 2024. [Online]. Available at: https://www.geeksforgeeks.org/c-plus-plus/ 
+
+[9] “cplusplus” Accessed: Jan. 21, 2024. [Online]. Available at: https://cplusplus.com/reference/ 
 
