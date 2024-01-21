@@ -55,13 +55,13 @@ void menu() {
     vector<Rating *> ratings = {rating1, rating2, rating3, rating4};
 
 	// Create and add seven regular users
-	User *user1 = new User("user1", "user123", "User One", "user1@example.com", "Ho Chi Minh", "0765987325", {4, 5, 6}, {"c#", "java"}, 50, 2, 3, 3.3, 4.4, 5.0, {*rating1});
-	User *user2 = new User("user2", "user456", "User Two", "user2@example.com", "Ha Noi", "0234456098", {7, 8, 9}, {"c++", "python"}, 30, 2, 4, 1.1, 2.2, 3.3, {});
-	User *user3 = new User("user3", "user789", "User Three", "user3@example.com", "hochiminh", "0234987098", {3, 4, 6}, {"c", "java"}, 75, 2, 5, 3.0, 4.0, 5.0, {});
-	User *user4 = new User("user4", "user101", "User Four", "user4@example.com", "hanoi", "0876543321", {4, 6, 8}, {"python", "java"}, 40, 2, 6, 4.9, 3.9, 2.9, {});
-	User *user5 = new User("user5", "user111", "User Five", "user5@example.com", "hcm", "0321345890", {7, 8, 9}, {"c", "java"}, 60, 2, 7, 3.8, 4.5, 3.9, {});
-	User *user6 = new User("user6", "user121", "User Six", "user6@example.com", "hOcHiMinh", "0123780923", {3, 4, 5}, {"c#"}, 20, 2, 8, 2.3, 3.5, 4.5, {});
-	User *user7 = new User("user7", "user131", "User Seven", "user7@example.com", "HA Noi", "0678345123", {4, 6, 8}, {"c"}, 90, 2, 9, 1.9, 2.8, 4.9, {});
+	User *user1 = new User("user1", "user123", "User One", "user1@example.com", "Ho Chi Minh", "0765987325", {4, 5, 6}, {"Tutoring", "Garden care"}, 50, 2, 3, 3.3, 4.4, 5.0, {*rating1});
+	User *user2 = new User("user2", "user456", "User Two", "user2@example.com", "Ha Noi", "0234456098", {7, 8, 9}, {"Plumbing repairs", "House cleaning"}, 30, 2, 4, 1.1, 2.2, 3.3, {});
+	User *user3 = new User("user3", "user789", "User Three", "user3@example.com", "hochiminh", "0234987098", {3, 4, 6}, {"House cleaning", "Garden care"}, 75, 2, 5, 3.0, 4.0, 5.0, {});
+	User *user4 = new User("user4", "user101", "User Four", "user4@example.com", "hanoi", "0876543321", {4, 6, 8}, {"python", "Garden care"}, 40, 2, 6, 4.9, 3.9, 2.9, {});
+	User *user5 = new User("user5", "user111", "User Five", "user5@example.com", "hcm", "0321345890", {7, 8, 9}, {"House cleaning", "Garden care"}, 60, 2, 7, 3.8, 4.5, 3.9, {});
+	User *user6 = new User("user6", "user121", "User Six", "user6@example.com", "hOcHiMinh", "0123780923", {3, 4, 5}, {"Tutoring"}, 20, 2, 8, 2.3, 3.5, 4.5, {});
+	User *user7 = new User("user7", "user131", "User Seven", "user7@example.com", "HA Noi", "0678345123", {4, 6, 8}, {"House cleaning"}, 90, 2, 9, 1.9, 2.8, 4.9, {});
 
     // Add regular users to the vector
     users.push_back(user1);
