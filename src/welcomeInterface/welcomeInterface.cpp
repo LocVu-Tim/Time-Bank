@@ -196,7 +196,7 @@ void Member(vector<User *> &users, User &currentUser) {
           cout << "5. View Requests" << endl;*/
         cout << "3. Manage Your Requests" << endl;
         cout << "4. Block Member" << endl;
-        cout << "5. Back to Main Menu" << endl;
+        //cout << "5. Back to Main Menu" << endl;
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
@@ -220,9 +220,7 @@ void Member(vector<User *> &users, User &currentUser) {
                 break;
             case 4:
                 currentUser.blockUser(users, currentUser);
-                break;
-            case 5:
-                break;
+              break;
             case 0:
                 running = false;
                 cout << "Exiting the application." << endl;
