@@ -13,24 +13,37 @@
 User::User() {}
 
 // Constructor
-User::User(int userID, string userName, string pwd, string fullName, string email,
-           string homeAddr, string phoneNo, bool block = false, vector<int> blocked = {}, int creds = 20,
+User::User(string userName, string pwd, string fullName, string email,
+           string homeAddr, string phoneNo, vector<int> blocked = {}, vector<string> skills = {}, int creds = 20,
            int role = 2,
-           double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
+           int userId = 0, double skillRatingScore = 0, double supporterRatingScore = 0, double hostRatingScore = 0,
            vector<Rating> ratings = {})
-        : userID(userID), userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)),
+        : userName(std::move(userName)), pwd(std::move(pwd)), fullName(std::move(fullName)),
           email(std::move(email)),
-          homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), isBlock(block), blocked(std::move(blocked)),
-          creds(creds), role(role),
+          homeAddr(std::move(homeAddr)), phoneNo(std::move(phoneNo)), blocked(std::move(blocked)),
+          skills(std::move(skills)),
+          creds(creds), role(role), userId(userId),
           skillRatingScore(skillRatingScore),
           supporterRatingScore(supporterRatingScore),
           hostRatingScore(hostRatingScore),
           ratings(std::move(ratings)) {};
 
-// constructor used for block function
-User::User(const string &username) {
-    this->userName = username;
+User::User(const User &other)
+        : userName(other.userName), pwd(other.pwd), fullName(other.fullName),
+          email(other.email), homeAddr(other.homeAddr), phoneNo(other.phoneNo),
+          blocked(other.blocked), skills(other.skills),
+          creds(other.creds), role(other.role), userId(other.userId),
+          skillRatingScore(other.skillRatingScore),
+          supporterRatingScore(other.supporterRatingScore),
+          hostRatingScore(other.hostRatingScore),
+          ratings(other.ratings) {
 }
+
+// // constructor used for block function
+// User::User(const string &username)
+// {
+//     this->userName = username;
+// }
 
 // method to get username
 string User::getUsername() {
@@ -126,11 +139,6 @@ void User::setRole(int role) {
     this->role = role;
 }
 
-// method to get blocked
-bool User::isBlocked() {
-    return isBlock;
-}
-
 // method to get blocked person/people
 vector<int> User::getBlocked() {
     return blocked;
@@ -143,12 +151,43 @@ void User::setBlocked(int blocks) {
 
 // method to get userId
 int User::getUserId() {
-    return userID;
+    return userId;
 }
 
 // Method to set user ID
 void User::setUserId(int id) {
-    this->userID = id;
+    this->userId = id;
+}
+
+// Method to block user
+void User::blockUser(const vector<User *> &users, User &currentUser) {
+
+    int blockId;
+
+    cout << "Enter user ID to block (enter -1 to cancel): ";
+
+    // Check if the input is a valid integer
+    while (!(cin >> blockId))
+    {
+        cout << "Invalid input. Please enter a valid user ID.\n";
+        clearInputBuffer();  // Clear input buffer
+    }
+
+    if (blockId == -1) {
+        cout << "Blocking canceled.\n";
+    }
+    else
+    {
+        if (findById(users, blockId) == nullptr)
+        {
+            cout << "User ID not found\n";
+        }
+        else
+        {
+            currentUser.blocked.push_back(blockId);
+            cout << "User " << blockId << " is blocked\n";
+        }
+    }
 }
 
 // Method to get user ratings
@@ -161,9 +200,12 @@ int User::topUpCreds(User user, int topUp) {
     string temp;
     cout << "Please enter password for authorization: ";
     cin >> temp;
-    if (!verifyPwd(std::move(user), temp)) {
-        cout << "Incorrect password";
-    } else {
+    if (!verifyPwd(std::move(user), temp))
+    {
+        cout << "Incorrect password\n";
+    }
+    else
+    {
         cout << "Enter top up amount: ";
         cin >> topUp;
 
@@ -174,24 +216,214 @@ int User::topUpCreds(User user, int topUp) {
 
 // method to show info
 void User::showInfo() {
-    cout.width(USERNAME_WIDTH);
-    cout << left << userName;
-    cout.width(FULLNAME_WIDTH);
-    cout << left << fullName;
-    cout.width(EMAIL_WIDTH);
-    cout << left << email;
-    cout.width(HOME_ADDR_WIDTH);
-    cout << left << homeAddr;
-    cout.width(PHONE_NUMBER_WIDTH);
-    cout << left << phoneNo;
-    cout.width(CREDIT_POINT_WIDTH);
-    cout << left << creds;
+    ostringstream oss;
+
+    for (auto &skill: skills) {
+        if (skill == skills.back()) {
+            oss << skill;
+            break;
+        }
+        oss << skill << ", ";
+
+    }
+    string skillList = oss.str();
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+
+    // Get the maximum width among the fields
+    int uniformWidth = 60; // You can adjust this value based on your preference
+
+    // Display the top of the square box
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++) {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
+
+    // Display each row of information in the square box
+    cout << vertical << " " << setw(uniformWidth) << left << "Username: " + userName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Full Name: " + fullName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Email: " + email << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical
+         << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: " + skillList << " " << vertical << endl;
+    // Display the bottom of the square box
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++) {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
+}
+
+
+// method to show info with rating
+void User::showInfoWithRating() {
+    ostringstream oss;
+
+    for (auto &skill: skills) {
+        if (skill == skills.back()) {
+            oss << skill;
+            break;
+        }
+        oss << skill << ", ";
+
+    }
+    string skillList = oss.str();
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+    // Get the maximum width among the fields
+    int uniformWidth = 60; // You can adjust this value based on your preference
+    // Display the top of the square box
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++) {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
+    // Display each row of information in the square box
+    cout << vertical << " " << setw(uniformWidth) << left << "Username: " + userName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Full Name: " + fullName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Email: " + email << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: " + skillList << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical
+         << endl;
+    if (role == 2) {
+        cout << vertical << " " << setw(uniformWidth) << left << "Role: Member" << " " << vertical << endl;
+    } else {
+        cout << vertical << " " << setw(uniformWidth) << left << "Role: Admin" << " " << vertical << endl;
+    }
+
+    cout << vertical << " " << setw(uniformWidth) << left << "Skill rating score: " + to_string(skillRatingScore) << " "
+         << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left
+         << "Supporter rating score: " + to_string(supporterRatingScore) << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Host rating score: " + to_string(hostRatingScore) << " "
+         << vertical << endl;
+    // Display the bottom of the square box
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++) {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
+}
+
+// Method to show comments of other users
+void User::showComment() {
+
+
+
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+    // Get the maximum width among the fields
+    int uniformWidth = 60; // You can adjust this value based on your preference
+    // Display the top of the square box
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++) {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
+
+    for (auto &each: ratings) {
+        ostringstream oss;
+        oss << fixed << setprecision(1) << each.getRatingValue();
+        string value = oss.str();
+        cout << vertical << " " << setw(uniformWidth) << left
+             << "User " + to_string(each.getRaterID()) + " has rated User "
+                + to_string(each.getUserID()) + " " + value + " stars on " + each.getRatingType() + " rating." << " "
+             << vertical << endl;
+
+        cout << vertical << " " << setw(uniformWidth) << left << "Comment: " + each.getComment() << " " << vertical
+             << endl;
+    }
+
+    // Display the bottom of the square box
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++) {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
+    // Display each row of information in the square box
+    // cout << vertical << " " << setw(uniformWidth) << left << "User" << " " << vertical << endl;
+}
+
+// method to show all info (including password and rating)
+void User::showAllInfo() {
+    ostringstream oss, oss2;
+
+    for (auto &skill: skills) {
+        if (skill == skills.back()) {
+            oss << skill;
+            break;
+        }
+        oss << skill << ", ";
+
+    }
+    string skillList = oss.str();
+
+    for (auto &block: blocked) {
+        if (block == blocked.back()) {
+            oss2 << block;
+            break;
+        }
+        oss2 << block << ", ";
+
+
+    }
+    string blockList = oss2.str();
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+    // Get the maximum width among the fields
+    int uniformWidth = 60; // You can adjust this value based on your preference
+    // Display the top of the square box
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++) {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
+    // Display each row of information in the square box
+    cout << vertical << " " << setw(uniformWidth) << left << "Username: " + userName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Password: " + pwd << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Full Name: " + fullName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Email: " + email << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of blocked user ID: " + blockList << " " << vertical
+         << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: " + skillList << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical
+         << endl;
+    if (role == 2) {
+        cout << vertical << " " << setw(uniformWidth) << left << "Role: Member" << " " << vertical << endl;
+    } else {
+        cout << vertical << " " << setw(uniformWidth) << left << "Role: Admin" << " " << vertical << endl;
+    }
+
+    cout << vertical << " " << setw(uniformWidth) << left << "Skill rating score: " + to_string(skillRatingScore) << " "
+         << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left
+         << "Supporter rating score: " + to_string(supporterRatingScore) << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Host rating score: " + to_string(hostRatingScore) << " "
+         << vertical << endl;
+    // Display the bottom of the square box
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++) {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
+    showComment();
 }
 
 // method to check valid username
 bool checkValidUsername(vector<User *> users, string userName) {
     // check for valid length
-    if (!(userName.size() > 7 && userName.size() < 16)) {
+    if (!(userName.size() > 4 && userName.size() < 16)) {
         cout << "Username must contain 5-15 characters.\n";
         return false;
     }
@@ -270,9 +502,8 @@ bool checkValidPwd(string pwd) {
 }
 
 // method to verify password
-bool verifyPwd(User user, const string &pwd) {
+bool verifyPwd(User user, const string pwd) {
     if (!caseSensitiveStringCompare(user.getPwd(), pwd)) {
-        cout << "Incorrect password\n";
         return false;
     }
     return true;
@@ -285,14 +516,14 @@ User *findByUsername(const vector<User *> &users, const string &username) {
             return userPtr;
         }
     }
-    cout << "User not found\n";
+    // cout << "User not found\n";
     return nullptr; // Return nullptr if user is not found
 }
 
 // method to find user by id
 User *findById(const vector<User *> &users, const int targetId) {
     for (const auto &userPtr: users) {
-        if (userPtr->userID == targetId) {
+        if (userPtr->userId == targetId) {
             return userPtr;
         }
     }
@@ -316,6 +547,7 @@ int countRatings(const User &user, int type) {
 // Method to calculate rating score
 double calRatingScore(const User &user, int type) {
     double sum = 0;
+    double value = 0;
 
     for (Rating rate: user.ratings) {
         if (type == rate.getRatingTypeNumb()) {
@@ -323,7 +555,7 @@ double calRatingScore(const User &user, int type) {
         }
     }
 
-    double value = sum / countRatings(user, type);
+    value = sum / countRatings(user, type);
 
     return value;
 }
@@ -349,13 +581,13 @@ vector<string> User::getSkillList() {
 }
 
 // Method to set user rating score
-void updateRatingScore(User user, int type) {
+void updateRatingScore(User *user, int type) {
     if (type == 1) {
-        user.skillRatingScore = calRatingScore(user, type);
+        user->skillRatingScore = calRatingScore(*user, type);
     } else if (type == 2) {
-        user.supporterRatingScore = calRatingScore(user, type);
+        user->supporterRatingScore = calRatingScore(*user, type);
     } else if (type == 3) {
-        user.hostRatingScore = calRatingScore(user, type);
+        user->hostRatingScore = calRatingScore(*user, type);
     }
 }
 
@@ -368,4 +600,208 @@ void setRatingScore(User user, int type, double score) {
     } else if (type == 3) {
         user.hostRatingScore = score;
     }
+}
+
+// TODO mock - Method to set skill
+void User::setSkills(const vector<string> &skills) {
+    User::skills = skills;
+}
+
+void User::addSkill(string skill) {
+    skills.push_back(skill);
+}
+
+void User::addSkillFromList(User &currentUser, int skill) {
+    bool skillBool = true;
+    while (skillBool) {
+        switch (skill) {
+            case 1:
+                currentUser.addSkill("Plumbing repairs");
+                skillBool = false;
+                break;
+            case 2:
+                currentUser.addSkill("Tutoring");
+                skillBool = false;
+                break;
+            case 3:
+                currentUser.addSkill("Garden care");
+                skillBool = false;
+                break;
+            case 4:
+                currentUser.addSkill("House cleaning");
+                skillBool = false;
+                break;
+            default:
+                cout << "Invalid choice\n";
+                break;
+        }
+    }
+}
+
+// Method to rate supporter
+void rateSupporter(User *rater, User *rated) {
+    double skillValue;
+    std::string skillComment;
+    std::cout << "\n";
+    std::cout << "How would you rate the supporter's SKILL (1 to 5):";
+    std::cin >> skillValue;
+    std::cout << "\n";
+    std::cout << "Your comment on the supporter's SKILL:";
+    std::getline(std::cin >> std::ws, skillComment);
+    Rating ratingSkill;
+    ratingSkill.setRatingID(rated->ratings.size() - 1);
+    ratingSkill.setRaterID(rater->userId);
+    ratingSkill.setUserID(rated->userId);
+    ratingSkill.setRatingType(1);
+    ratingSkill.setRatingValue(skillValue);
+    ratingSkill.setComment(skillComment);
+    rated->ratings.push_back(ratingSkill);
+    updateRatingScore(rated, 1);
+
+    double supporterValue;
+    std::string supporterComment;
+    std::cout << "\n";
+    std::cout << "How would you rate the supporter overall (1 to 5):";
+    std::cin >> supporterValue;
+    std::cout << "\n";
+    std::cout << "Your comment on the supporter overall:";
+    std::getline(std::cin >> std::ws, supporterComment);
+    Rating ratingSupporter;
+    ratingSupporter.setRatingID(rated->ratings.size() - 1);
+    ratingSupporter.setRaterID(rater->userId);
+    ratingSupporter.setUserID(rated->userId);
+    ratingSupporter.setRatingType(2);
+    ratingSupporter.setRatingValue(supporterValue);
+    ratingSupporter.setComment(supporterComment);
+    rated->ratings.push_back(ratingSupporter);
+    updateRatingScore(rated, 2);
+}
+
+// Method to rate host
+void rateHost(User *rater, User *rated) {
+    double hostValue;
+    std::string hostComment;
+    std::cout << "\n";
+    std::cout << "How would you rate the host overall (1 to 5):";
+    std::cin >> hostValue;
+    std::cout << "\n";
+    std::cout << "Your comment on the host overall:";
+    std::getline(std::cin >> std::ws, hostComment);
+    Rating ratingSkill;
+    ratingSkill.setRatingID(rated->ratings.size() - 1);
+    ratingSkill.setRaterID(rater->userId);
+    ratingSkill.setUserID(rated->userId);
+    ratingSkill.setRatingType(3);
+    ratingSkill.setRatingValue(hostValue);
+    ratingSkill.setComment(hostComment);
+    rated->ratings.push_back(ratingSkill);
+    updateRatingScore(rated, 3);
+}
+
+// Method to set rating
+void User::setRatings(const vector<Rating> &rate) {
+    User::ratings = rate;
+}
+
+// Method to save user data to a file
+void User::saveToFile(ofstream &file) {
+    file << userName << ":" << pwd << ":" << fullName << ":" << email << ":"
+         << homeAddr << ":" << phoneNo << ":";
+    for (const int &blockedUser: blocked) {
+        file << blockedUser << ",";
+    }
+    file << "}";
+    for (const string &skill: skills) {
+        file << skill << ",";
+    }
+    file << "}" << creds << ":" << role << ":"
+         << userId << ":" << skillRatingScore << ":" << supporterRatingScore << ":"
+         << hostRatingScore << ":{";
+    for (const Rating &rating: ratings) {
+        file << rating.getRatingID() << ",";
+    }
+    file << "}"
+         << "\n";
+}
+
+// Method to read user data from a file
+void User::readFromFile(ifstream &file) {
+    // Assuming the file format is the same as the one used in saveToFile
+    string line;
+    getline(file, line);
+
+    // Tokenize the line based on the delimiter ':'
+    vector<string> tokens;
+    stringstream ss(line);
+    string token;
+    while (getline(ss, token, ':')) {
+        tokens.push_back(token);
+    }
+
+    // Extract data from tokens and set the corresponding attributes
+    userName = tokens[0];
+    pwd = tokens[1];
+    fullName = tokens[2];
+    email = tokens[3];
+    homeAddr = tokens[4];
+    phoneNo = tokens[5];
+
+    // Parse blocked users
+    stringstream blockedStream(tokens[6]);
+    string blockedUser;
+    while (getline(blockedStream, blockedUser, ',')) {
+        blocked.push_back(stoi(blockedUser));
+    }
+
+    // Parse skills
+    stringstream skillsStream(tokens[7]);
+    string skill;
+    while (getline(skillsStream, skill, ',')) {
+        skills.push_back(skill);
+    }
+
+    creds = stoi(tokens[8]);
+    role = stoi(tokens[9]);
+    userId = stoi(tokens[10]);
+    skillRatingScore = stod(tokens[11]);
+    supporterRatingScore = stod(tokens[12]);
+    hostRatingScore = stod(tokens[13]);
+
+    // Parse ratings
+    stringstream ratingsStream(tokens[14]);
+    string ratingId;
+    while (getline(ratingsStream, ratingId, ',')) {
+        int ratingID = stoi(ratingId);
+        // Create Rating object and add to ratings vector
+        Rating rating;
+        rating.setRatingID(ratingID);
+        ratings.push_back(rating);
+    }
+}
+
+// Load user data from a file
+void loadDefaultData(vector<User *> &users, string &filename) {
+    ifstream file(filename);
+
+    if (!file.is_open()) {
+        cerr << "Error opening file: " << filename << endl;
+        return;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        // Create a new User object and read data from the file
+        User *user = new User();
+        user->readFromFile(file);
+        users.push_back(user);
+    }
+
+    file.close();
+}
+
+// method to clear input buffer
+void clearInputBuffer()
+{
+    cin.clear();  // Clear error flags
+    while (cin.get() != '\n') ;  // Discard invalid input until a newline character is encountered
 }

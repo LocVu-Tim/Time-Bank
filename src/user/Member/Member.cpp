@@ -1,7 +1,6 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
 #include "../../Width.h"
-#include "Member.h"
 
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO MEMBER:
@@ -12,29 +11,61 @@
 
 
 
-// method to login
-bool User::loginMember(vector<User *> users, string checkUsername) {
-    string checkPwd;
+// // method to login
+// bool User::loginMember(vector<User *> users, string checkUsername) {
+//     string checkPwd;
+
+//     cout << "Please enter registered username: ";
+//     cin >> checkUsername;
+//     User *user = findByUsername(users, checkUsername);
+//     if (user == nullptr) {
+//         cout << "Username not found\n";
+//         return false;
+//     } else {
+//         cout << "Please enter password: ";
+//         cin >> checkPwd;
+//         if (verifyPwd(*user, checkPwd)) {
+//             cout << "Login successful\n";
+//         } else {
+//             cout << "Incorrect username/password\n";
+//             return false;
+//         }
+//         return true;
+//     }
+// }
+
+User *User::loginMember(const vector<User *> &users)
+{
+    string username;
+    string password;
 
     cout << "Please enter registered username: ";
-    cin >> checkUsername;
-    User *user = findByUsername(users, checkUsername);
-    if (user == nullptr) {
-        cout << "Username not found\n";
-        return false;
-    } else {
-        cout << "Please enter password: ";
-        cin >> checkPwd;
-        if (verifyPwd(*user, checkPwd)) {
-            cout << "Login successful\n";
-        } else {
-            cout << "Incorrect username/password\n";
-            return false;
-        }
-        return true;
+    cin >> username;
+
+    // Find user by username
+    User *loggedInUser = findByUsername(users, username);
+
+    if (loggedInUser == nullptr)
+    {
+        cout << "User not found. Please check your username.\n";
+        return nullptr;
+    }
+
+    cout << "Enter your password: ";
+    cin >> password;
+
+    // Verify password
+    if (verifyPwd(*loggedInUser, password))
+    {
+        cout << "Login successful!\n";
+        return loggedInUser;
+    }
+    else
+    {
+        cout << "Incorrect password. Login failed.\n";
+        return nullptr;
     }
 }
-
 // TODO: Rewrite block function
 //// method to block member
 //void User::blockUser(const vector<User *>& users) {
