@@ -273,13 +273,54 @@ void User::showInfo()
 // method to show info with rating
 void User::showInfoWithRating()
 {
-    User::showInfo();
-    cout.width(SKILL_RATING_WIDTH);
-    cout << left << skillRatingScore;
-    cout.width(SUPPORTER_RATING_WIDTH);
-    cout << left << supporterRatingScore;
-    cout.width(HOST_RATING_WIDTH);
-    cout << left << hostRatingScore;
+    ostringstream oss;
+
+    for(auto &skill: skills) {
+        if(skill == skills.back()) {
+            oss << skill;
+            break;
+        }
+        oss << skill << ", "; 
+        
+    }
+    string skillList = oss.str();
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+    // Get the maximum width among the fields
+    int uniformWidth = 40; // You can adjust this value based on your preference
+    // Display the top of the square box
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
+    // Display each row of information in the square box
+    cout << vertical << " " << setw(uniformWidth) << left << "Username: " + userName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Full Name: " + fullName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Email: " + email << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: " + skillList << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical << endl;
+    if(role == 2) {
+        cout << vertical << " " << setw(uniformWidth) << left << "Role: Member"  << " " << vertical << endl;
+    } else 
+    {
+        cout << vertical << " " << setw(uniformWidth) << left << "Role: Admin"  << " " << vertical << endl;
+    }
+    
+    cout << vertical << " " << setw(uniformWidth) << left << "Skill rating score: " + to_string(skillRatingScore) << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Supporter rating score: " + to_string(supporterRatingScore) << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Host rating score: " + to_string(hostRatingScore) << " " << vertical << endl;
+    // Display the bottom of the square box
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
 }
 // method to show all info (including password and rating)
 void User::showAllInfo()
