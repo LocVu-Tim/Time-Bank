@@ -235,12 +235,14 @@ public:
     void readFromFile(std::ifstream &file);
 
     // Method to load default data
-    friend void loadDefaultData(vector<User *> &users, const string &filename);
+    friend void loadUsersFromFile(vector<User *> &users, const string &filename);
 
     void showComment();
     friend class Rating;
     // method to show info admin
     void showInfoAdmin();
+
+    friend void saveUsersToFile(const vector<User *> &users, const string &filename);
 };
 
 // method to register user
@@ -276,8 +278,10 @@ User *findMemberByUsername(const vector<User *> &users, const string &username);
 // method to find admin through username
 User *findAdminByUsername(const vector<User *> &users, const string &username);
 // Method to load default data
-void loadDefaultData(vector<User *> &users, const string &filename);
+void loadUsersFromFile(vector<User *> &users, const string &filename);
 
 void showInfoWithoutRating(vector<User *> users);
 
 void clearInputBuffer();
+
+void saveUsersToFile(const vector<User *> &users, const string &filename);

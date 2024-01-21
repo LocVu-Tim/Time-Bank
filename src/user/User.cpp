@@ -706,11 +706,11 @@ void User::setRatings(const vector<Rating> &rate) {
 // Method to save user data to a file
 void User::saveToFile(ofstream &file) {
     file << userName << ":" << pwd << ":" << fullName << ":" << email << ":"
-         << homeAddr << ":" << phoneNo << ":";
+         << homeAddr << ":" << phoneNo << ":{}";
     for (const int &blockedUser: blocked) {
         file << blockedUser << ",";
     }
-    file << "}";
+    file << "}{";
     for (const string &skill: skills) {
         file << skill << ",";
     }
@@ -779,24 +779,24 @@ void User::readFromFile(ifstream &file) {
     }
 }
 
-// Load user data from a file
-void loadDefaultData(vector<User *> &users, string &filename) {
-    ifstream file(filename);
-
-    if (!file.is_open()) {
-        cerr << "Error opening file: " << filename << endl;
+void loadUsersFromFile(vector<User *> &users, const string &filename) {
+    ifstream infile(filename);
+    if (!infile) {
+        cerr << "Error: Unable to open file for reading: " << filename << endl;
         return;
     }
 
-    string line;
-    while (getline(file, line)) {
-        // Create a new User object and read data from the file
+    while (infile) {
         User *user = new User();
-        user->readFromFile(file);
-        users.push_back(user);
+        user->readFromFile(infile);
+        if (!infile.eof()) {
+            users.push_back(user);
+        } else {
+            delete user;
+        }
     }
 
-    file.close();
+    infile.close();
 }
 
 // method to clear input buffer
@@ -804,4 +804,18 @@ void clearInputBuffer()
 {
     cin.clear();  // Clear error flags
     while (cin.get() != '\n') ;  // Discard invalid input until a newline character is encountered
+}
+
+void saveUsersToFile(const vector<User *> &users, const string &filename) {
+    ofstream outfile(filename);
+    if (!outfile) {
+        cerr << "Error: Unable to open file for writing: " << filename << endl;
+        return;
+    }
+
+    for (const auto &user : users) {
+        user->saveToFile(outfile);
+    }
+
+    outfile.close();
 }

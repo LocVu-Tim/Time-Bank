@@ -1,0 +1,9 @@
+admin1:admin123:Admin One:admin1@example.com:HO CHI MINH:0987654321:{}{}100:3:1:0:0:0:} 
+admin2:admin456:Admin Two:admin2@example.com:HA NOI:0123456789:{}{}150:3:2:0:0:0:{} 
+user1:user123:User One:user1@example.com:Ho Chi Minh:0765987325:{4,5,6}{Tutoring,Garden care}50:2:3:3.3:4.4:5:{} 
+user2:user456:User Two:user2@example.com:Ha Noi:0234456098:{7,8,9}{Plumbing repairs,House cleaning}30:2:4:1.1:2.2:3.3:{} 
+user3:user789:User Three:user3@example.com:hochiminh:0234987098:{3,4,6}{House cleaning,Garden care}75:2:5:3.0:4.0:5.0:{} 
+user4:user101:User Four:user4@example.com:hanoi:0876543321:{4,6,8}{python,Garden care}40:2:6:4.9:3.9:2.9:{} 
+user5:user111:User Five:user5@example.com:hcm:0321345890:{7,8,9}{House cleaning,Garden care}60:2:7:3.8:4.5:3.9:{} 
+user6:user121:User Six:user6@example.com:hOcHiMinh:0123780923:{3,4,5}{Tutoring}20:2:8:2.3:3.5:4.5:{} 
+user7:user131:User Seven:user7@example.com:HA Noi:0678345123:{4,6,8}{House cleaning}90:2:9:1.9:2.8:4.9:{} 
