@@ -263,8 +263,8 @@ void memberLogin(vector<User *> &users, User &currentUser)
 			// {
 			//     cout << "Error: User not found\n";
 			// }
-			cout << mName << endl;
-			cout << "set name " << currentUser.getUsername() << currentUser.getPwd() << endl;
+			/*cout << mName << endl;
+			cout << "set name " << currentUser.getUsername() << currentUser.getPwd() << endl;*/
 			Member(users, currentUser);
 			loginSuccessful = true;
 		}
