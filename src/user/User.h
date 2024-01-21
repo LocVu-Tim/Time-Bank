@@ -209,6 +209,8 @@ public:
 
     void addSkill(string skill);
 
+    void User::addSkillFromList(User &currentUser, int skill);
+
     // Method to rate supporter
     friend void rateSupporter(User *rater, User *rated);
 
