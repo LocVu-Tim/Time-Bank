@@ -206,7 +206,7 @@ void Member(vector<User *> &users, User &currentUser)
 		switch (choice)
 		{
 		case 1:
-			currentUser.showAllInfo();
+			currentUser.showInfo();
 			break;
 		case 2:
 			currentUser.addSkillFromList(currentUser, skill);
