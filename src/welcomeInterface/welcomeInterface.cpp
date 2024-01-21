@@ -182,7 +182,7 @@ void Member(vector<User *> &users, User &currentUser) {
     int choice;
     bool running = true;
     int skill;
-    int topUp;
+    int topUp = 0;
     // database
     RequestModel rm;
     RequestView rv;
@@ -231,9 +231,8 @@ void Member(vector<User *> &users, User &currentUser) {
             case 5:
                 break;
             case 6:
-                cout << "Enter the amount to top up: ";
-                cin >> topUp;
                 currentUser.topUpCreds(currentUser, topUp);
+                cout << "Current amount: " << currentUser.getCreds() << endl;
                 break;
             case 0:
                 running = false;
