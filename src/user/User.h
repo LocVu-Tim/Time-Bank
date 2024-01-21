@@ -11,6 +11,7 @@
 #include <istream>
 #include <vector>
 #include <regex>
+#include <limits>
 #include "Tools/Tool.h"
 #include "../Width.h"
 #include "../rating/rating.h"
@@ -126,8 +127,6 @@ public:
     // method to show info member
     void showInfoMember();
 
-    // method to show info admin
-    void showInfoAdmin();
 
     // method to top up credit points with pwd authorization
     int topUpCreds(User user, int topUp);
@@ -240,6 +239,8 @@ public:
 
     void showComment();
     friend class Rating;
+    // method to show info admin
+    void showInfoAdmin();
 };
 
 // method to register user
@@ -278,3 +279,5 @@ User *findAdminByUsername(const vector<User *> &users, const string &username);
 void loadDefaultData(vector<User *> &users, const string &filename);
 
 void showInfoWithoutRating(vector<User *> users);
+
+void clearInputBuffer();

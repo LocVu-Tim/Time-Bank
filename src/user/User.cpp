@@ -270,6 +270,8 @@ void User::showInfo()
     cout << bottomRight << endl;
 }
 
+
+
 // method to show info with rating
 void User::showInfoWithRating()
 {

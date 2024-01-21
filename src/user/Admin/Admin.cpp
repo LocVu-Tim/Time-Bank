@@ -1,6 +1,5 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
-
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO ADMIN:
     - LOGIN WITH PREDEFINED USERNAME AND PASSWORD
     - SHOW INFO
@@ -30,6 +29,16 @@
 //         return true;
 //     }
 // }
+
+
+// Function to clear input buffer until a newline character is encountered
+void clearInputBuffer()
+{
+    cin.clear();  // Clear error flags
+    while (cin.get() != '\n') ;  // Discard invalid input until a newline character is encountered
+}
+
+//method to login for admin
 User *User::loginAdmin(const vector<User *> &users)
 {
     string username;
@@ -70,13 +79,35 @@ User *User::loginAdmin(const vector<User *> &users)
     }
 }
 
-// method to show info admin
-void User::showInfoAdmin()
-{
-    showInfo();
-    cout.width(ROLE_WIDTH);
-    cout << left << "Admin";
-    cout << endl;
+// method to show admin info 
+void User::showInfoAdmin() {
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+
+    // Get the maximum width among the fields
+    int uniformWidth = 60; // You can adjust this value based on your preference
+
+    // Display the top of the square box
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
+
+    // Display each row of information in the square box
+    cout << vertical << " " << setw(uniformWidth) << left << "Username: " + userName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Full Name: " + fullName << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Email: " + email << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
 }
 
 // method to change password for admin
@@ -84,20 +115,41 @@ void User::changePwdAdmin(const vector<User *> &users, int userId)
 {
     string reset;
     bool check = true;
+
     do
     {
-        cout << "Enter user ID for changing password: ";
-        cin >> userId;
+        cout << "Enter user ID for changing password (enter -1 to cancel): ";
 
-        User *user = findById(users, userId);
+        // Check if the input is a valid integer
+        while (!(cin >> userId))
+        {
+            cout << "Invalid input. Please enter a valid user ID.\n";
+            clearInputBuffer();  // Clear input buffer
+        }
+
+        if (userId == -1) {
+            cout << "Password reset canceled.\n";
+            break;
+        }
+
+        User* user = findById(users, userId);
+
         if (user == nullptr)
         {
-            cout << "Username not found\n";
+            cout << "User ID not found. Do you want to try again? (Y/N): ";
+            char tryAgain;
+            cin >> tryAgain;
+
+            if (toupper(tryAgain) != 'Y') {
+                cout << "Password reset canceled.\n";
+                break;
+            }
         }
         else
         {
             cout << "Successfully found user. Please enter new password: ";
             cin >> reset;
+
             if (checkValidPwd(reset))
             {
                 user->setPwd(reset);
@@ -105,5 +157,6 @@ void User::changePwdAdmin(const vector<User *> &users, int userId)
                 check = false;
             }
         }
-    } while(check);
+    } while (check);
 }
+

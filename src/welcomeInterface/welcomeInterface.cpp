@@ -128,21 +128,18 @@ void Admin(vector<User *> &users, User &currentUser) {
 
     while (running) {
         cout << "\nAdmin menu\n";
-        cout << "1.View admin information\n";
-        cout << "2.Reset member password\n";
-        cout << "3.Back to main menu\n";
+        cout << "1.Reset member password\n";
+        cout << "2.Back to main menu\n";
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
 
         switch (choice) {
+
             case 1:
-                currentUser.showAllInfo();
-                break;
-            case 2:
               currentUser.changePwdAdmin(users, userId);
                 break;
-            case 3:
+            case 2:
                 menu();
                 break;
 
@@ -167,13 +164,11 @@ void adminLogin(vector<User *> &users, User &currentUser) {
         if (loginAdmin != nullptr) {
             currentUser = *loginAdmin;
             // print admin info
-            currentUser.showInfo();
+            currentUser.showInfoAdmin();
             Admin(users, currentUser);
             loginSuccessful = true;
         } else {
-            cout << "Login Error\n";
-            cout << "Enter username again: ";
-            cin >> aName;
+            cout << "Error";
         }
     } while (!loginSuccessful);
 }
@@ -221,6 +216,7 @@ void Member(vector<User *> &users, User &currentUser) {
                 cout << "Please choose your skill (Enter the number of the skill): ";
                 cin >> skill;
                 currentUser.addSkillFromList(currentUser, skill);
+                cout << "Skill added to skill list" << endl;
                 break;
             case 3:
                 rc.selectAvailableFunction();
@@ -229,14 +225,14 @@ void Member(vector<User *> &users, User &currentUser) {
                 currentUser.blockUser(users, currentUser);
                 cout << "Blocked user list: " ;
                 for(auto &block: currentUser.getBlocked()) {
-                    
+                    cout << block << ",";
                 }
                 break;
             case 5:
                 break;
             case 6:
                 currentUser.topUpCreds(currentUser, topUp);
-                cout << "Current amount: " << currentUser.getCreds() << endl;
+                cout << "Credit points after topup: " << currentUser.getCreds() << endl;
                 break;
             case 0:
                 running = false;
