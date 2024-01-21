@@ -231,6 +231,9 @@ void User::showInfo()
 
     for(auto &skill: skills) {
         oss << skill << ", "; 
+        if(skill == skills.back()) {
+            oss << skill;
+        }
     }
     string skillList = oss.str();
     // Define box characters
@@ -283,11 +286,18 @@ void User::showAllInfo()
 
     for(auto &skill: skills) {
         oss << skill << ", "; 
+        if(skill == skills.back()) {
+            oss << skill;
+        }
     }
     string skillList = oss.str();
 
     for(auto &block : blocked) {
         oss2 << block << ", ";
+        if(block == blocked.back()) {
+            oss2 << block;
+        }
+
     }
     string blockList = oss2.str();
     // Define box characters
@@ -312,7 +322,13 @@ void User::showAllInfo()
     cout << vertical << " " << setw(uniformWidth) << left << "List of blocked user ID: " + blockList << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "List of skills: " + skillList << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical << endl;
-    cout << vertical << " " << setw(uniformWidth) << left << "Role: " << ((role == 2 )? "Member" : "Admin") << " " << vertical << endl;;
+    if(role == 2) {
+        cout << vertical << " " << setw(uniformWidth) << left << "Role: Member"  << " " << vertical << endl;
+    } else 
+    {
+        cout << vertical << " " << setw(uniformWidth) << left << "Role: Admin"  << " " << vertical << endl;
+    }
+    
     cout << vertical << " " << setw(uniformWidth) << left << "Skill rating score: " + to_string(skillRatingScore) << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Supporter rating score: " + to_string(supporterRatingScore) << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Host rating score: " + to_string(hostRatingScore) << " " << vertical << endl;
