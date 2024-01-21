@@ -1,4 +1,4 @@
-# Programming1_GroupAssessment
+# Software Engineering Design, Advanced Programming Techniques_Final Group Assessment
 
 ## Project Files
 - [GitHub Repository]()

@@ -10,7 +10,7 @@ void fileUtility::writeToFile(userRequest *request)
         cout << "File not found" << endl;
         return;
     }
-    // TODO: implement user
+    // qq: implement user
     fout << "userId:" << request->userId << endl;
     fout << "id:" << request->id << endl;
     fout << "timeFrom:" << request->timeFrom << endl;
@@ -43,6 +43,7 @@ void fileUtility::writeToFile(userRequest *request)
     fout << "supporterId:" << request->supporterId << endl;
     fout << "pointsConsumed:" << request->pointsConsumed << endl;
     fout << "isCompleted:" << (request->isCompleted == true ? "true" : "false") << endl;
+    fout << "isRated:" << (request->isRated == true ? "true" : "false") << endl;
     fout << endl;
     fout.close();
 };
@@ -78,7 +79,7 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
             string value = line.substr(line.find(":") + 1);
             if (key == "userId")
             {
-                request->userId = value;
+                request->userId = stoi(value);
             }
             if (key == "id")
             {
@@ -152,6 +153,21 @@ void fileUtility::loadFromFile(vector<userRequest *> &requestList)
                 {
                     request->isCompleted = false;
                 }
+            }
+            else if (key == "isRated")
+            {
+                if (value == "true")
+                {
+                    request->isRated = true;
+                }
+                else
+                {
+                    request->isRated = false;
+                }
+            }
+            else if (key == "supporterId")
+            {
+                request->supporterId = stoi(value);
             }
         }
     }

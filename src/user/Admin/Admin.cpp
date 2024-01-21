@@ -1,41 +1,78 @@
 #include "../User.h"
-#include "Admin.h"
-
+#include "../Tools/Tool.h"
 
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO ADMIN:
     - LOGIN WITH PREDEFINED USERNAME AND PASSWORD
     - SHOW INFO
     - RESET PASSWORD */
 
+// // method to login
+// bool User::loginAdmin(const vector<User *> &users, string checkUsername) {
+//     string checkPwd;
+//     cout << "--------------Login--------------" << endl;
 
+//     cout << "Please enter predefined username: ";
 
-// method to login
-bool User::loginAdmin(const vector<User *> &users, string checkUsername) {
-    string checkPwd;
-    cout << "--------------Login--------------" << endl;
+//     cin >> checkUsername;
+//     User *user = findByUsername(users, checkUsername);
+//     if (user == nullptr) {
+//         cout << "Username not found\n";
+//         return false;
+//     } else {
+//         cout << "Please enter password: ";
+//         cin >> checkPwd;
+//         if (verifyPwd(*user, checkPwd)) {
+//             cout << "Login successful\n";
+//         } else {
+//             cout << "Incorrect username/password\n";
+//             return false;
+//         }
+//         return true;
+//     }
+// }
+User *User::loginAdmin(const vector<User *> &users)
+{
+    string username;
+    string password;
 
-    cout << "Please enter predefined username: ";
+    cout << "Enter your admin username: ";
+    cin >> username;
 
-    cin >> checkUsername;
-    User *user = findByUsername(users, checkUsername);
-    if (user == nullptr) {
-        cout << "Username not found\n";
-        return false;
-    } else {
-        cout << "Please enter password: ";
-        cin >> checkPwd;
-        if (verifyPwd(*user, checkPwd)) {
-            cout << "Login successful\n";
-        } else {
-            cout << "Incorrect username/password\n";
-            return false;
-        }
-        return true;
+    // Find admin user by username
+    User *adminUser = findByUsername(users, username);
+
+    if (adminUser == nullptr)
+    {
+        cout << "Admin user not found. Please check your username.\n";
+        return nullptr;
+    }
+
+    // Check if the found user has admin role (role 3)
+    if (adminUser->getRole() != 3)
+    {
+        cout << "User is not an admin. Login failed.\n";
+        return nullptr;
+    }
+
+    cout << "Enter your admin password: ";
+    cin >> password;
+
+    // Verify password
+    if (verifyPwd(*adminUser, password))
+    {
+        cout << "Admin login successful!\n";
+        return adminUser;
+    }
+    else
+    {
+        cout << "Incorrect password. Admin login failed.\n";
+        return nullptr;
     }
 }
 
 // method to show info admin
-void User::showInfoAdmin() {
+void User::showInfoAdmin()
+{
     showInfo();
     cout.width(ROLE_WIDTH);
     cout << left << "Admin";
@@ -43,20 +80,30 @@ void User::showInfoAdmin() {
 }
 
 // method to change password for admin
-void User::changePwdAdmin(const vector<User *> &users, string username) {
+void User::changePwdAdmin(const vector<User *> &users, int userId)
+{
     string reset;
-    cout << "Enter username for changing password: ";
-    cin >> username;
+    bool check = true;
+    do
+    {
+        cout << "Enter user ID for changing password: ";
+        cin >> userId;
 
-    User *user = findByUsername(users, username);
-    if (user == nullptr) {
-        cout << "Username not found\n";
-    } else {
-        cout << "Successfully found user. Please enter new password: ";
-        cin >> reset;
-        if (checkValidPwd(reset)) {
-            user->setPwd(reset);
-            cout << "Password successfully reset\n";
+        User *user = findById(users, userId);
+        if (user == nullptr)
+        {
+            cout << "Username not found\n";
         }
-    }
+        else
+        {
+            cout << "Successfully found user. Please enter new password: ";
+            cin >> reset;
+            if (checkValidPwd(reset))
+            {
+                user->setPwd(reset);
+                cout << "Password successfully reset\n";
+                check = false;
+            }
+        }
+    } while(check);
 }
