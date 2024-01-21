@@ -209,7 +209,7 @@ void Member(vector<User *> &users, User &currentUser)
 			currentUser.showInfo();
 			break;
 		case 2:
-			bool skillBool = true;
+			/*bool skillBool = true;
 			while (skillBool)
 			{
 				cout << "List of skills:\n";
@@ -241,7 +241,7 @@ void Member(vector<User *> &users, User &currentUser)
 					break;
 				}
 			}
-			break;
+			break;*/
 		case 3:
 			rc.selectAvailableFunction();
 			break;
@@ -287,8 +287,8 @@ void memberLogin(vector<User *> &users, User &currentUser)
 			// {
 			//     cout << "Error: User not found\n";
 			// }
-			cout << mName << endl;
-			cout << "set name " << currentUser.getUsername() << currentUser.getPwd() << endl;
+			/*cout << mName << endl;
+			cout << "set name " << currentUser.getUsername() << currentUser.getPwd() << endl;*/
 			Member(users, currentUser);
 			loginSuccessful = true;
 		}
