@@ -346,6 +346,13 @@ void User::showComment() {
         cout << vertical << " " << setw(uniformWidth) << left << "Comment: " + each.getComment() << " " << vertical << endl;
     }
 
+    // Display the bottom of the square box
+    cout << bottomLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << bottomRight << endl;
     // Display each row of information in the square box
     // cout << vertical << " " << setw(uniformWidth) << left << "User" << " " << vertical << endl;
 }
