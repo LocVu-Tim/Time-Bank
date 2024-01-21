@@ -232,7 +232,7 @@ void User::showInfo()
     char horizontal = '-', vertical = '|';
 
     // Get the maximum width among the fields
-    int uniformWidth = 30; // You can adjust this value based on your preference
+    int uniformWidth = 40; // You can adjust this value based on your preference
 
     // Display the top of the square box
     cout << topLeft;
@@ -249,6 +249,12 @@ void User::showInfo()
     cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: ";
+    for (auto &skill : skills)
+    {
+        cout << skill << ", ";
+    }
+    cout << " " << vertical << endl;
     // Display the bottom of the square box
     cout << bottomLeft;
     for (int i = 0; i < uniformWidth + 2; i++)
