@@ -32,11 +32,7 @@
 
 
 // Function to clear input buffer until a newline character is encountered
-void clearInputBuffer()
-{
-    cin.clear();  // Clear error flags
-    while (cin.get() != '\n') ;  // Discard invalid input until a newline character is encountered
-}
+
 
 //method to login for admin
 User *User::loginAdmin(const vector<User *> &users)
