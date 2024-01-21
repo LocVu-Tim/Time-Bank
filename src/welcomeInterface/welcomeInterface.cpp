@@ -231,6 +231,8 @@ void Member(vector<User *> &users, User &currentUser) {
             case 5:
                 break;
             case 6:
+                cout << "Enter the amount to top up: ";
+                cin >> topUp;
                 currentUser.topUpCreds(currentUser, topUp);
                 break;
             case 0:
