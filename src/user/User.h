@@ -15,7 +15,7 @@
 #include "Tools/Tool.h"
 #include "../Width.h"
 #include "../rating/rating.h"
-
+#define FILENAME2 "./database/user.dat"
 using namespace std;
 
 class Rating;
@@ -235,14 +235,14 @@ public:
     void readFromFile(std::ifstream &file);
 
     // Method to load default data
-    friend void loadUsersFromFile(vector<User *> &users, const string &filename);
+    friend vector<User*> loadUsersFromFile(vector<User *> &users);
 
     void showComment();
     friend class Rating;
     // method to show info admin
     void showInfoAdmin();
 
-    friend void saveUsersToFile(const vector<User *> &users, const string &filename);
+    friend void saveUsersToFile(const vector<User *> &users);
 };
 
 // method to register user
@@ -278,10 +278,10 @@ User *findMemberByUsername(const vector<User *> &users, const string &username);
 // method to find admin through username
 User *findAdminByUsername(const vector<User *> &users, const string &username);
 // Method to load default data
-void loadUsersFromFile(vector<User *> &users, const string &filename);
+vector<User*> loadUsersFromFile(vector<User *> &users);
 
 void showInfoWithoutRating(vector<User *> users);
 
 void clearInputBuffer();
 
-void saveUsersToFile(const vector<User *> &users, const string &filename);
+void saveUsersToFile(const vector<User *> &users);

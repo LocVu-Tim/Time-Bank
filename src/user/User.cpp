@@ -706,7 +706,7 @@ void User::setRatings(const vector<Rating> &rate) {
 // Method to save user data to a file
 void User::saveToFile(ofstream &file) {
     file << userName << ":" << pwd << ":" << fullName << ":" << email << ":"
-         << homeAddr << ":" << phoneNo << ":{}";
+         << homeAddr << ":" << phoneNo << ":{";
     for (const int &blockedUser: blocked) {
         file << blockedUser << ",";
     }
@@ -779,11 +779,12 @@ void User::readFromFile(ifstream &file) {
     }
 }
 
-void loadUsersFromFile(vector<User *> &users, const string &filename) {
-    ifstream infile(filename);
-    if (!infile) {
-        cerr << "Error: Unable to open file for reading: " << filename << endl;
-        return;
+vector<User*> loadUsersFromFile(vector<User *> &users) {
+    ifstream infile;
+    infile.open(FILENAME2, std::ios::in);
+    if (!infile.is_open()) {
+        cout << "Error: Unable to open file for reading: " << FILENAME2 << endl;
+        return {};
     }
 
     while (infile) {
@@ -796,7 +797,9 @@ void loadUsersFromFile(vector<User *> &users, const string &filename) {
         }
     }
 
+
     infile.close();
+    return users;
 }
 
 // method to clear input buffer
@@ -806,10 +809,11 @@ void clearInputBuffer()
     while (cin.get() != '\n') ;  // Discard invalid input until a newline character is encountered
 }
 
-void saveUsersToFile(const vector<User *> &users, const string &filename) {
-    ofstream outfile(filename);
+void saveUsersToFile(const vector<User *> &users) {
+    ofstream outfile;
+    outfile.open(FILENAME2, ios::app);
     if (!outfile) {
-        cerr << "Error: Unable to open file for writing: " << filename << endl;
+        cerr << "Error: Unable to open file for writing: " << FILENAME2 << endl;
         return;
     }
 

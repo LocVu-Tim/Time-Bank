@@ -32,19 +32,18 @@ void menu()
 {
     int choice;
     bool running = true;
-    string userFile = "Time-Bank/src/user/user.dat";
+    //string userFile = FILENAME;
 
-    ifstream userData;
-    userData.open(userFile, std::ios::in);
-    if (!userData)
-    {
-        cout << "Fail to create/open file \n";
-        running = false;
-    }
+    // ifstream userData;
+    // userData.open(userFile, std::ios::in);
+    // if (!userData)
+    // {
+    //    cout << "Fail to create/open file \n";
+    //    running = false;
+    // }
 
     User currentUser;
-    vector<User *> users = {};
-    loadUsersFromFile(users, userFile);
+    vector<User *> users = loadUsersFromFile(users);
     // Vector to store user objects
 
     // // Create and add two admin users
@@ -125,7 +124,7 @@ void menu()
         case 0:
             running = false;
             cout << "Exiting the application." << endl;
-            saveUsersToFile(users, userFile);
+            saveUsersToFile(users);
             // Clear existing users
             for (auto &user : users)
             {
