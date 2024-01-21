@@ -124,6 +124,7 @@ void menu() {
 void Admin(vector<User *> &users, User &currentUser) {
     int choice;
     bool running = true;
+    int userId; 
 
     while (running) {
         cout << "\nAdmin menu\n";
@@ -136,10 +137,10 @@ void Admin(vector<User *> &users, User &currentUser) {
 
         switch (choice) {
             case 1:
-                menu();
+                currentUser.showAllInfo();
                 break;
             case 2:
-                menu();
+                currentUser.changePwdAdmin(users, userId);
                 break;
             case 3:
                 menu();
@@ -181,6 +182,7 @@ void Member(vector<User *> &users, User &currentUser) {
     int choice;
     bool running = true;
     int skill;
+    int topUp;
     // database
     RequestModel rm;
     RequestView rv;
@@ -201,6 +203,7 @@ void Member(vector<User *> &users, User &currentUser) {
         cout << "3. Manage Your Requests" << endl;
         cout << "4. Block Member" << endl;
         cout << "5. Back to Main Menu" << endl;
+        cout << "6. Top up credit" << endl;
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
@@ -226,6 +229,9 @@ void Member(vector<User *> &users, User &currentUser) {
                 currentUser.blockUser(users, currentUser);
                 break;
             case 5:
+                break;
+            case 6:
+                currentUser.topUpCreds(currentUser, topUp);
                 break;
             case 0:
                 running = false;
@@ -287,7 +293,7 @@ void Guest(vector<User *> &users) {
 		showInfoWithoutRating(users);
 		break;
 	case 2:
-		menu();
+		registerMember(users);
 		break;
 	case 3:
 		menu();

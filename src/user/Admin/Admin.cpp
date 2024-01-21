@@ -1,13 +1,10 @@
 #include "../User.h"
 #include "../Tools/Tool.h"
 
-
 /*THIS FILE CONTAINS FUNCTIONS RELATING TO ADMIN:
     - LOGIN WITH PREDEFINED USERNAME AND PASSWORD
     - SHOW INFO
     - RESET PASSWORD */
-
-
 
 // // method to login
 // bool User::loginAdmin(const vector<User *> &users, string checkUsername) {
@@ -73,7 +70,6 @@ User *User::loginAdmin(const vector<User *> &users)
     }
 }
 
-
 // method to show info admin
 void User::showInfoAdmin()
 {
@@ -84,20 +80,30 @@ void User::showInfoAdmin()
 }
 
 // method to change password for admin
-void User::changePwdAdmin(const vector<User *> &users, string username) {
+void User::changePwdAdmin(const vector<User *> &users, int userId)
+{
     string reset;
-    cout << "Enter username for changing password: ";
-    cin >> username;
+    bool check = true;
+    do
+    {
+        cout << "Enter user ID for changing password: ";
+        cin >> userId;
 
-    User *user = findByUsername(users, username);
-    if (user == nullptr) {
-        cout << "Username not found\n";
-    } else {
-        cout << "Successfully found user. Please enter new password: ";
-        cin >> reset;
-        if (checkValidPwd(reset)) {
-            user->setPwd(reset);
-            cout << "Password successfully reset\n";
+        User *user = findById(users, userId);
+        if (user == nullptr)
+        {
+            cout << "Username not found\n";
         }
-    }
+        else
+        {
+            cout << "Successfully found user. Please enter new password: ";
+            cin >> reset;
+            if (checkValidPwd(reset))
+            {
+                user->setPwd(reset);
+                cout << "Password successfully reset\n";
+                check = false;
+            }
+        }
+    } while(check);
 }

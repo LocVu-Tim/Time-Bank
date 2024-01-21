@@ -136,7 +136,7 @@ public:
     void changePwdMember(User user, string temp);
 
     // method to change password for admin
-    void changePwdAdmin(const vector<User *> &users, string username);
+    void changePwdAdmin(const vector<User *> &users, int userId);
 
     // method to login for member
     User *loginMember(const vector<User *> &users);
