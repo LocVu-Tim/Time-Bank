@@ -31,6 +31,7 @@ void menu() {
     int choice;
     bool running = true;
 
+    
     User currentUser;
     vector<User *> users;
     // Vector to store user objects

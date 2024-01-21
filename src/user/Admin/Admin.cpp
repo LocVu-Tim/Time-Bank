@@ -30,11 +30,9 @@
 //     }
 // }
 
-
 // Function to clear input buffer until a newline character is encountered
 
-
-//method to login for admin
+// method to login for admin
 User *User::loginAdmin(const vector<User *> &users)
 {
     string username;
@@ -75,8 +73,9 @@ User *User::loginAdmin(const vector<User *> &users)
     }
 }
 
-// method to show admin info 
-void User::showInfoAdmin() {
+// method to show admin info
+void User::showInfoAdmin()
+{
     // Define box characters
     char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
     char horizontal = '-', vertical = '|';
@@ -120,15 +119,16 @@ void User::changePwdAdmin(const vector<User *> &users, int userId)
         while (!(cin >> userId))
         {
             cout << "Invalid input. Please enter a valid user ID.\n";
-            clearInputBuffer();  // Clear input buffer
+            clearInputBuffer(); // Clear input buffer
         }
 
-        if (userId == -1) {
+        if (userId == -1)
+        {
             cout << "Password reset canceled.\n";
             break;
         }
 
-        User* user = findById(users, userId);
+        User *user = findById(users, userId);
 
         if (user == nullptr)
         {
@@ -136,7 +136,8 @@ void User::changePwdAdmin(const vector<User *> &users, int userId)
             char tryAgain;
             cin >> tryAgain;
 
-            if (toupper(tryAgain) != 'Y') {
+            if (toupper(tryAgain) != 'Y')
+            {
                 cout << "Password reset canceled.\n";
                 break;
             }
@@ -155,4 +156,3 @@ void User::changePwdAdmin(const vector<User *> &users, int userId)
         }
     } while (check);
 }
-
