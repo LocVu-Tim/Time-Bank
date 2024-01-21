@@ -209,38 +209,7 @@ void Member(vector<User *> &users, User &currentUser)
 			currentUser.showAllInfo();
 			break;
 		case 2:
-			bool skillBool = true;
-			while (skillBool)
-			{
-				cout << "List of skills:\n";
-				cout << "1. Plumbing repairs\n";
-				cout << "2. Tutoring\n";
-				cout << "3. Garden care\n";
-				cout << "4. House cleaning\n";
-				cout << "Please choose your skill: ";
-				switch (skill)
-				{
-				case 1:
-					currentUser.addSkill("Plumbing repairs");
-					skillBool = false;
-					break;
-				case 2:
-					currentUser.addSkill("Tutoring");
-					skillBool = false;
-					break;
-				case 3:
-					currentUser.addSkill("Garden care");
-					skillBool = false;
-					break;
-				case 4:
-					currentUser.addSkill("House cleaning");
-					skillBool = false;
-					break;
-				default:
-					cout << "Invalid choice\n";
-					break;
-				}
-			}
+			currentUser.addSkillFromList(currentUser, skill);
 			break;
 		case 3:
 			rc.selectAvailableFunction();
