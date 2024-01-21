@@ -227,6 +227,12 @@ int User::topUpCreds(User user, int topUp)
 // method to show info
 void User::showInfo()
 {
+    ostringstream oss;
+
+    for(auto &skill: skills) {
+        oss << skill << ", "; 
+    }
+    string skillList = oss.str();
     // Define box characters
     char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
     char horizontal = '-', vertical = '|';
@@ -249,12 +255,7 @@ void User::showInfo()
     cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical << endl;
-    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: ";
-    for (auto &skill : skills)
-    {
-        cout << skill << ", ";
-    }
-    cout << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: " + skillList << " " << vertical << endl;
     // Display the bottom of the square box
     cout << bottomLeft;
     for (int i = 0; i < uniformWidth + 2; i++)
@@ -278,6 +279,17 @@ void User::showInfoWithRating()
 // method to show all info (including password and rating)
 void User::showAllInfo()
 {
+    ostringstream oss, oss2;
+
+    for(auto &skill: skills) {
+        oss << skill << ", "; 
+    }
+    string skillList = oss.str();
+
+    for(auto &block : blocked) {
+        oss2 << block << ", ";
+    }
+    string blockList = oss2.str();
     // Define box characters
     char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
     char horizontal = '-', vertical = '|';
@@ -297,29 +309,10 @@ void User::showAllInfo()
     cout << vertical << " " << setw(uniformWidth) << left << "Email: " + email << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Home Address: " + homeAddr << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Phone Number: " + phoneNo << " " << vertical << endl;
-    cout << vertical << " " << setw(uniformWidth) << left << "List of blocked user ID: ";
-    for (auto &block : blocked)
-    {
-        cout << block << ", ";
-    }
-    cout << " " << vertical << endl;
-    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: ";
-    for (auto &skill : skills)
-    {
-        cout << skill << ", ";
-    }
-    cout << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of blocked user ID: " + blockList << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "List of skills: " + skillList << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Credit Points: " + to_string(creds) << " " << vertical << endl;
-    cout << vertical << " " << setw(uniformWidth) << left << "Role: ";
-    if (role == 2)
-    {
-        cout << "Member";
-    }
-    else
-    {
-        cout << "Admin";
-    }
-    cout << " " << vertical << endl;
+    cout << vertical << " " << setw(uniformWidth) << left << "Role: " << ((role == 2 )? "Member" : "Admin") << " " << vertical << endl;;
     cout << vertical << " " << setw(uniformWidth) << left << "Skill rating score: " + to_string(skillRatingScore) << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Supporter rating score: " + to_string(supporterRatingScore) << " " << vertical << endl;
     cout << vertical << " " << setw(uniformWidth) << left << "Host rating score: " + to_string(hostRatingScore) << " " << vertical << endl;
