@@ -230,10 +230,12 @@ void User::showInfo()
     ostringstream oss;
 
     for(auto &skill: skills) {
-        oss << skill << ", "; 
         if(skill == skills.back()) {
             oss << skill;
+            break;
         }
+        oss << skill << ", "; 
+        
     }
     string skillList = oss.str();
     // Define box characters
@@ -285,18 +287,22 @@ void User::showAllInfo()
     ostringstream oss, oss2;
 
     for(auto &skill: skills) {
-        oss << skill << ", "; 
         if(skill == skills.back()) {
             oss << skill;
+            break;
         }
+        oss << skill << ", "; 
+        
     }
     string skillList = oss.str();
 
     for(auto &block : blocked) {
-        oss2 << block << ", ";
         if(block == blocked.back()) {
             oss2 << block;
+            break;
         }
+        oss2 << block << ", ";
+        
 
     }
     string blockList = oss2.str();
