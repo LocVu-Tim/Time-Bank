@@ -237,6 +237,9 @@ public:
 
     // Method to load default data
     friend void loadDefaultData(vector<User *> &users, const string &filename);
+
+    void showComment();
+    friend class Rating;
 };
 
 // method to register user

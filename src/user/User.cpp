@@ -322,6 +322,33 @@ void User::showInfoWithRating()
     }
     cout << bottomRight << endl;
 }
+
+// Method to show comments of other users
+void User::showComment() {
+
+    // Define box characters
+    char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
+    char horizontal = '-', vertical = '|';
+    // Get the maximum width among the fields
+    int uniformWidth = 40; // You can adjust this value based on your preference
+    // Display the top of the square box
+    cout << topLeft;
+    for (int i = 0; i < uniformWidth + 2; i++)
+    {
+        cout << horizontal;
+    }
+    cout << topRight << endl;
+
+    for(auto &each: ratings) {
+        cout << vertical << " " << setw(uniformWidth) << left << "User " + to_string(each.getRaterID()) + " has rated User "
+        + to_string(each.getUserID()) + " " + to_string(each.getRatingValue()) + " stars on " + each.getRatingType() + " rating." << " " << vertical << endl;
+
+        cout << vertical << " " << setw(uniformWidth) << left << "Comment: " + each.getComment() << " " << vertical << endl;
+    }
+
+    // Display each row of information in the square box
+    // cout << vertical << " " << setw(uniformWidth) << left << "User" << " " << vertical << endl;
+}
 // method to show all info (including password and rating)
 void User::showAllInfo()
 {
