@@ -25,9 +25,9 @@ Time Banking is a community-building concept that facilitates the exchange of se
 
 
 ### Project IDE
-Visual Studio Code 2023
-Visual Studio
-Intellij CLion
+- Visual Studio Code 2023
+- Visual Studio
+- Intellij CLion
 
 ### Project Structure
 ```bash
