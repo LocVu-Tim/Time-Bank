@@ -206,7 +206,7 @@ void Member(vector<User *> &users, User &currentUser)
 		switch (choice)
 		{
 		case 1:
-			currentUser.showInfo();
+			currentUser.showAllInfo();
 			break;
 		case 2:
 			cout << "List of skills:\n";

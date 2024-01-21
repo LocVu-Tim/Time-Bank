@@ -262,7 +262,7 @@ void RequestController::unlist()
     }
 }
 
-// support the user to view all of the available request
+// support the host to view all of the available request
 void RequestController::viewAllRequests()
 {
     RequestView requestView;
@@ -325,7 +325,7 @@ void RequestController::viewAllRequests()
             {
                 // view user profile
                 User *user = findById(this->userList, (request->userId));
-                user->showInfoMember();
+                user->showAllInfo();
                 cout << "Would you like to return to the previous page? (Y/n)" << endl;
                 cin >> input;
                 if (input == "Y" || input == "y")
@@ -418,7 +418,7 @@ void RequestController::hostViewAvailableRequest()
         {
             // view user profile
             User *user = findById(this->userList, request->hostId);
-            user->showInfoMember();
+            user->showAllInfo();
             cout << "Would you like to return to the previous page? (Y/n)" << endl;
             cin >> input;
             if (input == "Y" || input == "y")
