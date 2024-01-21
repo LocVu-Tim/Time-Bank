@@ -118,6 +118,9 @@ void showInfoWithoutRating(vector<User *> users)
 {
     for (auto &each : users)
     {
-        each->showInfo();
+        if(each->getRole() == 2) {
+            each->showInfo();
+        }
+        
     }
 }

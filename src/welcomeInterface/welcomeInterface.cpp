@@ -223,9 +223,14 @@ void Member(vector<User *> &users, User &currentUser) {
                 break;
             case 4:
                 currentUser.blockUser(users, currentUser);
-                cout << "Blocked user list: " ;
+                cout << "List of blocked user IDs: " ;
                 for(auto &block: currentUser.getBlocked()) {
-                    cout << block << ",";
+                    if(block == currentUser.getBlocked().back()) {
+                        cout << block;
+                    } else {
+                        cout << block << ",";
+                    }
+                    
                 }
                 break;
             case 5:

@@ -184,17 +184,30 @@ void User::blockUser(const vector<User *> &users, User &currentUser)
 {
 
     int blockId;
-    cout << "Enter user ID to block: ";
-    cin >> blockId;
 
-    if (findById(users, blockId) == nullptr)
+    cout << "Enter user ID to block (enter -1 to cancel): ";
+
+    // Check if the input is a valid integer
+    while (!(cin >> blockId))
     {
-        cout << "Username not found\n";
+        cout << "Invalid input. Please enter a valid user ID.\n";
+        clearInputBuffer();  // Clear input buffer
+    }
+
+    if (blockId == -1) {
+        cout << "Blocking canceled.\n";
     }
     else
     {
-        currentUser.blocked.push_back(blockId);
-        cout << "User " << blockId << " is blocked\n";
+        if (findById(users, blockId) == nullptr)
+        {
+            cout << "User ID not found\n";
+        }
+        else
+        {
+            currentUser.blocked.push_back(blockId);
+            cout << "User " << blockId << " is blocked\n";
+        }
     }
 }
 
@@ -212,7 +225,7 @@ int User::topUpCreds(User user, int topUp)
     cin >> temp;
     if (!verifyPwd(std::move(user), temp))
     {
-        cout << "Incorrect password";
+        cout << "Incorrect password\n";
     }
     else
     {
@@ -549,7 +562,7 @@ User *findByUsername(const vector<User *> &users, const string &username)
             return userPtr;
         }
     }
-    cout << "User not found\n";
+    // cout << "User not found\n";
     return nullptr; // Return nullptr if user is not found
 }
 
