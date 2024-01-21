@@ -68,7 +68,8 @@ void RequestView::checkBeforeSubmitting(string form)
     // print timeFrom and timeTo
     cout << "Time from: " << userInputs["timeFrom"] << endl;
     cout << "Time to: " << userInputs["timeTo"] << endl;
-    if (difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm)) >= 0)
+    double TheDiff = difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm));
+    if (TheDiff >= 0)
     {
         errorHandling("Invalid date");
         if (form == "list")

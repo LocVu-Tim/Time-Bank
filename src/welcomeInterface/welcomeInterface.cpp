@@ -44,7 +44,7 @@ void menu()
 	users.push_back(admin2);
 
 	// Create and add seven regular users
-	User *user1 = new User("user1", "user123", "User One", "user1@example.com", "Ho Chi Minh", "0765987325", {4, 5, 6}, {"c#", "java"}, 50, 2, 3, 3.3, 4.4, 5.5, {});
+	User *user1 = new User("user1", "user123", "User One", "user1@example.com", "Ho Chi Minh", "0765987325", {4, 5, 6}, {"c#", "java"}, 50, 2, 3, 3.3, 4.4, 5.0, {});
 	User *user2 = new User("user2", "user456", "User Two", "user2@example.com", "Ha Noi", "0234456098", {7, 8, 9}, {"c++", "python"}, 30, 2, 4, 1.1, 2.2, 3.3, {});
 	User *user3 = new User("user3", "user789", "User Three", "user3@example.com", "hochiminh", "0234987098", {3, 4, 6}, {"c", "java"}, 75, 2, 5, 3.0, 4.0, 5.0, {});
 	User *user4 = new User("user4", "user101", "User Four", "user4@example.com", "hanoi", "0876543321", {4, 6, 8}, {"python", "java"}, 40, 2, 6, 4.9, 3.9, 2.9, {});
