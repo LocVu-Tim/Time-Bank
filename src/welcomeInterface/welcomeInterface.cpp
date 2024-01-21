@@ -37,9 +37,9 @@ void menu() {
 
     // Create and add two admin users
     User *admin1 = new User("admin1", "admin123", "Admin One", "admin1@example.com", "HO CHI MINH", "0987654321", {},
-                            {"c++", "python", "java"}, 100, 3, 1, 4.5, 4.6, 4.7, {});
+                            {}, 100, 3, 1, 0, 0, 0, {});
     User *admin2 = new User("admin2", "admin456", "Admin Two", "admin2@example.com", "HA NOI", "0123456789", {},
-                            {"c", "python", "java"}, 150, 3, 2, 4.6, 4.7, 4.8, {});
+                            {}, 150, 3, 2, 0, 0, 0, {});
 
     // Add admin users to the vector
     users.push_back(admin1);
