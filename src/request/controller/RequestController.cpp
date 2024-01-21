@@ -315,7 +315,7 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
                     cout << "Data found! Now modifying the data" << endl;
                     // edit the data
                     request->availability = false;
-                    request->supporterId = this->user->getUserId();
+                    request->hostId = this->user->getUserId();
                     cout << "Data modified!" << endl;
                     cout << "Would you like to try again? (Y/n)" << endl;
                     cin >> input;
@@ -419,7 +419,7 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
                 cout << "Data found! Now modifying the data" << endl;
                 // edit the data
                 request->availability = false;
-                request->hostId = this->user->getUserId();
+                request->supporterId = this->user->getUserId();
                 cout << "Data modified!" << endl;
             }
             else if (input == "2")
@@ -490,7 +490,7 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
         vector<userRequest *> filteredRequestList = {};
         for (int i = 0; i < requestList.size(); i++)
         {
-            if ((requestList[i]->userId) != user->getUserId() && requestList[i]->availability == false && (requestList[i]->supporterId != user->getUserId() || requestList[i]->hostId != user->getUserId()))
+            if ((requestList[i]->userId) == user->getUserId() && requestList[i]->availability == false && (requestList[i]->supporterId != user->getUserId() || requestList[i]->hostId != user->getUserId()))
             {
                 filteredRequestList.push_back(requestList[i]);
             }
@@ -507,10 +507,11 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
         vector<userRequest *> filteredRequestList = {};
         for (int i = 0; i < requestList.size(); i++)
         {
-            if ((requestList[i]->supporterId == this->user->getUserId() || requestList[i]->hostId == this->user->getUserId()) && requestList[i]->availability == false && requestList[i]->userId == this->user->getUserId())
+            // you are waiting for either  the host or supporter to accept
+            if ((requestList[i]->userId) != user->getUserId() && requestList[i]->availability == false && (requestList[i]->supporterId == user->getUserId() || requestList[i]->hostId == user->getUserId()))
             {
-                filteredRequestList.push_back(requestList[i]);
-            }
+				filteredRequestList.push_back(requestList[i]);
+			}
         }
         return filteredRequestList;
     };
@@ -596,6 +597,7 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
                     if (choice == "Y" || choice == "y")
                     {
                         handleRating(incomingRequest);
+                      return selectAvailableFunction();
                     }
                     else
                     {
@@ -648,6 +650,7 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
                         if (hasCompletedRequest == false)
                         {
                             cout << "No completed request found" << endl;
+
                             return selectAvailableFunction();
                         }
                         else if (hasCompletedRequest == true)
@@ -674,7 +677,7 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
         string input;
         vector<userRequest *> filteredRequestList = filterRatedRequest(requestList);
         cout << "There is one or more completed request found" << endl;
-        cout << "Request that you can rate: ";
+        cout << "Request that you can rate: " << endl;
         for (int i = 0; i < filteredRequestList.size(); i++)
         {
             cout << "Request " << i + 1 << ":" << endl;
@@ -692,23 +695,31 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
         }
         else if (request->isCompleted == true)
         {
+        try {
             User *host = findById(this->userList, request->hostId);
             User *supporter = findById(this->userList, request->supporterId);
             // check if the user is the host or supporter
-            if (request->hostId == this->user->getUserId())
-            {
-                // if the user is the host
-                // check if the supporter has rated the host
-                // if not, continue creating rating
-                rateSupporter(host, supporter);
+            if (request->hostId == this->user->getUserId()) {
+              // if the user is the host
+              // check if the supporter has rated the host
+              // if not, continue creating rating
+              rateSupporter(host, supporter);
+              request->isRated = true;
+            } else {
+              // if the user is the supporter
+              // check if the host has rated the supporter
+              // if not, continue creating rating
+              rateHost(supporter, host);
+              request->isRated = true;
             }
-            else
-            {
-                // if the user is the supporter
-                // check if the host has rated the supporter
-                // if not, continue creating rating
-                rateHost(supporter, host);
-            }
+        }
+        catch (const std::invalid_argument& ia) {
+			std::cerr << "Invalid argument: " << ia.what() << '\n';
+			/*bool continueFlag = requestView->errorHandling("Invalid argument");
+            if (continueFlag) {
+			  handleRating(requestList);
+			}*/
+		  }
         }
         return true;
     };
@@ -777,18 +788,14 @@ vector<userRequest *> RequestController::filterBasedOnHostRating(vector<userRequ
 
     vector<userRequest *> RequestController::filterRatedRequest(vector<userRequest *> & requestList)
     {
-        bool erased = false;
+        //bool erased = false;
+        vector<userRequest *> filteredList;
         for (int i = 0; i < requestList.size(); i++)
         {
-            if (requestList[i]->isRated == true)
+          if (requestList[i]->isRated == false && requestList[i]->isCompleted == true)
             {
-                requestList.erase(requestList.begin() + i);
-                erased = true;
-            }
-            if (!erased)
-            {
-                ++i;
-            }
+				filteredList.push_back(requestList[i]);
+			}
         }
-        return requestList;
+        return filteredList;
     }
