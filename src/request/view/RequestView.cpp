@@ -61,12 +61,10 @@ void RequestView::checkBeforeSubmitting(string form)
     istringstream ss(userInputs["timeFrom"]);
     ss >> get_time(&dateFrom_tm, "%d/%m/%Y");
 
-
     tm dateTo_tm;
     istringstream ss2(userInputs["timeTo"]);
     ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
 
-    
     double TheDiff = difftime(mktime(&dateFrom_tm), mktime(&dateTo_tm));
     if (TheDiff < 0)
     {
@@ -98,7 +96,8 @@ void RequestView::checkBeforeSubmitting(string form)
     }
 
     // validate if the pointsPerHour is a number
-    try {
+    try
+    {
         stod(userInputs["pointsPerHour"]);
     }
     catch (const std::invalid_argument &ia)
@@ -118,19 +117,10 @@ void RequestView::checkBeforeSubmitting(string form)
     // validate if the minimumRatingForHost is a number
     try
     {
-        stod(userInputs["minimumRatingForHost"]);
         // if the minimumRatingForHost is not empty, then it must be less than 5
-        if (userInputs["minimumRatingForHost"] != "" && stod(userInputs["minimumRatingForHost"]) >= 5)
+        if (userInputs["minimumRatingForHost"] != "")
         {
-            errorHandling("Invalid rating");
-            if (form == "list")
-            {
-                return list();
-            }
-            else if (form == "requestForSupporter")
-            {
-                return requestForSupporter();
-            }
+            stod(userInputs["minimumRatingForHost"]);
         }
     }
     catch (const std::invalid_argument &ia)
@@ -145,6 +135,21 @@ void RequestView::checkBeforeSubmitting(string form)
         {
             return requestForSupporter();
         }
+    }
+
+    try {
+      // if the minimumRatingForHost is not empty, then it must be less than 5
+      if (userInputs["minimumRatingForSupporter"] != "") {
+        stod(userInputs["minimumRatingForSupporter"]);
+      }
+    } catch (const std::invalid_argument &ia) {
+      std::cerr << "Invalid argument: " << ia.what() << '\n';
+      errorHandling("Invalid argument");
+      if (form == "list") {
+        return list();
+      } else if (form == "requestForSupporter") {
+        return requestForSupporter();
+      }
     }
 }
 
@@ -237,7 +242,14 @@ void RequestView::list()
     cout << "Select the skill you want to add: " << endl;
     int skillChoice;
     cin >> skillChoice;
-    userInputs["skill"] = userSkills[skillChoice - 1];
+    try {
+		userInputs["skill"] = userSkills.at(skillChoice - 1);
+    }
+    catch (const std::out_of_range& oor) {
+		cout << "Invalid choice" << endl;
+		return;
+	}
+    //userInputs["skill"] = userSkills[skillChoice - 1];
     cout << "Point consumed / hour: " << endl;
     setInput("pointsPerHour");
     cout << "Minimum rating for host (Optional, press Enter if you want to skip): " << endl;

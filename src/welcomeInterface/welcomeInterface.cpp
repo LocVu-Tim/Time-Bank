@@ -124,7 +124,7 @@ void menu() {
 void Admin(vector<User *> &users, User &currentUser) {
     int choice;
     bool running = true;
-    int userId; 
+    int userId = currentUser.getUserId(); 
 
     while (running) {
         cout << "\nAdmin menu\n";
@@ -140,7 +140,7 @@ void Admin(vector<User *> &users, User &currentUser) {
                 currentUser.showAllInfo();
                 break;
             case 2:
-                currentUser.changePwdAdmin(users, userId);
+              currentUser.changePwdAdmin(users, userId);
                 break;
             case 3:
                 menu();
