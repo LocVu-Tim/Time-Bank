@@ -243,7 +243,7 @@ void User::showInfo()
     char horizontal = '-', vertical = '|';
 
     // Get the maximum width among the fields
-    int uniformWidth = 40; // You can adjust this value based on your preference
+    int uniformWidth = 60; // You can adjust this value based on your preference
 
     // Display the top of the square box
     cout << topLeft;
@@ -288,7 +288,7 @@ void User::showInfoWithRating()
     char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
     char horizontal = '-', vertical = '|';
     // Get the maximum width among the fields
-    int uniformWidth = 40; // You can adjust this value based on your preference
+    int uniformWidth = 60; // You can adjust this value based on your preference
     // Display the top of the square box
     cout << topLeft;
     for (int i = 0; i < uniformWidth + 2; i++)
@@ -326,11 +326,13 @@ void User::showInfoWithRating()
 // Method to show comments of other users
 void User::showComment() {
 
+    
+
     // Define box characters
     char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
     char horizontal = '-', vertical = '|';
     // Get the maximum width among the fields
-    int uniformWidth = 40; // You can adjust this value based on your preference
+    int uniformWidth = 60; // You can adjust this value based on your preference
     // Display the top of the square box
     cout << topLeft;
     for (int i = 0; i < uniformWidth + 2; i++)
@@ -340,8 +342,11 @@ void User::showComment() {
     cout << topRight << endl;
 
     for(auto &each: ratings) {
+        ostringstream oss;
+        oss << fixed << setprecision(1) << each.getRatingValue();
+        string value = oss.str();
         cout << vertical << " " << setw(uniformWidth) << left << "User " + to_string(each.getRaterID()) + " has rated User "
-        + to_string(each.getUserID()) + " " + to_string(each.getRatingValue()) + " stars on " + each.getRatingType() + " rating." << " " << vertical << endl;
+        + to_string(each.getUserID()) + " " + value + " stars on " + each.getRatingType() + " rating." << " " << vertical << endl;
 
         cout << vertical << " " << setw(uniformWidth) << left << "Comment: " + each.getComment() << " " << vertical << endl;
     }
@@ -385,7 +390,7 @@ void User::showAllInfo()
     char topLeft = '+', topRight = '+', bottomLeft = '+', bottomRight = '+';
     char horizontal = '-', vertical = '|';
     // Get the maximum width among the fields
-    int uniformWidth = 40; // You can adjust this value based on your preference
+    int uniformWidth = 60; // You can adjust this value based on your preference
     // Display the top of the square box
     cout << topLeft;
     for (int i = 0; i < uniformWidth + 2; i++)
@@ -420,6 +425,7 @@ void User::showAllInfo()
         cout << horizontal;
     }
     cout << bottomRight << endl;
+    showComment();
 }
 
 // method to check valid username

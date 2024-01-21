@@ -44,9 +44,18 @@ void menu() {
     // Add admin users to the vector
     users.push_back(admin1);
     users.push_back(admin2);
+    // Create rating
+    Rating *rating1 = new Rating(1, 3, 4, "skill", 5, "Impressive");
+    Rating *rating2 = new Rating(2, 3, 4, "supporter", 5, "Very helpful");
+    Rating *rating3 = new Rating(3, 4, 3, "host", 5, "Very nice");
+    Rating *rating4 = new Rating(4, 6, 5, "skill", 4, "Good");
+    Rating *rating5 = new Rating(5, 6, 5, "supporter", 5, "Nice");
+    Rating *rating6 = new Rating(6, 6, 5, "host", 5, "Very friendly");
+
+    vector<Rating *> ratings = {rating1, rating2, rating3, rating4};
 
 	// Create and add seven regular users
-	User *user1 = new User("user1", "user123", "User One", "user1@example.com", "Ho Chi Minh", "0765987325", {4, 5, 6}, {"c#", "java"}, 50, 2, 3, 3.3, 4.4, 5.0, {});
+	User *user1 = new User("user1", "user123", "User One", "user1@example.com", "Ho Chi Minh", "0765987325", {4, 5, 6}, {"c#", "java"}, 50, 2, 3, 3.3, 4.4, 5.0, {*rating1});
 	User *user2 = new User("user2", "user456", "User Two", "user2@example.com", "Ha Noi", "0234456098", {7, 8, 9}, {"c++", "python"}, 30, 2, 4, 1.1, 2.2, 3.3, {});
 	User *user3 = new User("user3", "user789", "User Three", "user3@example.com", "hochiminh", "0234987098", {3, 4, 6}, {"c", "java"}, 75, 2, 5, 3.0, 4.0, 5.0, {});
 	User *user4 = new User("user4", "user101", "User Four", "user4@example.com", "hanoi", "0876543321", {4, 6, 8}, {"python", "java"}, 40, 2, 6, 4.9, 3.9, 2.9, {});
@@ -63,13 +72,8 @@ void menu() {
     users.push_back(user6);
     users.push_back(user7);
 
-    // Create rating
-    Rating *rating1 = new Rating(1, 3, 4, "skill", 5, "Impressive");
-    Rating *rating2 = new Rating(2, 3, 4, "supporter", 5, "Very helpful");
-    Rating *rating3 = new Rating(3, 4, 3, "host", 5, "Very nice");
-    Rating *rating4 = new Rating(4, 6, 5, "skill", 4, "Good");
-    Rating *rating5 = new Rating(5, 6, 5, "supporter", 5, "Nice");
-    Rating *rating6 = new Rating(6, 6, 5, "host", 5, "Very friendly");
+    
+
 
 
     // currentUser = registerMember(users, currentUser);
@@ -120,6 +124,7 @@ void menu() {
 void Admin(vector<User *> &users, User &currentUser) {
     int choice;
     bool running = true;
+    int userId; 
 
     while (running) {
         cout << "\nAdmin menu\n";
@@ -132,10 +137,10 @@ void Admin(vector<User *> &users, User &currentUser) {
 
         switch (choice) {
             case 1:
-                menu();
+                currentUser.showAllInfo();
                 break;
             case 2:
-                menu();
+                currentUser.changePwdAdmin(users, userId);
                 break;
             case 3:
                 menu();
@@ -177,6 +182,7 @@ void Member(vector<User *> &users, User &currentUser) {
     int choice;
     bool running = true;
     int skill;
+    int topUp;
     // database
     RequestModel rm;
     RequestView rv;
@@ -196,7 +202,8 @@ void Member(vector<User *> &users, User &currentUser) {
           cout << "5. View Requests" << endl;*/
         cout << "3. Manage Your Requests" << endl;
         cout << "4. Block Member" << endl;
-        //cout << "5. Back to Main Menu" << endl;
+        cout << "5. Back to Main Menu" << endl;
+        cout << "6. Top up credit" << endl;
         cout << "0. Exit" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
@@ -220,7 +227,12 @@ void Member(vector<User *> &users, User &currentUser) {
                 break;
             case 4:
                 currentUser.blockUser(users, currentUser);
-              break;
+                break;
+            case 5:
+                break;
+            case 6:
+                currentUser.topUpCreds(currentUser, topUp);
+                break;
             case 0:
                 running = false;
                 cout << "Exiting the application." << endl;
@@ -281,7 +293,7 @@ void Guest(vector<User *> &users) {
 		showInfoWithoutRating(users);
 		break;
 	case 2:
-		menu();
+		registerMember(users);
 		break;
 	case 3:
 		menu();
