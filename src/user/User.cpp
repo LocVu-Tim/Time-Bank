@@ -572,13 +572,6 @@ void User::addSkillFromList(User &currentUser, int skill) {
     bool skillBool = true;
 			while (skillBool)
 			{
-				cout << "List of skills:\n";
-				cout << "1. Plumbing repairs\n";
-				cout << "2. Tutoring\n";
-				cout << "3. Garden care\n";
-				cout << "4. House cleaning\n";
-				cout << "Please choose your skill: ";
-				cin >> skill;
 				switch (skill)
 				{
 				case 1:
