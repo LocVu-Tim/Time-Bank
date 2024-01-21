@@ -90,7 +90,6 @@ void RequestController::list()
     requestView->userSkills = availableskills;
     requestView->list();
     map<string, string> userData = requestView->getUserInputs();
-    cout << "Current data size: " << userData.size() << endl;
     if (userData.size() == 6)
     {
         // lookForSupport Request object to store data
@@ -507,7 +506,6 @@ void RequestController::createRequestObject(map<string, string> userData)
         while (continueCreate)
         {
             cout << "Creating request..." << endl;
-            cout << "User ID: " << this->user->getUserId() << endl;
             string skill = userData["skill"];
             requestModel->createRequest(userData, this->user->getUserId(), skill, this->user);
             cout << "Do you want to continue create request? (Y/N)" << endl;
