@@ -275,7 +275,7 @@ void RequestView::unlist(vector<userRequest *> &availableRequests, vector<User *
 void RequestView::viewAllRequests(vector<userRequest *> &availableRequests, vector<User *> &allUsers)
 {
     // qq change in the implementation - display all available requests
-    cout << "Available requests for you to rent: " << endl;
+    cout << "Available requests for you to host: " << endl;
     for (int i = 0; i < availableRequests.size(); i++)
     {
         cout << "Request no. " << i + 1 << endl;
@@ -308,7 +308,7 @@ vector<userRequest *> RequestView::dateFilter(vector<userRequest *> &dataToFilte
         istringstream ss2(dateTo);
         ss2 >> get_time(&dateTo_tm, "%d/%m/%Y");
         // Filter based on date and availability
-        if (difftime(mktime(ltm), mktime(&dateFrom_tm)) >= 0 && difftime(mktime(&dateTo_tm), mktime(ltm)) >= 0 &&
+        if (difftime(mktime(ltm), mktime(&dateFrom_tm)) <= 0 && difftime(mktime(&dateTo_tm), mktime(ltm)) >= 0 &&
             dataToFilter[i]->availability)
         {
             // return dataToFilter;
@@ -343,9 +343,10 @@ void RequestView::adminViewAllRequests(vector<userRequest *> &requestList, vecto
     }
 };
 
+// Host view all requests
 void RequestView::viewAllHostRequests(vector<userRequest *> &requestList, vector<User *> &userList)
 {
-    cout << "Your current requests: " << endl;
+    cout << "Here is the list of requests that you can support: " << endl;
     for (int i = 0; i < requestList.size(); i++)
     {
         cout << "Request no. " << i + 1 << endl;
@@ -353,7 +354,7 @@ void RequestView::viewAllHostRequests(vector<userRequest *> &requestList, vector
         requestList[i]->printInfo(userList);
         cout << string(50, '=') << endl;
     }
-    cout << "Would you like to join for any of the above requests? (y/n)" << endl;
+    cout << "Would you like to support for any of the above requests? (y/n)" << endl;
 };
 
 void RequestView::requestForSupporter()

@@ -46,14 +46,14 @@ void RequestModel::createRequest(map<string, string> userData, int userid, strin
     if (userData["requestOperation"] == "list")
     {
         request->minimumRatingForHost = stod(userData["minimumRatingForHost"]);
-        request->minimumRatingForSupporter = 0;
+        request->minimumRatingForSupporter = -1;
         // set the hostId to -1 to indicate that the request is not assigned to any host
         request->hostId = -1;
         request->supporterId = userid;
     }
     else if (userData["requestOperation"] == "requestForSupporter")
     {
-        request->minimumRatingForHost = 0;
+        request->minimumRatingForHost = -1;
         request->minimumRatingForSupporter = stod(userData["minimumRatingForSupporter"]);
         request->hostId = userid;
         // set the supporterId to -1 to indicate that the request is not assigned to any supporter
