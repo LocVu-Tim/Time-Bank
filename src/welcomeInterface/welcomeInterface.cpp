@@ -32,25 +32,25 @@ void menu()
 	bool running = true;
 
 	User currentUser;
-	vector<User*> users;
+	vector<User *> users;
 	// Vector to store user objects
 
 	// Create and add two admin users
-	User* admin1 = new User("admin1", "admin123", "Admin One", "admin1@example.com", "HO CHI MINH", "0987654321", {}, { "c++", "python", "java" }, 100, 3, 1, 4.5, 4.6, 4.7, {});
-	User* admin2 = new User("admin2", "admin456", "Admin Two", "admin2@example.com", "HA NOI", "0123456789", {}, { "c", "python", "java" }, 150, 3, 2, 4.6, 4.7, 4.8, {});
+	User *admin1 = new User("admin1", "admin123", "Admin One", "admin1@example.com", "HO CHI MINH", "0987654321", {}, {"c++", "python", "java"}, 100, 3, 1, 4.5, 4.6, 4.7, {});
+	User *admin2 = new User("admin2", "admin456", "Admin Two", "admin2@example.com", "HA NOI", "0123456789", {}, {"c", "python", "java"}, 150, 3, 2, 4.6, 4.7, 4.8, {});
 
 	// Add admin users to the vector
 	users.push_back(admin1);
 	users.push_back(admin2);
 
 	// Create and add seven regular users
-	User* user1 = new User("user1", "user123", "User One", "user1@example.com", "Ho Chi Minh", "0765987325", {}, { "c#",  "java" }, 50, 2, 3, 3.3, 4.4, 5.5, {});
-	User* user2 = new User("user2", "user456", "User Two", "user2@example.com", "Ha Noi", "0234456098", {}, { "c++", "python" }, 30, 2, 4, 1.1, 2.2, 3.3, {});
-	User* user3 = new User("user3", "user789", "User Three", "user3@example.com", "hochiminh", "0234987098", {}, { "c",  "java" }, 75, 2, 5, 3.0, 4.0, 5.0, {});
-	User* user4 = new User("user4", "user101", "User Four", "user4@example.com", "hanoi", "0876543321", {}, { "python", "java" }, 40, 2, 6, 4.9, 3.9, 2.9, {});
-	User* user5 = new User("user5", "user111", "User Five", "user5@example.com", "hcm", "0321345890", {}, { "c", "java" }, 60, 2, 7, 3.8, 4.5, 3.9, {});
-	User* user6 = new User("user6", "user121", "User Six", "user6@example.com", "hOcHiMinh", "0123780923", {}, { "c#" }, 20, 2, 8, 2.3, 3.5, 4.5, {});
-	User* user7 = new User("user7", "user131", "User Seven", "user7@example.com", "HA Noi", "0678345123", {}, { "c" }, 90, 2, 9, 1.9, 2.8, 4.9, {});
+	User *user1 = new User("user1", "user123", "User One", "user1@example.com", "Ho Chi Minh", "0765987325", {}, {"c#", "java"}, 50, 2, 3, 3.3, 4.4, 5.5, {});
+	User *user2 = new User("user2", "user456", "User Two", "user2@example.com", "Ha Noi", "0234456098", {}, {"c++", "python"}, 30, 2, 4, 1.1, 2.2, 3.3, {});
+	User *user3 = new User("user3", "user789", "User Three", "user3@example.com", "hochiminh", "0234987098", {}, {"c", "java"}, 75, 2, 5, 3.0, 4.0, 5.0, {});
+	User *user4 = new User("user4", "user101", "User Four", "user4@example.com", "hanoi", "0876543321", {}, {"python", "java"}, 40, 2, 6, 4.9, 3.9, 2.9, {});
+	User *user5 = new User("user5", "user111", "User Five", "user5@example.com", "hcm", "0321345890", {}, {"c", "java"}, 60, 2, 7, 3.8, 4.5, 3.9, {});
+	User *user6 = new User("user6", "user121", "User Six", "user6@example.com", "hOcHiMinh", "0123780923", {}, {"c#"}, 20, 2, 8, 2.3, 3.5, 4.5, {});
+	User *user7 = new User("user7", "user131", "User Seven", "user7@example.com", "HA Noi", "0678345123", {}, {"c"}, 90, 2, 9, 1.9, 2.8, 4.9, {});
 
 	// Add regular users to the vector
 	users.push_back(user1);
@@ -64,7 +64,6 @@ void menu()
 	// currentUser = registerMember(users, currentUser);
 	// currentUser.showInfoWithoutRating(users);
 	// memberLogin(users, currentUser);
-
 
 	while (running)
 	{
@@ -84,7 +83,7 @@ void menu()
 			cin.clear();
 			cin.ignore(INT_MAX, '\n');
 			cout << "Invalid input! Please enter a number."
-				<< "\n";
+				 << "\n";
 			continue;
 			continue;
 		}
@@ -110,7 +109,7 @@ void menu()
 	}
 }
 
-void Admin(vector<User*>& users, User& currentUser)
+void Admin(vector<User *> &users, User &currentUser)
 {
 	int choice;
 	bool running = true;
@@ -143,20 +142,20 @@ void Admin(vector<User*>& users, User& currentUser)
 			break;
 		default:
 			cout << "Invalid choice!"
-				<< "\n";
+				 << "\n";
 			break;
 		}
 	}
 }
 
-void adminLogin(vector<User*>& users, User& currentUser)
+void adminLogin(vector<User *> &users, User &currentUser)
 {
 	string aName;
 	bool loginSuccessful = false;
 
 	do
 	{
-		User* loginAdmin = currentUser.loginAdmin(users);
+		User *loginAdmin = currentUser.loginAdmin(users);
 		if (loginAdmin != nullptr)
 		{
 			currentUser = *loginAdmin;
@@ -174,10 +173,11 @@ void adminLogin(vector<User*>& users, User& currentUser)
 	} while (!loginSuccessful);
 }
 
-void Member(vector<User*>& users, User& currentUser)
+void Member(vector<User *> &users, User &currentUser)
 {
 	int choice;
 	bool running = true;
+	int skill;
 	// database
 	RequestModel rm;
 	RequestView rv;
@@ -209,53 +209,84 @@ void Member(vector<User*>& users, User& currentUser)
 			currentUser.showInfo();
 			break;
 		case 2:
-			menu();
+			bool skillBool = true;
+			while (skillBool)
+			{
+				cout << "List of skills:\n";
+				cout << "1. Plumbing repairs\n";
+				cout << "2. Tutoring\n";
+				cout << "3. Garden care\n";
+				cout << "4. House cleaning\n";
+				cout << "Please choose your skill: ";
+				switch (skill)
+				{
+				case 1:
+					currentUser.addSkill("Plumbing repairs");
+					skillBool = false;
+					break;
+				case 2:
+					currentUser.addSkill("Tutoring");
+					skillBool = false;
+					break;
+				case 3:
+					currentUser.addSkill("Garden care");
+					skillBool = false;
+					break;
+				case 4:
+					currentUser.addSkill("House cleaning");
+					skillBool = false;
+					break;
+				default:
+					cout << "Invalid choice\n";
+					break;
+				}
+			}
 			break;
 		case 3:
 			rc.selectAvailableFunction();
 			break;
 		case 4:
 			currentUser.blockUser(users, currentUser);
-            break;
+			break;
 		case 5:
-            break;
+			break;
 		case 0:
 			running = false;
 			cout << "Exiting the application." << endl;
 			break;
 		default:
 			cout << "Invalid choice!"
-				<< "\n";
+				 << "\n";
 			break;
 		}
 	}
 }
 
 // TODO not sure
-void memberLogin(vector<User*>& users, User& currentUser)
+void memberLogin(vector<User *> &users, User &currentUser)
 {
 	string mName;
 	bool loginSuccessful = false;
 
 	do
 	{
-		User* loginUser = currentUser.loginMember(users);
+		User *loginUser = currentUser.loginMember(users);
 		if (loginUser != nullptr)
 		{
 			currentUser = *loginUser;
 			/* currentUser.setUsername(mName);
 			 currentUser.setPwd(findByUsername(users, mName)->getPwd());*/
-			 // User *foundUser = findMemberByUsername(users, currentUser.getUsername());
-			 // if (foundUser != nullptr)
-			 // {
-			 //     currentUser = *foundUser;
-			 //     Member(users, currentUser);
-			 //     loginSuccessful = true;
-			 // }
-			 // else
-			 // {
-			 //     cout << "Error: User not found\n";
-			 // }
+			// User *foundUser = findMemberByUsername(users, currentUser.getUsername());
+			// if (foundUser != nullptr)
+			// {
+			//     currentUser = *foundUser;
+			//     Member(users, currentUser);
+			//     loginSuccessful = true;
+			// }
+			// else
+			// {
+			//     cout << "Error: User not found\n";
+			// }
 			cout << mName << endl;
 			cout << "set name " << currentUser.getUsername() << currentUser.getPwd() << endl;
 			Member(users, currentUser);
@@ -269,7 +300,7 @@ void memberLogin(vector<User*>& users, User& currentUser)
 	} while (!loginSuccessful);
 }
 
-void Guest(vector<User*>& users)
+void Guest(vector<User *> &users)
 {
 
 	int choice;
@@ -292,19 +323,18 @@ void Guest(vector<User*>& users)
 		break;
 	default:
 		cout << "Invalid choice!"
-			<< "\n";
+			 << "\n";
 		break;
 	}
 }
 bool defaultData = false;
 
-
 // ARCHIVE
 // Create a test user
- // User usertoTest = registerMember(userList);
+// User usertoTest = registerMember(userList);
 
- // User *relUser = &usertoTest;
- // rc.setUser(relUser);
+// User *relUser = &usertoTest;
+// rc.setUser(relUser);
 //     User* user = new User();
 //     User* toBeBlocked = new User();
 //     User* jao = *&toBeBlocked;
