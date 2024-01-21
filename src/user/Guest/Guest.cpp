@@ -91,13 +91,7 @@ User registerMember(vector<User *> users)
 // method to showinfo without rating score
 void User::showInfoWithoutRating(vector<User *> users)
 {
-    for (int i = 0; i < users.size(); i++)
-    {
-        if(users[i]->getRole() == 2) {
-            users[i]->showInfoMember();
-        } 
-        if(users[i]->getRole() == 3) {
-            users[i]->showInfoAdmin();
-        }
-    }    
+    for(auto &each: users) {
+        each->showInfo();
+    }   
 }
