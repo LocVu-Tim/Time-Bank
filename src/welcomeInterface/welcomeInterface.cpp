@@ -289,7 +289,7 @@ void Guest(vector<User *> &users)
 	switch (choice)
 	{
 	case 1:
-		menu();
+		showInfoWithoutRating(users);
 		break;
 	case 2:
 		menu();

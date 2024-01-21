@@ -89,7 +89,7 @@ User registerMember(vector<User *> users)
 }
 
 // method to showinfo without rating score
-void User::showInfoWithoutRating(vector<User *> users)
+void showInfoWithoutRating(vector<User *> users)
 {
     for(auto &each: users) {
         each->showInfo();

@@ -145,7 +145,7 @@ public:
     User *loginAdmin(const vector<User *> &users);
 
     // method to showinfo without rating score
-    void showInfoWithoutRating(vector<User *> users);
+    friend void showInfoWithoutRating(vector<User *> users);
 
     // method to compare strings (case-insensitive)
     friend bool caseInsensitiveStringCompare(const string &str1, const string &str2);
@@ -274,10 +274,4 @@ User *findAdminByUsername(const vector<User *> &users, const string &username);
 // Method to load default data
 void loadDefaultData(vector<User *> &users, const string &filename);
 
-void showAllInfoHeader();
-
-// Method to show table header without rating n pwd
-void showInfoHeaderWithoutRating();
-
-// Method to show table header with rating 
-void showInfoHeaderWithRating();
+void showInfoWithoutRating(vector<User *> users);
